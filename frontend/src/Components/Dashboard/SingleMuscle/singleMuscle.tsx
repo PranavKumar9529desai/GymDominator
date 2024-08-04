@@ -1,0 +1,88 @@
+import { Navbar } from "@components/Navbar";
+import { useParams } from "react-router-dom";
+import { BottomNavigation } from "../BottomNavigation";
+import { FetchExcercise } from "@hooks/FetchExcercise";
+import { Excercisetype } from "@state/Selectors/ExcerciseSelectorsfamily";
+export const SingleMuscles = () => {
+  let { muscle } = useParams<{ muscle: string }>();
+  if (muscle == undefined) {
+    muscle = "chest";
+  }
+  console.log("muscle from siglemuscles", muscle);
+  const { isLoading, Excercise } = FetchExcercise({ muscle });
+  console.log("Excercise", Excercise);
+
+  return (
+    <div>
+      <div className="lg:block hidden">
+        <Navbar TextColor="white" />
+      </div>
+      <div className="md:hidden block">
+        <BottomNavigation />
+      </div>
+
+      <div className="w-full text-center lg:pt-20 pt-4">
+        <div className="lg:text-5xl font-bold text-4xl   ">
+          {muscle.toUpperCase()} Excercises
+        </div>
+        <div className="text-xl text-gray-600 mt-5">
+          {muscle} exercises. Learn how to build a big, strong and muscular{" "}
+          {muscle}.
+        </div>
+      </div>
+      {/* recommend eexcescise */}
+      <div className="mt-8 ">
+        <RecommenedExcercise Excercises={Excercise} />
+      </div>
+    </div>
+  );
+};
+
+const RecommenedExcercise = ({
+  Excercises,
+}: {
+  Excercises: Excercisetype[];
+}): JSX.Element => {
+  let { muscle } = useParams<{ muscle: string }>();
+
+  return (
+    <div className="w-full">
+      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800">
+        <div className="text-2xl font-semibold my-5 ">
+          Best {muscle?.toLocaleUpperCase()} Exercises{" "}
+        </div>
+        <div className="">
+          <div className="flex lg:gap-10 lg:flex-row flex-col gap-2 ">
+            {Excercises.map((excercise) => {
+              return (
+                <ExcerciseCard name={excercise.name} img={excercise.img} />
+              );
+              //   <ExcerciseCard
+              //   name=
+              //   img="https://cdn.muscleandstrength.com/sites/default/files/dumbbell-bench-press_0.jpg"
+              // />
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ExcerciseCard = ({
+  name,
+  img,
+}: {
+  name: string;
+  img: string;
+}): JSX.Element => {
+  return (
+    <div className="">
+      <img src={img} alt="" />
+      <div className="text-2xl font-semibold mt-4">{name}</div>
+      <button className="bg-blue-700 text-white text-xl py-2 px-3 rounded-xl inline-flex justify-center items-center my-5 hover:bg-blue-800 shadow-md">
+        View Excercise
+      </button>
+    </div>
+  );
+};

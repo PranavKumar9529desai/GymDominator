@@ -1,0 +1,42 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Dashboard } from "@routes/dashboard ";
+import { Home } from "@routes/home";
+import { RecoilRoot } from "recoil";
+import { SignIn } from "@routes/signin";
+import { SignUp } from "@routes/signup";
+import { Allworkouts } from "@components/Workout/allworkouts";
+import { Progress } from "@components/Progress/progress";
+import { Diet } from "@components/Diet/diet";
+import { Recipes } from "@components/Recicpes/recipes";
+import { SingleMusclesRoute } from "@routes/singlemuscle";
+function Main() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/workouts" element={<Allworkouts />} />
+      <Route path="/dashboard/workouts/:muscle" element={ < SingleMusclesRoute />}/>
+      <Route path="/dashboard/diet" element={<Diet />} />
+      <Route path="/dashboard/recipes" element={<Recipes />} />
+      <Route path="/dashboard/myprogress" element={<Progress />} />
+      <Route path="*" element={<Home />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Main />
+        </BrowserRouter>
+      </RecoilRoot>
+    </>
+  );
+}
+
+export default App;

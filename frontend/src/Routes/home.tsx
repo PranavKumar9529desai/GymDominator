@@ -1,0 +1,15 @@
+import { LadingPage } from "@components/Home/LandingPage";
+import { Navbar } from "@components/Navbar";
+
+export const Home = () => {
+  return (
+    <div>
+      <div className="">
+        <Navbar TextColor="white" />
+      </div>
+      <div>
+        <LadingPage />
+      </div>
+    </div>
+  );
+};

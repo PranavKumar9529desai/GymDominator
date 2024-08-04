@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Exercise {
+  id           Int         @id @default(autoincrement())
+  name         String
+  img          String
+  instructions String
+  muscle       Int         @default(0)
+  videolink    String      @default("src")
+  MuscleGroup  MuscleGroup @relation(fields: [muscle], references: [id])
+}
+
+model MuscleGroup {
+  id       Int             @id @unique @default(autoincrement())
+  name     MuscleGroupEnum
+  img      String
+  Exercise Exercise[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String
+  password String
+}
+
+enum MuscleGroupEnum {
+  CHEST
+  BACK
+  SHOULDERS
+  LEGS
+  ARMS
+  ABS
+}
