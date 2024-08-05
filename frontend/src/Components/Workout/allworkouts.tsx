@@ -10,19 +10,19 @@ export const Allworkouts = () => {
       <div className="flex ">
         <Sidebar />
         <div className="flex flex-col w-full">
-          <div className="flex w-full h-10 justify-center mt-5 mb-5 lg:mb-2">
+          <div className="flex w-full h-10 justify-center mt-5 lg:mb-5 lg:mb-2">
             <span className="font-extrabold font-roboto lg:text-4xl text-2xl flex text-center">
               Choose Muscle to train
             </span>
           </div>
-          <div className="flex w-full mb-20 ">
+          <div className="flex w-full">
             {isLoading ? (
               <div className="flex justify-center w-full h-full mt-3">
                 Loading.....
                 {/* <CustomSkelton size="large" /> */}
               </div>
             ) : (
-              <div className="flex flex-wrap gap-10  w-full justify-center ">
+              <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center mb-20 ">
                 {muscles.map((muscle) => {
                   return <MuscleGroup name={muscle.name} img={muscle.img} />;
                 })}
