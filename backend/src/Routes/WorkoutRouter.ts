@@ -53,13 +53,16 @@ WorkoutsRouter.get('/:muscle', async (c) => {
     try {
         const exercises = await prisma.exercise.findMany({
             where: { MuscleGroup: { name: muscleEnum } },
-            select: { name: true, img: true, instructions: true, videolink: true }
+            select: { name: true, img: true, instructions: true, videolink: true, MuscleGroup: true }
         });
-        console.log(exercises);
+        console.log("the excercise are", exercises);
+
+        
+
         c.status(200);
-        return c.json({ msg: "success", Excercises: exercises });
+        return c.json({ msg: "success is here", Excercises: exercises });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         c.status(400);
         return c.json({ msg: "failure " });
     }
@@ -76,7 +79,7 @@ WorkoutsRouter.get("/singleworkout/:workoutname", async (c) => {
     try {
         const Excercise = await prisma.exercise.findFirst({
             where: { name: `${workoutname}` },
-            select: { name: true, img: true, videolink: true, instructions: true }
+            select: { name: true, img: true, videolink: true, instructions: true, MuscleGroup: true }
         })
 
         console.log("Excercsie are ", Excercise);

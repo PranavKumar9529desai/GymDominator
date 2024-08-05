@@ -1,10 +1,26 @@
 import axios, { AxiosResponse } from "axios";
 import { RecoilValueReadOnly, selectorFamily } from "recoil";
-import { Excercisetype } from "./ExcerciseSelectorsfamily";
+import { string } from "zod";
 
 interface ResponseType {
   msg: string;
-  Excercise: Excercisetype;
+  Excercises: Excercisetype;
+}
+
+export interface MuscleGroupType {
+  id: number;
+  name: string;
+  img: string;
+  fullimage: string;
+}
+
+
+export interface Excercisetype {
+  name: string;
+  img: string;
+  instructions: string;
+  videolink: string;
+  MuscleGroup : MuscleGroupType
 }
 
 export const SingleWorkoutSelectorsFamily: (
@@ -24,7 +40,7 @@ export const SingleWorkoutSelectorsFamily: (
           },
         }
       );
-       console.log("data fetched from the backend",response.data.Excercise);
-        return response.data.Excercise;
-    }
+      console.log("data fetched from the backend", response.data.Excercises);
+      return response.data.Excercises;
+    },
 });

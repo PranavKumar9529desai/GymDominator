@@ -1,7 +1,8 @@
-import { Excercisetype, } from "@state/Selectors/ExcerciseSelectorsfamily"
+// import { MuscleGrp } from "@state/Atom/Musclegroup"
+import { Excercisetype, } from "@state/Selectors/SingleWorkoutSelectorsFamily"
 import { SingleWorkoutSelectorsFamily } from "@state/Selectors/SingleWorkoutSelectorsFamily"
 import { useEffect, useState } from "react"
-import { Loadable, useRecoilValueLoadable } from "recoil"
+import { Loadable, useRecoilState, useRecoilValueLoadable } from "recoil"
 
 export const FetchSingleWorkout = ({ workoutname }: { workoutname: string }) => {
     const Excercise: Loadable<Excercisetype> =  useRecoilValueLoadable(SingleWorkoutSelectorsFamily(workoutname))

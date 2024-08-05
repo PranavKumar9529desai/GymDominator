@@ -1,4 +1,4 @@
-import { Navbar } from "@components/Navbar/Navbar2";
+import { Navbar2 } from "@components/Navbar/Navbar2";
 import { useNavigate, useParams } from "react-router-dom";
 import { BottomNavigation } from "../BottomNavigation";
 import { FetchExcercise } from "@hooks/FetchExcercise";
@@ -8,28 +8,36 @@ export const SingleMuscles = () => {
   if (muscle == undefined) {
     muscle = "chest";
   }
-  const { isLoading, Excercise } = FetchExcercise({ muscle });
+  let { isLoading, Excercise } = FetchExcercise({ muscle });
 
+  Excercise = Excercise.filter(
+    (exercise) =>
+      exercise.MuscleGroup &&
+      exercise.MuscleGroup.name &&
+      exercise.MuscleGroup.name.toLowerCase() === muscle.toLowerCase()
+  );
   return (
     <div>
       <div className="lg:block hidden">
-        <Navbar TextColor="black" />
+        <Navbar2 TextColor="black" />
       </div>
-      <div className="md:hidden block">
+      <div className="md:hidden block ">
         <BottomNavigation />
       </div>
 
       <div className="w-full text-center lg:pt-20 pt-4">
-        <div className="lg:text-5xl font-bold text-4xl   ">
-          {muscle.toUpperCase()} Excercises
+        <div className="lg:text-5xl font-bold text-3xl  ">
+          {muscle.charAt(0).toUpperCase() + muscle.slice(1)} Excercises
         </div>
-        <div className="text-xl text-gray-600 mt-5">
-          {muscle} exercises. Learn how to build a big, strong and muscular{" "}
+        <div className="text-xl text-gray-600 mt-5 px-1">
+          {muscle.charAt(0).toUpperCase() + muscle.slice(1)} exercises. Learn
+          how to build a big, strong and muscular{" "}
+          {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
           {muscle}.
         </div>
       </div>
       {/* recommend eexcescise */}
-      <div className="mt-8">
+      <div className="mt-8 ">
         <RecommenedExcercise Excercises={Excercise} />
       </div>
     </div>
@@ -45,13 +53,13 @@ const RecommenedExcercise = ({
 
   return (
     <div className="w-full ">
-      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800">
+      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800 mb-10">
         <div className="text-2xl font-semibold my-5 ">
           Best {muscle?.toLocaleUpperCase()} Exercises{" "}
         </div>
         <div className="">
           <div className="flex lg:gap-10 lg:flex-row flex-col gap-2  ">
-            {Excercises.map((excercise) => {
+            {Excercises.map((excercise, key) => {
               return (
                 <ExcerciseCard name={excercise.name} img={excercise.img} />
               );
@@ -75,10 +83,11 @@ const ExcerciseCard = ({
     <div className="">
       <img src={img} alt="" />
       <div className="text-2xl font-semibold mt-4">{name}</div>
-      <button className="bg-blue-700 text-white text-xl py-2 px-3 rounded-xl inline-flex justify-center items-center my-5 hover:bg-blue-800 shadow-md"
-       onClick={()=>{
-         navigate(`${name}`);
-      }}
+      <button
+        className="bg-blue-700 text-white text-xl py-2 px-3 rounded-xl inline-flex justify-center items-center my-5 hover:bg-blue-800 shadow-md"
+        onClick={() => {
+          navigate(`${name}`);
+        }}
       >
         View Excercise
       </button>

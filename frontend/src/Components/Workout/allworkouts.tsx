@@ -15,14 +15,14 @@ export const Allworkouts = () => {
               Choose Muscle to train
             </span>
           </div>
-          <div className="flex w-full ">
+          <div className="flex w-full mb-20 ">
             {isLoading ? (
               <div className="flex justify-center w-full h-full mt-3">
                 Loading.....
                 {/* <CustomSkelton size="large" /> */}
               </div>
             ) : (
-              <div className="flex flex-wrap gap-10  w-full justify-center">
+              <div className="flex flex-wrap gap-10  w-full justify-center ">
                 {muscles.map((muscle) => {
                   return <MuscleGroup name={muscle.name} img={muscle.img} />;
                 })}

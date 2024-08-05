@@ -8,7 +8,7 @@ export const BottomNavigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   return (
-    <div className="fixed bottom-0 h-16 w-full grid grid-cols-4  border-t border-gray-250 *:font-semibold *:text-balance  z-50 transition-all bg-white ">
+    <div className="fixed bottom-0 h-16 w-full grid grid-cols-4  border-t border-gray-300 *:font-semibold *:text-balance  z-50 transition-all bg-white ">
       <button
         className={`flex flex-col justify-center w-full items-center group transition-all ${
           location.pathname == "/dashboard/myprogress" ? `bg-gray-200` : ` `

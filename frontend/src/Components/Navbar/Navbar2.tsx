@@ -1,8 +1,10 @@
 import { useEffect, useState, Dispatch } from "react";
+import { useNavigate } from "react-router-dom";
 
 type colors = "white" | "black";
 
-export const Navbar = ({ TextColor }: { TextColor: colors }) => {
+export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
+  const navigate = useNavigate();
   const [isOpen, SetIsOpen] = useState<boolean>(false);
 
   return (
@@ -12,7 +14,10 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
          ${(TextColor as string) == "white" ? "text-white bg-black" : "text-black bg-white"} 
           container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full border-b-2 border-gray-100 shadow-xl`}
       >
-        <div className=" inline-flex items-center ">
+        <button className=" inline-flex items-center "
+        onClick={()=>{
+            navigate("/dashboard/workouts");
+        }}>
           <div className="inline-flex w-36 h-16 ">
             <img
               className="object-cover mt-1 "
@@ -23,7 +28,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
               GymDominator
             </span>
           </div>
-        </div>
+        </button>
         <div className="gap-20 mr-6 lg:flex hidden text-base font-extrabold *:hover: ">
           <div className="border-b-2 border-transparent hover:border-gray-900 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
             About us
