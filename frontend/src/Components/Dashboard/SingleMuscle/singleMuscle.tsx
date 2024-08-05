@@ -53,7 +53,7 @@ const RecommenedExcercise = ({
 
   return (
     <div className="w-full ">
-      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800 mb-10">
+      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800 mb-16">
         <div className="text-2xl font-semibold my-5 ">
           Best {muscle?.toLocaleUpperCase()} Exercises{" "}
         </div>
