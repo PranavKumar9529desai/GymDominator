@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
   const location = useLocation();
-  console.log("location", location);
   return (
     <div className="">
       {/* vertical sidbar  */}

@@ -119,7 +119,6 @@ const SideBar = ({
   const [isRotated, setRotated] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("IsRotated is ", isRotated);
   }, [isRotated]);
 
   useEffect(() => {

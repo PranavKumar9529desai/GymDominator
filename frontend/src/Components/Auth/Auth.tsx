@@ -24,11 +24,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
         }`,
         postInputs
       );
-      console.log(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/${
-          type == "signup" ? "signup" : "signin"
-        }`
-      );
+      
       const response = newReq.data;
       console.log(newReq.data.msg);
       const jwt = response.token;

@@ -19,7 +19,6 @@ export const ExcersiceSelector: (
 ) => RecoilValueReadOnly<Excercisetype[]> = selectorFamily({
   key: "ExcersiceSelector",
   get: (muscle: string) => async ({}) => {
-    console.log("muscle from selector", muscle);
     const response: AxiosResponse<ResponseType> = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/v1/workouts/${muscle}`,
       {
@@ -28,7 +27,6 @@ export const ExcersiceSelector: (
         },
       }
     );
-    console.log("excercise from selector",response.data);
     return response.data.Excercises
   },
 });

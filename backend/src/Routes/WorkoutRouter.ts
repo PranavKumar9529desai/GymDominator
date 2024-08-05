@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { Bindings } from "../middleware/authentication";
-import { PrismaClient, MuscleGroupEnum } from "@prisma/client/edge";
+import { PrismaClient, MuscleGroupEnum, Exercise } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { string } from "zod";
 
@@ -25,7 +25,7 @@ WorkoutsRouter.get('/', async (c) => {
     try {
         const MuscleGrp: MuscleGrp[] = await prisma.muscleGroup.findMany({
             where: { id: { not: 7 } },
-            select: { name: true, img: true, Exercise: true }
+            select: { name: true, img: true, fullimage: true, Exercise: true }
         });
         // console.log(allWorkouts);
         c.status(200);
@@ -52,7 +52,7 @@ WorkoutsRouter.get('/:muscle', async (c) => {
 
     try {
         const exercises = await prisma.exercise.findMany({
-            where: { MuscleGroup : { name: muscleEnum } },
+            where: { MuscleGroup: { name: muscleEnum } },
             select: { name: true, img: true, instructions: true, videolink: true }
         });
         console.log(exercises);
@@ -60,7 +60,33 @@ WorkoutsRouter.get('/:muscle', async (c) => {
         return c.json({ msg: "success", Excercises: exercises });
     } catch (error) {
         console.log(error);
-
+        c.status(400);
+        return c.json({ msg: "failure " });
     }
 
+});
+
+
+WorkoutsRouter.get("/singleworkout/:workoutname", async (c) => {
+    const { workoutname } = c.req.param();
+    console.log("parameter passed is ", workoutname);
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate());
+    try {
+        const Excercise = await prisma.exercise.findFirst({
+            where: { name: `${workoutname}` },
+            select: { name: true, img: true, videolink: true, instructions: true }
+        })
+
+        console.log("Excercsie are ", Excercise);
+        c.status(200);
+
+        return c.json({ msg: "success", Excercises: Excercise });
+    } catch (error) {
+        console.log(error);
+        c.status(400);
+        return c.json({ msg: "failure " });
+
+    }
 })

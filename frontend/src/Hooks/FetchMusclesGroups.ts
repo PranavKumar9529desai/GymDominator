@@ -1,5 +1,5 @@
 import { Loadable, useRecoilValueLoadable } from "recoil"
-import { MuscleGrp, MuscleSelector } from "@components/State/Selectors/MuscleGrpSelectot"
+import { MuscleGrp, MuscleSelector } from "@state/Selectors/MuscleGrpSelectot"
 import { useEffect, useState } from "react";
 export const FetchMusclesGroups = () => {
     const allMusclesGroups: Loadable<MuscleGrp[]> = useRecoilValueLoadable(MuscleSelector);
@@ -22,6 +22,5 @@ export const FetchMusclesGroups = () => {
 
         }
     }, [allMusclesGroups]);
-    console.log("Muscles are from fetchMuscles", muscles);
     return { isLoading, muscles }
 }

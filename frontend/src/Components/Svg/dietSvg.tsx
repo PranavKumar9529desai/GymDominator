@@ -1,5 +1,4 @@
 export const DietSvg = ({ active }: { active: boolean }) => {
-  console.log("from the diet svg", active);
   return (
     <svg
       className={active ? "fill-blue-500" : "group-hover:fill-blue-500 "}

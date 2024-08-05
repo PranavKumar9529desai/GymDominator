@@ -9,7 +9,8 @@ import { Allworkouts } from "@components/Workout/allworkouts";
 import { Progress } from "@components/Progress/progress";
 import { Diet } from "@components/Diet/diet";
 import { Recipes } from "@components/Recicpes/recipes";
-import { SingleMusclesRoute } from "@routes/singlemuscle";
+import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
+import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 function Main() {
   return (
     <Routes>
@@ -19,6 +20,7 @@ function Main() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/workouts" element={<Allworkouts />} />
       <Route path="/dashboard/workouts/:muscle" element={ < SingleMusclesRoute />}/>
+      <Route path="/dashboard/workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
       <Route path="/dashboard/diet" element={<Diet />} />
       <Route path="/dashboard/recipes" element={<Recipes />} />
       <Route path="/dashboard/myprogress" element={<Progress />} />
@@ -29,7 +31,7 @@ function Main() {
 
 function App() {
   return (
-    <>
+  <>
       <RecoilRoot>
         <BrowserRouter>
           <Main />
@@ -40,3 +42,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+                        

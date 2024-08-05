@@ -18,10 +18,11 @@ model Exercise {
 }
 
 model MuscleGroup {
-  id       Int             @id @unique @default(autoincrement())
-  name     MuscleGroupEnum
-  img      String
-  Exercise Exercise[]
+  id        Int             @id @unique @default(autoincrement())
+  name      MuscleGroupEnum
+  img       String
+  fullimage String          @default("src")
+  Exercise  Exercise[]
 }
 
 model User {
@@ -33,9 +34,9 @@ model User {
 
 enum MuscleGroupEnum {
   CHEST
-  BACK
+  UpperBack
   SHOULDERS
-  LEGS
-  ARMS
+  Biceps
+  Triceps
   ABS
 }

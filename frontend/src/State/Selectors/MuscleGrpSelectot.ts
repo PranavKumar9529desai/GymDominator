@@ -20,7 +20,6 @@ export const MuscleSelector: RecoilValueReadOnly<MuscleGrp[]> = selector({
                 Authorization: `Bearer ${localStorage.getItem('jwt')}`
             }
         });
-        console.log("Muscle Selector", response.data.muscleGrp);
         return response.data.muscleGrp;
     }
 });

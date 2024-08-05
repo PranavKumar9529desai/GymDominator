@@ -1,5 +1,5 @@
 import { LadingPage } from "@components/Home/LandingPage";
-import { Navbar } from "@components/Navbar";
+import { Navbar } from "@components/Navbar/Navbar";
 
 export const Home = () => {
   return (

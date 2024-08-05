@@ -48,3 +48,8 @@ export const SigninInput = z.object({
 );
 
 export type signinInput = z.infer<typeof SigninInput>
+
+
+export const SingleWorkout = z.object({
+    workoutName: z.string()
+})

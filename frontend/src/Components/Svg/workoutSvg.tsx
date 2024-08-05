@@ -1,5 +1,4 @@
 export const WorkoutSvg = ({ active }: { active: boolean }) => {
-  console.log("from the wk svg",active);
   return (
     <svg
       className={active ? "fill-blue-500" : "group-hover:fill-blue-500 "}
