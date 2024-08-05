@@ -95,7 +95,7 @@ const ExcerciseDescription = ({
   let Description = instruction;
   return (
     <div className="">
-      <div className="flex gap-3 lg:justify-center">
+      <div className="flex gap-3 lg:justify-center ">
         <div className="lg:ml-20 lg:text-3xl text-blue-400 font-bold text-lg ">
           Target Muscle Group :
         </div>
