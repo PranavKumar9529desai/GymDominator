@@ -6,11 +6,11 @@ import { RecoilRoot } from "recoil";
 import { SignIn } from "@routes/signin";
 import { SignUp } from "@routes/signup";
 import { Allworkouts } from "@components/Workout/allworkouts";
-import { Progress } from "@components/Progress/progress";
 import { Diet } from "@components/Diet/diet";
 import { Recipes } from "@components/Recicpes/recipes";
 import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
 import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
+import { MyProgressRoute } from "@routes/myprogressRoute";
 function Main() {
   return (
     <Routes>
@@ -19,11 +19,18 @@ function Main() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/workouts" element={<Allworkouts />} />
-      <Route path="/dashboard/workouts/:muscle" element={ < SingleMusclesRoute />}/>
-      <Route path="/dashboard/workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
+      <Route
+        path="/dashboard/workouts/:muscle"
+        element={<SingleMusclesRoute />}
+      />
+      <Route
+        path="/dashboard/workouts/:muscle/:workoutname"
+        element={<SingleWorkoutRoute />}
+      />
       <Route path="/dashboard/diet" element={<Diet />} />
       <Route path="/dashboard/recipes" element={<Recipes />} />
-      <Route path="/dashboard/myprogress" element={<Progress />} />
+      <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
+
       <Route path="*" element={<Home />} />
     </Routes>
   );
@@ -31,7 +38,7 @@ function Main() {
 
 function App() {
   return (
-  <>
+    <>
       <RecoilRoot>
         <BrowserRouter>
           <Main />
@@ -42,10 +49,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-                        

@@ -9,9 +9,9 @@ export const Allworkouts = () => {
     <>
       <div className="flex ">
         <Sidebar />
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full lg:ml-64">
           <div className="flex w-full h-10 justify-center mt-5 lg:mb-5 ">
-            <span className="font-extrabold font-roboto lg:text-4xl text-2xl flex text-center">
+            <span className="font-extrabold font-roboto lg:text-4xl text-2xl flex text-center shadow-sm">
               Choose Muscle to train
             </span>
           </div>

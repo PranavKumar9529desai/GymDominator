@@ -11,7 +11,7 @@ export const Sidebar = () => {
   return (
     <div className="">
       {/* vertical sidbar  */}
-      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[275px] flex-col  text-center  mt-[-2px] ml-[-2px]">
+      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[275px] flex-col  text-center  mt-[-2px] ml-[-2px] fixed left-0" >
         <div className="w-full h-20 items-center justify-center flex text-xl border-b text-white bg-gray-950   font-semibold  pr-6 ">
           <img src={gymLaunch} alt="" width={100} className="mt-2" />
           <p className="relative -left-5 text-xl font-extrabold">GymDominator</p>
