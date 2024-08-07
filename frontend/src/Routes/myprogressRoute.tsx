@@ -11,7 +11,7 @@ export const MyProgressRoute = () => {
         <div>
     
         </div>
-        <div className="lg:mt-8 lg:ml-80">
+        <div className="lg:mt-8 lg:ml-80 ">
             <div className="w-full"></div>
           <Progress />
         </div>

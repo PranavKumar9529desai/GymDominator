@@ -44,6 +44,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
 
   return (
     <>
+   
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -53,7 +54,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
         }}
       >
         {/* this div is nessary to quote appear on rigth side */}
-        <div className="relative  sm:w-[500px] w-80 bg-white border border-gray-200 rounded-xl shadow  hover:shadow-2xl hover:-translate-y-1  transition-all duration-300 overflow-hidden">
+        <div className="relative  sm:w-[500px] w-80 bg-white border border-gray-200 rounded-xl shadow  hover:shadow-2xl hover:-translate-y-1  transition-all duration-300 overflow-hidden ">
           <BarLoader color="#36d7b7" height={4} width={600} loading={loading} />
 
           <div className="flex justify-center items-center  flex-col sm:my-10 sm:mx-12 p-8 ">

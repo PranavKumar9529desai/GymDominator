@@ -16,7 +16,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
       >
         <button className=" inline-flex items-center "
         onClick={()=>{
-            navigate("/dashboard/workouts");
+            navigate("/dashboard/workouts")
         }}>
           <div className="inline-flex w-36 h-16 ">
             <img
