@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Dashboard } from "@routes/dashboard ";
-import { Home } from "@routes/home";
+import { Home } from "@routes/homeRoute";
 import { RecoilRoot } from "recoil";
-import { SignIn } from "@routes/signin";
-import { SignUp } from "@routes/signup";
+import { SignIn } from "@routes/signinRoute";
+import { SignUp } from "@routes/signupRoute";
 import { Allworkouts } from "@components/Workout/allworkouts";
 import { Diet } from "@components/Diet/diet";
 import { Recipes } from "@components/Recicpes/recipes";
@@ -19,14 +19,8 @@ function Main() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/workouts" element={<Allworkouts />} />
-      <Route
-        path="/dashboard/workouts/:muscle"
-        element={<SingleMusclesRoute />}
-      />
-      <Route
-        path="/dashboard/workouts/:muscle/:workoutname"
-        element={<SingleWorkoutRoute />}
-      />
+      <Route path="/dashboard/workouts/:muscle" element={<SingleMusclesRoute />}  />
+      <Route path="/dashboard/workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
       <Route path="/dashboard/diet" element={<Diet />} />
       <Route path="/dashboard/recipes" element={<Recipes />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />

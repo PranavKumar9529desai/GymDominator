@@ -148,7 +148,7 @@ const SideBar = ({
         isVisible ? "left-[0px]" : "left-[-340px]"
       }`}
     >
-      <div className="bg-gray-950 w-full h-40  mt-[-4px] flex flex-col justify-center items-center py-2 ">
+      <div className="bg-gray-950 w-full h-40  mt-[-4px] flex flex-col justify-center items-center py-2 font-pop ">
         <p className="flex mt-4 text-xl text-white">Browse</p>
         <p className="flex font-bold text-2xl text-white ">Gymdominator</p>
       </div>
