@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useState } from "react";
 import { WeekButton } from "./weekbutton";
 
 export const Progress = () => {
@@ -27,6 +28,7 @@ export const Progress = () => {
 // };
 
 export const Weekcomponent = () => {
+  const [isClicked, setisClicked] = useState<boolean>(false);
   return (
     <div className="border border-gray-200 ">
       <div className="*:block text-center p-4 *:m-3">
@@ -36,13 +38,28 @@ export const Weekcomponent = () => {
           groups.
         </span>
       </div>
-      
-      <div className="flex flex-wrap gap-10 justify-center pb-8">
+
+      <div className={`flex flex-wrap gap-10 justify-center pb-8 `}>
         <DayCard day="Monday" />
-        <DayCard day="Monday" />
-        <DayCard day="Monday" />
-        <DayCard day="Monday" />
-        <DayCard day="Monday" />
+        <DayCard day="Tuesday" />
+        <DayCard day="Wednesday" />
+        <div className={`${isClicked ? "flex  gap-10" : "hidden"}`}>
+          <DayCard day="Monday" />
+          <DayCard day="Monday" />
+        </div>
+      </div>
+      <div className="text-center mb-4">
+        <div className=" grid grid-cols-5 *:m-auto">
+          <div className="col-span-2 ">
+            <Button text="Back" />
+          </div>
+          <div className="col-span-1">
+            <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
+          </div>
+          <div className="col-span-2">
+            <Button text="Next" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -65,12 +82,42 @@ const DayCard = ({ day }: { day: string }) => {
 
       <div>
         <div className="text-left text-lg text-gray-500 ml-2">Excercises:</div>
-        <div className="text-left ml-24 space-y-3">
-          <div>Dumbell Pres</div>
+        <div className="text-left ml-24 space-y-3 *:hover:underline-offset-2 hover:*:text-blue-400 transition-colors">
+          <div className="">Dumbell Pres</div>
           <div>Beneh Press</div>
           <div>Push ups</div>
         </div>
       </div>
     </div>
+  );
+};
+
+const SeeMore = ({
+  setisClicked,
+  isClicked,
+}: {
+  setisClicked: Dispatch<SetStateAction<boolean>>;
+  isClicked: boolean;
+}) => {
+  return (
+    <div>
+      <button
+        className="text-lg text-blue-400 relative "
+        onClick={() => {
+          setisClicked((prevState) => !prevState);
+        }}
+      >
+        {isClicked ? "See less" : "See more"}
+      </button>
+      <div></div>
+    </div>
+  );
+};
+
+const Button = ({ text }: { text: string }) => {
+  return (
+    <button>
+      <div className=" px-5  py-2  bg-gray-800 text-white rounded-lg ">{text}</div>
+    </button>
   );
 };
