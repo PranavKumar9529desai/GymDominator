@@ -29,7 +29,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
       console.log(newReq.data.msg);
       const jwt = response.token;
       localStorage.setItem("jwt", jwt);
-      navigate("/blogs");
+      navigate("/");
       const message =
         type == "signup" ? "User created Sucessfully" : "Logged in Sucessfully";
       coustomAlert("success", message);

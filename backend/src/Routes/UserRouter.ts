@@ -60,11 +60,14 @@ UserRouter.post('signin', async (c) => {
         const body: signinInput = await c.req.json();
         console.log(body);
         const isValidPayload = SigninInput.safeParse(body);
+        console.log("the secret is ", c.env?.JWT_SECRET);
         if (!isValidPayload) {
             c.status(500);
             return c.json({ msg: "wrong input format" });
         }
         const payload = { jwttoken: body.email };
+        let token = await sign(payload, c.env.JWT_SECRET);
+
         const isUserexist = await prisma.user.findFirst({
             where: { email: body.email }
         });
@@ -76,17 +79,13 @@ UserRouter.post('signin', async (c) => {
 
         if (isUserexist.password == body.password) {
             c.status(200);
-            return c.json({ msg: "sucess" });
+            return c.json({ msg: "sucess", token: token });
         }
 
         else {
             c.status(300);
             return c.json({ msg: "password is wrong" })
         }
-        console.log("the secret is ", c.env?.JWT_SECRET);
-        const token = await sign(payload, c.env.JWT_SECRET);
-        console.log("toeke is :", token);
-        return c.json({ msg: "Success", token: token });
 
     } catch (error) {
         console.log(error);
