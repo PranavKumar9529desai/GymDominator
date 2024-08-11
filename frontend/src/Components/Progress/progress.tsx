@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { WeekButton } from "./weekbutton";
+import { Dashboard } from "@routes/dashboard ";
 
 export const Progress = () => {
   return (
@@ -27,25 +29,53 @@ export const Progress = () => {
 //   );
 // };
 
+interface DayCardProps {
+  day: string;
+  musclegrp: string;
+  img: string;
+  ExcerciseList: Excercise[];
+}
+
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
+  const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const Musclegrp = [ "Chest" , "Uppearback" , "Biceps" , "Triceps" , "Shoulder"]
+
+  let ExcerciseList = [
+    {
+      name: "Incline Bench Press",
+    },
+    {
+      name: "Dumbbell Bench Press",
+    },
+    {
+      name: "Bench Press",
+    },
+  ];
+
+  let DayCardProps: DayCardProps = {
+    day: WeekDays[0],
+    musclegrp: Musclegrp[2],
+    img: "",
+    ExcerciseList: ExcerciseList,
+  };
+
   return (
     <div className="border border-gray-200 ">
       <div className="*:block text-center p-4 *:m-3">
-        <span className=" text-4xl font-extrabold">Weekly Workout Planner</span>
+        <span className=" text-4xl font-extrabold">Week 1</span>
         <span className="text-gray-400 text-lg">
-          plan your workouts for the week with a focus on different muscle
-          groups.
+          track your progress and consistency using the Gymdominator.
         </span>
       </div>
 
       <div className={`flex flex-wrap gap-10 justify-center pb-8 `}>
-        <DayCard day="Monday" />
-        <DayCard day="Tuesday" />
-        <DayCard day="Wednesday" />
+        <DayCard DayCardProps={DayCardProps} />
+        <DayCard DayCardProps={DayCardProps} />
+        <DayCard DayCardProps={DayCardProps} />
         <div className={`${isClicked ? "flex  gap-10" : "hidden"}`}>
-          <DayCard day="Monday" />
-          <DayCard day="Monday" />
+          <DayCard DayCardProps={DayCardProps} />
+          <DayCard DayCardProps={DayCardProps} />
         </div>
       </div>
       <div className="text-center mb-4">
@@ -65,13 +95,19 @@ export const Weekcomponent = () => {
   );
 };
 
-const DayCard = ({ day }: { day: string }) => {
+interface Excercise {
+  name: string;
+}
+
+const DayCard = ({ DayCardProps }: { DayCardProps: DayCardProps }) => {
+  const location = useLocation();
+  console.log("current rotu is ", location);
   return (
     <div className="border border-gray-200 w-80 text-center justify-center pt-3 ">
       <div className="text-center text-2xl font-semibold text-blue-400">
-        {day}
+        {DayCardProps.day}
       </div>
-      <div className="text-gray-400 text-lg">Chest</div>
+      <div className="text-gray-400 text-lg">{DayCardProps.musclegrp}</div>
 
       <div className="mx-auto py-4">
         <img
@@ -82,10 +118,23 @@ const DayCard = ({ day }: { day: string }) => {
 
       <div>
         <div className="text-left text-lg text-gray-500 ml-2">Excercises:</div>
-        <div className="text-left ml-24 space-y-3 *:hover:underline-offset-2 hover:*:text-blue-400 transition-colors">
-          <div className="">Dumbell Pres</div>
-          <div>Beneh Press</div>
-          <div>Push ups</div>
+        <div className="text-left ml-24 space-y-3 ">
+          <div className="">
+            {DayCardProps.ExcerciseList.map((excercise, key) => {
+              return (
+                <div
+                  key={key}
+                  className="hover:*:text-blue-400 transition-colors"
+                >
+                  <input type="checkbox" className="mr-2 size-4" />
+                  {/* use / to the front to stat from the root route  */}
+                  <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
+                    {excercise.name}
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -117,7 +166,9 @@ const SeeMore = ({
 const Button = ({ text }: { text: string }) => {
   return (
     <button>
-      <div className=" px-5  py-2  bg-gray-800 text-white rounded-lg ">{text}</div>
+      <div className=" px-5  py-2  bg-gray-800 text-white rounded-lg ">
+        {text}
+      </div>
     </button>
   );
 };
