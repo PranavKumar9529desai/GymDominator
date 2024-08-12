@@ -1,8 +1,7 @@
+import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
+import { excercise } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { WeekButton } from "./weekbutton";
-import { Dashboard } from "@routes/dashboard ";
-
 export const Progress = () => {
   return (
     <div className="w-11/12 ml-8">
@@ -29,37 +28,13 @@ export const Progress = () => {
 //   );
 // };
 
-interface DayCardProps {
-  day: string;
-  musclegrp: string;
-  img: string;
-  ExcerciseList: Excercise[];
-}
-
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  const Musclegrp = [ "Chest" , "Uppearback" , "Biceps" , "Triceps" , "Shoulder"]
-
-  let ExcerciseList = [
-    {
-      name: "Incline Bench Press",
-    },
-    {
-      name: "Dumbbell Bench Press",
-    },
-    {
-      name: "Bench Press",
-    },
-  ];
-
-  let DayCardProps: DayCardProps = {
-    day: WeekDays[0],
-    musclegrp: Musclegrp[2],
-    img: "",
-    ExcerciseList: ExcerciseList,
-  };
-
+  const Musclegrp = ["Chest", "Uppearback", "Biceps", "Triceps", "Shoulder"];
+  const { isLoading, muscles } = FetchMusclesGroups();
+  console.log("data from the progress" , muscles);
+  // console.log(muscles);
   return (
     <div className="border border-gray-200 ">
       <div className="*:block text-center p-4 *:m-3">
@@ -70,13 +45,17 @@ export const Weekcomponent = () => {
       </div>
 
       <div className={`flex flex-wrap gap-10 justify-center pb-8 `}>
-        <DayCard DayCardProps={DayCardProps} />
-        <DayCard DayCardProps={DayCardProps} />
-        <DayCard DayCardProps={DayCardProps} />
-        <div className={`${isClicked ? "flex  gap-10" : "hidden"}`}>
-          <DayCard DayCardProps={DayCardProps} />
-          <DayCard DayCardProps={DayCardProps} />
-        </div>
+        {muscles.map((mus , key) => {
+          console.log("from the daycard ",mus.Exercise);
+          return <div>
+             <DayCard day={WeekDays[key]} ExcerciseList={mus.Exercise} muscle={mus.name} img={mus.img}  />
+          </div>;
+        })}
+
+
+        {/* <div className={`${isClicked ? "flex  gap-10" : "hidden"}`}>
+            <DayCard />
+            </div> */}
       </div>
       <div className="text-center mb-4">
         <div className=" grid grid-cols-5 *:m-auto">
@@ -95,41 +74,48 @@ export const Weekcomponent = () => {
   );
 };
 
-interface Excercise {
-  name: string;
-}
-
-const DayCard = ({ DayCardProps }: { DayCardProps: DayCardProps }) => {
-  const location = useLocation();
-  console.log("current rotu is ", location);
+const DayCard = ({
+  day,
+  img,
+  muscle,
+  ExcerciseList,
+}: {
+  day: string;
+  muscle: string;
+  img : string
+  ExcerciseList: excercise[];
+}) => {
+  // const location = useLocation();
+  // console.log("current rotu is ", location);
+  console.log("inside the day card" , ExcerciseList);
   return (
-    <div className="border border-gray-200 w-80 text-center justify-center pt-3 ">
+    <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg ">
       <div className="text-center text-2xl font-semibold text-blue-400">
-        {DayCardProps.day}
+        {day}
       </div>
-      <div className="text-gray-400 text-lg">{DayCardProps.musclegrp}</div>
+      <div className="text-gray-400 text-lg">{muscle}</div>
 
       <div className="mx-auto py-4">
         <img
-          src="https://cdn.muscleandstrength.com/sites/default/files/taxonomy/image/videos/chest_0.jpg"
           alt="muscle image "
+          src={img}
         />
       </div>
 
       <div>
         <div className="text-left text-lg text-gray-500 ml-2">Excercises:</div>
-        <div className="text-left ml-24 space-y-3 ">
+        <div className="text-left ml-24  ">
           <div className="">
-            {DayCardProps.ExcerciseList.map((excercise, key) => {
+            {ExcerciseList.map((excercise, key) => {
               return (
                 <div
                   key={key}
-                  className="hover:*:text-blue-400 transition-colors"
+                  className="hover:*:text-blue-400 transition-colors py-1"
                 >
-                  <input type="checkbox" className="mr-2 size-4" />
+                  <input type="checkbox" className="mr-2 size-[18px]" />
                   {/* use / to the front to stat from the root route  */}
                   <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
-                    {excercise.name}
+                    {excercise.name ? excercise.name : "cardio" }
                   </Link>
                 </div>
               );

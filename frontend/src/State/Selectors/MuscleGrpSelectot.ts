@@ -1,9 +1,20 @@
 import axios, { AxiosResponse } from "axios";
 import { RecoilValueReadOnly, selector } from "recoil";
 
+export interface excercise {
+    id : number ,
+    img : string ,
+    muscle : string,
+    instructions : string,
+    videolink : string
+    name : string 
+}
+
 export interface MuscleGrp {
     name: string;
     img: string;
+    fullimage : string ,
+    Exercise  : excercise[]
 }
 
 interface res {
