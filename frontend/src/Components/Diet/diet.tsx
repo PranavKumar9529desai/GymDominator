@@ -1,8 +1,53 @@
-
 export const Diet = () => {
   return (
-    <div>
-      heloo from the diet route
+    <div className="bg-[#f5f5f5] ">
+      <div className="text-center *:my-2 mt-2">
+        <span className="text-3xl font-montserrat font-bold text-blue-500">
+          DIET GUIDE
+        </span>
+        <div>
+          <span className="text-gray-500 text-lg px-10 leading-relaxed">
+            Confused about what diet you should follow? Read these guides and
+            choose a diet style that best suits your goals, food preferences and
+            lifestyle.
+          </span>
+        </div>
+      </div>
+      <div className="flex  flex-wrap w-full gap-10 justify-center mt-4">
+        <DietCard />
+        <DietCard />
+        <DietCard />
+        <DietCard />
+        <DietCard />
+      </div>
+    </div>
+  );
+};
+
+const DietCard = () => {
+  return (
+    <div className="w-[300px]  bg-white rounded-xl p-2">
+      <div className="w-fit">
+        <img
+          className="w-fit"
+          src="https://cdn.muscleandstrength.com/sites/default/files/clean-eating-guide-feature.jpg"
+          alt=""
+        />
+      </div>
+      <div className="px-4">
+        <div className="my-2 ">
+          <span className="text-xl font-roboto ">
+            The Clean Eating Diet Plan Guide
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-500 font-roboto">
+            Learn everything you need to know before starting the Clean Eating
+            Diet plan including it's history, guidelines & components, & all of
+            the science behind it.
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

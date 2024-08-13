@@ -8,7 +8,7 @@ export const DietRoute = () => {
         <div className="col-span-1">
           <Sidebar />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 lg:-ml-2">
           <Diet />
         </div>
       </div>
