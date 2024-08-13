@@ -32,7 +32,6 @@ export const Progress = () => {
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  const Musclegrp = ["Chest", "Uppearback", "Biceps", "Triceps", "Shoulder"];
   const { isLoading, muscles } = FetchMusclesGroups();
   console.log("data from the progress", muscles);
   // console.log(muscles);
@@ -41,30 +40,37 @@ export const Weekcomponent = () => {
   return (
     <div className="lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4  pb-20">
       <div className="*:block text-center p-4 *:m-3">
-        <span className=" text-5xl font-extrabold font-montserrat  ">Week 1</span>
+        <span className=" text-5xl font-extrabold font-montserrat  ">
+          Week 1
+        </span>
         <span className="text-gray-400 lg:text-lg font-overpass">
           Track your progress and consistency using the Gymdominator.
         </span>
       </div>
 
-      <div className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 space-y-10 lg:space-y-0 w-full  `}>
+      <div
+        className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 space-y-10 lg:space-y-0 w-full  `}
+      >
         {/* how to map to a specific key
          */}
 
-        {SlicedMuscles.map((mus, key) => {
-          console.log("from the daycard ", mus.Exercise);
-          return (
-            <div className="">
-              <DayCard
-                day={WeekDays[key]}
-                ExcerciseList={mus.Exercise}
-                muscle={mus.name}
-                img={mus.img}
-              />
-            </div>
-          );
-        })}
-
+        {isLoading ? (
+          <div className="text-center text-xl">Loading ...</div>
+        ) : (
+          SlicedMuscles.map((mus, key) => {
+            console.log("from the daycard ", mus.Exercise);
+            return (
+              <div className="">
+                <DayCard
+                  day={WeekDays[key]}
+                  ExcerciseList={mus.Exercise}
+                  muscle={mus.name}
+                  img={mus.img}
+                />
+              </div>
+            );
+          })
+        )}
       </div>
       <div className="text-center mb-4">
         <div className=" grid grid-cols-5 *:m-auto">
@@ -109,7 +115,9 @@ const DayCard = ({
       </div>
 
       <div>
-        <div className="text-left text-lg text-gray-500 ml-2 font-roboto">Excercises:</div>
+        <div className="text-left text-lg text-gray-500 ml-2 font-roboto">
+          Excercises:
+        </div>
         <div className="text-left ml-4 mt-2">
           <div className="">
             {ExcerciseList.map((excercise, key) => {
@@ -118,10 +126,15 @@ const DayCard = ({
                   key={key}
                   className="hover:text-blue-400 py-1  hover:-translate-y-1 transition-all font-montserrat font-semibold text-gray-500 h-10 my-auto"
                 >
-                  <input type="checkbox" className="mr-2 size-[18px] relative  top-1" />
+                  <input
+                    type="checkbox"
+                    className="mr-2 size-[18px] relative  top-1"
+                  />
                   {/* use / to the front to stat from the root route  */}
                   <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
-                    <span className="align-center">{excercise.name ? excercise.name : "cardio"}</span>
+                    <span className="align-center">
+                      {excercise.name ? excercise.name : "cardio"}
+                    </span>
                   </Link>
                 </div>
               );
