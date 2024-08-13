@@ -1,34 +1,19 @@
+import { ProgressBar } from "@components/progressBar";
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
 import { excercise, MuscleGrp } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 export const Progress = () => {
   return (
-    <div className="w-11/12 ml-8">
+    <div className=" flex justify-center ">
       <Weekcomponent />
     </div>
   );
 };
 
-// const WeekComponent = () => {
-//   return (
-//     <div className="">
-//       <div className="w-full text-center">
-//         <span className="lg:text-4xl font-extrabold text-3xl">
-//           Welcome to 24 weeks challenge
-//         </span>
-//       </div>
-//       <div className="h-fit lg:ml-10 mt-8  mb-[500px] ml-8 ">
-//         <div className="flex flex-col lg:gap-96 gap-[450px]">
-//           <WeekButton weeknu={1} />
-//           <WeekButton weeknu={2} />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
 // TODO when day is completed add cross to the day
+// TODO ui for the progress bar mobile should be differnet 
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -38,8 +23,11 @@ export const Weekcomponent = () => {
   let SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
 
   return (
-    <div className="lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4  pb-20">
-      <div className="*:block text-center p-4 *:m-3">
+    <div className="lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4 pb-20 lg:px-10">
+      <div className="*:block text-center p-4 *:m-2">
+        <div>
+          <ProgressBar width={10} />
+        </div>
         <span className=" text-5xl font-extrabold font-montserrat  ">
           Week 1
         </span>
@@ -49,7 +37,7 @@ export const Weekcomponent = () => {
       </div>
 
       <div
-        className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 space-y-10 lg:space-y-0 w-full  `}
+        className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 lg:pb-4 space-y-10 lg:space-y-0 w-full  `}
       >
         {/* how to map to a specific key
          */}
@@ -60,7 +48,7 @@ export const Weekcomponent = () => {
           SlicedMuscles.map((mus, key) => {
             console.log("from the daycard ", mus.Exercise);
             return (
-              <div className="">
+              <div className="flex justify-center ">
                 <DayCard
                   day={WeekDays[key]}
                   ExcerciseList={mus.Exercise}
@@ -73,17 +61,7 @@ export const Weekcomponent = () => {
         )}
       </div>
       <div className="text-center mb-4">
-        <div className=" grid grid-cols-5 *:m-auto">
-          <div className="col-span-2 ">
-            <Button text="Back" />
-          </div>
-          <div className="col-span-1 whitespace-nowrap">
-            <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
-          </div>
-          <div className="col-span-2">
-            <Button text="Next" />
-          </div>
-        </div>
+          <SeeMore  setisClicked={setisClicked} isClicked={isClicked}/>
       </div>
     </div>
   );
@@ -156,7 +134,7 @@ const SeeMore = ({
   return (
     <div>
       <button
-        className="text-lg text-blue-400 relative animate-bounce "
+        className="text-lg text-blue-400  "
         onClick={() => {
           setisClicked((prevState) => !prevState);
         }}
@@ -171,8 +149,63 @@ const SeeMore = ({
 const Button = ({ text }: { text: string }) => {
   return (
     <button>
-      <div className=" px-5  py-2  bg-gray-800 text-white rounded-lg ">
+      <div className="flex justify-center items-center px-4  py-2  bg-gray-800 text-white rounded-lg ">
+        <div className={`${text == "Next" ? "hidden" : " "} mr-1`}>
+          <svg
+            fill="#ffffff"
+            height="12px"
+            width="px"
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 330 330"
+            xmlSpace="preserve"
+            transform="rotate(180)"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path
+                id="XMLID_222_"
+                d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
+              ></path>{" "}
+            </g>
+          </svg>
+        </div>
         {text}
+        <div className={`${text == "Back" ? "hidden" : " "} ml-1`}>
+          <svg
+            fill="#ffffff"
+            height="12px"
+            width="20px"
+            version="1.1"
+            id="Layer_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 330 330"
+            xmlSpace="preserve"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path
+                id="XMLID_222_"
+                d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
+              ></path>{" "}
+            </g>
+          </svg>
+        </div>
       </div>
     </button>
   );

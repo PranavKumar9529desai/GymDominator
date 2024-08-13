@@ -36,7 +36,7 @@ export const LadingPage = () => {
                   if (localStorage.getItem("jwt") === null) {
                     navigate("/signin");
                   } else {
-                    navigate("/dashboard/workouts");
+                    navigate("/dashboard/myprogress");
                   }
                 }}
               >

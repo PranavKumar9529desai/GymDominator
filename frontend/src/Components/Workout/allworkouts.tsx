@@ -2,7 +2,6 @@ import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
 import { useNavigate } from "react-router-dom";
 export const Allworkouts = () => {
   const { isLoading, muscles } = FetchMusclesGroups();
-  console.log("Muscles and isloadin", isLoading, muscles);
   return (
     <>
       <div className="">
@@ -10,8 +9,8 @@ export const Allworkouts = () => {
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
-                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center  font-montserrat">
-                  Choose Muscle to train
+                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-montserrat">
+                  Choose muscle to train
                 </span>
               </div>
               <div className="flex w-full ">
@@ -53,7 +52,7 @@ const MuscleGroup = ({ name, img }: { name: string; img: string }) => {
         <img src={img} alt={name} className="w-9/12 rounded-2xl" />
       </div>
       <div className="flex justify-center items-center h-10 font-roboto font-bold lg:text-3xl text-2xl ">
-        {name}
+        {name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}
       </div>
     </button>
   );

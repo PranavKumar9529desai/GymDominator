@@ -12,6 +12,7 @@ import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
 import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 import { MyProgressRoute } from "@routes/myprogressRoute";
 import { WorkoutRoute } from "@routes/workoutRoute";
+import { DietRoute } from "@routes/dietRoute";
 function Main() {
   return (
     <Routes>
@@ -22,7 +23,7 @@ function Main() {
       <Route path="/dashboard/workouts" element={<WorkoutRoute />} />
       <Route path="/dashboard/workouts/:muscle" element={<SingleMusclesRoute />}  />
       <Route path="/dashboard/workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
-      <Route path="/dashboard/diet" element={<Diet />} />
+      <Route path="/dashboard/diet" element={<DietRoute />} />
       <Route path="/dashboard/recipes" element={<Recipes />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
 
