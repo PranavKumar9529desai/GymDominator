@@ -2,8 +2,10 @@ export const ProgressSvg = ({ active }: { active: boolean }) => {
   console.log("from progress svg", active);
   return (
     <svg
-      className={active ? "fill-blue-500" : "group-hover:fill-blue-500 "}
       height="20px"
+
+      className={active ? "fill-blue-500 mr-[2px]" : "group-hover:fill-blue-500 mr-[2px]"}
+      fill= { active ? "blue" : "gray"}
       width="30px"
       version="1.1"
       id="Capa_1"

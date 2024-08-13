@@ -1,15 +1,16 @@
 export const RecipesSvg = ({ active }: { active: boolean }) => {
   return (
     <svg
-      className={active ? "fill-blue-500" : "group-hover:fill-blue-500 "}
-      width="20px"
-      height="20px"
+      width="25px"
+       className={active ? "fill-blue-500 mr-[2px]" : "group-hover:fill-blue-500 mr-[2px]"}
+      // height="20px"
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 296.195 296.195"
       xmlSpace="preserve"
+      fill={ active ? "blue" : "gray"}
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="2"></g>
       <g

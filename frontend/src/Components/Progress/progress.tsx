@@ -1,5 +1,5 @@
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
-import { excercise } from "@state/Selectors/MuscleGrpSelectot";
+import { excercise, MuscleGrp } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 export const Progress = () => {
@@ -28,41 +28,50 @@ export const Progress = () => {
 //   );
 // };
 
+// TODO when day is completed add cross to the day
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const Musclegrp = ["Chest", "Uppearback", "Biceps", "Triceps", "Shoulder"];
   const { isLoading, muscles } = FetchMusclesGroups();
-  console.log("data from the progress" , muscles);
+  console.log("data from the progress", muscles);
   // console.log(muscles);
+  let SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
+
   return (
-    <div className="border border-gray-200 ">
+    <div className="lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4  pb-20">
       <div className="*:block text-center p-4 *:m-3">
-        <span className=" text-4xl font-extrabold">Week 1</span>
-        <span className="text-gray-400 text-lg">
-          track your progress and consistency using the Gymdominator.
+        <span className=" text-5xl font-extrabold font-montserrat  ">Week 1</span>
+        <span className="text-gray-400 lg:text-lg font-overpass">
+          Track your progress and consistency using the Gymdominator.
         </span>
       </div>
 
-      <div className={`flex flex-wrap gap-10 justify-center pb-8 `}>
-        {muscles.map((mus , key) => {
-          console.log("from the daycard ",mus.Exercise);
-          return <div>
-             <DayCard day={WeekDays[key]} ExcerciseList={mus.Exercise} muscle={mus.name} img={mus.img}  />
-          </div>;
+      <div className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 space-y-10 lg:space-y-0 w-full  `}>
+        {/* how to map to a specific key
+         */}
+
+        {SlicedMuscles.map((mus, key) => {
+          console.log("from the daycard ", mus.Exercise);
+          return (
+            <div className="">
+              <DayCard
+                day={WeekDays[key]}
+                ExcerciseList={mus.Exercise}
+                muscle={mus.name}
+                img={mus.img}
+              />
+            </div>
+          );
         })}
 
-
-        {/* <div className={`${isClicked ? "flex  gap-10" : "hidden"}`}>
-            <DayCard />
-            </div> */}
       </div>
       <div className="text-center mb-4">
         <div className=" grid grid-cols-5 *:m-auto">
           <div className="col-span-2 ">
             <Button text="Back" />
           </div>
-          <div className="col-span-1">
+          <div className="col-span-1 whitespace-nowrap">
             <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
           </div>
           <div className="col-span-2">
@@ -82,40 +91,37 @@ const DayCard = ({
 }: {
   day: string;
   muscle: string;
-  img : string
+  img: string;
   ExcerciseList: excercise[];
 }) => {
   // const location = useLocation();
   // console.log("current rotu is ", location);
-  console.log("inside the day card" , ExcerciseList);
+  console.log("inside the day card", ExcerciseList);
   return (
-    <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg ">
-      <div className="text-center text-2xl font-semibold text-blue-400">
+    <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg bg-white">
+      <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">
         {day}
       </div>
-      <div className="text-gray-400 text-lg">{muscle}</div>
+      <div className="text-gray-400 text-lg font-roboto">{muscle}</div>
 
       <div className="mx-auto py-4">
-        <img
-          alt="muscle image "
-          src={img}
-        />
+        <img alt="muscle image " src={img} />
       </div>
 
       <div>
-        <div className="text-left text-lg text-gray-500 ml-2">Excercises:</div>
-        <div className="text-left ml-24  ">
+        <div className="text-left text-lg text-gray-500 ml-2 font-roboto">Excercises:</div>
+        <div className="text-left ml-4 mt-2">
           <div className="">
             {ExcerciseList.map((excercise, key) => {
               return (
                 <div
                   key={key}
-                  className="hover:*:text-blue-400 transition-colors py-1"
+                  className="hover:text-blue-400 py-1  hover:-translate-y-1 transition-all font-montserrat font-semibold text-gray-500 h-10 my-auto"
                 >
-                  <input type="checkbox" className="mr-2 size-[18px]" />
+                  <input type="checkbox" className="mr-2 size-[18px] relative  top-1" />
                   {/* use / to the front to stat from the root route  */}
                   <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
-                    {excercise.name ? excercise.name : "cardio" }
+                    <span className="align-center">{excercise.name ? excercise.name : "cardio"}</span>
                   </Link>
                 </div>
               );
@@ -137,7 +143,7 @@ const SeeMore = ({
   return (
     <div>
       <button
-        className="text-lg text-blue-400 relative "
+        className="text-lg text-blue-400 relative animate-bounce "
         onClick={() => {
           setisClicked((prevState) => !prevState);
         }}

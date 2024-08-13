@@ -21,11 +21,11 @@ function Quote() {
           <br />
         </div>
         <div className="w-full h-full pr-1 blur-[0.5px]">
-          {/* <img
+          <img
             src={signnup}
             alt="gym image"
             className="object-top object-cover bg-center w-full h-full"
-          /> */}
+          />
         </div>
       </div>
     </div>

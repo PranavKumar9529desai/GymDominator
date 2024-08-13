@@ -1,9 +1,10 @@
 export const DietSvg = ({ active }: { active: boolean }) => {
   return (
     <svg
-      className={active ? "fill-blue-500" : "group-hover:fill-blue-500 "}
-      height="20"
-      width={30}
+      className={active ? "fill-blue-500 mr-[2px]" : "group-hover:fill-blue-500 mr-[2px]"}
+      width="25px"
+      fill={ active ? "blue-500" : "gray"}
+      // height="20"
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"

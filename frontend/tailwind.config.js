@@ -6,10 +6,15 @@ export default {
     extend: {
       colors: {
         metal: "#4B4B4B",
+        "bone-white" : "#F9F6EE",
+        "light-white" : "#FEFEFE"
       },
 
       fontFamily: {
         pop: ["Poppins"],
+        montserrat : ["Monserrat"],
+        roboto : [ "Roboto"] ,
+        overpass : ["overpass"]
       },
       keyframes: {
         wiggle: {

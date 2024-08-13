@@ -11,12 +11,13 @@ export const Sidebar = () => {
   return (
     <div className="">
       {/* vertical sidbar  */}
-      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[275px] flex-col  text-center  mt-[-2px] ml-[-2px] fixed left-0" >
-        <div className="w-full h-20 items-center justify-center flex text-xl border-b text-white bg-gray-950   font-semibold  pr-6 ">
+      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[300px] flex-col  text-center  mt-[-2px] ml-[-2px] fixed left-0 " >
+        <div className="w-full h-20 items-center justify-center flex text-xl border-b text-white bg-black
+           font-semibold  pr-6 ">
           <img src={gymLaunch} alt="" width={100} className="mt-2" />
           <p className="relative -left-5 text-xl font-extrabold">GymDominator</p>
         </div>
-        <div className="relative top-20 flex flex-col gap-5  ">
+        <div className="relative top-20 flex flex-col gap ">
           <NavigateDiv
             text="My Progress"
             svg={
@@ -68,7 +69,7 @@ const NavigateDiv = ({
   return (
     <button
       style={{}}
-      className={`grid grid-cols-5 hover:bg-gray-200 *:h-12 *:flex *:items-center *:justify-center  font-semibold text-lg transition-all  group ${
+      className={`grid grid-cols-5 hover:bg-gray-200 *:h-16 *:flex *:items-center *:justify-center  font-semibold text-lg transition-all  group ${
         active ? "bg-gray-200" : "hover:bg-gray-200"
       }`}
       // className="grid grid-cols-5 hover:bg-gray-200 *:h-12 *:flex *:items-center *:justify-center  font-semibold text-lg transition-all group"
@@ -76,7 +77,7 @@ const NavigateDiv = ({
         navigate(`/dashboard/${text.split(" ").join("").toLowerCase()}`);
       }}
     >
-      <div className="col-span-2 justify-self-end mr-2 ">{svg}</div>
+      <div className="col-span-2 justify-self-end ">{svg}</div>
       <span
         className={`col-span-3 justify-self-start border-b border-transparent text-gray-500 ${
           active ? `!text-blue-500` : `group-hover:text-blue-400`
