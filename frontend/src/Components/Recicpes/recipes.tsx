@@ -1,21 +1,3 @@
-// export const Recipes = () => {
-//   return (
-//     <div>
-//       <div>
-//         <span className="text-3xl font-montserrat text-blue-400 font-semibold">
-//           Protein Shake Recipes
-//         </span>
-//       </div>
-//       <div>
-//         <span className="text-gray-400">
-//           Hitting your protein goals has never been easier! Explore our huge
-//           variety of quick and easy high-protein shake and smoothie recipes.
-//         </span>
-//       </div>
-//     </div>
-//   );
-// };
-
 export const Recipes = () => {
   return (
     <div className="bg-[#f5f5f5] h-dvh -ml-2">
@@ -23,8 +5,8 @@ export const Recipes = () => {
         <span className="text-3xl font-montserrat font-bold text-blue-500 ">
           {"Recipe Categories"}
         </span>
-        <div className="">
-          <span className="text-gray-500 text-lg px-10 leading-relaxed ">
+        <div className="px-3 lg:px-0">
+          <span className="text-gray-500 text-lg lg:px-10 lg:leading-relaxed ">
             Eating for your fitness goal doesn't mean bland, tasteless food.
             Find delicious and easy to prepare recipes by meal type or diet
             preferences.
