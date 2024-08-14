@@ -25,13 +25,20 @@ export const SingleMuscles = () => {
         <BottomNavigation />
       </div>
 
+      // TODO add custom loader in instead of the Loading
       <div className="w-full text-center lg:pt-20 pt-4">
         <div className="lg:text-5xl font-bold text-3xl  ">
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)} Excercises
         </div>
         <div className="text-xl text-gray-600 mt-5 px-1">
-          {muscle.charAt(0).toUpperCase() + muscle.slice(1)} exercises. Learn
-          how to build a big, strong and muscular{" "}
+          {isLoading ? (
+            <div className="flex items-center justify-center">
+              Loading. ...{" "}
+            </div>
+          ) : (
+            muscle.charAt(0).toUpperCase() + muscle.slice(1)
+          )}{" "}
+          exercises. Learn how to build a big, strong and muscular{" "}
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
           {muscle}.
         </div>

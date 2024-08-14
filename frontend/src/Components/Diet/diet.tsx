@@ -26,7 +26,7 @@ export const Diet = () => {
 
 const DietCard = () => {
   return (
-    <div className="w-[300px]  bg-white rounded-xl p-2">
+    <div className="w-[300px]  bg-white rounded-xl p-2 hover:-translate-y-3  hover:shadow-xl transition-transform duration-500  hover:outline-indigo-400 group">
       <div className="w-fit">
         <img
           className="w-fit"
@@ -34,14 +34,14 @@ const DietCard = () => {
           alt=""
         />
       </div>
-      <div className="px-4">
+      <div className="px-4 group-hover:text-blue-500">
         <div className="my-2 ">
           <span className="text-xl font-roboto ">
             The Clean Eating Diet Plan Guide
           </span>
         </div>
         <div>
-          <span className="text-gray-500 font-roboto">
+          <span className="text-gray-500 font-roboto group-hover:text-blue-500">
             Learn everything you need to know before starting the Clean Eating
             Diet plan including it's history, guidelines & components, & all of
             the science behind it.

@@ -13,6 +13,7 @@ import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 import { MyProgressRoute } from "@routes/myprogressRoute";
 import { WorkoutRoute } from "@routes/workoutRoute";
 import { DietRoute } from "@routes/dietRoute";
+import { RecicpesRoute } from "@routes/RecipesRoute";
 function Main() {
   return (
     <Routes>
@@ -21,10 +22,16 @@ function Main() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/workouts" element={<WorkoutRoute />} />
-      <Route path="/dashboard/workouts/:muscle" element={<SingleMusclesRoute />}  />
-      <Route path="/dashboard/workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
+      <Route
+        path="/dashboard/workouts/:muscle"
+        element={<SingleMusclesRoute />}
+      />
+      <Route
+        path="/dashboard/workouts/:muscle/:workoutname"
+        element={<SingleWorkoutRoute />}
+      />
       <Route path="/dashboard/diet" element={<DietRoute />} />
-      <Route path="/dashboard/recipes" element={<Recipes />} />
+      <Route path="/dashboard/recipes" element={<RecicpesRoute />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
 
       <Route path="*" element={<Home />} />

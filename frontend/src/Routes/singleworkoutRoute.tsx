@@ -1,5 +1,4 @@
 import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
-import { Navbar } from "@components/Navbar/Navbar";
 import { Navbar2 } from "@components/Navbar/Navbar2";
 import { SingleWorkout } from "@components/Singleworkout/singleworkout";
 export const SingleWorkoutRoute = () => {
@@ -11,7 +10,9 @@ export const SingleWorkoutRoute = () => {
       <div className="lg:pt-20 ">
         <SingleWorkout />
       </div>
-      <div className="lg:hidden block"><BottomNavigation /></div>
+      <div className="lg:hidden block">
+        <BottomNavigation />
+      </div>
     </div>
   );
 };

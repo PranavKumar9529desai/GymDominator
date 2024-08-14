@@ -15,7 +15,7 @@ export const Allworkouts = () => {
               </div>
               <div className="flex w-full ">
                 {isLoading ? (
-                  <div className="flex justify-center w-full h-full mt-3">
+                  <div className="flex justify-center w-full mt-3 relative top-40">
                     Loading.....
                     {/* <CustomSkelton size="large" /> */}
                   </div>
@@ -27,6 +27,7 @@ export const Allworkouts = () => {
                       );
                     })}
                   </div>
+                  // TODO add the customloader to the loading deparment 
                   // <div className="flex justify-center w-full ">Loading...</div>
                 )}
               </div>
@@ -43,7 +44,7 @@ const MuscleGroup = ({ name, img }: { name: string; img: string }) => {
   return (
     <button
       className=" lg:w-[300px] w-10/12 bg-gray-300 mt-5 rounded-lg h-fit
-    hover:-translate-y-3 transition-transform  duration-200 shadow-lg hover:shadow-2xl group   hover:outline  hover:outline-blue-400 hover:outline-offset-2 "
+    hover:-translate-y-3 transition-transform  duration-500 shadow-lg hover:shadow-2xl group   hover:outline  hover:outline-blue-400 hover:outline-offset-2 "
       onClick={() => {
         navigate(`${name.toLowerCase()}`);
       }}
