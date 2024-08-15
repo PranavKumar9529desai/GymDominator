@@ -40,3 +40,17 @@ enum MuscleGroupEnum {
   Triceps
   ABS
 }
+
+model Diet {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  img         String
+}
+
+model Recipes {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  img         String
+}
