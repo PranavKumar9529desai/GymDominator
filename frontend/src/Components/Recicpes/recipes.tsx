@@ -16,20 +16,28 @@ export const Recipes = () => {
           </span>
         </div>
       </div>
-      <div className="flex  flex-wrap w-full gap-10 justify-center mt-10">
-        {recipes.map((recipe) => {
-          return (
-            <div>
-              <RecipesCard name={recipe.name} img={recipe.img} />
+      <div>
+        {isLoading ? (
+          <div className="text-center relative top-40 text-xl font-montserrat">Loading....</div>
+        ) : (
+          <div>
+            <div className="flex  flex-wrap w-full gap-10 justify-center mt-10">
+              {recipes.map((recipe) => {
+                return (
+                  <div>
+                    <RecipesCard name={recipe.name} img={recipe.img} />
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-const RecipesCard = ({ name, img }: { name: string , img: string }) => {
+const RecipesCard = ({ name, img }: { name: string; img: string }) => {
   return (
     <div className="w-[300px]  rounded-xl bg-white hover:-translate-y-3 hover:shadow-xl transition-transform duration-300 group">
       <div className="w-fit">

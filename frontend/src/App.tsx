@@ -5,15 +5,13 @@ import { Home } from "@routes/homeRoute";
 import { RecoilRoot } from "recoil";
 import { SignIn } from "@routes/signinRoute";
 import { SignUp } from "@routes/signupRoute";
-import { Allworkouts } from "@components/Workout/allworkouts";
-import { Diet } from "@components/Diet/diet";
-import { Recipes } from "@components/Recicpes/recipes";
 import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
 import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 import { MyProgressRoute } from "@routes/myprogressRoute";
 import { WorkoutRoute } from "@routes/workoutRoute";
 import { DietRoute } from "@routes/dietRoute";
 import { RecicpesRoute } from "@routes/RecipesRoute";
+import { TodaysPlanRoute } from "@routes/todaysplanRoute";
 function Main() {
   return (
     <Routes>
@@ -33,6 +31,7 @@ function Main() {
       <Route path="/dashboard/diet" element={<DietRoute />} />
       <Route path="/dashboard/recipes" element={<RecicpesRoute />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
+      <Route path="/dashboard/today'splan" element={<TodaysPlanRoute />} />
 
       <Route path="*" element={<Home />} />
     </Routes>

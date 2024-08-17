@@ -11,9 +11,7 @@ export const Progress = () => {
   );
 };
 
-
 // TODO when day is completed add cross to the day
-// TODO ui for the progress bar mobile should be differnet 
 export const Weekcomponent = () => {
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -23,7 +21,7 @@ export const Weekcomponent = () => {
   let SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
 
   return (
-    <div className="lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4 pb-20 lg:px-10">
+    <div className="lg:h-dvh lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4 pb-20 lg:px-10">
       <div className="*:block text-center p-4 *:m-2">
         <div>
           <ProgressBar width={10} />
@@ -61,7 +59,11 @@ export const Weekcomponent = () => {
         )}
       </div>
       <div className="text-center mb-4">
-          <SeeMore  setisClicked={setisClicked} isClicked={isClicked}/>
+        {isLoading ? (
+          " "
+        ) : (
+          <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
+        )}
       </div>
     </div>
   );

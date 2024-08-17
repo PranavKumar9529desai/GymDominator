@@ -3,27 +3,35 @@ import { FetchdietsGroups } from "@hooks/FetchDiets";
 export const Diet = () => {
   const { isLoading, diets } = FetchdietsGroups();
   return (
-    <div className="bg-[#f5f5f5] pb-[100px] ">
-      <div className="text-center *:my-2 mt-2">
+    <div className="bg-[#f0f0f0] pb-[100px] -mt-2 ">
+      <div className="text-center *:my-2 pt-6">
         <span className="text-3xl font-montserrat font-bold text-blue-500">
           DIET GUIDE
         </span>
-        <div>
-          <span className="text-gray-500 lg:text-lg lg:px-10 lg:leading-relaxed px-2">
+        <div className="flex">
+          <span className="text-gray-500 lg:text-lg lg:px-10 lg:leading-relaxed line-clamp-2">
             Confused about what diet you should follow? Read these guides and
             choose a diet style that best suits your goals, food preferences and
             lifestyle.
           </span>
         </div>
       </div>
-      <div className="flex  flex-wrap w-full gap-10 justify-center mt-4">
-        {diets.map((diet) => {
-          return (
-            <div>
-              <DietCard name={diet.name} img={diet.img} />
-            </div>
-          );
-        })}
+      <div>
+        {isLoading ? (
+          <div className="text-center relative mt-40 text-xl font-montserrat h-screen">
+            Loading....
+          </div>
+        ) : (
+          <div className="flex  flex-wrap w-full gap-10 justify-center mt-4">
+            {diets.map((diet) => {
+              return (
+                <div>
+                  <DietCard name={diet.name} img={diet.img} />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

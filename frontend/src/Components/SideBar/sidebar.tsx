@@ -11,11 +11,15 @@ export const Sidebar = () => {
   return (
     <div className="">
       {/* vertical sidbar  */}
-      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[300px] flex-col  text-center  mt-[-2px] ml-[-2px] fixed left-0 " >
-        <div className="w-full h-20 items-center justify-center flex text-xl border-b text-white bg-black
-           font-semibold  pr-6 ">
+      <div className="border border-r-1 border-gray-200 h-dvh hidden sm:flex w-[300px] flex-col  text-center  mt-[-2px] ml-[-2px] fixed left-0 ">
+        <div
+          className="w-full h-20 items-center justify-center flex text-xl border-b text-white bg-black
+           font-semibold  pr-6 "
+        >
           <img src={gymLaunch} alt="" width={100} className="mt-2" />
-          <p className="relative -left-5 text-xl font-extrabold">GymDominator</p>
+          <p className="relative -left-5 text-xl font-extrabold">
+            GymDominator
+          </p>
         </div>
         <div className="relative top-20 flex flex-col gap ">
           <NavigateDiv
@@ -45,6 +49,15 @@ export const Sidebar = () => {
               <RecipesSvg active={location.pathname == "/dashboard/recipes"} />
             }
             active={location.pathname == "/dashboard/recipes"}
+          />
+          <NavigateDiv
+            text="Today's plan"
+            svg={
+              <WorkoutSvg
+                active={location.pathname == "/dashboard/today'splan"}
+              />
+            }
+            active={location.pathname == "/dashboard/today'splan"}
           />
         </div>
       </div>
