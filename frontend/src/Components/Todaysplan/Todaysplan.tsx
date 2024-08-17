@@ -29,7 +29,7 @@ export const TodaysPlan = () => {
   }, []);
   return (
     <div className="h-dvh bg-[#f0f0f0] ">
-      <div className="ml-24 pt-10">
+      <div className="lg:ml-24 lg:pt-10 pt-5 ml-5">
         <div className="text-4xl font-montserrat font-semibold">
           <span>Today's plans </span>
         </div>
@@ -38,7 +38,7 @@ export const TodaysPlan = () => {
         </div>
       </div>
 
-      <div className="flex justify-center gap-10 items-center mt-20">
+      <div className="flex justify-center gap-10 items-center mt-20 flex-col lg:flex">
         <ComponentCard Excercise={Excercise} />
         <MealsaComponentCard />
       </div>
@@ -50,7 +50,7 @@ const ComponentCard = ({ Excercise }: { Excercise: Excercisetype[] }) => {
   const [iscomplete, setiscomplete] = useState<boolean>(false);
   const [width, setwidth] = useState<number>(20);
   return (
-    <div className="bg-white text-white min-w-[500px] px-8 py-5 rounded-lg">
+    <div className="bg-white text-white lg:min-w-[500px] px-8 py-5 rounded-lg">
       <div className="text-center ">
         <div className="inline-flex gap-2 *:text-gray-600">
           <Svg />
@@ -59,10 +59,10 @@ const ComponentCard = ({ Excercise }: { Excercise: Excercisetype[] }) => {
         <div className="text-gray-400">View All</div>
       </div>
       <div className="">
-        <div className="space-y-4  mt-3 text-gray-600">
+        <div className="space-y-4  mt-3 text-gray-600 ">
           {Excercise.map((ex) => {
             return (
-              <div>
+              <div className="">
                 <WorkoutComponent name={ex.name} />
               </div>
             );
@@ -163,7 +163,7 @@ const SvgMeal = () => {
 };
 const MealsaComponentCard = () => {
   return (
-    <div className="bg-black text-white min-w-[500px] px-8 py-5 rounded-lg">
+    <div className="bg-black text-white lg:min-w-[500px] min-w-[400px] px-8 py-5 rounded-lg mb-40">
       <div className="text-center ">
         <div className="inline-flex gap-2">
           <SvgMeal />
