@@ -1,8 +1,22 @@
+import { Progress } from "@components/Progress/progress";
+import { ProgressBar } from "@components/progressBar";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
-import { useEffect, useState } from "react";
+import { FetchExcercise } from "@hooks/FetchExcercise";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Excercisetype } from "@state/Selectors/SingleWorkoutSelectorsFamily";
 export const TodaysPlan = () => {
   const [currentDate, setCurrentDate] = useState("");
+  let muscle = "chest";
+  let { isLoading, Excercise } = FetchExcercise({ muscle });
 
+  Excercise = Excercise.filter(
+    (exercise) =>
+      exercise.MuscleGroup &&
+      exercise.MuscleGroup.name &&
+      exercise.MuscleGroup.name.toLowerCase() === muscle.toLowerCase()
+  );
+
+  console.log(Excercise);
   useEffect(() => {
     const date = new Date();
     const options: Intl.DateTimeFormatOptions = {
@@ -25,45 +39,85 @@ export const TodaysPlan = () => {
       </div>
 
       <div className="flex justify-center gap-10 items-center mt-20">
-        <ComponentCard />
+        <ComponentCard Excercise={Excercise} />
         <MealsaComponentCard />
       </div>
     </div>
   );
 };
 
-const ComponentCard = () => {
+const ComponentCard = ({ Excercise }: { Excercise: Excercisetype[] }) => {
+  const [iscomplete, setiscomplete] = useState<boolean>(false);
+  const [width, setwidth] = useState<number>(20);
   return (
     <div className="bg-white text-white min-w-[500px] px-8 py-5 rounded-lg">
       <div className="text-center ">
-        <div className="inline-flex gap-2 text-gray-400">
+        <div className="inline-flex gap-2 *:text-gray-600">
           <Svg />
-          <span className="text-2xl font-pop text-gray-400 ">Workouts</span>
+          <span className="text-2xl font-pop ">Workouts</span>
         </div>
         <div className="text-gray-400">View All</div>
       </div>
       <div className="">
         <div className="space-y-4  mt-3 text-gray-600">
-          <div>
-            <div className="text-lg font-pop">Bench Press</div>
-            <div className="inline ">
-              <progress />
-            </div>
-            <div className="text-sm block text-gray-500">75% completed</div>
-          </div>
-          <div>
-            <div className="text-lg font-pop">Bench Press</div>
-            <div className="text-sm block text-gray-500">75% completed</div>
-          </div>
-          <div>
-            <div className="text-lg font-pop">Bench Press</div>
-            <div className="text-sm block text-gray-500">75% completed</div>
-          </div>
+          {Excercise.map((ex) => {
+            return (
+              <div>
+                <WorkoutComponent name={ex.name} />
+              </div>
+            );
+          })}
         </div>
         <div></div>
       </div>
+
       <div className="py-2  bg-black text-center font-montserrat font-semibold mt-8 text-base rounded-lg ">
         Start Workout
+      </div>
+    </div>
+  );
+};
+
+const WorkoutComponent = ({
+  // iscomplete,
+  // setiscomplete,
+  name,
+}: {
+  // iscomplete: boolean;
+  // setiscomplete: Dispatch<SetStateAction<boolean>>;
+  name: string;
+}) => {
+  const [iscomplete, setiscomplete] = useState<boolean>(false);
+  // console.log("iscomplete", iscomplete);
+  return (
+    <div>
+      <div>
+        <div className="flex w-full">
+          <div className="flex items-center w-full group transition-all duration-500">
+            <input
+              type="checkbox"
+              className="size-4 mr-2 "
+              onClick={() => {
+                setiscomplete((prevState) => !prevState);
+              }}
+            />
+            <div className="w-full  flex  items-center justify-between  ">
+              <div className="font-pop  group-has-[:checked]:line-through">
+                {name}
+              </div>
+              <div className="w-32 ">
+                <ProgressBar width={iscomplete ? 100 : 0} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`text-gray-400 ${iscomplete ? "line-through" : " "}`}
+          text-sm
+        >
+          10 X 3
+        </div>
+        {/* <div className="text-sm block text-gray-500">75% completed</div> */}
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ export const Weekcomponent = () => {
          */}
 
         {isLoading ? (
-          <div className="text-center text-xl">Loading ...</div>
+          <div className="lg:min-w-[1040px] text-center text-xl">Loading ...</div>
         ) : (
           SlicedMuscles.map((mus, key) => {
             console.log("from the daycard ", mus.Exercise);
