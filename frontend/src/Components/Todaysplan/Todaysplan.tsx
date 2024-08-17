@@ -37,8 +37,8 @@ export const TodaysPlan = () => {
           <span className="text-gray-500 ">{currentDate}</span>
         </div>
       </div>
-
-      <div className="flex justify-center gap-10 items-center mt-20 flex-col lg:flex">
+{/* figure this out */}
+      <div className="flex justify-center gap-10  mt-20  items-center flex-col lg;flex-row  ">
         <ComponentCard Excercise={Excercise} />
         <MealsaComponentCard />
       </div>
