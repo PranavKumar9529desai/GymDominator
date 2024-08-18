@@ -19,22 +19,24 @@ export const WorkoutComponentCard = ({
     setCompletionStatus(newStaus);
     console.log(completionStatus);
     if (newStaus.every((status) => status)) {
-      setallcomplete((prevState)=>!prevState);
+      setallcomplete((prevState) => !prevState);
       alert("have you completd the excercise");
     }
   };
+
+  // TODO add this to the habit tracker
   return (
     <div className="relative">
       <div
         className={`${
-          allcomplete ? "absolute  z-10" : "hidden"
+          allcomplete ? "absolute z-10 " : "hidden"
         } flex justify-center items-center bg-gray-400  top-40 right-36`}
       >
         completed svg
       </div>
       <div
         className={`bg-white text-white  px-8 py-5 h-fit rounded-lg  ${
-          allcomplete ? "blur-[1px]" : ""
+          allcomplete ? "blur-[1px] pointer-events-none" : ""
         } `}
       >
         <div className="text-center ">
@@ -62,9 +64,11 @@ export const WorkoutComponentCard = ({
         </div>
 
         <div className="py-2  bg-black text-center font-montserrat font-semibold mt-8 text-base rounded-lg ">
-          Complete Workout
+          {allcomplete ? "all completed" : "complete the workout"}
         </div>
       </div>
     </div>
   );
 };
+
+
