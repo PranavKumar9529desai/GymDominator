@@ -11,6 +11,8 @@ export default defineConfig({
       '@state': '/src/State',
       '@hooks': '/src/Hooks',
       "@routes": "/src/Routes",
+      "@ui": "/src/ui",
+      "@lib": "/src/lib"
     }
   }
 

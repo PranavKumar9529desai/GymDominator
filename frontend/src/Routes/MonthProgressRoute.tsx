@@ -7,7 +7,7 @@ export const MonthProgressRoute = () => {
         <div className="col-span-1">
           <Sidebar />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 -ml-2 bg-[#f0f0f0] h-screen">
           <MonthProgressComponent />
         </div>
       </div>

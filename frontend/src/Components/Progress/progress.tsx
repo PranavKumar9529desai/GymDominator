@@ -26,7 +26,7 @@ export const Weekcomponent = () => {
         <div>
           <ProgressBar width={10} />
         </div>
-        <span className=" text-5xl font-extrabold font-montserrat  ">
+        <span className=" text-5xl font-extrabold font-roboto  ">
           Week 1
         </span>
         <span className="text-gray-400 lg:text-lg font-overpass">
@@ -85,7 +85,7 @@ const DayCard = ({
   console.log("inside the day card", ExcerciseList);
   return (
     <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg bg-white">
-      <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">
+      <div className="text-center text-2xl font-semibold text-blue-400 font-roboto">
         {day}
       </div>
       <div className="text-gray-400 text-lg font-roboto">{muscle}</div>
@@ -104,7 +104,7 @@ const DayCard = ({
               return (
                 <div
                   key={key}
-                  className="hover:text-blue-400 py-1  hover:-translate-y-1 transition-all font-montserrat font-semibold text-gray-500 h-10 my-auto"
+                  className="hover:text-blue-400 py-1  hover:-translate-y-1 transition-all font-roboto font-semibold text-gray-500 h-10 my-auto"
                 >
                   <input
                     type="checkbox"

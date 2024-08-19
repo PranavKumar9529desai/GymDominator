@@ -25,7 +25,7 @@ export const MealsaComponentCard = () => {
           </div>
         </div>
       </div>
-      <div className="py-2  bg-white text-black text-center font-montserrat font-semibold mt-8 text-base rounded-lg ">
+      <div className="py-2  bg-white text-black text-center font-roboto font-semibold mt-8 text-base rounded-lg ">
         Start Workout
       </div>
     </div>

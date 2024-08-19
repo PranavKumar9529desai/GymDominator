@@ -164,7 +164,7 @@ const NavigateDivDropDown = ({
 const SideDropDown = (): JSX.Element => {
   const navigate = useNavigate();
   return (
-    <div className=" *:w-full  text-center  space-y-3 my-2 hover:*:bg-gray-200 hover:*:text-blue-400 *:py-2 border-b-2 border-gray-200">
+    <div className=" *:w-full  text-center text-gray-600 space-y-2 my-2 hover:*:bg-gray-200 hover:*:text-blue-400 *:py-3 *:border-b-2 border-gray-200">
         <button
           onClick={() => {
             navigate("/dashboard/myprogress/week");
@@ -172,7 +172,7 @@ const SideDropDown = (): JSX.Element => {
         >
           Weekly Progress
         </button>
-        <button
+        <button className="relative -top-2"
           onClick={() => {
             navigate("/dashboard/myprogress/month");
           }}

@@ -29,7 +29,7 @@ export const TodaysPlan = () => {
   return (
     <div className="pb-20 bg-[#f0f0f0] lg:h-dvh ">
       <div className="lg:ml-24 lg:pt-10 pt-5 ml-5 w-fit mb-10">
-        <div className="text-4xl font-montserrat font-semibold ">
+        <div className="text-4xl font-roboto font-semibold ">
           <span>Today's plans </span>
         </div>
         <div className="ml-2">
