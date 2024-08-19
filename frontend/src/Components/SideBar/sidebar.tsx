@@ -1,11 +1,12 @@
+import { useEffect } from "react";
 import { DietSvg } from "@components/Svg/dietSvg";
+import { useRef } from "react";
 import { ProgressSvg } from "@components/Svg/progressSvg";
 import { RecipesSvg } from "@components/Svg/recipesSvg";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
 import gymLaunch from "@assets/gym-launch-logo.png";
 import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
 import { useLocation, useNavigate } from "react-router-dom";
-import { JsxElement } from "typescript";
 import { RigthArrow } from "@components/Svg/rigtharrow";
 import { useState } from "react";
 
@@ -25,7 +26,7 @@ export const Sidebar = () => {
           </p>
         </div>
         <div className="relative top-20 flex flex-col gap ">
-          <NavigateDiv
+          <NavigateDivDropDown
             text="My Progress"
             svg={
               <ProgressSvg
@@ -78,14 +79,10 @@ const NavigateDiv = ({
   text,
   svg,
   active,
-  svg2,
-  DropDown,
 }: {
   text: string;
   svg?: JSX.Element;
   active: boolean;
-  svg2?: JSX.Element;
-  DropDown?: any;
 }) => {
   // const [ showdropdown , setshowdropdown ] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -99,7 +96,51 @@ const NavigateDiv = ({
           }`}
           // className="grid grid-cols-5 hover:bg-gray-200 *:h-12 *:flex *:items-center *:justify-center  font-semibold text-lg transition-all group"
           onClick={() => {
-            //    navigate(`/dashboard/${text.split(" ").join("").toLowerCase()}`);
+            navigate(`/dashboard/${text.split(" ").join("").toLowerCase()}`);
+          }}
+        >
+          <div className="col-span-2 justify-self-end ">{svg}</div>
+          <span
+            className={`col-span-3 justify-self-start border-b border-transparent text-gray-500 ${
+              active ? `!text-blue-500` : `group-hover:text-blue-400`
+            } `}
+          >
+            {text}
+          </span>
+        </button>
+      </div>
+    </>
+  );
+};
+
+const NavigateDivDropDown = ({
+  text,
+  svg,
+  active,
+  svg2,
+  DropDown,
+}: {
+  text: string;
+  svg?: JSX.Element;
+  active: boolean;
+  svg2?: JSX.Element;
+  DropDown?: JSX.Element;
+}) => {
+  const [showdropdown, setshowdropdown] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [isDropDownVisible, setIsDropDownVisible] = useState<boolean>(false);
+  console.log(isDropDownVisible);
+  return (
+    <>
+      <div className="flex justify-center w-full peer">
+        <button
+          className={`w-full grid grid-cols-5 hover:bg-gray-200 h-16 items-center *:flex *:items-center *:justify-center  font-semibold text-lg transition-all  group relative ${
+            active ? "bg-gray-200" : "hover:bg-gray-200"
+          }`}
+          // className="grid grid-cols-5 hover:bg-gray-200 *:h-12 *:flex *:items-center *:justify-center  font-semibold text-lg transition-all group"
+          onClick={() => {
+            setIsDropDownVisible((prevState) => !prevState);
+            //  navigate(`/dashboard/${text.split(" ").join("").toLowerCase()}`);
           }}
         >
           <div className="col-span-2 justify-self-end ">{svg}</div>
@@ -113,16 +154,31 @@ const NavigateDiv = ({
           </span>
         </button>
       </div>
-      <div className="hidden peer-hover:block">{DropDown}</div>
+      <div className={`${isDropDownVisible == true ? "block -mt-2" : "hidden"}`}>
+        {DropDown}
+      </div>
     </>
   );
 };
 
 const SideDropDown = (): JSX.Element => {
+  const navigate = useNavigate();
   return (
-    <div className="text-center *:border-2   ">
-      <div>Weekly Progress</div>
-      <div>Monthly Progress</div>
+    <div className=" *:w-full  text-center  space-y-3 my-2 hover:*:bg-gray-200 hover:*:text-blue-400 *:py-2 border-b-2 border-gray-200">
+        <button
+          onClick={() => {
+            navigate("/dashboard/myprogress/week");
+          }}
+        >
+          Weekly Progress
+        </button>
+        <button
+          onClick={() => {
+            navigate("/dashboard/myprogress/month");
+          }}
+        >
+          Monthly Progress
+        </button>
     </div>
   );
 };

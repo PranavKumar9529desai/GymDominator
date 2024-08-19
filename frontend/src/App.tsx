@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { MonthProgressRoute } from "@routes/MonthProgressRoute";
 import { Dashboard } from "@routes/dashboard ";
 import { Home } from "@routes/homeRoute";
 import { RecoilRoot } from "recoil";
@@ -31,6 +32,11 @@ function Main() {
       <Route path="/dashboard/diet" element={<DietRoute />} />
       <Route path="/dashboard/recipes" element={<RecicpesRoute />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
+      <Route path="/dashboard/myprogress/week" element={<MyProgressRoute />} />
+      <Route
+        path="/dashboard/myprogress/month"
+        element={<MonthProgressRoute />}
+      />
       <Route path="/dashboard/today'splan" element={<TodaysPlanRoute />} />
 
       <Route path="*" element={<Home />} />

@@ -1,6 +1,6 @@
 export const RigthArrow = () => {
   return (
-    <div className={`group-hover:rotate-90 transition-all`}>
+    <div className={`group-focus:rotate-90 transition-all`}>
       <svg
         fill="CurrentColor"
         height="12px"
