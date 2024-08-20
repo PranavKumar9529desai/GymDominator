@@ -7,7 +7,7 @@ export const HealthProfileFormRoute = () => {
       <div className="">
         <Navbar2 TextColor="black" />
       </div>
-      <div className="relative top-24">
+      <div className="relative top-24 ">
         <HealthProfileForm />
       </div>
     </div>
