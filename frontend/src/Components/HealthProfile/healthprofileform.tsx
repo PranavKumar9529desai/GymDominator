@@ -22,6 +22,7 @@ import {
 } from "@components/ui/ui/select";
 import { Button } from "@components/ui/ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export type DietType = "vegetarian" | "non-vegetarian";
 
@@ -33,15 +34,27 @@ export const HealthProfileForm = () => {
   const [otp, setotp] = useState<string>("");
   const [diet, setdiet] = useState<DietType>("non-vegetarian");
 
+  const navigate = useNavigate();
+
   return (
     <div className="">
-      <form className=""
+      <form
+        className=""
         action=""
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
+          console.log(
+            "healthprofile ",
+            fullname,
+            contact,
+            height,
+            weight,
+            otp,
+            diet
+          );
         }}
       >
-        <Card className=" lg:max-w-6xl mx-auto bg-[#ffff] px-8">
+        <Card className=" lg:max-w-6xl mx-auto bg-[#ffff] lg:px-8 px-2 ">
           <CardHeader>
             <CardTitle className="">Health Profile</CardTitle>
             <CardDescription className="text-gray-500">
@@ -51,7 +64,7 @@ export const HealthProfileForm = () => {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label  htmlFor="name">Full Name</Label>
                 <Input
                   className="bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 placeholder:text-gray-400"
@@ -123,10 +136,13 @@ export const HealthProfileForm = () => {
               </Select>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-center">
+          <CardFooter className="flex justify-center lg:mt-0 ">
             <Button
               type="submit"
               className="w-40 bg-black text-white  text-center"
+              onClick={() => {
+                navigate("/onboarding/healthprofile/workoutplace");
+              }}
             >
               Submit
             </Button>
