@@ -21,12 +21,24 @@ import {
   SelectItem,
 } from "@components/ui/ui/select";
 import { Button } from "@components/ui/ui/button";
+import { useState } from "react";
+
+export type DietType = "non-veg" | "veg";
+
 export const HealthProfileForm = () => {
+  const [fullname, setfullname] = useState<string>("");
+  const [contact, setcontact] = useState<number>();
+  const [height, setheight] = useState<number>();
+  const [weight, setweight] = useState<number>();
+  const [otp, setotp] = useState<string>();
+  const [diet, setdiet] = useState<DietType>("non-veg");
+
+  console.log(fullname, contact, height, weight, diet);
   return (
     <div className="">
-      <Card className=" max-w-4xl mx-auto bg-[#ffff] ">
+      <Card className=" max-w-4xl mx-auto bg-[#ffff]">
         <CardHeader>
-          <CardTitle>Health Profile</CardTitle>
+          <CardTitle className="">Health Profile</CardTitle>
           <CardDescription className="text-gray-500">
             Fill out the form to create your personalized health profile.
           </CardDescription>
@@ -35,20 +47,31 @@ export const HealthProfileForm = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
-              <Input id="name" placeholder="Enter your full name" />
+              <Input
+                id="name"
+                placeholder="Enter your full name"
+                setfullname={setfullname}
+              />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="contact" >Contact Number</Label>
+              <Label htmlFor="contact">Contact Number</Label>
               <Input
                 id="contact"
                 type="tel"
                 placeholder="Enter your contact number"
+                setcontact={setcontact}
               />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="otp">One-Time Password</Label>
-            <InputOTP maxLength={5} pattern="^[a-zA-Z0-9]+$" id="otp">
+            <InputOTP
+              maxLength={5}
+              pattern="^[a-zA-Z0-9]+$"
+              id="otp"
+              value={otp}
+              onChange={(event) => setotp(event.target.value)}
+            >
               <InputOTPGroup>
                 <InputOTPSlot index={0} />
                 <InputOTPSlot index={1} />
@@ -65,6 +88,7 @@ export const HealthProfileForm = () => {
                 id="height"
                 type="number"
                 placeholder="Enter your height"
+                setheight={setheight}
               />
             </div>
             <div className="space-y-2">
@@ -73,6 +97,7 @@ export const HealthProfileForm = () => {
                 id="weight"
                 type="number"
                 placeholder="Enter your weight"
+                setweight={setweight}
               />
             </div>
           </div>

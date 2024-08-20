@@ -1,12 +1,56 @@
-import * as React from "react"
-
-import { cn } from "@components/lib/utils"
+import * as React from "react";
+import { DietType } from "@components/HealthProfile/healthprofileform";
+import { cn } from "@components/lib/utils";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  setfullname?: (value: string) => void;
+  setcontact?: (value: number) => void;
+  setheight?: (value: number) => void;
+  setweight?: (value: number) => void;
+  setotp?: (value: number) => void;
+  setdiet?: (value: string) => void;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  (
+    {
+      className,
+      type,
+      setfullname,
+      setcontact,
+      setheight,
+      setweight,
+      setdiet,
+      ...props
+    },
+    ref
+  ) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (setfullname) {
+        setfullname(event.target.value);
+      }
+
+      if (setcontact) {
+        setcontact(Number(event.target.value));
+      }
+
+      if (setheight) {
+        setheight(Number(event.target.value));
+      }
+
+      if (setweight) {
+        setweight(Number(event.target.value));
+      }
+
+      if (setdiet) {
+        setdiet(event.target.value as DietType);
+      }
+
+      if (props.onChange) {
+        props.onChange(event);
+      }
+    };
     return (
       <input
         type={type}
@@ -15,11 +59,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className
         )}
         ref={ref}
+        onChange={handleChange}
         {...props}
       />
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
-export { Input }
+export { Input };

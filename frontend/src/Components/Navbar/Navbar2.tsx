@@ -2,7 +2,7 @@ import { useEffect, useState, Dispatch } from "react";
 import { useNavigate } from "react-router-dom";
 
 type colors = "white" | "black";
-
+// fix this navabar make it reponsive 
 export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
   const navigate = useNavigate();
   const [isOpen, SetIsOpen] = useState<boolean>(false);
@@ -44,7 +44,6 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
           <button
             className="size-10 "
             onClick={() => {
-              // console.log("isopen is ", isOpen);
               SetIsOpen((prevState) => !prevState);
             }}
           >

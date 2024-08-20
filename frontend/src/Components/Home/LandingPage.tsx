@@ -6,7 +6,7 @@ export const LadingPage = () => {
   return (
     <div>
       <header>
-        <section className="container header-section ">
+        <section className="container header-section">
           <div className="header-logo">
             {/* <img className="" src="src/assets/Gym-logo.jpg" alt="" /> */}
           </div>

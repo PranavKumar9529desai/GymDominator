@@ -40,7 +40,7 @@ export const TodaysPlan = () => {
       {isLoading ? (
         <div className="flex justify-center items-center h-full">Loading</div>
       ) : (
-        <div className=" lg:flex gap-10 justify-evenly items-center lg:mt-16  mx-10 lg:mx-0  space-y-10 lg:space-y-0">
+        <div className="lg:flex gap-10 justify-evenly items-center lg:mt-16  mx-10 lg:mx-0  space-y-10 lg:space-y-0">
           <WorkoutComponentCard Excercise={Excercise} />
           <MealsaComponentCard />
         </div>
