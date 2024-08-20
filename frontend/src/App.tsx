@@ -15,6 +15,8 @@ import { DietRoute } from "@routes/dietRoute";
 import { RecicpesRoute } from "@routes/RecipesRoute";
 import { TodaysPlanRoute } from "@routes/todaysplanRoute";
 import { ChooseAccountibilityPartnerRoute } from "@routes/ChooseAccountibilityPartnerRoute";
+import { HealthProfileForm } from "@components/HealthProfile/healthprofileform";
+import { HealthProfileFormRoute } from "@routes/HealthprofileformRoute";
 function Main() {
   return (
     <Routes>
@@ -41,7 +43,14 @@ function Main() {
       />
       <Route path="/dashboard/today'splan" element={<TodaysPlanRoute />} />
       <Route path="/onboarding" element={<OnboardingRoute />} />
-      <Route path="/onboarding/chooseacpartner" element={<ChooseAccountibilityPartnerRoute />} />
+      <Route
+        path="/onboarding/chooseacpartner"
+        element={<ChooseAccountibilityPartnerRoute />}
+      />
+      <Route
+        path="/onboarding/chooseacpartner/healthprofile"
+        element={<HealthProfileFormRoute/> }
+      />
       <Route path="*" element={<Home />} />
     </Routes>
   );

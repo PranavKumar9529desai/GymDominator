@@ -1,5 +1,9 @@
 export const ChooseAccountibulityPartner = ()=>{
-    return <div>
-         hello from the accountibility partner 
+    return <div className="relative top-20 flex justify-center">
+        <div>
+         <form action="">
+            
+         </form>
+        </div>
     </div>
 }

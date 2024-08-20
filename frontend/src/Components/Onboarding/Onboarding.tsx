@@ -41,7 +41,7 @@ const CalltoActionButton = () => {
     <button
       className="bg-blue-500 text-white font-roboto rounded-md text-center w-[400px]  py-3 text-lg"
       onClick={() => {
-        navigate("/onboarding/chooseacpartner");
+        navigate("/onboarding/chooseacpartner/healthprofile");
       }}
     >
       Start Chanllenge
