@@ -10,7 +10,7 @@ export const Onbording = () => {
 
       <div className="pt-40 flex  flex-col  text-center ">
         <div className="text-7xl font-bold font-roboto  ">
-          Free Gym
+          Free Gym 
           <div>Access for</div>
         </div>
         <div className="bg-gradient-to-tr from-[hsl(240,84%,90%)]  to-[#0f07ed] text-transparent bg-clip-text ">
