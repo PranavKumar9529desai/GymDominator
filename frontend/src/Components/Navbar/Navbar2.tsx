@@ -24,12 +24,12 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
               src="/src/assets/gym-launch-logo.png"
               alt="logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-roboto top-[1px]">
+            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-montserrat top-[1px]">
               GymDominator
             </span>
           </div>
         </button>
-        <div className="gap-20 mr-6 lg:flex hidden text-base font-extrabold *:hover: ">
+        <div className="gap-20  mr-6  lg:flex hidden text-base font-extrabold *:hover: ">
           <div className="border-b-2 border-transparent hover:border-gray-900 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
             About us
           </div>

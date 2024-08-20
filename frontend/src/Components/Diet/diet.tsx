@@ -5,7 +5,7 @@ export const Diet = () => {
   return (
     <div className="bg-[#f0f0f0] pb-[100px] -mt-2 ">
       <div className="text-center *:my-2 pt-6">
-        <span className="text-3xl font-roboto font-bold text-blue-500">
+        <span className="text-3xl font-montserrat font-bold text-blue-500">
           DIET GUIDE
         </span>
         <div className="flex">
@@ -18,7 +18,7 @@ export const Diet = () => {
       </div>
       <div>
         {isLoading ? (
-          <div className="text-center relative mt-40 text-xl font-roboto h-screen">
+          <div className="text-center relative mt-40 text-xl font-montserrat h-screen">
             Loading....
           </div>
         ) : (
@@ -45,10 +45,10 @@ const DietCard = ({ name, img }: { name: string; img: string }) => {
       </div>
       <div className=" group-hover:text-blue-500">
         <div className="my-2 line-clamp-1">
-          <span className="text-xl font-roboto ">{name}</span>
+          <span className="text-xl font-montserrat ">{name}</span>
         </div>
         <div className="">
-          <span className="text-gray-500 font-roboto group-hover:text-blue-500 line-clamp-3 lg:line-clamp-4 leading-loose">
+          <span className="text-gray-500 font-montserrat group-hover:text-blue-500 line-clamp-3 lg:line-clamp-4 leading-loose">
             Learn everything you need to know before starting the {name} plan
             including it's history, guidelines & components, & all of the
             science behind it.

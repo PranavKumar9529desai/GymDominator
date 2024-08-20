@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { OnboardingRoute } from "@routes/OnboardingRoute";
 import "./App.css";
 import { MonthProgressRoute } from "@routes/MonthProgressRoute";
 import { Dashboard } from "@routes/dashboard ";
@@ -13,6 +14,7 @@ import { WorkoutRoute } from "@routes/workoutRoute";
 import { DietRoute } from "@routes/dietRoute";
 import { RecicpesRoute } from "@routes/RecipesRoute";
 import { TodaysPlanRoute } from "@routes/todaysplanRoute";
+import { ChooseAccountibilityPartnerRoute } from "@routes/ChooseAccountibilityPartnerRoute";
 function Main() {
   return (
     <Routes>
@@ -38,7 +40,8 @@ function Main() {
         element={<MonthProgressRoute />}
       />
       <Route path="/dashboard/today'splan" element={<TodaysPlanRoute />} />
-
+      <Route path="/onboarding" element={<OnboardingRoute />} />
+      <Route path="/onboarding/chooseacpartner" element={<ChooseAccountibilityPartnerRoute />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

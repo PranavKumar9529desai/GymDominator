@@ -63,7 +63,7 @@ export const WorkoutComponentCard = ({
           </div>
         </div>
 
-        <div className="py-2  bg-black text-center font-roboto font-semibold mt-8 text-base rounded-lg ">
+        <div className="py-2  bg-black text-center font-montserrat font-semibold mt-8 text-base rounded-lg ">
           {allcomplete ? "all completed" : "complete the workout"}
         </div>
       </div>

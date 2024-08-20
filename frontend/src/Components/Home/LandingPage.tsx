@@ -13,22 +13,22 @@ export const LadingPage = () => {
           <div className="header-title animate-pop-in font-overpass ">
             <p>
               Gymdominator Will Ensure Your{" "}
-              <span className="line-break bg-gradient-to-r from-[hsl(193,95%,68%)] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
+              <span className="line-break  bg-gradient-to-r from-[hsl(193,95%,68%)] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
                 Consistency.
               </span>
             </p>
           </div>
           <div className="header-subtitle animate-pop-in">
-            <div className="icon-container my-1 mr-2">
-              <img
-                src="/src/assets/green-tick-icon.png"
-                alt=""
-                width={20}
-                height={18}
-              />
+              <div className="icon-container my-1 mr-2">
+                <img
+                  src="/src/assets/green-tick-icon.png"
+                  alt=""
+                  width={20}
+                  height={18}
+                />
+              </div>
+              <p>start now and get 50% discount</p>
             </div>
-            <p>start now and get 50% discount</p>
-          </div>
           <div className="button-container w-full flex justify-center items-end h-full">
             <div className="header-button animate-pop-in w-fit bg-blue-600 px-5 py-3 rounded-lg text-white font-bold hover:bg-blue-800 transition-colors ">
               <button

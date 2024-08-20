@@ -5,7 +5,7 @@ export const Recipes = () => {
   return (
     <div className="bg-[#f5f5f5] h-dvh -ml-2">
       <div className="text-center *:my-3 mt-2 ">
-        <span className="text-3xl font-roboto font-bold text-blue-500 ">
+        <span className="text-3xl font-montserrat font-bold text-blue-500 ">
           {"Recipe Categories"}
         </span>
         <div className="px-3 lg:px-0">
@@ -18,7 +18,7 @@ export const Recipes = () => {
       </div>
       <div>
         {isLoading ? (
-          <div className="text-center relative top-40 text-xl font-roboto">Loading....</div>
+          <div className="text-center relative top-40 text-xl font-montserrat">Loading....</div>
         ) : (
           <div>
             <div className="flex  flex-wrap w-full gap-10 justify-center mt-10">
@@ -45,7 +45,7 @@ const RecipesCard = ({ name, img }: { name: string; img: string }) => {
       </div>
       <div className="px-4">
         <div className="my-2 text-center">
-          <span className="text-xl font-roboto w-full group-hover:text-blue-600">
+          <span className="text-xl font-montserrat w-full group-hover:text-blue-600">
             {name}
           </span>
         </div>

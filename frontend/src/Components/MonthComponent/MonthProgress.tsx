@@ -5,7 +5,7 @@ export const MonthProgressComponent = () => {
   console.log(date);
   return (
     <div className="h-full">
-        <div className="text-3xl font-semibold font-roboto relative top-10 ml-16">
+        <div className="text-3xl font-semibold font-montserrat relative top-10 ml-16">
             <span className="">Track your progress with Gymdominator</span>
         </div>
       <div className="flex justify-center items-center h-full">

@@ -34,7 +34,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
               src="/src/assets/gym-launch-logo.png"
               alt="logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-roboto top-[1px]">
+            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-montserrat top-[1px]">
               GymDominator
             </span>
           </div>

@@ -9,7 +9,7 @@ export const Allworkouts = () => {
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
-                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-roboto">
+                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-montserrat">
                   Choose muscle to train
                 </span>
               </div>
@@ -52,7 +52,7 @@ const MuscleGroup = ({ name, img }: { name: string; img: string }) => {
       <div className="flex justify-center pt-3 ">
         <img src={img} alt={name} className="w-9/12 rounded-2xl" />
       </div>
-      <div className="flex justify-center items-center h-10 font-roboto font-bold lg:text-3xl text-2xl ">
+      <div className="flex justify-center items-center h-10 font-montserrat font-bold lg:text-3xl text-2xl ">
         {name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}
       </div>
     </button>
