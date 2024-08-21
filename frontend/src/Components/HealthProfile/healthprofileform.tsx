@@ -1,4 +1,9 @@
 import {
+  UserHealthprofileAtom,
+  UserHealthprofileType,
+} from "@state/Atom/UserHealthProfileAtom";
+import { useRecoilState } from "recoil";
+import {
   Card,
   CardHeader,
   CardTitle,
@@ -7,11 +12,11 @@ import {
   CardFooter,
 } from "@components/ui/ui/card";
 import { Label } from "@components/ui/ui/label";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@components/ui/ui/input-otp";
+// import {
+//   InputOTP,
+//   InputOTPGroup,
+//   InputOTPSlot,
+// } from "@components/ui/ui/input-otp";
 import { Input } from "@components/ui/ui/input";
 import {
   Select,
@@ -23,18 +28,18 @@ import {
 import { Button } from "@components/ui/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { coustomWarningMsg } from "@components/customAlerts";
 
 export type DietType = "vegetarian" | "non-vegetarian";
 
 export const HealthProfileForm = () => {
   const [fullname, setfullname] = useState<string>("");
-  const [contact, setcontact] = useState<number>();
-  const [height, setheight] = useState<number>();
-  const [weight, setweight] = useState<number>();
+  const [contact, setcontact] = useState<number>(0);
+  const [height, setheight] = useState<number>(0);
+  const [weight, setweight] = useState<number>(0);
   const [otp, setotp] = useState<string>("");
   const [diet, setdiet] = useState<DietType>("non-vegetarian");
-
+  const [userHealthProfile, setUserHealthProfile] =
+    useRecoilState<UserHealthprofileType>(UserHealthprofileAtom);
   const navigate = useNavigate();
 
   return (
@@ -44,16 +49,16 @@ export const HealthProfileForm = () => {
         action=""
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          console.log(
-            "healthprofile form is submitted ",
+          setUserHealthProfile({
             fullname,
             contact,
             height,
             weight,
             otp,
-            diet
-          );
-           navigate("/onboarding/healthprofile/workoutplace");
+            diet,
+          });
+          console.log("healthprofile form is submitted ", userHealthProfile);
+          navigate("/onboarding/healthprofile/workoutplace");
         }}
       >
         <Card className=" lg:max-w-6xl mx-auto bg-[#ffff] lg:px-8 px-2 ">

@@ -1,7 +1,10 @@
 import { coustomWarningMsg } from "@components/customAlerts";
-import { useState } from "react";
+import { HomeWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
+import { GymWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useRecoilState } from "recoil";
+import { WorkoutPrefernenceAtom } from "@state/Atom/WorkoutpreferenceAtom";
+import { useEffect } from "react";
 export const Workoutplace = () => {
   return (
     <div className="">
@@ -25,15 +28,35 @@ const WorkoutplaceCard = ({
   text: WorkoutplaceType;
   img: string;
 }) => {
-  const [workoutplace, setworkoutplace] =
-    useState<WorkoutplaceType>("IN the Gym");
+  const [workoutPreference, setWorkoutPreference] = useRecoilState(
+    WorkoutPrefernenceAtom
+  );
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("gym prefered is ", workoutPreference);
+  }, [workoutPreference]);
   return (
     <button
       onClick={() => {
-        setworkoutplace(text);
-        console.log("user selected", workoutplace);
-        coustomWarningMsg(navigate);
+        setWorkoutPreference((prev) => {
+          if (text === "IN home") {
+            return {
+              WorkoutPlaceType: text,
+            } as HomeWorkoutpreferenceType;
+          } else {
+            return {
+              WorkoutPlaceType: text,
+              gymname: "", // Ensure gymname is included
+            } as GymWorkoutpreferenceType;
+          }
+        });
+        if (text == "IN home") {
+          coustomWarningMsg(navigate);
+        } else {
+          navigate("/onboarding/healthprofile/workoutplace/choosegym");
+        }
       }}
     >
       <div className="lg:w-fit w-[150px] hover:outline-none hover:border-sky-500 hover:ring-2 hover:ring-sky-500 bg-[#f0f0f0] transition-all duration-200 hover:-translate-y-3 hover:scale-105 rounded-b-lg shadow-lg hover:shadow-2xl">

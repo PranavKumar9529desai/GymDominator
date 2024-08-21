@@ -1,6 +1,8 @@
+import { coustomWarningMsg } from "@components/customAlerts";
 import { StarIcon } from "lucide-react";
 import { MapPinIcon } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export const ChooseGym = () => {
   interface gym {
     name: string;
@@ -50,7 +52,7 @@ export const ChooseGym = () => {
   return (
     <div className="pb-40">
       <div className="lg:text-5xl font-semibold font-roboto text-center text-2xl ">
-        Please select your preferred gym from the options below.
+        Select your preferred Gym from the options below
       </div>
       <div className="">
         <div className="flex flex-wrap justify-center gap-8 lg:gap-10 mt-10 px-4 ">
@@ -85,9 +87,11 @@ const Gymcard = ({
   location: string;
 }) => {
   const [gymname, setgymname] = useState<string>("");
-
+  const navigate = useNavigate();
+  
   const handleSelect = (gymname: string) => {
     setgymname(gymname);
+    coustomWarningMsg(navigate);
   };
 
   console.log(gymname);
