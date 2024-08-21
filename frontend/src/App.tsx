@@ -15,9 +15,9 @@ import { DietRoute } from "@routes/dietRoute";
 import { RecicpesRoute } from "@routes/RecipesRoute";
 import { TodaysPlanRoute } from "@routes/todaysplanRoute";
 import { ChooseAccountibilityPartnerRoute } from "@routes/ChooseAccountibilityPartnerRoute";
-import { HealthProfileForm } from "@components/HealthProfile/healthprofileform";
 import { HealthProfileFormRoute } from "@routes/HealthprofileformRoute";
 import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
+import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 function Main() {
   return (
     <Routes>
@@ -55,6 +55,10 @@ function Main() {
       <Route
         path="/onboarding/healthprofile/workoutplace"
         element={<WorkoutplaceRoute />}
+      />
+      <Route
+        path="/onboarding/healthprofile/workoutplace/choosegym"
+        element={<ChooseGymRoute />}
       />
       <Route path="*" element={<Home />} />
     </Routes>

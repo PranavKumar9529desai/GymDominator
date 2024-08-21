@@ -60,6 +60,30 @@ export const coustomLogoutAlert = (navigate: NavigateFunction) => {
   });
 };
 
+export const coustomWarningMsg = (navigate: NavigateFunction) => {
+  Swal.fire({
+    title: "Enroll in the 24 weeks challenge",
+    text: "we will track your progress along the way",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No",
+    confirmButtonText: "Yes",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Sucessfully Enrolled",
+        text: "Welcome to 24 weeks challenge!🎉",
+        confirmButtonText: "get started",
+        icon: "success",
+      }).then(() => {
+        navigate("/dashboard/myprogress");
+      });
+    }
+  });
+};
+
 export const DescriptionModal = async () => {
   const result = await Swal.fire({
     input: "textarea",

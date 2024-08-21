@@ -19,21 +19,23 @@ export const LadingPage = () => {
             </p>
           </div>
           <div className="header-subtitle animate-pop-in">
-              <div className="icon-container my-1 mr-2">
-                <img
-                  src="/src/assets/green-tick-icon.png"
-                  alt=""
-                  width={20}
-                  height={18}
-                />
-              </div>
-              <p>start now and get 50% discount</p>
+            <div className="icon-container my-1 mr-2">
+              <img
+                src="/src/assets/green-tick-icon.png"
+                alt=""
+                width={20}
+                height={18}
+              />
             </div>
+            <p>start now and get 50% discount</p>
+          </div>
           <div className="button-container w-full flex justify-center items-end h-full">
             <div className="header-button animate-pop-in w-fit bg-blue-600 px-5 py-3 rounded-lg text-white font-bold hover:bg-blue-800 transition-colors ">
               <button
                 onClick={() => {
-                  if (localStorage.getItem("jwt") === null) {
+                  if (localStorage.getItem("onboarding") == null) {
+                    navigate("/onboarding");
+                  } else if (localStorage.getItem("jwt") === null) {
                     navigate("/signin");
                   } else {
                     navigate("/dashboard/myprogress");
