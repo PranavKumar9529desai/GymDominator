@@ -26,22 +26,58 @@ import {
   SelectItem,
 } from "@components/ui/ui/select";
 import { Button } from "@components/ui/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios, { AxiosResponse } from "axios";
 
 export type DietType = "vegetarian" | "non-vegetarian";
 
+interface responseType {
+  msg: string;
+  userhealthprofile: {
+    id: number;
+    userid: number;
+    fullname: string;
+    contact: string;
+    weight: number;
+    height: number;
+    diet: string;
+    address: string;
+  };
+}
+
 export const HealthProfileForm = () => {
   const [fullname, setfullname] = useState<string>("");
-  const [contact, setcontact] = useState<number>(0);
+  const [contact, setcontact] = useState<string>("");
   const [height, setheight] = useState<number>(0);
   const [weight, setweight] = useState<number>(0);
   const [otp, setotp] = useState<string>("");
+  const [address, setaddress] = useState<string>("");
   const [diet, setdiet] = useState<DietType>("non-vegetarian");
   const [userHealthProfile, setUserHealthProfile] =
     useRecoilState<UserHealthprofileType>(UserHealthprofileAtom);
+  const [issubmitted, setIsSubmitted] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  async function submitform() {
+    const response: AxiosResponse<responseType> = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/userhealthprofile`,
+      {
+        fullname,
+        contact,
+        address,
+        weight,
+        height,
+        diet,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    );
+    console.log(response.data);
+  }
+  console.log(fullname, diet, height, contact, address, weight);
   return (
     <div className="">
       <form
@@ -49,15 +85,8 @@ export const HealthProfileForm = () => {
         action=""
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          setUserHealthProfile({
-            fullname,
-            contact,
-            height,
-            weight,
-            otp,
-            diet,
-          });
           console.log("healthprofile form is submitted ", userHealthProfile);
+          submitform();
           navigate("/onboarding/healthprofile/workoutplace");
         }}
       >
@@ -90,6 +119,15 @@ export const HealthProfileForm = () => {
                 />
               </div>
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="address">address</Label>
+              <Input
+                id="address"
+                placeholder="Enter your current address"
+                setaddress={setaddress}
+              />
+            </div>
+
             {/* TODO for sake for complexcity we will remove the otp field by far now  */}
 
             {/* <div className="space-y-2 w-fit/">
@@ -133,6 +171,7 @@ export const HealthProfileForm = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="diet">Diet Preference</Label>
+              {/* @ts-ignore */}
               <Select
                 onValueChange={(value: DietType) => setdiet(value as DietType)}
               >

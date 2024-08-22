@@ -26,19 +26,20 @@ model MuscleGroup {
 }
 
 model User {
-  id            Int                @id @default(autoincrement())
-  name          String
-  email         String
-  password      String
-  HealthProfile UserHealthprofile?
+  id                  Int                  @id @default(autoincrement())
+  name                String
+  email               String
+  password            String
+  HealthProfile       UserHealthprofile?
+  Workplacepreference Workplacepreference?
 }
 
 // UserHealthprofile is the optional filed
 
 model UserHealthprofile {
   id       Int    @id @default(autoincrement())
-  userid   Int    @unique 
-  User     User?   @relation(fields: [userid], references: [id])
+  userid   Int    @unique
+  User     User?  @relation(fields: [userid], references: [id])
   fullname String
   contact  String
   weight   Int
@@ -49,6 +50,8 @@ model UserHealthprofile {
 
 model Workplacepreference {
   id           Int     @id @default(autoincrement())
+  userid       Int     @unique
+  User         User    @relation(fields: [userid], references: [id])
   workoutplace String
   gymname      String?
 }

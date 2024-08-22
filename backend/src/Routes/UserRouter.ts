@@ -6,6 +6,7 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { env } from "hono/adapter";
 import { decode, jwt, sign, verify } from "hono/jwt";
 import { JWTPayload } from "hono/utils/jwt/types";
+import { string } from "zod";
 export const UserRouter = new Hono<{
     Bindings: Bindings
 }>();
@@ -107,30 +108,133 @@ UserRouter.post("userhealthprofile", async (c) => {
     const jwt = token?.split(" ")[1];
     if (jwt == undefined) {
         c.status(400)
-        return c.json({ msg: "no toek is send " })
+        return c.json({ msg: "no token is send" })
     }
     const { header, payload } = decode(jwt);
+    const email = payload.jwttoken;
+
     const prisma = new PrismaClient({
         datasourceUrl: c.env?.DATABASE_URL,
     }).$extends(withAccelerate())
-
+    console.log("token and jwt ", payload);
     const user = await prisma.user.findFirst({
-        where: { email: payload }
-    })
+        where: { email: `${email}` },
+        select: { id: true }
+    });
+    if (user == undefined) {
+        c.status(400)
+        return c.json({
+            msg: 'hello '
+        })
+    }
+    console.log(user);
     const body: UserhealthprofileType = await c.req.json()
-
     try {
-        const userhealthprofile = await prisma.userHealthprofile.create({
-            data: {
+        const userhealthprofile = await prisma.userHealthprofile.upsert({
+            where: {
+                userid: user.id
+            },
+            update: {
                 fullname: body.fullname,
                 contact: body.contact,
                 diet: body.diet,
                 weight: body.weight,
                 height: body.height,
-                address: body.address
+                address: body.address,
+                userid: user.id
+            },
+            create: {
+                fullname: body.fullname,
+                contact: body.contact,
+                diet: body.diet,
+                weight: body.weight,
+                height: body.height,
+                address: body.address,
+                userid: user.id
             }
         })
+        console.log("the users health profile", userhealthprofile);
+        c.status(200);
+        return c.json({
+            msg: "sucesss",
+            "userhealthprofile": userhealthprofile
+        })
     } catch (error) {
-
+        console.log(error);
+        c.status(300);
+        return c.json({
+            "msg": "error",
+            "error": error
+        })
     }
-})
+});
+
+interface WorkoutplaceType {
+    workoutplace: string,
+    gymname?: string
+}
+
+UserRouter.post("workoutplace", async (c) => {
+    const token = c.req.header("Authorization");
+    const jwt = token?.split(" ")[1];
+    if (jwt == undefined) {
+        c.status(400)
+        return c.json({ msg: "no toek is send " })
+    }
+    const { header, payload } = decode(jwt);
+    const email = payload.jwttoken;
+    const body = await c.req.json()
+    console.log("body is here",body);
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    console.log("token and jwt ", payload);
+    const user = await prisma.user.findFirst({
+        where: { email: `${email}` },
+        select: { id: true }
+    });
+    if (user == undefined) {
+        c.status(400)
+        return c.json({
+            msg: 'user with this email doesnt exist siginin again'
+        })
+    }
+    console.log(user);
+    try {
+        const workoutplace = await prisma.workplacepreference.upsert({
+            where: {
+                userid: user.id
+            },
+            update: {
+                workoutplace: body.workoutplace,
+                gymname: body.gymname
+
+            },
+            create: {
+                workoutplace: body.workoutplace,
+                gymname: body.gymname,
+                User: {
+                    connect: {
+                        id: user.id
+                    }
+                }
+
+            }
+        })
+        console.log("the users health profile", workoutplace);
+        c.status(200);
+        return c.json({
+            msg: "sucesss",
+            "workoutplace": workoutplace
+        })
+    } catch (error) {
+        console.log(error);
+        c.status(300);
+        return c.json({
+            "msg": "error",
+            "error": error
+        })
+    }
+});
+

@@ -7,7 +7,7 @@ export interface UserHealthprofileType {
   height: number;
   weight: number;
   diet: DietType;
-  otp: string;
+  address: string
 }
 
 export const UserHealthprofileAtom = atom<UserHealthprofileType>({
@@ -17,7 +17,7 @@ export const UserHealthprofileAtom = atom<UserHealthprofileType>({
     contact: 0,
     height: 0,
     weight: 0,
-    otp: "",
-    diet: "non-vegetarian"
+    diet: "non-vegetarian",
+    address: ""
   }
 });

@@ -1,10 +1,12 @@
 import { coustomWarningMsg } from "@components/customAlerts";
 import { HomeWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
 import { GymWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
+import { WorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { WorkoutPrefernenceAtom } from "@state/Atom/WorkoutpreferenceAtom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
 export const Workoutplace = () => {
   return (
     <div className="">
@@ -21,40 +23,39 @@ export const Workoutplace = () => {
 
 type WorkoutplaceType = "IN home" | "IN the Gym";
 
-const WorkoutplaceCard = ({
-  text,
-  img,
-}: {
-  text: WorkoutplaceType;
-  img: string;
-}) => {
-  const [workoutPreference, setWorkoutPreference] = useRecoilState(
-    WorkoutPrefernenceAtom
-  );
+const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
+  const [workoutplace, setworkoutplace] = useState<string>("");
 
   const navigate = useNavigate();
+  let WorkoutplaceType = {};
 
   useEffect(() => {
-    console.log("gym prefered is ", workoutPreference);
-  }, [workoutPreference]);
+    setworkoutplace(text);
+  }, [workoutplace]);
+
+  // console.log(workoutPreference);
+  async function submitform() {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/workoutplace`,
+      {
+        workoutplace,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    );
+  }
   return (
     <button
       onClick={() => {
-        setWorkoutPreference((prev) => {
-          if (text === "IN home") {
-            return {
-              WorkoutPlaceType: text,
-            } as HomeWorkoutpreferenceType;
-          } else {
-            return {
-              WorkoutPlaceType: text,
-              gymname: "", // Ensure gymname is included
-            } as GymWorkoutpreferenceType;
-          }
-        });
+        console.log("text is ", text);
         if (text == "IN home") {
+          submitform();
           coustomWarningMsg(navigate);
         } else {
+          submitform();
           navigate("/onboarding/healthprofile/workoutplace/choosegym");
         }
       }}

@@ -5,13 +5,14 @@ import { cn } from "@components/lib/utils";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   setfullname?: (value: string) => void;
-  setcontact?: (value: number) => void;
+  setcontact?: (value: string) => void;
   setheight?: (value: number) => void;
   setweight?: (value: number) => void;
   setotp?: (value: number) => void;
   setdiet?: (value: string) => void;
+  setaddress?: (value: string) => void;
 }
-// TODO on focus add some reponsivenesss 
+// TODO on focus add some reponsivenesss
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -22,6 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       setheight,
       setweight,
       setdiet,
+      setaddress,
       ...props
     },
     ref
@@ -32,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
 
       if (setcontact) {
-        setcontact(Number(event.target.value));
+        setcontact(event.target.value);
       }
 
       if (setheight) {
@@ -47,8 +49,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         setdiet(event.target.value as DietType);
       }
 
-      if (props.onChange) {
-        props.onChange(event);
+      if (setaddress) {
+        setaddress(event.target.value);
       }
     };
     return (
