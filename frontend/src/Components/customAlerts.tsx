@@ -1,20 +1,7 @@
 import Swal, { SweetAlertIcon } from "sweetalert2";
 import { NavigateFunction } from "react-router-dom";
-// import axios from "axios";
-// fix this
 
-async function handleDescriptionSubmit(value: string) {
-  // const response = await axios.post(
-  //   `${import.meta.env.VITE_BACKEND_URL}/api/v1/blog/author/authorinfo`,
-  //   JSON.stringify(value),
-  //   {
-  //     headers: {
-  //       Authorization: "Bearer " + localStorage.getItem("jwt"),
-  //     },
-  //   }
-  // );
-  // console.log(response);
-}
+
 
 const Toast = Swal.mixin({
   toast: true,

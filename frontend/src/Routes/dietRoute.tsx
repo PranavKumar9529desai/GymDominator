@@ -3,8 +3,8 @@ import { Sidebar } from "@components/SideBar/sidebar";
 
 export const DietRoute = () => {
   return (
-    <div>
-      <div className="lg:grid grid-cols-5">
+    <div className="h-screen bg-[#f0f0f0]">
+      <div className="lg:grid grid-cols-5 ">
         <div className="col-span-1">
           <Sidebar />
         </div>

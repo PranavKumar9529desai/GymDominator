@@ -1,12 +1,7 @@
 import { coustomWarningMsg } from "@components/customAlerts";
-import { HomeWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
-import { GymWorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
-import { WorkoutpreferenceType } from "@state/Atom/WorkoutpreferenceAtom";
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { WorkoutPrefernenceAtom } from "@state/Atom/WorkoutpreferenceAtom";
 import { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const Workoutplace = () => {
   return (
     <div className="">
@@ -27,13 +22,10 @@ const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
   const [workoutplace, setworkoutplace] = useState<string>("");
 
   const navigate = useNavigate();
-  let WorkoutplaceType = {};
-
   useEffect(() => {
     setworkoutplace(text);
   }, [workoutplace]);
 
-  // console.log(workoutPreference);
   async function submitform() {
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/workoutplace`,
@@ -49,6 +41,7 @@ const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
   }
   return (
     <button
+      className={`${text == "IN the Gym" ? "relative top-56 lg:top-0 " : ""}`}
       onClick={() => {
         console.log("text is ", text);
         if (text == "IN home") {
@@ -60,7 +53,11 @@ const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
         }
       }}
     >
-      <div className="lg:w-fit w-[150px] hover:outline-none hover:border-sky-500 hover:ring-2 hover:ring-sky-500 bg-[#f0f0f0] transition-all duration-200 hover:-translate-y-3 hover:scale-105 rounded-b-lg shadow-lg hover:shadow-2xl">
+      <div
+        className={`lg:w-fit w-[150px] hover:outline-none hover:border-sky-500 hover:ring-2 hover:ring-sky-500 bg-[#f0f0f0] transition-all duration-200 hover:-translate-y-3 hover:scale-105 rounded-b-lg shadow-lg hover:shadow-2xl ${
+          text == "IN the Gym"
+        } ? "mt-20" : ""`}
+      >
         <div className="w-full">
           <div className="lg:w-60 ">
             <img src={img} alt="" className="" />

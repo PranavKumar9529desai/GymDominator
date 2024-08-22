@@ -1,4 +1,5 @@
 import { coustomWarningMsg } from "@components/customAlerts";
+import axios from "axios";
 import { StarIcon } from "lucide-react";
 import { MapPinIcon } from "lucide-react";
 import { useState } from "react";
@@ -14,36 +15,37 @@ export const ChooseGym = () => {
   const gyms: gym[] = [
     {
       name: "Golds Gym ",
-      image:
-        "https://lh5.googleusercontent.com/p/AF1QipMgBCv-KY7-I2BGBGc8kkbLL5CgPOwOCGAWtPVt=w296-h168-n-k-no",
+      image: "/src/assets/gym1.webp",
       rating: 4.8,
       location: "Aundh",
     },
     {
       name: "PowerPulse Gym",
-      image:
-        "https://lh5.googleusercontent.com/p/AF1QipOQSWZpSyrxX04ncc5r3qgPuypJCP_BiNeBzjA=w231-h193-n-k-no-nu",
+      image: "/src/assets/gym2.webp",
       rating: 4.6,
       location: "Westside, Near pimpari",
     },
     {
       name: "FlexFit Studio",
-      image:
-        "https://content.jdmagicbox.com/comp/jalgaon/v2/9999px257.x257.140708140514.u3v2/catalogue/talwalkars-sp-fitness-jilha-peth-jalgaon-gyms-hzjrd7kmap.jpg",
+      image: "/src/assets/gym3.webp",
       rating: 4.9,
       location: "Northside, vimanagar",
     },
     {
       name: "IronCore Fitness",
-      image:
-        "https://d1vhqlrjc8h82r.cloudfront.net/04-23-2021/t_0becfae4316147c0abb74a0c6867c9fd_name_image.jpg",
+      image: "/src/assets/gym4.webp",
       rating: 4.7,
       location: "Eastside, kothrud",
     },
     {
       name: "Gymdomniator",
-      image:
-        "https://lh5.googleusercontent.com/p/AF1QipMTc0DHtDuz8nRHaOcNpYgBKrmJeb4MYcoCgBZl=w296-h168-n-k-no",
+      image: "/src/assets/gym.jpg",
+      rating: 4.7,
+      location: "Eastside, near hadpasar",
+    },
+    {
+      name: "Gymdomniator",
+      image: "/src/assets/gym.jpg",
       rating: 4.7,
       location: "Eastside, near hadpasar",
     },
@@ -51,8 +53,8 @@ export const ChooseGym = () => {
 
   return (
     <div className="pb-40">
-      <div className="lg:text-5xl font-semibold font-roboto text-center text-2xl ">
-        Select your preferred Gym from the options below
+      <div className=" lg:text-5xl lg:ml-40  font-semibold font-poppins lg:text-left text-4xl text-center ">
+        Select your preferred 🏋🏽
       </div>
       <div className="">
         <div className="flex flex-wrap justify-center gap-8 lg:gap-10 mt-10 px-4 ">
@@ -88,19 +90,33 @@ const Gymcard = ({
 }) => {
   const [gymname, setgymname] = useState<string>("");
   const navigate = useNavigate();
-  
+  async function senddata() {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/workoutplace`,
+      {
+        workoutplace: "IN Gym",
+        gymname: name,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    );
+  }
   const handleSelect = (gymname: string) => {
     setgymname(gymname);
+    senddata();
     coustomWarningMsg(navigate);
   };
 
   console.log(gymname);
   return (
-    <button
+    <div
       key={index}
       className="w-full sm:w-1/2 md:w-1/4 bg-white rounded-lg shadow-md overflow-hidden   hover:-translate-y-2 hover:scale-105 hover:shadow-xl transition-all duration-500"
     >
-      <img src={img} alt={name} className="w-full h-48 object-cover" />
+      <img src={img} alt={name} className="w-full lg:h-80 h-36 object-cover" />
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2 text-left">{name}</h2>
         <div className="flex items-center mb-2">
@@ -113,11 +129,11 @@ const Gymcard = ({
         </div>
         <button
           onClick={() => handleSelect(name)}
-          className="w-full bg-black text-white py-2 mt-4 rounded-md"
+          className="w-full bg-blue-600 text-white py-2 mt-4 rounded-md"
         >
           Select
         </button>
       </div>
-    </button>
+    </div>
   );
 };

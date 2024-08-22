@@ -18,13 +18,13 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
         onClick={()=>{
             navigate("/dashboard/workouts")
         }}>
-          <div className="inline-flex w-36 h-16 ">
+          <div className="inline-flex w-36 h-16 -ml-6 -ml-0">
             <img
               className="object-cover mt-1 "
               src="/src/assets/gym-launch-logo.png"
               alt="logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-montserrat top-[1px]">
+            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative lg:-left-8 -left-7 font-montserrat top-[1px]">
               GymDominator
             </span>
           </div>
@@ -49,7 +49,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
           >
             <svg
               viewBox="0 0 24.00 24.00"
-              fill="currentColor"
+              fill=""
               xmlns="http://www.w3.org/2000/svg"
               stroke="#999999"
             >
@@ -63,19 +63,19 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
                 {" "}
                 <path
                   d="M4 18L20 18"
-                  stroke="#ffffff"
+                  stroke="#000000"
                   strokeWidth="2.256"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 12L20 12"
-                  stroke="#ffffff"
+                  stroke="#000000"
                   strokeWidth="2.256"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 6L20 6"
-                  stroke="#ffffff"
+                  stroke="#000000"
                   strokeWidth="2.256"
                   strokeLinecap="round"
                 ></path>{" "}
