@@ -23,5 +23,4 @@ app.route("/api/v1/workouts/", WorkoutsRouter);
 app.route("/api/v1/recipes", RecipesRouter);
 app.route("/api/v1/diet", DietRouter);
 
-
 export default app;

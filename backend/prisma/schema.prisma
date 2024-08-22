@@ -26,10 +26,31 @@ model MuscleGroup {
 }
 
 model User {
+  id            Int                @id @default(autoincrement())
+  name          String
+  email         String
+  password      String
+  HealthProfile UserHealthprofile?
+}
+
+// UserHealthprofile is the optional filed
+
+model UserHealthprofile {
   id       Int    @id @default(autoincrement())
-  name     String
-  email    String
-  password String
+  userid   Int    @unique 
+  User     User?   @relation(fields: [userid], references: [id])
+  fullname String
+  contact  String
+  weight   Int
+  height   Int
+  diet     String
+  address  String
+}
+
+model Workplacepreference {
+  id           Int     @id @default(autoincrement())
+  workoutplace String
+  gymname      String?
 }
 
 enum MuscleGroupEnum {

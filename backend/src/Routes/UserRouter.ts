@@ -4,7 +4,7 @@ import { signinInput, SigninInput, signupInput, SignupInput } from "../zod/types
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { env } from "hono/adapter";
-import { jwt, sign, verify } from "hono/jwt";
+import { decode, jwt, sign, verify } from "hono/jwt";
 import { JWTPayload } from "hono/utils/jwt/types";
 export const UserRouter = new Hono<{
     Bindings: Bindings
@@ -47,8 +47,6 @@ UserRouter.post('signup', async (c) => {
         return c.json({ msg: "error" })
     }
 });
-
-
 
 UserRouter.post('signin', async (c) => {
     try {
@@ -93,5 +91,46 @@ UserRouter.post('signin', async (c) => {
         return c.json({ msg: "error" })
     }
 });
+export type DietType = "vegetarian" | "non-vegetarian";
 
+interface UserhealthprofileType {
+    fullname: string,
+    contact: string,
+    address: string,
+    diet: DietType,
+    height: number,
+    weight: number
+}
 
+UserRouter.post("userhealthprofile", async (c) => {
+    const token = c.req.header("Authorization");
+    const jwt = token?.split(" ")[1];
+    if (jwt == undefined) {
+        c.status(400)
+        return c.json({ msg: "no toek is send " })
+    }
+    const { header, payload } = decode(jwt);
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    const user = await prisma.user.findFirst({
+        where: { email: payload }
+    })
+    const body: UserhealthprofileType = await c.req.json()
+
+    try {
+        const userhealthprofile = await prisma.userHealthprofile.create({
+            data: {
+                fullname: body.fullname,
+                contact: body.contact,
+                diet: body.diet,
+                weight: body.weight,
+                height: body.height,
+                address: body.address
+            }
+        })
+    } catch (error) {
+
+    }
+})
