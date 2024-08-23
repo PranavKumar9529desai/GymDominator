@@ -19,11 +19,11 @@ export const Onbording = () => {
           </span>
         </div>
 
-        <div className="flex h-10 items-center justify-center lg:mt-10 mt-12">
+        <div className="flex h-10 items-center justify-center lg:mt-10 mt-12 px-2 font-overpass">
           <p className="font- text-lg leading-snug  ">
             Complete the 24 Weeks Challenge 🎯and get free gym
             <br className="lg:block hidden"/>
-            access.Sign up now to get started.
+              access. Sign up now to get started.
           </p>
         </div>
         <div className="mt-10">

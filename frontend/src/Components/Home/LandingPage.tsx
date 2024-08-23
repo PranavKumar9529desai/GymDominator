@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./main.css";
 import { MainSection } from "./mainsection/mainsecion";
+import { Footer } from "./Footer";
 
 export const LadingPage = () => {
   const navigate = useNavigate();
@@ -54,7 +55,11 @@ export const LadingPage = () => {
       </header>
       <section className="testimonials bg-white h-screen w-full">
         <MainSection />
+        <Footer />
       </section>
+      {/* <section className="h-screen w-full">
+        <Footer />
+      </section> */}
     </div>
   );
 };
