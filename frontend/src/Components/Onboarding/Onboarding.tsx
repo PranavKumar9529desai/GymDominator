@@ -19,11 +19,11 @@ export const Onbording = () => {
           </span>
         </div>
 
-        <div className="flex h-10 items-center justify-center mt-10">
+        <div className="flex h-10 items-center justify-center lg:mt-10 mt-12">
           <p className="font- text-lg leading-snug  ">
-            Complete the 24 Weeks Challenge and get free gym
-            <br />
-            access for the duration. Sign up now to get started.
+            Complete the 24 Weeks Challenge 🎯and get free gym
+            <br className="lg:block hidden"/>
+            access.Sign up now to get started.
           </p>
         </div>
         <div className="mt-10">
@@ -39,7 +39,7 @@ const CalltoActionButton = () => {
   const navigate = useNavigate();
   return (
     <button
-      className="bg-blue-500 text-white font-roboto rounded-md text-center w-[400px]  py-3 text-lg"
+      className="bg-blue-500 text-white font-roboto rounded-md text-center lg:w-[400px]  py-3 text-xl w-9/12 "
       onClick={() => {
         navigate("/onboarding/healthprofile");
       }}

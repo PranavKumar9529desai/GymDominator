@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./main.css";
+import { MainSection } from "./mainsection/mainsecion";
 
 export const LadingPage = () => {
   const navigate = useNavigate();
@@ -51,7 +52,9 @@ export const LadingPage = () => {
           </div>
         </section>
       </header>
-      <section className="testimonials bg-white h-screen w-full"></section>
+      <section className="testimonials bg-white h-screen w-full">
+        <MainSection />
+      </section>
     </div>
   );
 };
