@@ -10,9 +10,9 @@ import {
 import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12 px-4 ">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-gray-300 py-12 px-4 w-full">
+      <div className="container mx-auto w-full ">
+        <div className="grid grid-cols-1  lg:gap-48 gap-10 w-full lg:grid-cols-3 ">
           <div className="space-y-4">
             <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
               GymDominator
@@ -60,7 +60,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="">
             <h4 className="text-lg font-semibold mb-4 text-white">
               Newsletter
             </h4>

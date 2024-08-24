@@ -76,13 +76,13 @@ export const MainSection = () => {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
             {[
               {
-                name: "Harshdeep",
+                name: "Harshdeep Singh",
                 text: "GymDominator's free plans transformed my routine. I've never felt stronger!",
                 image:
                   "/src/assets/av4.png",
               },
               {
-                name: "Joseph",
+                name: "Joseph Paul",
                 text: "The personal mentor keeps me accountable. It's like having a pro trainer for free!",
                 image:
                   "/src/assets/av1.png",

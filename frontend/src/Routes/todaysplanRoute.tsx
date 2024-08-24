@@ -1,14 +1,15 @@
 import { TodaysPlan } from "@components/Todaysplan/Todaysplan";
 import { Sidebar } from "@components/SideBar/sidebar";
+import { TodaysPlans2 } from "@components/Todaysplan/Today'sPlan2";
 export const TodaysPlanRoute = () => {
   return (
-    <div>
+    <div className="">
       <div className="lg:grid grid-cols-5">
         <div className="col-span-1">
           <Sidebar />
         </div>
-        <div className="col-span-4 -ml-2 ">
-          <TodaysPlan />
+        <div className="col-span-4 -ml-2 bg-[#f0f0f0] h-dvh  ">
+          <TodaysPlans2 />
         </div>
       </div>
     </div>

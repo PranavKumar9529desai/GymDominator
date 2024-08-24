@@ -55,7 +55,9 @@ export const LadingPage = () => {
       </header>
       <section className="testimonials bg-white h-screen w-full">
         <MainSection />
-        <Footer />
+        <div className="border-t border-gray-800">
+          <Footer />
+        </div>
       </section>
       {/* <section className="h-screen w-full">
         <Footer />

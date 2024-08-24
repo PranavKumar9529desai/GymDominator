@@ -8,7 +8,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (scrollY > 50) {
+      if (scrollY > 100) {
         SetScrolled(true);
       } else {
         SetScrolled(false);
@@ -23,7 +23,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   return (
     <div>
       <nav
-        className={`${isscrolled ? "bg-black text-white" : "text-black"}
+        className={`${isscrolled ? "bg-slate-900 text-white" : "text-black"}
          ${(TextColor as string) == "white" ? "text-white" : " "} 
           container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full `}
       >
@@ -40,13 +40,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
           </div>
         </div>
         <div className="gap-20 mr-12 lg:flex hidden text-xl font-extrabold  ">
-          <div className="border-b-2 border-transparent hover:text-gray-600 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
+          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
             About us
           </div>
-          <div className="border-b-2 border-transparent hover:text-gray-600 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
+          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
             Contact us
           </div>
-          <div className="border-b-2 border-transparent hover:text-gray-600 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
+          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
             Profile
           </div>
         </div>
