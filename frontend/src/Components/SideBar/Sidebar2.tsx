@@ -19,18 +19,35 @@ export const Sidebar2 = () => {
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
+
+  interface SubItmestype {
+    name: string;
+    link: string;
+  }
+
   interface menuItem {
     name: string;
     icon: LucideIcon;
-    subItems?: string[];
+    subItems?: SubItmestype[];
     link?: string;
   }
+
+  const SubItems = [
+    {
+      name: "Week Progress",
+      link: "/dashboard/myprogress/week",
+    },
+    {
+      name: "Month Progress",
+      link: "/dashboard/myprogress/month",
+    },
+  ];
 
   const menuItems = [
     {
       name: "My Progress",
       icon: BarChart2,
-      subItems: ["Week Progress", "Month Progress"],
+      subItems: SubItems,
     },
     { name: "Workouts", icon: Dumbbell, link: "/dashboard/workouts" },
     { name: "Diet", icon: Utensils, link: "/dashboard/diet" },
@@ -39,12 +56,31 @@ export const Sidebar2 = () => {
   ];
 
   const handleItemClick = (item: menuItem) => {
+    // if (item.link == undefined) {
+    //   item.link = "/dashbaord";
+    // }
+
     navigate(item.link);
-    console.log("item url ",item.link)
+    console.log("item url ", item.link);
     if (item.name === "My Progress") {
       setIsProgressOpen(!isProgressOpen);
     } else {
       setActivePage(item.name);
+      setIsProgressOpen(false);
+    }
+  };
+
+  const handleSubItemClick = (subItem: menuItem) => {
+    if (subItem.link == undefined) {
+      subItem.link = "/dashbaord";
+    }
+
+    navigate(subItem.link);
+    console.log("item url ", subItem.link);
+    if (subItem.name === "My Progress") {
+      setIsProgressOpen(!isProgressOpen);
+    } else {
+      setActivePage(subItem.name);
       setIsProgressOpen(false);
     }
   };
@@ -86,21 +122,24 @@ export const Sidebar2 = () => {
               {item.name === "My Progress" && isProgressOpen && (
                 <ul className="ml-6 mt-2 space-y-2 transition-all duration-200 ease-in-out">
                   {item.subItems.map((subItem) => (
-                    <li key={subItem}>
+                    <li key={subItem.name}>
                       <button
-                        onClick={() => setActivePage(subItem)}
+                        onClick={() => {
+                          setActivePage(subItem.name);
+                          navigate(subItem.link);
+                        }}
                         className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
-                          activePage === subItem
+                          activePage === subItem.name
                             ? "bg-blue-700 text-white"
                             : "text-gray-300 hover:bg-gray-800"
                         }`}
                       >
-                        {subItem === "Week Progress" ? (
+                        {subItem.name === "Week Progress" ? (
                           <TrendingUp className="w-4 h-4 mr-3" />
                         ) : (
                           <LineChart className="w-4 h-4 mr-3" />
                         )}
-                        <span>{subItem}</span>
+                        <span>{subItem.name}</span>
                       </button>
                     </li>
                   ))}

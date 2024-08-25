@@ -47,12 +47,12 @@ export const TodaysPlans2 = () => {
     }, [allTasksCompleted]);
 
     return (
-      <div className="max-w-4xl mx-auto bg-gradient-to-br bg-gray-600 rounded-xl mt-8">
+      <div className="max-w-4xl mx-auto bg-gradient-to-br bg-gray-white rounded-xl mt-8 ">
         {showConfetti && (
           <Confetti width={window.innerWidth} height={window.innerHeight} />
         )}
-        <h1 className="text-4xl font-bold text-white mb-2">Today's Plan</h1>
-        <p className="text-gray-400 mb-6">
+        <h1 className="text-4xl font-bold text-black mb-2">Today's Plan</h1>
+        <p className="text-gray-500 mb-6">
           {date.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
@@ -62,9 +62,9 @@ export const TodaysPlans2 = () => {
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-semibold text-white flex items-center">
+              <h2 className="text-2xl font-semibold  flex items-center text-black">
                 <Dumbbell className="mr-2" /> Workouts
               </h2>
               <button className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center">
@@ -75,9 +75,9 @@ export const TodaysPlans2 = () => {
               {workouts.map((workout, index) => (
                 <li
                   key={index}
-                  className="flex items-center justify-between bg-gray-700 p-[17px] rounded-lg hover:bg-gray-600 transition-colors duration-200"
+                  className="flex items-center justify-between bg-slate-200 p-[17px] rounded-lg hover:bg-slate-300 transition-colors duration-200"
                 >
-                  <div>
+                  <div className="*:text-black">
                     <h3 className="text-lg font-medium text-white">
                       {workout.name}
                     </h3>
@@ -120,22 +120,22 @@ export const TodaysPlans2 = () => {
             </button>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="bg-white p-6 rounded-lg shadow-lg ">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-semibold text-white flex items-center">
+              <h2 className="text-2xl font-semibold  flex items-center text-black">
                 <Utensils className="mr-2" /> Meals
               </h2>
               <button className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center">
                 View All <ChevronRight className="ml-1" size={16} />
               </button>
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-4 text-black">
               {meals.map((meal, index) => (
                 <li
                   key={index}
-                  className="flex items-center justify-between bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors duration-200"
+                  className="flex items-center justify-between bg-slate-200 p-3 rounded-lg hover:bg-slate-300 transition-colors duration-200"
                 >
-                  <h3 className="text-lg font-medium text-white">
+                  <h3 className="text-lg font-medium text-black">
                     {meal.name}
                   </h3>
                   <div className="flex items-center">
@@ -147,9 +147,9 @@ export const TodaysPlans2 = () => {
                         styles={buildStyles({
                           textSize: "24px",
                           pathColor:
-                            meal.completed === 100 ? "#10B981" : "#3B82F6",
-                          textColor: "#fff",
-                          trailColor: "#2D3748",
+                            meal.completed === 100 ? "#10B981" : "#0000FF",
+                          textColor: "black",
+                          trailColor: "#0000FF",
                           backgroundColor: "#3e98c7",
                         })}
                       />

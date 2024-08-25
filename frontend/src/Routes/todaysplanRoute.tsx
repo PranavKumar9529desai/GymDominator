@@ -9,7 +9,7 @@ export const TodaysPlanRoute = () => {
         <div className="col-span-1 w-full">
           <Sidebar2 />
         </div>
-        <div className="col-span-4 -ml-2 bg-gray-600 h-dvh  ">
+        <div className="col-span-4 -ml-2 bg-[#f0f0f0] h-dvh  ">
           <TodaysPlans2 />
         </div>
       </div>
