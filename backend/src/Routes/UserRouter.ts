@@ -105,6 +105,8 @@ interface UserhealthprofileType {
 
 UserRouter.post("userhealthprofile", async (c) => {
     const token = c.req.header("Authorization");
+    const body = await c.req.json()
+    console.log("body is : ", body);
     const jwt = token?.split(" ")[1];
     if (jwt == undefined) {
         c.status(400)
@@ -128,27 +130,27 @@ UserRouter.post("userhealthprofile", async (c) => {
         })
     }
     console.log(user);
-    const body: UserhealthprofileType = await c.req.json()
+
     try {
         const userhealthprofile = await prisma.userHealthprofile.upsert({
             where: {
                 userid: user.id
             },
             update: {
-                fullname: body.fullname,
-                contact: body.contact,
-                diet: body.diet,
-                weight: body.weight,
-                height: body.height,
+                fullname: body.fullName,
+                contact: body.contactNumber,
+                diet: body.dietPreference,
+                weight: Number(body.weight) ,
+                height: Number(body.height),
                 address: body.address,
                 userid: user.id
             },
             create: {
-                fullname: body.fullname,
-                contact: body.contact,
-                diet: body.diet,
-                weight: body.weight,
-                height: body.height,
+                fullname: body.fullName,
+                contact: body.contactNumber,
+                diet: body.dietPreference,
+                weight: Number(body.weight) ,
+                height: Number(body.height),
                 address: body.address,
                 userid: user.id
             }
@@ -184,7 +186,7 @@ UserRouter.post("workoutplace", async (c) => {
     const { header, payload } = decode(jwt);
     const email = payload.jwttoken;
     const body = await c.req.json()
-    console.log("body is here",body);
+    console.log("body is here", body);
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env?.DATABASE_URL,

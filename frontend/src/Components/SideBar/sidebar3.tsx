@@ -1,4 +1,3 @@
-import { url } from "inspector";
 import {
   ChevronRight,
   ChevronDown,
@@ -11,20 +10,12 @@ import {
   LogOut,
   TrendingUp,
   LineChart,
-  LucideIcon,
 } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-export const Sidebar2 = () => {
+
+export const Sidebar3 = () => {
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
-  const navigate = useNavigate();
-  interface menuItem {
-    name: string;
-    icon: LucideIcon;
-    subItems?: string[];
-    link?: string;
-  }
 
   const menuItems = [
     {
@@ -32,30 +23,28 @@ export const Sidebar2 = () => {
       icon: BarChart2,
       subItems: ["Week Progress", "Month Progress"],
     },
-    { name: "Workouts", icon: Dumbbell, link: "/dashboard/workouts" },
-    { name: "Diet", icon: Utensils, link: "/dashboard/diet" },
-    { name: "Recipes", icon: Book, link: "/dashboard/recipes" },
-    { name: "Today's plan", icon: Calendar, link: "/dashboard/today'splan" },
+    { name: "Workouts", icon: Dumbbell },
+    { name: "Diet", icon: Utensils },
+    { name: "Recipes", icon: Book },
+    { name: "Today's plan", icon: Calendar },
   ];
 
-  const handleItemClick = (item: menuItem) => {
-    navigate(item.link);
-    console.log("item url ",item.link)
-    if (item.name === "My Progress") {
+  const handleItemClick = (itemName : string) => {
+    if (itemName === "My Progress") {
       setIsProgressOpen(!isProgressOpen);
     } else {
-      setActivePage(item.name);
+      setActivePage(itemName);
       setIsProgressOpen(false);
     }
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white w-full py-8 ">
+    <div className="flex flex-col h-screen bg-white text-gray-800 w-full py-8 px-4 border-r border-gray-200">
       <div className="flex items-center mb-8 px-2">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-          <Dumbbell className="w-6 h-6" />
+        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+          <Dumbbell className="w-6 h-6 text-gray-600" />
         </div>
-        <h1 className="text-2xl font-bold">GymDominator</h1>
+        <h1 className="text-2xl font-bold text-gray-800">GymDominator</h1>
       </div>
 
       <nav className="flex-grow">
@@ -63,12 +52,12 @@ export const Sidebar2 = () => {
           {menuItems.map((item) => (
             <li key={item.name}>
               <button
-                onClick={() => handleItemClick(item)}
+                onClick={() => handleItemClick(item.name)}
                 className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
                   activePage === item.name ||
                   (item.name === "My Progress" && isProgressOpen)
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-300 hover:bg-gray-800"
+                    ? "bg-gray-200 text-gray-800"
+                    : "text-gray-600 hover:bg-gray-100"
                 }`}
                 aria-expanded={
                   item.name === "My Progress" ? isProgressOpen : undefined
@@ -91,8 +80,8 @@ export const Sidebar2 = () => {
                         onClick={() => setActivePage(subItem)}
                         className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
                           activePage === subItem
-                            ? "bg-blue-700 text-white"
-                            : "text-gray-300 hover:bg-gray-800"
+                            ? "bg-gray-300 text-gray-800"
+                            : "text-gray-600 hover:bg-gray-100"
                         }`}
                       >
                         {subItem === "Week Progress" ? (
@@ -112,16 +101,16 @@ export const Sidebar2 = () => {
       </nav>
 
       <div className="mt-auto">
-        <div className="flex items-center px-4 py-2 mb-4 bg-gray-800 rounded-lg">
-          <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center mr-3">
-            <User className="w-6 h-6" />
+        <div className="flex items-center px-4 py-2 mb-4 bg-gray-100 rounded-lg">
+          <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center mr-3">
+            <User className="w-6 h-6 text-gray-600" />
           </div>
           <div>
-            <p className="font-medium">John Doe</p>
-            <p className="text-sm text-gray-400">Premium Member</p>
+            <p className="font-medium text-gray-800">John Doe</p>
+            <p className="text-sm text-gray-500">Premium Member</p>
           </div>
         </div>
-        <button className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200">
+        <button className="flex items-center w-full px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
           <LogOut className="w-5 h-5 mr-3" />
           <span>Logout</span>
         </button>
