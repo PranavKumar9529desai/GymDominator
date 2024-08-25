@@ -1,15 +1,18 @@
 import { Diet } from "@components/Diet/diet";
-import { Sidebar } from "@components/SideBar/sidebar";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
-
+import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
 export const DietRoute = () => {
   return (
     <div className="h-screen bg-[#f0f0f0j]">
-      <div className="lg:grid grid-cols-5 ">
-        <div className="col-span-1">
-          <Sidebar2/>
+      <div className="lg:grid grid-cols-5 h-screen">
+        <div className="col-span-1 hidden lg:block">
+          <Sidebar2 />
         </div>
-        <div className="col-span-4 lg:-ml-2">
+        <div className="lg:hidden block">
+          <BottomNavigation />
+        </div>
+
+        <div className="col-span-4 overflow-y-auto ">
           <Diet />
         </div>
       </div>

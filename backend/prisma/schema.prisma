@@ -58,10 +58,10 @@ model Workplacepreference {
 
 enum MuscleGroupEnum {
   CHEST
-  UpperBack
+  UPPERBACK
   SHOULDERS
-  Biceps
-  Triceps
+  BICEPS
+  TRICEPS
   ABS
 }
 

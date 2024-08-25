@@ -1,3 +1,4 @@
+import { strict } from "assert";
 import { url } from "inspector";
 import {
   ChevronRight,
@@ -13,13 +14,18 @@ import {
   LineChart,
   LucideIcon,
 } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 export const Sidebar2 = () => {
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
+  const url = useLocation();
+  const urlRoute = url.pathname.split("/");
 
+  const acRoute = urlRoute[urlRoute.length - 1];
+  console.log("here are ", acRoute);
   interface SubItmestype {
     name: string;
     link: string;
@@ -49,44 +55,50 @@ export const Sidebar2 = () => {
       icon: BarChart2,
       subItems: SubItems,
     },
-    { name: "Workouts", icon: Dumbbell, link: "/dashboard/workouts" },
-    { name: "Diet", icon: Utensils, link: "/dashboard/diet" },
-    { name: "Recipes", icon: Book, link: "/dashboard/recipes" },
-    { name: "Today's plan", icon: Calendar, link: "/dashboard/today'splan" },
+    {
+      name: "Workouts",
+      icon: Dumbbell,
+      link: "/dashboard/workouts",
+      label: "workouts",
+    },
+    { name: "Diet", icon: Utensils, link: "/dashboard/diet", label: "Diet" },
+    {
+      name: "Recipes",
+      icon: Book,
+      link: "/dashboard/recipes",
+      label: "Recipes",
+    },
+    {
+      name: "Today's plan",
+      icon: Calendar,
+      link: "/dashboard/today'splan",
+      label: "Today's plan",
+    },
   ];
 
   const handleItemClick = (item: menuItem) => {
-    // if (item.link == undefined) {
-    //   item.link = "/dashbaord";
-    // }
-
     navigate(item.link);
     console.log("item url ", item.link);
     if (item.name === "My Progress") {
       setIsProgressOpen(!isProgressOpen);
     } else {
-      setActivePage(item.name);
+      // setActivePage(item.name);
       setIsProgressOpen(false);
     }
   };
 
-  const handleSubItemClick = (subItem: menuItem) => {
-    if (subItem.link == undefined) {
-      subItem.link = "/dashbaord";
+  useEffect(() => {
+    if (acRoute === "today'splan") {
+      console.log( "acroute is " ,acRoute ," activepage is" , activePage);
+      setActivePage("Diet");
     }
+    setActivePage(acRoute);
+  }, [acRoute]);
 
-    navigate(subItem.link);
-    console.log("item url ", subItem.link);
-    if (subItem.name === "My Progress") {
-      setIsProgressOpen(!isProgressOpen);
-    } else {
-      setActivePage(subItem.name);
-      setIsProgressOpen(false);
-    }
-  };
+  console.log("activ page is ", activePage);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white w-full py-8 ">
+    <div className="flex flex-col  bg-gray-900 text-white w-full py-8 h-dvh">
       <div className="flex items-center mb-8 px-2">
         <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
           <Dumbbell className="w-6 h-6" />
@@ -101,7 +113,7 @@ export const Sidebar2 = () => {
               <button
                 onClick={() => handleItemClick(item)}
                 className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  activePage === item.name ||
+                  activePage === item.name.toLowerCase() ||
                   (item.name === "My Progress" && isProgressOpen)
                     ? "bg-blue-600 text-white"
                     : "text-gray-300 hover:bg-gray-800"

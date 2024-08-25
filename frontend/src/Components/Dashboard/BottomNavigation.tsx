@@ -1,9 +1,8 @@
 import { ProgressSvg } from "@components/Svg/progressSvg";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
 import { DietSvg } from "@components/Svg/dietSvg";
-import { RecipesSvg } from "@components/Svg/recipesSvg";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { GoalIcon, Plane, PlaneIcon } from "lucide-react";
 export const BottomNavigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -66,7 +65,7 @@ export const BottomNavigation = () => {
           Diet{" "}
         </span>
       </button>
-      <button
+      {/* <button
         className={`flex flex-col justify-center w-full items-center group transition-all ${
           location.pathname == "/dashboard/recipes" ? `bg-gray-200` : ` `
         } `}
@@ -82,6 +81,26 @@ export const BottomNavigation = () => {
         >
           {" "}
           Recipes
+        </span>
+      </button> */}
+      <button
+        className={`flex flex-col justify-center w-full items-center group transition-all ${
+          location.pathname == "/dashboard/today'splan" ? `bg-gray-200` : ` `
+        } `}
+        onClick={() => {
+          navigate("/dashboard/today'splan");
+        }}
+      >
+        <GoalIcon />
+        <span
+          className={`text-base text-gray-500  ${
+            location.pathname == "/dashboard/today'splan"
+              ? `!text-blue-400`
+              : ` `
+          } `}
+        >
+          {" "}
+          Today's Plan{" "}
         </span>
       </button>
     </div>

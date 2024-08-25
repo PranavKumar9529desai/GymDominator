@@ -5,7 +5,7 @@ export const Allworkouts = () => {
   return (
     <>
       <div className="">
-        <div className=" h-dvh  bg-[#f5f5f5]  -ml-2 -mt-5">
+        <div className=" h-dvh  bg-[#f5f5f5]  -mt-5">
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
@@ -20,7 +20,7 @@ export const Allworkouts = () => {
                     {/* <CustomSkelton size="large" /> */}
                   </div>
                 ) : (
-                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center mb-2 mt-8 ">
+                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center mb-2 mt-8 max-h-screen ">
                     {muscles.map((muscle) => {
                       return (
                         <MuscleGroup name={muscle.name} img={muscle.img} />

@@ -1,11 +1,15 @@
+import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { Allworkouts } from "@components/Workout/allworkouts";
 
 export const WorkoutRoute = () => {
   return (
-    <div className="lg:grid grid-cols-5 ">
-      <div className="col-span-1">
+    <div className="lg:grid grid-cols-5 h-dvh">
+      <div className="col-span-1 lg:block hidden  ">
         <Sidebar2 />
+      </div>
+      <div className="lg:hidden block">
+         <BottomNavigation />
       </div>
 
       <div className="col-span-4">

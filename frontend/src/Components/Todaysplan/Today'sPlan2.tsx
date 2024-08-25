@@ -47,12 +47,12 @@ export const TodaysPlans2 = () => {
     }, [allTasksCompleted]);
 
     return (
-      <div className="max-w-4xl mx-auto bg-gradient-to-br bg-gray-white rounded-xl mt-8 ">
+      <div className="max-w-4xl mx-auto  rounded-xl mt-8 ">
         {showConfetti && (
           <Confetti width={window.innerWidth} height={window.innerHeight} />
         )}
-        <h1 className="text-4xl font-bold text-black mb-2">Today's Plan</h1>
-        <p className="text-gray-500 mb-6">
+        <h1 className="text-4xl font-bold text-black mb-2 text-center lg:text-left">Today's Plan</h1>
+        <p className="text-gray-500 mb-6 text-center lg:text-left">
           {date.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
@@ -61,7 +61,7 @@ export const TodaysPlans2 = () => {
           })}
         </p>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 lg:px-0 px-4 ">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold  flex items-center text-black">
@@ -120,7 +120,7 @@ export const TodaysPlans2 = () => {
             </button>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg ">
+          <div className="bg-white p-6 rounded-lg shadow-lg mb-40 lg:mb-0">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-semibold  flex items-center text-black">
                 <Utensils className="mr-2" /> Meals

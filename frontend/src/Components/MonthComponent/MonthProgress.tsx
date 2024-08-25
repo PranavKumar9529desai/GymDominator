@@ -1,5 +1,3 @@
-import { Calendar } from "@components/ui/ui/calendar";
-import React from "react";
 import { useState } from "react";
 import {
   format,
@@ -41,7 +39,7 @@ export const MonthProgressComponent = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-center">
+      <h1 className="font-montserrat text-3xl font-bold text-center">
         Track your progress with Gymdominator
       </h1>
 
