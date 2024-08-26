@@ -1,4 +1,5 @@
 import { useEffect, useState, Dispatch } from "react";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 type colors = "white" | "black";
 
@@ -40,15 +41,27 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
           </div>
         </div>
         <div className="gap-20 mr-12 lg:flex hidden text-xl font-extrabold  ">
-          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
+          <HashLink
+            to="#about-us"
+            smooth
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg"
+          >
             About us
-          </div>
-          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
+          </HashLink>
+          <HashLink
+            smooth
+            to="#contact-us"
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
+          >
             Contact us
-          </div>
-          <div className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
-            Profile
-          </div>
+          </HashLink>
+          <HashLink
+            to="#home"
+            smooth
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
+          >
+            Home
+          </HashLink>
         </div>
         <div className="md:hidden flex mr-5  ">
           <button
@@ -118,8 +131,7 @@ const SideBar = ({
   const [isVisible, setVisible] = useState<boolean>(false);
   const [isRotated, setRotated] = useState<boolean>(false);
 
-  useEffect(() => {
-  }, [isRotated]);
+  useEffect(() => {}, [isRotated]);
 
   useEffect(() => {
     if (IsOpen) {
@@ -184,15 +196,30 @@ const SideBar = ({
       </div>
       <div className="flex mt-20 *:text-gray-500 text-xl ">
         <div className="flex flex-col gap-10 w-full *:h-fit *:py-3 *:justify-center *:flex">
-          <div className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2 transition-transform">
+          <HashLink
+            to="#about-us"
+            smooth
+            className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2 transition-transform"
+            onClick={handleClose}
+          >
             About us
-          </div>
-          <div className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2 transition-transform">
+          </HashLink>
+          <HashLink
+            to="#contact-us"
+            smooth
+            className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2 transition-transform"
+            onClick={handleClose}
+          >
             Contact us
-          </div>
-          <div className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2  transition-transform">
-            Profile
-          </div>
+          </HashLink>
+          <HashLink
+            to="#home"
+            smooth
+            className="border-b-2 border-transparent hover:text-blue-600  hover:bg-gray-200 w-full hover:-translate-y-2  transition-transform"
+            onClick={handleClose}
+          >
+            Home
+          </HashLink>
         </div>
       </div>
     </div>

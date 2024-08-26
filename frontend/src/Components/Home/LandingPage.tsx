@@ -7,8 +7,8 @@ export const LadingPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <header>
-        <section className="container header-section">
+      <header id="home">
+        <section className="container header-section" >
           <div className="header-logo">
             {/* <img className="" src="src/assets/Gym-logo.jpg" alt="" /> */}
           </div>
@@ -53,7 +53,7 @@ export const LadingPage = () => {
           </div>
         </section>
       </header>
-      <section className="testimonials bg-white h-screen w-full">
+      <section className="testimonials bg-white h-screen w-full" id="about-us">
         <MainSection />
         <div className="border-t border-gray-800">
           <Footer />

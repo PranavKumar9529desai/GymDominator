@@ -96,10 +96,10 @@ const ExcerciseDescription = ({
   return (
     <div className="">
       <div className="flex gap-3 lg:justify-center ">
-        <div className="lg:ml-20 lg:text-3xl text-blue-400 font-bold text-lg ">
+        <div className="lg:ml-20 lg:text-3xl text-blue-400 font-bold text-lg  font-montserrat">
           Target Muscle Group :
         </div>
-        <div className="lg:text-3xl text-blue-400 font-bold text-lg ">
+        <div className="lg:text-3xl text-blue-400 font-bold text-lg font-montserrat ">
           {muscleName.toUpperCase()}
         </div>
       </div>
@@ -112,14 +112,14 @@ const ExcerciseDescription = ({
             return (
               <div
                 key={key}
-                className="lg:text-lg text-gray-800 font-bold h-fit my-10 pr-4"
+                className="lg:text-xl text-gray-800 font-bold h-fit my-10 pr-4 font-overpass"
               >
                 {key + 1}. {line}
               </div>
             );
           })}
-          <div className="lg:text-xl text-sm font-semibold text-gray-400 mb-32">
-            Subscribe GymDominator for more content
+          <div className="lg:text-xl text-sm font-semibold text-gray-400 mb-32 font-mono">
+            Subscribe GymDominator for more content ❤️
           </div>
         </div>
       </div>

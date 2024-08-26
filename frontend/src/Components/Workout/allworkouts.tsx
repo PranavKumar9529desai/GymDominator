@@ -9,8 +9,8 @@ export const Allworkouts = () => {
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
-                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-montserrat">
-                  Choose muscle to train
+                <span className="font-extrabold  lg:text-6xl text-4xl flex text-center font-montserrat">
+                  Choose Muscle to train
                 </span>
               </div>
               <div className="flex w-full ">
@@ -20,7 +20,7 @@ export const Allworkouts = () => {
                     {/* <CustomSkelton size="large" /> */}
                   </div>
                 ) : (
-                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center mb-2 mt-8 max-h-screen ">
+                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !mb-40 mt-8 lg:mt-10 max-h-screen ">
                     {muscles.map((muscle) => {
                       return (
                         <MuscleGroup name={muscle.name} img={muscle.img} />
@@ -52,7 +52,7 @@ const MuscleGroup = ({ name, img }: { name: string; img: string }) => {
       <div className="flex justify-center pt-3 ">
         <img src={img} alt={name} className="w-9/12 rounded-2xl" />
       </div>
-      <div className="flex justify-center items-center h-10 font-montserrat font-bold lg:text-3xl text-2xl ">
+      <div className="flex justify-center items-center h-10 font-montserrat font-bold lg:text-3xl text-4xl ">
         {name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}
       </div>
     </button>
