@@ -35,7 +35,7 @@ export const LadingPage = () => {
             <div className="header-button animate-pop-in w-fit bg-blue-600 px-5 py-3 rounded-lg text-white font-bold hover:bg-blue-800 transition-colors ">
               <button
                 onClick={() => {
-                  if (localStorage.getItem("onboarding") == null) {
+                  if (localStorage.getItem("UserHealthProfile") == null) {
                     navigate("/onboarding");
                   } else if (localStorage.getItem("jwt") === null) {
                     navigate("/signin");

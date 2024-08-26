@@ -8,8 +8,22 @@ import {
   Utensils,
   Divide,
 } from "lucide-react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+
+interface UserHealthProfileType {
+  adress: string;
+  contactNumber: string;
+  dietPreference: string;
+  fullName: string;
+  height: number;
+  weight: number;
+}
+
+interface UserHealthProfileResponseType {
+  smg: string;
+  userhealthprofile: UserHealthProfileType;
+}
 
 export const HealthProfileForm = () => {
   const [isLoading, setisLoading] = useState<boolean>(false);
@@ -23,25 +37,35 @@ export const HealthProfileForm = () => {
     dietPreference: "",
   });
 
+  function AddDataToLocalstrorage(response: UserHealthProfileType) {
+    const UserHealthProfile = response;
+    localStorage.setItem(
+      "UserHealthProfile",
+      JSON.stringify(UserHealthProfile)
+    );
+  }
+
   const SendHealthProfileData = async () => {
     try {
       setisLoading(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/userhealthprofile`,
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
-          },
-        }
-      );
-      console.log(response);
+      const response: AxiosResponse<UserHealthProfileResponseType> =
+        await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/userhealthprofile`,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("jwt"),
+            },
+          }
+        );
+      console.log("response from the", response);
+      AddDataToLocalstrorage(response.data.userhealthprofile);
     } catch (error) {
       setisLoading(false);
       console.error("Error sending health profile data:", error);
     } finally {
       setisLoading(false);
-      navigate("/onboarding/healthprofile/workoutplace")
+      navigate("/onboarding/healthprofile/workoutplace");
     }
   };
 
