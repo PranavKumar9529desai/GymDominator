@@ -18,7 +18,7 @@ export const MonthProgressComponent = () => {
     new Date(2024, 7, 8),
   ]);
   // TODO it should come from the database
-  const enrollmentDate = new Date(2024, 8, 1); // August 1, 2024
+  const enrollmentDate = new Date(2024, 8, 1); // August 1, 2024p
   const completionDate = new Date(2025, 1, 1); // February 1, 2025
   const today = new Date();
   const monthStart = startOfMonth(currentDate);

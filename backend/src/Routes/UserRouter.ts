@@ -359,4 +359,88 @@ UserRouter.post("completedtodaysprogress", async (c) => {
         c.status(300);
         return c.json({ msg: "error" })
     }
+});
+
+interface userProgressType {
+    id: number;
+    userid: number;
+    enrolledDate: Date;
+    ComlpetionDate: Date;
+    progress1: bigint;
+    progress2: bigint;
+    progress3: bigint;
+}
+
+UserRouter.get("compltedDays", async (c) => {
+    const token = c.req.header("Authorization");
+    const body: UserprogressInputType = await c.req.json()
+    console.log("body is : ", body);
+    const jwt = token?.split(" ")[1];
+    if (jwt == undefined) {
+        c.status(400)
+        return c.json({ msg: "no token is send" })
+    }
+    const { header, payload } = decode(jwt);
+    const email = payload.jwttoken;
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    console.log("token and jwt ", payload);
+    const user = await prisma.user.findFirst({
+        where: { email: `${email}` },
+        select: { id: true }
+    });
+    if (user == undefined) {
+        c.status(400)
+        return c.json({
+            msg: 'user does not exist'
+        })
+    }
+    const date = new Date();
+
+    try {
+        let userProgress = await prisma.userProgress.findFirst({
+            where: { userid: user.id, enrolledDate: { lte: date } }
+        });
+
+        if (!userProgress) {
+            c.status(300);
+            return c.json({ "msg": "user does not exist , signin once agin" })
+        }
+
+        let allcompletedDays: Date[] = await getCompletedDays(userProgress)
+        function getCompletedDays(userProgress: userProgressType) {
+            const completedDays = [];
+
+            const { enrolledDate, progress1, progress2, progress3 } = userProgress;
+
+            // Iterate through each progress field
+            for (let i = 0; i < 3; i++) {
+                const progressField = [progress1, progress2, progress3][i];
+
+                // Iterate through each bit in the field
+                for (let j = 0; j < 64; j++) {
+                    const bit = progressField & (1n << BigInt(j));
+                    if (bit !== 0n) {
+                        // The bit is set, so the user completed the workout on that day
+                        const completedDate = new Date(enrolledDate);
+                        completedDate.setDate(enrolledDate.getDate() + (i * 64 + j));
+                        completedDays.push(completedDate);
+                    }
+                }
+            }
+
+            return completedDays;
+        }
+
+        c.status(200);
+        return c.json({ msg: "success", completedDays: allcompletedDays })
+
+    } catch (error) {
+        console.log(error)
+        c.status(300);
+        return c.json({ msg: "error", error: error });
+
+    }
 })
