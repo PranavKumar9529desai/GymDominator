@@ -32,6 +32,7 @@ model User {
   password            String
   HealthProfile       UserHealthprofile?
   Workplacepreference Workplacepreference?
+  UserProgress        UserProgress[]
 }
 
 // UserHealthprofile is the optional filed
@@ -78,3 +79,18 @@ model Recipes {
   description String
   img         String
 }
+
+model UserProgress {
+  id             Int      @id @default(autoincrement())
+  enrolledDate   DateTime
+  ComlpetionDate DateTime
+  userid         Int
+  User           User     @relation(fields: [userid], references: [id])
+  progress1      BigInt //for first 64 days as bigint is 64 bit
+  progress2      BigInt //for next 64 bits 
+  progress3      BigInt // for nex 32 bits
+
+  @@unique([userid, enrolledDate])
+}
+
+

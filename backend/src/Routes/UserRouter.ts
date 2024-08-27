@@ -131,6 +131,8 @@ UserRouter.post("userhealthprofile", async (c) => {
     }
     console.log(user);
 
+    const date = new Date();
+    const completionDate = new Date(date.getTime() + 150 * 24 * 60 * 60 * 1000);
     try {
         const userhealthprofile = await prisma.userHealthprofile.upsert({
             where: {
@@ -140,7 +142,7 @@ UserRouter.post("userhealthprofile", async (c) => {
                 fullname: body.fullName,
                 contact: body.contactNumber,
                 diet: body.dietPreference,
-                weight: Number(body.weight) ,
+                weight: Number(body.weight),
                 height: Number(body.height),
                 address: body.address,
                 userid: user.id
@@ -149,18 +151,42 @@ UserRouter.post("userhealthprofile", async (c) => {
                 fullname: body.fullName,
                 contact: body.contactNumber,
                 diet: body.dietPreference,
-                weight: Number(body.weight) ,
+                weight: Number(body.weight),
                 height: Number(body.height),
                 address: body.address,
                 userid: user.id
             }
-        })
+        });
+        //        prgress start 
+
+        let userProgress = await prisma.userProgress.findFirst({
+            where: { userid: user.id, enrolledDate: { lte: date } }
+        });
+
+        if (!userProgress) {
+            userProgress = await prisma.userProgress.create({
+                data: {
+                    userid: user.id,
+                    enrolledDate: date,
+                    ComlpetionDate: completionDate,
+                    progress1: 0n,
+                    progress2: 0n,
+                    progress3: 0n,
+
+                }
+            })
+        };
+
+        console.log(userProgress);
+
+
         console.log("the users health profile", userhealthprofile);
         c.status(200);
         return c.json({
             msg: "sucesss",
-            "userhealthprofile": userhealthprofile
-        })
+            "userhealthprofile": (userhealthprofile),
+            // "progress": JSON.stringify(userProgress)
+        });
     } catch (error) {
         console.log(error);
         c.status(300);
@@ -240,3 +266,97 @@ UserRouter.post("workoutplace", async (c) => {
     }
 });
 
+interface UserprogressInputType {
+    UserCompletedThePlanInFrontned: boolean
+}
+
+UserRouter.post("completedtodaysprogress", async (c) => {
+    const token = c.req.header("Authorization");
+    const body: UserprogressInputType = await c.req.json()
+    console.log("body is : ", body);
+    const jwt = token?.split(" ")[1];
+    if (jwt == undefined) {
+        c.status(400)
+        return c.json({ msg: "no token is send" })
+    }
+    const { header, payload } = decode(jwt);
+    const email = payload.jwttoken;
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+    console.log("token and jwt ", payload);
+    const user = await prisma.user.findFirst({
+        where: { email: `${email}` },
+        select: { id: true }
+    });
+    if (user == undefined) {
+        c.status(400)
+        return c.json({
+            msg: 'user does not exist'
+        })
+    }
+    console.log(user);
+    const date = new Date();
+    const tomarrow = new Date(date.getTime() + 2 * 24 * 60 * 60 * 1000)
+    const completionDate = new Date(date.getTime() + 150 * 24 * 60 * 60 * 1000);
+
+    try {
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env?.DATABASE_URL,
+        }).$extends(withAccelerate());
+
+        let userProgress = await prisma.userProgress.findFirst({
+            where: { userid: user.id, enrolledDate: { lte: date } }
+        });
+
+        if (!userProgress) {
+            c.status(300);
+            return c.json({ msg: "User doesn't exist signup once again" })
+        }
+
+        // Calculate the day number (0-indexed)
+        const dayNumber = Math.floor((date.getTime() - userProgress.enrolledDate.getTime()) / (1000 * 60 * 60 * 24));
+
+        // Determine which progress field to update
+        let fieldToUpdate: 'progress1' | 'progress2' | 'progress3';
+        let bitPosition: number;
+
+        if (dayNumber < 64) {
+            fieldToUpdate = 'progress1';
+            bitPosition = dayNumber;
+        } else if (dayNumber < 128) {
+            fieldToUpdate = 'progress2';
+            bitPosition = dayNumber - 64;
+        } else if (dayNumber < 150) {
+            fieldToUpdate = 'progress3';
+            bitPosition = dayNumber - 128;
+        } else {
+            throw new Error('Date is outside the 150-day range');
+        }
+
+        if (body.UserCompletedThePlanInFrontned) {
+            console.log("here is the contorl");
+            const updatedprogress = await prisma.userProgress.update({
+                where: { id: userProgress.id },
+                data: {
+                    [fieldToUpdate]: {
+                        set: userProgress[fieldToUpdate] | (1n << BigInt(bitPosition)),
+                    },
+                },
+            });
+            console.log(updatedprogress);
+        }
+        console.log("fieldToUpdate", fieldToUpdate, "bitPosition", bitPosition);
+        // Check if the bit is already set
+        const isCompletedTodayPlan: boolean = (userProgress[fieldToUpdate] & (1n << BigInt(bitPosition))) !== 0n;
+        console.log("isCompletedTodayPlan", isCompletedTodayPlan);
+        c.status(200);
+        return c.json({ msg: "sucesss", AlreadyCompletedTheplan: isCompletedTodayPlan });
+
+
+    } catch (error) {
+        c.status(300);
+        return c.json({ msg: "error" })
+    }
+})

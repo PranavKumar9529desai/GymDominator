@@ -13,10 +13,14 @@ import { Button } from "@components/ui/ui/button";
 import { Progress } from "@components/ui/ui/progress";
 export const MonthProgressComponent = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [completedDays, setCompletedDays] = useState<Date[]>([]);
-  const enrollmentDate = new Date(2024, 7, 1); // August 1, 2024
+  const [completedDays, setCompletedDays] = useState<Date[]>([
+    new Date(2024, 7, 7),
+    new Date(2024, 7, 8),
+  ]);
+  // TODO it should come from the database
+  const enrollmentDate = new Date(2024, 8, 1); // August 1, 2024
   const completionDate = new Date(2025, 1, 1); // February 1, 2025
-
+  const today = new Date();
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
@@ -62,25 +66,32 @@ export const MonthProgressComponent = () => {
 
       <div className="grid grid-cols-7 gap-2">
         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-          <div key={day} className="text-center font-medium">
+          <div key={day} className="text-center font-medium ">
             {day}
           </div>
         ))}
-        {daysInMonth.map((day, index) => (
-          <Button
-            key={day.toString()}
-            variant={isCompleted(day) ? "default" : "outline"}
-            className={`h-12 ${
-              !isSameMonth(day, currentDate) ? "opacity-50" : ""
-            }`}
-            onClick={() => toggleDayCompletion(day)}
-          >
-            {format(day, "d")}
-            {isCompleted(day) && (
-              <Check className="h-4 w-4 absolute top-1 right-1" />
-            )}
-          </Button>
-        ))}
+        {daysInMonth.map((day, index) => {
+          return (
+            <Button
+              key={day.toString()}
+              variant={isCompleted(day) ? "default" : "outline"}
+              className={`h-12 ${
+                !isSameMonth(day, currentDate) ? "opacity-50" : ""
+              } ${
+                format(day, "d") === format(today, "d") ? "bg-blue-300" : ""
+              }`}
+              onClick={() => toggleDayCompletion(day)}
+            >
+              {/* <div className=" relative -top-4 h-fit w-fit m-0 p-0">
+                {format(day, "d") === format(today, "d") ? "today" : ""}
+              </div> */}
+              {format(day, "d")}
+              {isCompleted(day) && (
+                <Check className="h-4 w-4 absolute top-1 right-1" />
+              )}
+            </Button>
+          );
+        })}
       </div>
 
       <div className="space-y-2">

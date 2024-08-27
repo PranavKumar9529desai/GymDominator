@@ -21,6 +21,5 @@ app.use("/api/v1/recipes/*", authenticationMiddleware);
 app.route("/api/v1/user/", UserRouter);
 app.route("/api/v1/workouts/", WorkoutsRouter);
 app.route("/api/v1/recipes", RecipesRouter);
-app.route("/api/v1/diet", DietRouter);
-
+app.route("/api/v1/diet", DietRouter); 
 export default app;
