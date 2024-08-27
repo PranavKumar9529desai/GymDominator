@@ -373,8 +373,8 @@ interface userProgressType {
 
 UserRouter.get("compltedDays", async (c) => {
     const token = c.req.header("Authorization");
-    const body: UserprogressInputType = await c.req.json()
-    console.log("body is : ", body);
+    // const body: UserprogressInputType = await c.req.json()
+    // console.log("body is : ", body);
     const jwt = token?.split(" ")[1];
     if (jwt == undefined) {
         c.status(400)
@@ -391,6 +391,7 @@ UserRouter.get("compltedDays", async (c) => {
         where: { email: `${email}` },
         select: { id: true }
     });
+    console.log(user);
     if (user == undefined) {
         c.status(400)
         return c.json({
