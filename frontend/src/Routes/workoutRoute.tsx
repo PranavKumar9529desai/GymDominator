@@ -4,7 +4,7 @@ import { Allworkouts } from "@components/Workout/allworkouts";
 
 export const WorkoutRoute = () => {
   return (
-    <div className="lg:grid grid-cols-5 h-dvh">
+    <div className="lg:grid grid-cols-5 h-screen bg-[#f0f0f0] ">
       <div className="col-span-1 lg:block hidden  ">
         <Sidebar2 />
       </div>
@@ -12,7 +12,7 @@ export const WorkoutRoute = () => {
          <BottomNavigation />
       </div>
 
-      <div className="col-span-4">
+      <div className="col-span-4 overflow-y-scroll h-dvh bg-[#f0f0f0f0]">
         <Allworkouts />
       </div>
     </div>

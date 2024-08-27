@@ -9,7 +9,9 @@ import axios from "axios";
 export const TodaysPlans2 = () => {
   async function CompleteTodaysPlan(iscomplete: boolean = false) {
     const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}`,
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/v1/user/completedtodaysprogress`,
       {
         UserCompletedThePlanInFrontned: iscomplete,
       },

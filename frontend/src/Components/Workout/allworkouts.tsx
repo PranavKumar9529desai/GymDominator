@@ -9,7 +9,7 @@ export const Allworkouts = () => {
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
-                <span className="font-extrabold  lg:text-6xl text-4xl flex text-center font-montserrat">
+                <span className="font-extrabold  lg:text-5xl text-4xl flex text-center font-montserrat">
                   Choose Muscle to train
                 </span>
               </div>

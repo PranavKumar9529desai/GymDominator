@@ -74,6 +74,15 @@ export const MonthProgressComponent = () => {
         ? prev.filter((d) => d.getTime() !== day.getTime())
         : [...prev, day]
     );
+
+    setCachedCompletedDays((prev) => {
+      const updatedDays = prev.DateArray.some(
+        (d) => d.getTime() === day.getTime()
+      )
+        ? prev.DateArray.filter((d) => d.getTime() !== day.getTime())
+        : [...prev.DateArray, day];
+      return { DateArray: updatedDays };
+    });
   };
 
   const extractDateParts = (date: Date) => {
@@ -101,14 +110,14 @@ export const MonthProgressComponent = () => {
   console.log("atom has these values", CachedCompletedDays);
 
   useEffect(() => {
-    setCachedCompletedDays({ DateArray: completedDays });
+    // setCachedCompletedDays({ DateArray: [...completedDays , ] });
     if (CachedCompletedDays.DateArray.length == 0) {
       getallcompletedDays();
     }
   }, [completedDays]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-6 space-y-6">
+    <div className="w-full max-w-3xl lg:max-w-6xl mx-auto p-6 space-y-6">
       {isLoading ? (
         <div className="flex justify-center items-center">Loading.....</div>
       ) : (
@@ -117,16 +126,16 @@ export const MonthProgressComponent = () => {
             Track your progress with Gymdominator
           </h1>
 
-          <div className="text-sm text-center space-x-4">
+          <div className="text-sm text-center space-x-4 lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 ">
             <span>Enrolled: {format(enrollmentDate, "MMMM d, yyyy")}</span>
             <span>Completion: {format(completionDate, "MMMM d, yyyy")}</span>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between lg:mt-8 my-4">
             <Button onClick={handlePrevMonth} variant="outline" size="icon">
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-xl font-semibold  lg:my-2">
               {format(currentDate, "MMMM yyyy")}
             </h2>
             <Button onClick={handleNextMonth} variant="outline" size="icon">
@@ -134,7 +143,7 @@ export const MonthProgressComponent = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-3 lg:gap-4 ">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
               <div key={day} className="text-center font-medium ">
                 {day}
@@ -145,7 +154,7 @@ export const MonthProgressComponent = () => {
                 <Button
                   key={day.toString()}
                   variant={isCompleted(day) ? "default" : "outline"}
-                  className={`h-12 ${
+                  className={`h-12 lg:h-16 my-2 lg:my-0 ${
                     !isSameMonth(day, currentDate) ? "opacity-50" : ""
                   } ${
                     format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
@@ -161,7 +170,7 @@ export const MonthProgressComponent = () => {
                     format(today, "yyyy-MM-dd") ? (
                     "today"
                   ) : isCompleted(day) ? (
-                    <div className="text-2xl">🏋</div>
+                    <div className="text-4xl">💪</div>
                   ) : (
                     format(day, "d")
                   )}
@@ -174,7 +183,7 @@ export const MonthProgressComponent = () => {
             })}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 mt-10 lg:mt-2">
             <div className="flex justify-between text-sm">
               <span>Monthly Progress</span>
               <span>{Math.round(progressPercentage)}%</span>
