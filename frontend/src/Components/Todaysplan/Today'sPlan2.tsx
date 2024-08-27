@@ -2,10 +2,26 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Dumbbell, Utensils, ChevronRight, Check, Party } from "lucide-react";
+import { Dumbbell, Utensils, ChevronRight, Check } from "lucide-react";
 import Confetti from "react-confetti";
+import axios from "axios";
 
 export const TodaysPlans2 = () => {
+  async function CompleteTodaysPlan(iscomplete: boolean = false) {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}`,
+      {
+        UserCompletedThePlanInFrontned: iscomplete,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      }
+    );
+    console.log(response.data);
+  }
+
   {
     const [showConfetti, setShowConfetti] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -40,6 +56,7 @@ export const TodaysPlans2 = () => {
 
     useEffect(() => {
       if (allTasksCompleted) {
+        CompleteTodaysPlan(true);
         setShowConfetti(true);
         const timer = setTimeout(() => setShowConfetti(false), 5000);
         return () => clearTimeout(timer);
@@ -51,7 +68,9 @@ export const TodaysPlans2 = () => {
         {showConfetti && (
           <Confetti width={window.innerWidth} height={window.innerHeight} />
         )}
-        <h1 className="text-4xl font-bold text-black mb-2 text-center lg:text-left">Today's Plan</h1>
+        <h1 className="text-4xl font-bold text-black mb-2 text-center lg:text-left">
+          Today's Plan
+        </h1>
         <p className="text-gray-500 mb-6 text-center lg:text-left">
           {date.toLocaleDateString("en-US", {
             weekday: "long",
