@@ -170,7 +170,7 @@ export const MonthProgressComponent = () => {
                     format(today, "yyyy-MM-dd") ? (
                     "today"
                   ) : isCompleted(day) ? (
-                    <div className="text-4xl">💪</div>
+                    <div className="lg:text-4xl text-2xl">💪</div>
                   ) : (
                     format(day, "d")
                   )}
