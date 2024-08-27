@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   format,
   addMonths,
@@ -13,6 +13,8 @@ import { Button } from "@components/ui/ui/button";
 import { Progress } from "@components/ui/ui/progress";
 
 import axios, { AxiosResponse } from "axios";
+import { useRecoilState } from "recoil";
+import { CompletedDaysAtom } from "@state/Atom/completedDays";
 
 interface getallcompletedDaysType {
   msg: string;
@@ -26,6 +28,9 @@ export const MonthProgressComponent = () => {
     new Date(1, 7, 2024),
     new Date(24, 8, 2024),
   ]);
+  // storing the dates in the atom so the dates should presist throughout the routes
+  const [CachedCompletedDays, setCachedCompletedDays] =
+    useRecoilState(CompletedDaysAtom);
 
   async function getallcompletedDays() {
     try {
@@ -43,6 +48,7 @@ export const MonthProgressComponent = () => {
         return new Date(dateString);
       });
       setCompletedDays(completedDaysArray);
+      setCachedCompletedDays({ DateArray: completedDaysArray });
       // setCompletedDays([...completedDays, response.data.completedDays]);
     } catch (error) {
       console.log(error);
@@ -52,7 +58,7 @@ export const MonthProgressComponent = () => {
   }
 
   // TODO it should come from the database
-  const enrollmentDate = new Date(2024, 8, 1); // August 1, 2024
+  const enrollmentDate = new Date(2024, 7, 1); // August 1, 2024
   const completionDate = new Date(2025, 1, 1); // February 1, 2025
   const today = new Date();
   const monthStart = startOfMonth(currentDate);
@@ -80,7 +86,7 @@ export const MonthProgressComponent = () => {
 
   const isCompleted = (day: Date) => {
     const dayParts = extractDateParts(day);
-    return completedDays.some((d) => {
+    return CachedCompletedDays.DateArray.some((d) => {
       const completedDayParts = extractDateParts(d);
       return (
         completedDayParts.day === dayParts.day &&
@@ -92,9 +98,14 @@ export const MonthProgressComponent = () => {
 
   const progressPercentage = (completedDays.length / daysInMonth.length) * 100;
   console.log("comleted days are", completedDays);
+  console.log("atom has these values", CachedCompletedDays);
+
   useEffect(() => {
-    getallcompletedDays();
-  }, []);
+    setCachedCompletedDays({ DateArray: completedDays });
+    if (CachedCompletedDays.DateArray.length == 0) {
+      getallcompletedDays();
+    }
+  }, [completedDays]);
 
   return (
     <div className="w-full max-w-3xl mx-auto p-6 space-y-6">
@@ -137,14 +148,24 @@ export const MonthProgressComponent = () => {
                   className={`h-12 ${
                     !isSameMonth(day, currentDate) ? "opacity-50" : ""
                   } ${
-                    format(day, "d") === format(today, "d") ? "bg-blue-300" : ""
+                    format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
+                      ? "bg-blue-300"
+                      : ""
                   }`}
                   onClick={() => toggleDayCompletion(day)}
                 >
-                  {/* <div className=" relative -top-4 h-fit w-fit m-0 p-0">
-                {format(day, "d") === format(today, "d") ? "today" : ""}
-                </div> */}
-                  {format(day, "d")}
+                  {format(day, "yyyy-MM-dd") ===
+                  format(enrollmentDate, "yyyy-MM-dd") ? (
+                    "Start"
+                  ) : format(day, "yyyy-MM-dd") ===
+                    format(today, "yyyy-MM-dd") ? (
+                    "today"
+                  ) : isCompleted(day) ? (
+                    <div className="text-2xl">🏋</div>
+                  ) : (
+                    format(day, "d")
+                  )}
+
                   {isCompleted(day) && (
                     <Check className="h-4 w-4 absolute top-1 right-1" />
                   )}
