@@ -1,12 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 //@ts-ignore
-import { SignupInput , SigninInput } from "../../../backend/src/zod/types";
+import { SignupInput, SigninInput } from "../../../backend/src/zod/types";
 import axios from "axios";
 import { BarLoader } from "react-spinners";
 import { coustomAlert } from "@components/customAlerts";
+import { useSetRecoilState } from "recoil";
+import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 
 export function Auth({ type }: { type: "signup" | "signin" }) {
+  const setUserDeatails = useSetRecoilState(UserDetailsAtom);
   let [loading, setLoading] = useState(false);
   const [postInputs, setpostInput] = useState<SignupInput>({
     email: "",
@@ -24,11 +27,14 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
         }`,
         postInputs
       );
-      
+
       const response = newReq.data;
       console.log(newReq.data.msg);
       const jwt = response.token;
       localStorage.setItem("jwt", jwt);
+      setUserDeatails({ name: response.name });
+      console.log("user name from the response.name", response.name);
+      console.log("user name is userdeatils atom", UserDetailsAtom);
       navigate("/");
       const message =
         type == "signup" ? "User created Sucessfully" : "Logged in Sucessfully";
@@ -44,7 +50,6 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
 
   return (
     <>
-   
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -69,7 +74,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
                     label="Username"
                     placeholder="Pranav"
                     onChange={(e) => {
-                      setpostInput((c : SignupInput) => ({
+                      setpostInput((c: SignupInput) => ({
                         ...c,
                         username: e.target.value,
                       }));
@@ -84,10 +89,10 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
                   label="Email"
                   placeholder="xyz@gmail.com    "
                   onChange={(e) => {
-                    setpostInput((c :SignupInput) => ({
+                    setpostInput((c: SignupInput) => ({
                       ...c,
                       email: e.target.value,
-                    }) );
+                    }));
                   }}
                   type="email"
                 />

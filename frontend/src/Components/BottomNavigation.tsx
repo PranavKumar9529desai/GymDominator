@@ -14,7 +14,7 @@ const routes = [
 export const BottomNavigation2 = () => {
   const [activeRoute, setActiveRoute] = useState("Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
-
+  const [isOpen, setisOpen] = useState<boolean>(false);
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
       <nav className="max-w-md mx-auto">
@@ -89,6 +89,15 @@ export const BottomNavigation2 = () => {
           ))}
         </ul>
       </nav>
+    </div>
+  );
+};
+
+const DrawerForTodaysPlan = () => {
+  return (
+    <div className="bg-gray-100 space-y-2 w-full text-center ">
+      <div>Weekly Progress</div>
+      <div>Monthly Progress</div>
     </div>
   );
 };

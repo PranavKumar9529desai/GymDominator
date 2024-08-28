@@ -3,6 +3,7 @@ import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
 import { excercise, MuscleGrp } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 export const Progress = () => {
   return (
     <div className=" flex justify-center ">
@@ -13,6 +14,7 @@ export const Progress = () => {
 
 // TODO when day is completed add cross to the day
 export const Weekcomponent = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const { isLoading, muscles } = FetchMusclesGroups();
@@ -20,50 +22,64 @@ export const Weekcomponent = () => {
   // console.log(muscles);
   let SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
 
+  useEffect(() => {
+    if (!isLoading) {
+      setIsVisible(true);
+    }
+  }, []);
+
   return (
     <div className="lg:h-dvh lg:border border-gray-200 rounded-xl bg-[#f5f5f5]  lg:pb-4 pb-20 lg:px-10">
-      <div className="*:block text-center p-4 *:m-2">
-        <div>
-          <ProgressBar width={10} />
-        </div>
-        <span className=" text-5xl font-extrabold font-montserrat  ">
-          Week 1
-        </span>
-        <span className="text-gray-400 lg:text-lg font-overpass">
-          Track your progress and consistency using the Gymdominator.
-        </span>
-      </div>
-
       <div
-        className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 lg:pb-4 space-y-10 lg:space-y-0 w-full  `}
+        className={`
+           duration-500 ease-in-out>
+          ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }
+          `}
       >
-        {/* how to map to a specific key
-         */}
+        <div className="*:block text-center p-4 *:m-2">
+          <div>
+            <ProgressBar width={10} />
+          </div>
+          <span className=" text-5xl font-extrabold font-montserrat  ">
+            Week 1
+          </span>
+          <span className="text-gray-400 lg:text-lg font-overpass">
+            Track your progress and consistency using the Gymdominator.
+          </span>
+        </div>
 
-        {isLoading ? (
-          <div className="lg:min-w-[1040px] text-center text-xl">Loading ...</div>
-        ) : (
-          SlicedMuscles.map((mus, key) => {
-            console.log("from the daycard ", mus.Exercise);
-            return (
-              <div className="flex justify-center ">
-                <DayCard
-                  day={WeekDays[key]}
-                  ExcerciseList={mus.Exercise}
-                  muscle={mus.name}
-                  img={mus.img}
-                />
-              </div>
-            );
-          })
-        )}
-      </div>
-      <div className="text-center mb-4">
-        {isLoading ? (
-          " "
-        ) : (
-          <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
-        )}
+        <div
+          className={`lg:flex lg:flex-wrap gap-10  justify-center pb-8 lg:pb-4 space-y-10 lg:space-y-0 w-full  `}
+        >
+          {isLoading ? (
+            <div className="lg:min-w-[1040px] text-center text-xl">
+              Loading ...
+            </div>
+          ) : (
+            SlicedMuscles.map((mus, key) => {
+              console.log("from the daycard ", mus.Exercise);
+              return (
+                <div className="flex justify-center ">
+                  <DayCard
+                    day={WeekDays[key]}
+                    ExcerciseList={mus.Exercise}
+                    muscle={mus.name}
+                    img={mus.img}
+                  />
+                </div>
+              );
+            })
+          )}
+        </div>
+        <div className="text-center mb-4">
+          {isLoading ? (
+            " "
+          ) : (
+            <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
+          )}
+        </div>
       </div>
     </div>
   );
@@ -82,7 +98,7 @@ const DayCard = ({
 }) => {
   // const location = useLocation();
   // console.log("current rotu is ", location);
-  console.log("inside the day card", ExcerciseList);
+  // console.log("inside the day card", ExcerciseList);
   return (
     <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg bg-white">
       <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">

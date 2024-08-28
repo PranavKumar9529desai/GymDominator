@@ -71,18 +71,18 @@ export const coustomWarningMsg = (navigate: NavigateFunction) => {
   });
 };
 
-export const DescriptionModal = async () => {
-  const result = await Swal.fire({
-    input: "textarea",
-    title: "Share your interests, skills, or any fun facts here...",
-    inputPlaceholder: "Type your description here...",
-    inputAttributes: {
-      "aria-label": "Anthing you like to share...",
-    },
-    showCancelButton: true,
-  });
+// export const DescriptionModal = async () => {
+//   const result = await Swal.fire({
+//     input: "textarea",
+//     title: "Share your interests, skills, or any fun facts here...",
+//     inputPlaceholder: "Type your description here...",
+//     inputAttributes: {
+//       "aria-label": "Anthing you like to share...",
+//     },
+//     showCancelButton: true,
+//   });
 
-  if (result.isConfirmed) {
-    await handleDescriptionSubmit(result.value);
-  }
-};
+//   if (result.isConfirmed) {
+//     await handleDescriptionSubmit(result.value);
+//   }
+// };

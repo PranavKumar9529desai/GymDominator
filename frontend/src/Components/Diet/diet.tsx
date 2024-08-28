@@ -1,9 +1,21 @@
 import { FetchdietsGroups } from "@hooks/FetchDiets";
-
+import { useEffect, useState } from "react";
 export const Diet = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (isLoading == false) {
+      setIsVisible(true);
+    }
+  }, []);
+
   const { isLoading, diets } = FetchdietsGroups();
   return (
-    <div className="bg-[#f0f0f0] pb-[100px] -mt-2 ">
+    <div
+      className={`
+      bg-[#f0f0f0] pb-[100px] -mt-2 duration-500 ease-in-out>
+        ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
+      `}
+    >
       <div className="text-center *:my-2 pt-6">
         <span className="text-3xl font-montserrat font-bold text-blue-500">
           DIET GUIDE

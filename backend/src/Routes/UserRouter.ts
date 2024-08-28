@@ -40,7 +40,7 @@ UserRouter.post('signup', async (c) => {
         console.log("the secret is ", c.env?.JWT_SECRET);
         const token = await sign(payload, c.env.JWT_SECRET);
         console.log("toeke is :", token);
-        return c.json({ msg: "Success", token: token });
+        return c.json({ msg: "Success", token: token, name: newUser.name });
 
     } catch (error) {
         console.log(error);
@@ -78,7 +78,7 @@ UserRouter.post('signin', async (c) => {
 
         if (isUserexist.password == body.password) {
             c.status(200);
-            return c.json({ msg: "sucess", token: token });
+            return c.json({ msg: "sucess", token: token, name: isUserexist.name });
         }
 
         else {

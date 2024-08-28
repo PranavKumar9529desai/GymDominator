@@ -1,5 +1,5 @@
-import { strict } from "assert";
-import { url } from "inspector";
+import { coustomLogoutAlert } from "@components/customAlerts";
+import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 import {
   ChevronRight,
   ChevronDown,
@@ -15,9 +15,16 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
+interface UserDetailsType {
+  name: string;
+}
 
 export const Sidebar2 = () => {
+  const UserDeatails: UserDetailsType = useRecoilValue(UserDetailsAtom);
+  console.log("sidebar ", UserDeatails.name);
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,6 +41,7 @@ export const Sidebar2 = () => {
   interface menuItem {
     name: string;
     icon: LucideIcon;
+    label: string;
     subItems?: SubItmestype[];
     link?: string;
   }
@@ -42,10 +50,12 @@ export const Sidebar2 = () => {
     {
       name: "Week Progress",
       link: "/dashboard/myprogress/week",
+      label: "week",
     },
     {
       name: "Month Progress",
       link: "/dashboard/myprogress/month",
+      label: "month",
     },
   ];
 
@@ -54,6 +64,7 @@ export const Sidebar2 = () => {
       name: "My Progress",
       icon: BarChart2,
       subItems: SubItems,
+      label: "myprogress",
     },
     {
       name: "Workouts",
@@ -72,27 +83,28 @@ export const Sidebar2 = () => {
       name: "Today's plan",
       icon: Calendar,
       link: "/dashboard/today'splan",
-      label: "Today's plan",
+      label: "today'splan",
     },
   ];
 
   const handleItemClick = (item: menuItem) => {
+    // @ts-ignore
     navigate(item.link);
     console.log("item url ", item.link);
     if (item.name === "My Progress") {
       setIsProgressOpen(!isProgressOpen);
     } else {
-      // setActivePage(item.name);
       setIsProgressOpen(false);
     }
   };
-
+  console.log("active page is", activePage, "acrout is ", acRoute, "label is ");
   useEffect(() => {
-    if (acRoute === "today'splan") {
-      console.log( "acroute is " ,acRoute ," activepage is" , activePage);
-      setActivePage("Diet");
+    if (acRoute == "week" || acRoute == "month") {
+      console.log("controle is here");
+      setActivePage("myprogress");
+    } else {
+      setActivePage(acRoute);
     }
-    setActivePage(acRoute);
   }, [acRoute]);
 
   console.log("activ page is ", activePage);
@@ -107,14 +119,13 @@ export const Sidebar2 = () => {
       </div>
 
       <nav className="flex-grow">
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {menuItems.map((item) => (
             <li key={item.name}>
               <button
                 onClick={() => handleItemClick(item)}
                 className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
-                  activePage === item.name.toLowerCase() ||
-                  (item.name === "My Progress" && isProgressOpen)
+                  activePage === item.label?.toLowerCase()
                     ? "bg-blue-600 text-white"
                     : "text-gray-300 hover:bg-gray-800"
                 }`}
@@ -133,6 +144,7 @@ export const Sidebar2 = () => {
               </button>
               {item.name === "My Progress" && isProgressOpen && (
                 <ul className="ml-6 mt-2 space-y-2 transition-all duration-200 ease-in-out">
+                  {/* @ts-ignore */}
                   {item.subItems.map((subItem) => (
                     <li key={subItem.name}>
                       <button
@@ -168,11 +180,16 @@ export const Sidebar2 = () => {
             <User className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-medium">John Doe</p>
+            <p className="font-medium">{UserDeatails.name}</p>
             <p className="text-sm text-gray-400">Premium Member</p>
           </div>
         </div>
-        <button className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200">
+        <button
+          className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+          onClick={() => {
+            coustomLogoutAlert(navigate);
+          }}
+        >
           <LogOut className="w-5 h-5 mr-3" />
           <span>Logout</span>
         </button>
