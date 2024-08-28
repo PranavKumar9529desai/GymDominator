@@ -20,7 +20,7 @@ export const Recipes = () => {
           }
           `}
       >
-        <div className="text-center *:my-3 lg:mt-4 ">
+        <div className="text-center *:my-3 lg:mt-6 ">
           <span className="lg:text-4xl font-montserrat font-bold text-blue-500 ">
             {"Recipe Categories"}
           </span>

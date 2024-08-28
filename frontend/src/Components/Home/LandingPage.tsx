@@ -8,7 +8,7 @@ export const LadingPage = () => {
   return (
     <div>
       <header id="home">
-        <section className="container header-section" >
+        <section className="container header-section">
           <div className="header-logo">
             {/* <img className="" src="src/assets/Gym-logo.jpg" alt="" /> */}
           </div>
@@ -35,10 +35,12 @@ export const LadingPage = () => {
             <div className="header-button animate-pop-in w-fit bg-blue-600 px-5 py-3 rounded-lg text-white font-bold hover:bg-blue-800 transition-colors ">
               <button
                 onClick={() => {
-                  if (localStorage.getItem("UserHealthProfile") == null) {
-                    navigate("/onboarding");
-                  } else if (localStorage.getItem("jwt") === null) {
+                  if (localStorage.getItem("jwt") === null) {
                     navigate("/signin");
+                  } else if (
+                    localStorage.getItem("UserHealthProfile") == null
+                  ) {
+                    navigate("/onboarding");
                   } else {
                     navigate("/dashboard/myprogress");
                   }

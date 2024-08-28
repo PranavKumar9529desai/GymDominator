@@ -28,6 +28,13 @@ export const MonthProgressComponent = () => {
     new Date(1, 7, 2024),
     new Date(24, 8, 2024),
   ]);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (isLoading == false) {
+      setIsVisible(true);
+    }
+  }, []);
+
   // storing the dates in the atom so the dates should presist throughout the routes
   const [CachedCompletedDays, setCachedCompletedDays] =
     useRecoilState(CompletedDaysAtom);
@@ -117,7 +124,7 @@ export const MonthProgressComponent = () => {
   }, [completedDays]);
 
   return (
-    <div className="w-full max-w-3xl lg:max-w-6xl mx-auto p-6 space-y-6">
+    <div className=" w-full max-w-3xl lg:max-w-6xl mx-auto p-6 space-y-6">
       {isLoading ? (
         <div className="flex justify-center items-center">Loading.....</div>
       ) : (

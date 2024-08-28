@@ -12,7 +12,7 @@ export const RecicpesRoute = () => {
         <div className="lg:hidden block">
           <BottomNavigation />
         </div>
-        <div className="col-span-4 overflow-y-auto">
+        <div className="col-span-4 overflow-y-auto -mt-4">
           <Recipes />
         </div>
       </div>
