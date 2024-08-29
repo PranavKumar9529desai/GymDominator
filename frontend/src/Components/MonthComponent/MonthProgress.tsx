@@ -58,7 +58,7 @@ export const MonthProgressComponent = () => {
       );
       setenrolledDate(response.data.enrolledDate);
       setcompletiondate(response.data.completionDate);
-      let completedDaysArray = response.data.completedDays.map((dateString) => {
+      let completedDaysArray = response.data.completedDays.map((dateString : Date) => {
         console.log(dateString);
         return new Date(dateString);
       });

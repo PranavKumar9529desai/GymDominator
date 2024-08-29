@@ -111,9 +111,10 @@ export const Sidebar2 = () => {
 
   return (
     <div className="flex flex-col  bg-gray-900 text-white w-full py-8 h-dvh">
-      <div className="flex items-center mb-8 px-2">
+      <div className="flex items-center mb-8 px-2 relative left-1">
         <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-          <Dumbbell className="w-6 h-6" />
+          {/* <Dumbbell className="w-6 h-6" /> */}
+          <img src="/src/assets/Gymdominator.ico" alt="" className="cover" />
         </div>
         <h1 className="text-2xl font-bold">GymDominator</h1>
       </div>
