@@ -3,9 +3,9 @@ import { Button } from "@components/ui/ui/button";
 import WorkoutPlans from "@assets/workoutplans.png"
 import Recipes from "@assets/recipes.png"
 import PersonalMentor from "@assets/personaltrainer.png"
-import Av1 from "@assets/av1.png"
-import Av4 from "@assets/av4.png"
-import Av3 from "@assets/av3.png"
+// import Av1 from "@assets/av1.png"
+// import Av4 from "@assets/av4.png"
+// import Av3 from "@assets/av3.png"
 
 export const MainSection = () => {
   return (
