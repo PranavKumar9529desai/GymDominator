@@ -1,4 +1,5 @@
 import { useEffect, useState, Dispatch } from "react";
+import GymdominatorLogo from "@assets/gym-launch-logo.png"
 import { HashLink } from "react-router-hash-link";
 
 type colors = "white" | "black";
@@ -32,7 +33,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
           <div className="inline-flex w-36 h-16 ">
             <img
               className="object-cover mt-1 "
-              src="/src/assets/gym-launch-logo.png"
+              src={GymdominatorLogo}
               alt="logo"
             />
             <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-montserrat top-[1px]">

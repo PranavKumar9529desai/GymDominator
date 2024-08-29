@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./main.css";
 import { MainSection } from "./mainsection/mainsecion";
 import { Footer } from "./Footer";
+import DownArrow from "@assets/downarrow.png"
+import greenTick from "@assets/green-tick-icon.png"
 
 export const LadingPage = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ export const LadingPage = () => {
           <div className="header-subtitle animate-pop-in">
             <div className="icon-container my-1 mr-2">
               <img
-                src="/src/assets/green-tick-icon.png"
+                src={greenTick}
                 alt=""
                 width={20}
                 height={18}
@@ -51,7 +53,7 @@ export const LadingPage = () => {
             </div>
           </div>
           <div className="header-down-arrow">
-            <img src="/src/assets/downarrow.png" alt="down-arrow" width={40} />
+            <img src={DownArrow} alt="down-arrow" width={40} />
           </div>
         </section>
       </header>

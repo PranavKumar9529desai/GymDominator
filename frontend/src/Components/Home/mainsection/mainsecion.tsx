@@ -1,5 +1,12 @@
 import { Card , CardContent } from "@components/ui/ui/card";
 import { Button } from "@components/ui/ui/button";
+import WorkoutPlans from "@assets/workoutplans.png"
+import Recipes from "@assets/recipes.png"
+import PersonalMentor from "@assets/personaltrainer.png"
+import Av1 from "@assets/av1.png"
+import Av4 from "@assets/av4.png"
+import Av3 from "@assets/av3.png"
+
 export const MainSection = () => {
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white">
@@ -17,7 +24,7 @@ export const MainSection = () => {
           <Card className="bg-gray-800 border-gray-700">
             <CardContent className="flex flex-col items-center space-y-4 p-6">
               <img
-                src="/src/assets/workoutplans.png"
+                src={WorkoutPlans}
                 alt="Free Gym Workouts"
                 width={300}
                 height={200}
@@ -35,7 +42,7 @@ export const MainSection = () => {
           <Card className="bg-gray-800 border-gray-700">
             <CardContent className="flex flex-col items-center space-y-4 p-6">
               <img
-                src="/src/assets/recipes.png"
+                src={Recipes}
                 alt="Personalized Meal Plans"
                 width={300}
                 height={200}
@@ -53,7 +60,7 @@ export const MainSection = () => {
           <Card className="bg-gray-800 border-gray-700">
             <CardContent className="flex flex-col items-center space-y-4 p-6">
               <img
-                src="/src/assets/personaltrainer.png"
+                src={PersonalMentor}
                 alt="Personal Mentor"
                 width={300}
                 height={200}
