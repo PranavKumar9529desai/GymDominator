@@ -1,13 +1,31 @@
-import { Card , CardContent } from "@components/ui/ui/card";
+import { Card, CardContent } from "@components/ui/ui/card";
 import { Button } from "@components/ui/ui/button";
-import WorkoutPlans from "@assets/workoutplans.png"
-import Recipes from "@assets/recipes.png"
-import PersonalMentor from "@assets/personaltrainer.png"
-// import Av1 from "@assets/av1.png"
-// import Av4 from "@assets/av4.png"
-// import Av3 from "@assets/av3.png"
+import WorkoutPlans from "@assets/workoutplans.png";
+import Recipes from "@assets/recipes.png";
+import PersonalMentor from "@assets/personaltrainer.png";
+import Av1 from "@assets/av1.png";
+import Av4 from "@assets/av4.png";
+import Av3 from "@assets/av3.png";
 
 export const MainSection = () => {
+  const Testimonial = [
+    {
+      name: "Harshdeep Singh",
+      text: "GymDominator's free plans transformed my routine. I've never felt stronger!",
+      image: { Av4 },
+    },
+    {
+      name: "Joseph Paul",
+      text: "The personal mentor keeps me accountable. It's like having a pro trainer for free!",
+      image: { Av1 },
+    },
+    {
+      name: "Sachin Patil",
+      text: "From workouts to meals, GymDominator offers an unbeatable free fitness package.",
+      image: { Av3 },
+    },
+  ];
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white">
       <div className="container px-4 md:px-6">
@@ -35,7 +53,7 @@ export const MainSection = () => {
               </h3>
               <p className="text-center text-gray-400">
                 Access a variety of workout plans tailored to your fitness level
-               and goals.
+                and goals.
               </p>
             </CardContent>
           </Card>
@@ -81,30 +99,15 @@ export const MainSection = () => {
             What Our Dominators Say
           </h3>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
-            {[
-              {
-                name: "Harshdeep Singh",
-                text: "GymDominator's free plans transformed my routine. I've never felt stronger!",
-                image:
-                  "/src/assets/av4.png",
-              },
-              {
-                name: "Joseph Paul",
-                text: "The personal mentor keeps me accountable. It's like having a pro trainer for free!",
-                image:
-                  "/src/assets/av1.png",
-              },
-              {
-                name: "Sachin Patil",
-                text: "From workouts to meals, GymDominator offers an unbeatable free fitness package.",
-                image:
-                  "/src/assets/av3.png",
-              },
-            ].map((testimonial, index) => (
+            {Testimonial.map((testimonial, index) => (
               <Card key={index} className="bg-gray-800 border-gray-700">
                 <CardContent className="flex flex-col items-center space-y-4 p-6">
                   <img
-                    src={testimonial.image}
+                    src={
+                      testimonial.image?.Av4 ||
+                      testimonial.image?.Av1 ||
+                      testimonial.image?.Av3
+                    }
                     alt={testimonial.name}
                     width={80}
                     height={80}
