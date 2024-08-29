@@ -21,7 +21,7 @@ export const Diet = () => {
           DIET GUIDE
         </span>
         <div className="flex">
-          <span className="text-gray-500 lg:text-lg lg:px-10 lg:leading-relaxed line-clamp-2">
+          <span className="text-gray-500 lg:text-lg lg:px-10 lg:leading-relaxed line-clamp-2 px-2">
             Confused about what diet you should follow? Read these guides and
             choose a diet style that best suits your goals, food preferences and
             lifestyle.

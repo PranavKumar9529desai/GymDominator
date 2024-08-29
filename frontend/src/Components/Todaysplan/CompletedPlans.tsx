@@ -29,16 +29,21 @@ export default function WorkoutCompleted() {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-          <button className="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:-translate-y-1">
-            View Workout Details
-          </button>
           <button
-            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:-translate-y-1 flex items-center justify-center"
+            className="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:-translate-y-1"
             onClick={() => {
               navigate("/dashboard/myprogress/week");
             }}
           >
-            Tomorrow's Workout
+            View Week's Progress
+          </button>
+          <button
+            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:-translate-y-1 flex items-center justify-center"
+            onClick={() => {
+              navigate("/dashboard/myprogress/month");
+            }}
+          >
+            Track my Progress
             <ChevronRight className="ml-1 w-4 h-4" />
           </button>
         </div>

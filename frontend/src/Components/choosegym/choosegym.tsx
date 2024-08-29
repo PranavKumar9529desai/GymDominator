@@ -103,6 +103,7 @@ const Gymcard = ({
         },
       }
     );
+    console.log(response);
   }
   const handleSelect = (gymname: string) => {
     setgymname(gymname);

@@ -1,8 +1,8 @@
 import { ProgressBar } from "@components/progressBar";
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
-import { excercise, MuscleGrp } from "@state/Selectors/MuscleGrpSelectot";
+import { excercise  } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 export const Progress = () => {
   return (
@@ -96,9 +96,6 @@ const DayCard = ({
   img: string;
   ExcerciseList: excercise[];
 }) => {
-  // const location = useLocation();
-  // console.log("current rotu is ", location);
-  // console.log("inside the day card", ExcerciseList);
   return (
     <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg bg-white">
       <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">
@@ -126,7 +123,6 @@ const DayCard = ({
                     type="checkbox"
                     className="mr-2 size-[18px] relative  top-1"
                   />
-                  {/* use / to the front to stat from the root route  */}
                   <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
                     <span className="align-center">
                       {excercise.name ? excercise.name : "cardio"}
@@ -164,67 +160,67 @@ const SeeMore = ({
   );
 };
 
-const Button = ({ text }: { text: string }) => {
-  return (
-    <button>
-      <div className="flex justify-center items-center px-4  py-2  bg-gray-800 text-white rounded-lg ">
-        <div className={`${text == "Next" ? "hidden" : " "} mr-1`}>
-          <svg
-            fill="#ffffff"
-            height="12px"
-            width="px"
-            version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 330 330"
-            xmlSpace="preserve"
-            transform="rotate(180)"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <path
-                id="XMLID_222_"
-                d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
-              ></path>{" "}
-            </g>
-          </svg>
-        </div>
-        {text}
-        <div className={`${text == "Back" ? "hidden" : " "} ml-1`}>
-          <svg
-            fill="#ffffff"
-            height="12px"
-            width="20px"
-            version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 330 330"
-            xmlSpace="preserve"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              {" "}
-              <path
-                id="XMLID_222_"
-                d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
-              ></path>{" "}
-            </g>
-          </svg>
-        </div>
-      </div>
-    </button>
-  );
-};
+// const Button = ({ text }: { text: string }) => {
+//   return (
+//     <button>
+//       <div className="flex justify-center items-center px-4  py-2  bg-gray-800 text-white rounded-lg ">
+//         <div className={`${text == "Next" ? "hidden" : " "} mr-1`}>
+//           <svg
+//             fill="#ffffff"
+//             height="12px"
+//             width="px"
+//             version="1.1"
+//             id="Layer_1"
+//             xmlns="http://www.w3.org/2000/svg"
+//             xmlnsXlink="http://www.w3.org/1999/xlink"
+//             viewBox="0 0 330 330"
+//             xmlSpace="preserve"
+//             transform="rotate(180)"
+//           >
+//             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+//             <g
+//               id="SVGRepo_tracerCarrier"
+//               stroke-linecap="round"
+//               stroke-linejoin="round"
+//             ></g>
+//             <g id="SVGRepo_iconCarrier">
+//               {" "}
+//               <path
+//                 id="XMLID_222_"
+//                 d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
+//               ></path>{" "}
+//             </g>
+//           </svg>
+//         </div>
+//         {text}
+//         <div className={`${text == "Back" ? "hidden" : " "} ml-1`}>
+//           <svg
+//             fill="#ffffff"
+//             height="12px"
+//             width="20px"
+//             version="1.1"
+//             id="Layer_1"
+//             xmlns="http://www.w3.org/2000/svg"
+//             xmlnsXlink="http://www.w3.org/1999/xlink"
+//             viewBox="0 0 330 330"
+//             xmlSpace="preserve"
+//           >
+//             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+//             <g
+//               id="SVGRepo_tracerCarrier"
+//               stroke-linecap="round"
+//               stroke-linejoin="round"
+//             ></g>
+//             <g id="SVGRepo_iconCarrier">
+//               {" "}
+//               <path
+//                 id="XMLID_222_"
+//                 d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"
+//               ></path>{" "}
+//             </g>
+//           </svg>
+//         </div>
+//       </div>
+//     </button>
+//   );
+// };

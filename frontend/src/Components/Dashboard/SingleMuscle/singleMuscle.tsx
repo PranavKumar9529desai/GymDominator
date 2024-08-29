@@ -1,4 +1,5 @@
 import { Navbar2 } from "@components/Navbar/Navbar2";
+import { PropagateLoader } from "react-spinners";
 import { useNavigate, useParams } from "react-router-dom";
 import { BottomNavigation } from "../BottomNavigation";
 import { FetchExcercise } from "@hooks/FetchExcercise";
@@ -24,28 +25,25 @@ export const SingleMuscles = () => {
       <div className="md:hidden block ">
         <BottomNavigation />
       </div>
-
-      // TODO add custom loader in instead of the Loading
       <div className="w-full text-center lg:pt-20 pt-4">
         <div className="lg:text-5xl font-bold text-3xl  ">
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)} Excercises
         </div>
         <div className="text-xl text-gray-600 mt-5 px-1">
-          {isLoading ? (
-            <div className="flex items-center justify-center">
-              Loading. ...{" "}
-            </div>
-          ) : (
-            muscle.charAt(0).toUpperCase() + muscle.slice(1)
-          )}{" "}
-          exercises. Learn how to build a big, strong and muscular{" "}
+          {muscle.charAt(0).toUpperCase() + muscle.slice(1)} exercises. Learn
+          how to build a big, strong and muscular{" "}
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
           {muscle}.
         </div>
       </div>
-      {/* recommend eexcescise */}
       <div className="mt-8 ">
-        <RecommenedExcercise Excercises={Excercise} />
+        {isLoading ? (
+          <div className="flex justify-center items-center relative top-40 text-3xl">
+            <PropagateLoader />
+          </div>
+        ) : (
+          <RecommenedExcercise Excercises={Excercise} />
+        )}
       </div>
     </div>
   );
@@ -60,13 +58,13 @@ const RecommenedExcercise = ({
 
   return (
     <div className="w-full ">
-      <div className="bg-gray-200 px-8 w-10/12 mx-auto border-t-4 border-blue-800 mb-16">
+      <div className="lg:bg-gray-200 bg-white px-8 w-10/12 mx-auto border-t-4 border-blue-800 mb-16">
         <div className="text-2xl font-semibold my-5 ">
           Best {muscle?.toLocaleUpperCase()} Exercises{" "}
         </div>
         <div className="">
           <div className="flex lg:gap-10 lg:flex-row flex-col gap-2  ">
-            {Excercises.map((excercise, key) => {
+            {Excercises.map((excercise) => {
               return (
                 <ExcerciseCard name={excercise.name} img={excercise.img} />
               );

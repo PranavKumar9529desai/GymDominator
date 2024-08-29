@@ -1,6 +1,5 @@
 import { Auth } from "@components/Auth/Auth";
 import Quote from "@components/Auth/Quote";
-import Signin2 from "@components/signin2";
 
 export function SignIn() {
   return (

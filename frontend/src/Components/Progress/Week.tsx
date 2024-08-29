@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export const Week = ({
   isactive,
   weeknumber,
-  muscle 
+   
 }: {
   isactive: boolean;
   weeknumber: number;
@@ -21,7 +21,7 @@ export const Week = ({
     pushUps: false,
   });
 
-  const [WeekComplete, setWeekComplete] = useState<boolean>();
+  const [, setWeekComplete] = useState<boolean>();
   const [iscompleted, setcompleted] = useState<boolean>(true);
 
   useEffect(() => {

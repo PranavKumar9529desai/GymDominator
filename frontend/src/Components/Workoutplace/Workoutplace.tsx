@@ -16,7 +16,7 @@ export const Workoutplace = () => {
   );
 };
 
-type WorkoutplaceType = "IN home" | "IN the Gym";
+// type WorkoutplaceType = "IN home" | "IN the Gym";
 
 const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
   const [workoutplace, setworkoutplace] = useState<string>("");
@@ -38,6 +38,7 @@ const WorkoutplaceCard = ({ text, img }: { text: string; img: string }) => {
         },
       }
     );
+    console.log(response);
   }
   return (
     <button

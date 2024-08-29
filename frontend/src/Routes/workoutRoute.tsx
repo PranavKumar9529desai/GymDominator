@@ -8,11 +8,11 @@ export const WorkoutRoute = () => {
       <div className="col-span-1 lg:block hidden  ">
         <Sidebar2 />
       </div>
-      <div className="lg:hidden block">
+      <div className="lg:hidden block ">
          <BottomNavigation />
       </div>
 
-      <div className="col-span-4 overflow-y-scroll h-dvh bg-[#f0f0f0f0]">
+      <div className="col-span-4 overflow-y-scroll h-dvh bg-[#f0f0f0f0] ">
         <Allworkouts />
       </div>
     </div>

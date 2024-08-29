@@ -10,7 +10,7 @@ export const SingleWorkout = () => {
     workoutname = "Dumbbell Bench Press";
   }
 
-  let { excercise, isLoading } = FetchSingleWorkout({ workoutname });
+  let { excercise } = FetchSingleWorkout({ workoutname });
 
   console.log("excercsie from the singleworkout", excercise);
   if (excercise == undefined) {

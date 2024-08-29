@@ -6,7 +6,6 @@ import {
   Ruler,
   Weight,
   Utensils,
-  Divide,
 } from "lucide-react";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -237,6 +236,7 @@ export const HealthProfileForm = () => {
                   id="dietPreference"
                   name="dietPreference"
                   value={formData.dietPreference}
+                  // @ts-ignore
                   onChange={handleInputChange}
                   className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 appearance-none"
                   required

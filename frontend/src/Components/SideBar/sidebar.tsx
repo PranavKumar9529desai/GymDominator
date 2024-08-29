@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { DietSvg } from "@components/Svg/dietSvg";
-import { useRef } from "react";
 import { ProgressSvg } from "@components/Svg/progressSvg";
 import { RecipesSvg } from "@components/Svg/recipesSvg";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
@@ -126,8 +124,6 @@ const NavigateDivDropDown = ({
   svg2?: JSX.Element;
   DropDown?: JSX.Element;
 }) => {
-  const [showdropdown, setshowdropdown] = useState<boolean>(false);
-  const navigate = useNavigate();
   const [isDropDownVisible, setIsDropDownVisible] = useState<boolean>(false);
   console.log(isDropDownVisible);
   return (

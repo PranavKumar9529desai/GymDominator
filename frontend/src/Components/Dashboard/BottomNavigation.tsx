@@ -2,7 +2,7 @@ import { ProgressSvg } from "@components/Svg/progressSvg";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
 import { DietSvg } from "@components/Svg/dietSvg";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GoalIcon, Plane, PlaneIcon } from "lucide-react";
+import { GoalIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ChevronUp, BarChart2, TrendingUp } from "lucide-react";
 export const BottomNavigation = () => {

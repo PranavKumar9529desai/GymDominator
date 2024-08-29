@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from "react";
+import { Calendar, Trophy } from "lucide-react";
+import {  useEffect, useState } from "react";
 import {
   format,
   addMonths,
@@ -8,7 +9,7 @@ import {
   eachDayOfInterval,
   isSameMonth,
 } from "date-fns";
-import { ChevronLeft, ChevronRight, Check, Divide } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { Button } from "@components/ui/ui/button";
 import { Progress } from "@components/ui/ui/progress";
 
@@ -19,6 +20,8 @@ import { CompletedDaysAtom } from "@state/Atom/completedDays";
 interface getallcompletedDaysType {
   msg: string;
   completedDays: Date[];
+  enrolledDate: Date;
+  completionDate: Date;
 }
 
 export const MonthProgressComponent = () => {
@@ -28,7 +31,10 @@ export const MonthProgressComponent = () => {
     new Date(1, 7, 2024),
     new Date(24, 8, 2024),
   ]);
+  const [enrolledDate, setenrolledDate] = useState<Date>();
+  const [completiondate, setcompletiondate] = useState<Date>();
   const [isVisible, setIsVisible] = useState(false);
+  console.log(isVisible);
   useEffect(() => {
     if (isLoading == false) {
       setIsVisible(true);
@@ -50,6 +56,8 @@ export const MonthProgressComponent = () => {
           },
         }
       );
+      setenrolledDate(response.data.enrolledDate);
+      setcompletiondate(response.data.completionDate);
       let completedDaysArray = response.data.completedDays.map((dateString) => {
         console.log(dateString);
         return new Date(dateString);
@@ -64,9 +72,7 @@ export const MonthProgressComponent = () => {
     }
   }
 
-  // TODO it should come from the database
-  const enrollmentDate = new Date(2024, 7, 1); // August 1, 2024
-  const completionDate = new Date(2025, 1, 1); // February 1, 2025
+ 
   const today = new Date();
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -133,9 +139,21 @@ export const MonthProgressComponent = () => {
             Track your progress with Gymdominator
           </h1>
 
-          <div className="text-sm text-center space-x-4 lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 ">
-            <span>Enrolled: {format(enrollmentDate, "MMMM d, yyyy")}</span>
-            <span>Completion: {format(completionDate, "MMMM d, yyyy")}</span>
+          <div className="text-sm text-center  lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 flex justify-center gap-4 lg:gap-10">
+            <div className="flex items-center">
+                <Calendar className="w-4 h-4 mr-1"/>
+              <span>
+                Enrolled:{" "}
+                {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
+              </span>
+            </div>
+            <div className="flex items-center">
+                <Trophy className="w-4 h-4 mr-1" />
+              <span>
+                Completion:{" "}
+                {format(completiondate || new Date(2025, 1, 1), "MMMM d, yyyy")}
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center justify-between lg:mt-8 my-4">
@@ -156,7 +174,7 @@ export const MonthProgressComponent = () => {
                 {day}
               </div>
             ))}
-            {daysInMonth.map((day, index) => {
+            {daysInMonth.map((day) => {
               return (
                 <Button
                   key={day.toString()}
@@ -171,7 +189,7 @@ export const MonthProgressComponent = () => {
                   onClick={() => toggleDayCompletion(day)}
                 >
                   {format(day, "yyyy-MM-dd") ===
-                  format(enrollmentDate, "yyyy-MM-dd") ? (
+                  format(enrolledDate || new Date(2024, 1, 1), "yyyy-MM-dd") ? (
                     "Start"
                   ) : format(day, "yyyy-MM-dd") ===
                     format(today, "yyyy-MM-dd") ? (

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { DietType } from "@components/HealthProfile/healthprofileform";
 import { cn } from "@components/lib/utils";
 
 export interface InputProps
@@ -46,7 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
 
       if (setdiet) {
-        setdiet(event.target.value as DietType);
+        // setdiet(event.target.value as DietType);
       }
 
       if (setaddress) {

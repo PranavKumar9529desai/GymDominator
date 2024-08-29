@@ -2,7 +2,6 @@ import { WorkoutComponent } from "./WorkoutComponent";
 import { Excercisetype } from "@state/Selectors/SingleWorkoutSelectorsFamily";
 import { SvgWorkout } from "@components/Svg/today'splanworkoutSvg";
 import { useState } from "react";
-import { boolean } from "zod";
 
 export const WorkoutComponentCard = ({
   Excercise,

@@ -436,7 +436,7 @@ UserRouter.get("compltedDays", async (c) => {
         }
 
         c.status(200);
-        return c.json({ msg: "success", completedDays: allcompletedDays })
+        return c.json({ msg: "success", completedDays: allcompletedDays, enrolledDate: userProgress.enrolledDate, completionDate: userProgress.ComlpetionDate });
 
     } catch (error) {
         console.log(error)

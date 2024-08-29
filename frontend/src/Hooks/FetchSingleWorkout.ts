@@ -2,16 +2,16 @@
 import { Excercisetype, } from "@state/Selectors/SingleWorkoutSelectorsFamily"
 import { SingleWorkoutSelectorsFamily } from "@state/Selectors/SingleWorkoutSelectorsFamily"
 import { useEffect, useState } from "react"
-import { Loadable, useRecoilState, useRecoilValueLoadable } from "recoil"
+import { Loadable, useRecoilValueLoadable } from "recoil"
 
 export const FetchSingleWorkout = ({ workoutname }: { workoutname: string }) => {
-    const Excercise: Loadable<Excercisetype> =  useRecoilValueLoadable(SingleWorkoutSelectorsFamily(workoutname))
-    console.log("fetch ts",Excercise)
+    const Excercise: Loadable<Excercisetype> = useRecoilValueLoadable(SingleWorkoutSelectorsFamily(workoutname))
+    console.log("fetch ts", Excercise)
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [excercise, setexcercise] = useState<Excercisetype>();
 
     useEffect(() => {
-        console.log("excercsie from the fetch.ts",excercise);
+        console.log("excercsie from the fetch.ts", excercise);
         switch (Excercise.state) {
             case "hasValue":
                 setisLoading(false);
@@ -25,5 +25,5 @@ export const FetchSingleWorkout = ({ workoutname }: { workoutname: string }) => 
                 console.log("fetch error", Excercise.contents);
         }
     }, [Excercise]);
-     return { isLoading, excercise };
+    return { isLoading, excercise };
 }

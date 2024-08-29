@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { OnboardingRoute } from "@routes/OnboardingRoute";
 import "./App.css";
 import { MonthProgressRoute } from "@routes/MonthProgressRoute";
-import { Dashboard } from "@routes/dashboard ";
 import { Home } from "@routes/homeRoute";
 import { RecoilRoot } from "recoil";
 import { SignIn } from "@routes/signinRoute";
@@ -24,7 +23,7 @@ function Main() {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<WorkoutRoute />} />
       <Route path="/dashboard/workouts" element={<WorkoutRoute />} />
       <Route
         path="/dashboard/workouts/:muscle"

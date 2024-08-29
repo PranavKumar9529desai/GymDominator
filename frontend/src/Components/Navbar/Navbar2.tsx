@@ -2,7 +2,6 @@ import { useEffect, useState, Dispatch } from "react";
 import { useNavigate } from "react-router-dom";
 
 type colors = "white" | "black";
-// fix this navabar make it reponsive 
 export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
   const navigate = useNavigate();
   const [isOpen, SetIsOpen] = useState<boolean>(false);
@@ -18,7 +17,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
         onClick={()=>{
             navigate("/dashboard/workouts")
         }}>
-          <div className="inline-flex w-36 h-16 -ml-6 -ml-0">
+          <div className="inline-flex w-36 h-16 -ml-6 ">
             <img
               className="object-cover mt-1 "
               src="/src/assets/gym-launch-logo.png"

@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { RecoilValueReadOnly, selectorFamily } from "recoil";
-import { string } from "zod";
 
 interface ResponseType {
   msg: string;

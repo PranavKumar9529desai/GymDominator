@@ -11,7 +11,7 @@ export const TodaysPlanRoute = () => {
         <div className="lg:hidden block">
           <BottomNavigation />
         </div>
-        <div className="col-span-4 -ml-2 h-dvh relative top-20 lg:top-0">
+        <div className="col-span-4 -ml-2 h-dvh relative top-10 lg:top-0">
           <TodaysPlans />
         </div>
       </div>

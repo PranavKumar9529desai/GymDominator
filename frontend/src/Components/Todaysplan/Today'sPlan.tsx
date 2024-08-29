@@ -4,13 +4,18 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Dumbbell, Utensils, ChevronRight, Check } from "lucide-react";
 import Confetti from "react-confetti";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import WorkoutCompleted from "./CompletedPlans";
 
+interface TodayplanPropsType {
+  msg: string;
+  AlreadyCompletedTheplan: boolean;
+}
+
 export const TodaysPlans = () => {
-  const [isCompleted, setisComplted] = useState<boolean>(true);
+  const [isCompleted, setisComplted] = useState<boolean>(false);
   async function CompleteTodaysPlan(iscomplete: boolean = false) {
-    const response = await axios.post(
+    const response: AxiosResponse<TodayplanPropsType> = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/completedtodaysprogress`,
       {
         UserCompletedThePlanInFrontned: iscomplete,
@@ -22,14 +27,13 @@ export const TodaysPlans = () => {
       }
     );
     console.log(response.data);
-    if (response.data.UserCompletedThePlanInFrontned) {
-      setisComplted(true);
-    }
+    setisComplted(response.data.AlreadyCompletedTheplan);
+    console.log("setisComplted", isCompleted);
   }
 
   {
     const [showConfetti, setShowConfetti] = useState(false);
-    const [date, setDate] = useState(new Date());
+    const [date] = useState(new Date());
     const [workouts, setWorkouts] = useState([
       { name: "Push-ups", sets: "3", reps: "10", completed: false },
       { name: "Squats", sets: "3", reps: "10", completed: false },
@@ -72,7 +76,7 @@ export const TodaysPlans = () => {
     return (
       <div className="max-w-4xl mx-auto  rounded-xl mt-8 ">
         {isCompleted ? (
-          <div className="lg:mt-20">
+          <div className="lg:mt-20 ">
             <WorkoutCompleted />
           </div>
         ) : (

@@ -1,6 +1,5 @@
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { WorkoutModal } from "./WorkoutModel";
 export const Allworkouts = () => {
   const { isLoading, muscles } = FetchMusclesGroups();
@@ -14,31 +13,33 @@ export const Allworkouts = () => {
     <>
       <div
         className={`
-          duration-500 ease-in-out>
+          duration-500 ease-in-out mb-40>
           ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }
           `}
       >
-        <div className=" h-dvh  bg-[#f5f5f5]  -mt-5">
+        <div className=" h-dvh  bg-[#f5f5f5]  -mt-5 ">
           <div className="block w-full ">
             <div className="">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
-                <span className="font-extrabold  lg:text-5xl text-4xl flex text-center font-montserrat">
-                  Choose Muscle to train
+                <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-montserrat">
+                  Choose Muscle to Train ...!
                 </span>
               </div>
-              <div className="flex w-full ">
+              <div className="">
                 {isLoading ? (
                   <div className="flex justify-center w-full mt-3 relative top-40">
                     Loading.....
                     {/* <CustomSkelton size="large" /> */}
                   </div>
                 ) : (
-                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !mb-40 mt-8 lg:mt-10 max-h-screen ">
+                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !pb-40 mt-8 lg:mt-10 max-h-screen  ">
                     {muscles.map((muscle) => {
                       return (
-                        <MuscleGroup name={muscle.name} img={muscle.img} />
+                        <div className="lg:w-fit w-full lg:ml-0 text-center ">
+                          <MuscleGroup name={muscle.name} img={muscle.img} />
+                        </div>
                       );
                     })}
                   </div>
@@ -55,7 +56,7 @@ export const Allworkouts = () => {
 };
 
 const MuscleGroup = ({ name, img }: { name: string; img: string }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [IsModalvisible, setIsModalVisible] = useState<boolean>(false);
   return (
     <div>

@@ -1,5 +1,5 @@
 import { useEffect, useState, Dispatch } from "react";
-import { HashLink, NavHashLink } from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 
 type colors = "white" | "black";
 

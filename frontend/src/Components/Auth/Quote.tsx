@@ -1,4 +1,3 @@
-import signnup from "@assets/signup.jpg";
 function Quote() {
   return (
     <div className="flex justify-center items-center  h-screen w-ful    relative">
