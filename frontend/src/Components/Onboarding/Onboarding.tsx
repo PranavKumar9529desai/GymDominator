@@ -44,7 +44,7 @@ const CalltoActionButton = () => {
         navigate("/onboarding/healthprofile");
       }}
     >
-      Start Chanllenge
+      Start Challenge
     </button>
   );
 };

@@ -1,6 +1,6 @@
 import { coustomLogoutAlert } from "@components/customAlerts";
 import Gymdominator from "@assets/Gymdominator.ico";
-import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
+// import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 import {
   ChevronRight,
   ChevronDown,
