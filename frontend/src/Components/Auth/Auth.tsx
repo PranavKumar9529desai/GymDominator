@@ -34,7 +34,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
       localStorage.setItem("jwt", jwt);
       setUserDeatails({ name: response.name });
       console.log("user name from the response.name", response.name);
-      console.log("user name is userdeatils atom", UserDetailsAtom);
+      console.log("user name is userdeatils atom");
       navigate("/");
       const message =
         type == "signup" ? "User created Sucessfully" : "Logged in Sucessfully";

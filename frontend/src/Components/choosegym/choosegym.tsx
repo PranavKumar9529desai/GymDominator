@@ -61,7 +61,7 @@ export const ChooseGym = () => {
   return (
     <div className="pb-40">
       <div className=" lg:text-5xl lg:ml-40  font-semibold font-poppins lg:text-left text-4xl text-center ">
-        Select your preferred 🏋🏽
+        Select your preferred  Gym🏋🏽
       </div>
       <div className="">
         <div className="flex flex-wrap justify-center gap-8 lg:gap-10 mt-10 px-4 ">
