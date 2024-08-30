@@ -1,4 +1,5 @@
 import { coustomLogoutAlert } from "@components/customAlerts";
+import Gymdominator from "@assets/Gymdominator.ico"
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 import {
   ChevronRight,
@@ -114,7 +115,7 @@ export const Sidebar2 = () => {
       <div className="flex items-center mb-8 px-2 relative left-1">
         <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
           {/* <Dumbbell className="w-6 h-6" /> */}
-          <img src="/src/assets/Gymdominator.ico" alt="" className="cover" />
+          <img src={Gymdominator} alt="" className="cover" />
         </div>
         <h1 className="text-2xl font-bold">GymDominator</h1>
       </div>
