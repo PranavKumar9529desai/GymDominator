@@ -136,21 +136,21 @@ export const MonthProgressComponent = () => {
         <div className="flex justify-center items-center">Loading.....</div>
       ) : (
         <div>
-          <h1 className="font-montserrat text-3xl font-bold text-center">
+          <h1 className="font-montserrat text-3xl font-bold text-center ">
             Track your progress with Gymdominator
           </h1>
 
-          <div className="text-sm text-center  lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 flex justify-center gap-4 lg:gap-10">
+          <div className="text-sm text-center  lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 lg:flex justify-center gap-2 lg:gap-10">
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-1" />
-              <span>
+              <span className="lg:text-base ">
                 Enrolled:{" "}
                 {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
               </span>
             </div>
             <div className="flex items-center">
               <Trophy className="w-4 h-4 mr-1" />
-              <span>
+              <span className="lg:text-base t">
                 Completion:{" "}
                 {format(completiondate || new Date(2025, 1, 1), "MMMM d, yyyy")}
               </span>
