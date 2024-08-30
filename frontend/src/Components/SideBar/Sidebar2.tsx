@@ -1,5 +1,5 @@
 import { coustomLogoutAlert } from "@components/customAlerts";
-import Gymdominator from "@assets/Gymdominator.ico"
+import Gymdominator from "@assets/Gymdominator.ico";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 import {
   ChevronRight,
@@ -23,9 +23,23 @@ interface UserDetailsType {
   name: string;
 }
 
+interface UserDeatailsFromStrorageType {
+  id: number;
+  userid: number;
+  fullname: string;
+  diet: string;
+  height: number;
+  weight: number;
+  contact: string;
+}
+
 export const Sidebar2 = () => {
-  const UserDeatails: UserDetailsType = useRecoilValue(UserDetailsAtom);
-  console.log("sidebar ", UserDeatails.name);
+  const UserDeatailsFromStrorage: UserDeatailsFromStrorageType = JSON.parse(
+    localStorage.getItem("UserHealthProfile") || ""
+  );
+  console.log("localstroag from the localstorage ",UserDeatailsFromStrorage);
+  const UserDeatails = UserDeatailsFromStrorage.fullname;
+  console.log("sidebar ", UserDeatails);
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
@@ -182,7 +196,7 @@ export const Sidebar2 = () => {
             <User className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-medium">{UserDeatails.name}</p>
+            <p className="font-medium">{UserDeatails}</p>
             <p className="text-sm text-gray-400">Premium Member</p>
           </div>
         </div>

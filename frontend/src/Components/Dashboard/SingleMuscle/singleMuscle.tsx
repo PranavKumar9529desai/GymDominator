@@ -33,7 +33,6 @@ export const SingleMuscles = () => {
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)} exercises. Learn
           how to build a big, strong and muscular{" "}
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)}
-          {muscle}.
         </div>
       </div>
       <div className="mt-8 ">

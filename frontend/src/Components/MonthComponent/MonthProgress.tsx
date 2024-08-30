@@ -1,5 +1,5 @@
 import { Calendar, Trophy } from "lucide-react";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   format,
   addMonths,
@@ -58,10 +58,12 @@ export const MonthProgressComponent = () => {
       );
       setenrolledDate(response.data.enrolledDate);
       setcompletiondate(response.data.completionDate);
-      let completedDaysArray = response.data.completedDays.map((dateString : Date) => {
-        console.log(dateString);
-        return new Date(dateString);
-      });
+      let completedDaysArray = response.data.completedDays.map(
+        (dateString: Date) => {
+          console.log(dateString);
+          return new Date(dateString);
+        }
+      );
       setCompletedDays(completedDaysArray);
       setCachedCompletedDays({ DateArray: completedDaysArray });
       // setCompletedDays([...completedDays, response.data.completedDays]);
@@ -72,7 +74,6 @@ export const MonthProgressComponent = () => {
     }
   }
 
- 
   const today = new Date();
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -141,14 +142,14 @@ export const MonthProgressComponent = () => {
 
           <div className="text-sm text-center  lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 flex justify-center gap-4 lg:gap-10">
             <div className="flex items-center">
-                <Calendar className="w-4 h-4 mr-1"/>
+              <Calendar className="w-4 h-4 mr-1" />
               <span>
                 Enrolled:{" "}
                 {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
               </span>
             </div>
             <div className="flex items-center">
-                <Trophy className="w-4 h-4 mr-1" />
+              <Trophy className="w-4 h-4 mr-1" />
               <span>
                 Completion:{" "}
                 {format(completiondate || new Date(2025, 1, 1), "MMMM d, yyyy")}
@@ -188,18 +189,20 @@ export const MonthProgressComponent = () => {
                   }`}
                   onClick={() => toggleDayCompletion(day)}
                 >
-                  {format(day, "yyyy-MM-dd") ===
-                  format(enrolledDate || new Date(2024, 1, 1), "yyyy-MM-dd") ? (
-                    "Start"
+                  {isCompleted(day) ? (
+                    <div className="lg:text-4xl text-2xl">💪</div>
                   ) : format(day, "yyyy-MM-dd") ===
                     format(today, "yyyy-MM-dd") ? (
                     "today"
-                  ) : isCompleted(day) ? (
-                    <div className="lg:text-4xl text-2xl">💪</div>
+                  ) : format(day, "yyyy-MM-dd") ===
+                    format(
+                      enrolledDate || new Date(2024, 1, 1),
+                      "yyyy-MM-dd"
+                    ) ? (
+                    "Start"
                   ) : (
                     format(day, "d")
                   )}
-
                   {isCompleted(day) && (
                     <Check className="h-4 w-4 absolute top-1 right-1" />
                   )}

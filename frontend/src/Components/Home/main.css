@@ -1,3 +1,7 @@
+:root {
+  --asset-url: url(https://dox5krzvmlbv8.cloudfront.net/assets/bg3.jpg);
+  --bg-url: url(https://dox5krzvmlbv8.cloudfront.net/assets/bg.jpg);
+}
 
 header {
   -webkit-box-align: center;
@@ -27,10 +31,8 @@ header {
 header:before {
   -webkit-animation: fade-slide-down 2s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
   animation: fade-slide-down 2s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
-  background: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
-    url(@assets/gym.jpg) no-repeat ;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8) 80% , rgba(0,0,0,1)),
-    url(@assets/bg3.jpg) no-repeat  ;
+  background: var(--asset-url) no-repeat center;
+  
   background-size: cover;
   bottom: 0;
   content: "";
@@ -40,8 +42,7 @@ header:before {
   right: 0;
   top: 0;
   z-index: -1;
-  filter: blur(1px);
-
+  filter: blur(0px);
 }
 
 header:after {

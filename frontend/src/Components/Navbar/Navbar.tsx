@@ -10,7 +10,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (scrollY > 100) {
+      if (scrollY > 50) {
         SetScrolled(true);
       } else {
         SetScrolled(false);
