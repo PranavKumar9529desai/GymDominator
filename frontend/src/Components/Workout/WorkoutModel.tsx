@@ -13,7 +13,7 @@ export const WorkoutModal = ({ muscleName }: { muscleName: string }) => {
           Selected Muscle: {muscleName}
         </h3>
         <p className="mb-4">
-          Checkouts different workouts with for the {muscleName}.
+          Checkouts different workouts for the {muscleName}.
         </p>
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 "
