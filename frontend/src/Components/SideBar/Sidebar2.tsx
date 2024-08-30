@@ -17,11 +17,11 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+// import { useRecoilValue } from "recoil";
 
-interface UserDetailsType {
-  name: string;
-}
+// interface UserDetailsType {
+//   name: string;
+// }
 
 interface UserDeatailsFromStrorageType {
   id: number;
