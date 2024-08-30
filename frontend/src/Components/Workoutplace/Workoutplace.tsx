@@ -2,6 +2,8 @@ import { coustomWarningMsg } from "@components/customAlerts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import InHome from "@assets/inhome.jpeg"
+import InGym from "@assets/ingym.jpeg";
 export const Workoutplace = () => {
   return (
     <div className="">
@@ -9,8 +11,8 @@ export const Workoutplace = () => {
         WHERE DO YOU PREFER TO WORKOUT?
       </div>
       <div className="h-full lg:flex lg:gap-32 justify-center gap-10 lg:mt-32 flex  lg:flex-row items-center mt-10">
-        <WorkoutplaceCard text="IN home" img="/src/assets/inhome.jpeg" />
-        <WorkoutplaceCard text="IN the Gym" img="/src/assets/ingym.jpeg" />
+        <WorkoutplaceCard text="IN home" img={InHome} />
+        <WorkoutplaceCard text="IN the Gym" img={InGym} />
       </div>
     </div>
   );
