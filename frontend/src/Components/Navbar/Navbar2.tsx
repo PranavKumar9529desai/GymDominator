@@ -1,6 +1,7 @@
+import { HashLink } from "react-router-hash-link";
 import { useEffect, useState, Dispatch } from "react";
 import { useNavigate } from "react-router-dom";
-import GymdominatorLogo from "@assets/gym-launch-logo.png"
+import GymdominatorLogo from "@assets/gym-launch-logo.png";
 type colors = "white" | "black";
 export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
   const navigate = useNavigate();
@@ -10,13 +11,19 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
     <div>
       <nav
         className={`
-         ${(TextColor as string) == "white" ? "text-white bg-black" : "text-black bg-white"} 
+         ${
+           (TextColor as string) == "white"
+             ? "text-white bg-black"
+             : "text-black bg-white"
+         } 
           container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full border-b-2 border-gray-100 shadow-xl`}
       >
-        <button className=" inline-flex items-center "
-        onClick={()=>{
-            navigate("/dashboard/workouts")
-        }}>
+        <button
+          className=" inline-flex items-center "
+          onClick={() => {
+            navigate("/dashboard/workouts");
+          }}
+        >
           <div className="inline-flex w-36 h-16 -ml-6 ">
             <img
               className="object-cover mt-1 "
@@ -29,15 +36,27 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
           </div>
         </button>
         <div className="gap-20  mr-6  lg:flex hidden text-base font-extrabold *:hover: ">
-          <div className="border-b-2 border-transparent hover:border-gray-900 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg">
+          <HashLink
+            to="/#about-us"
+            smooth
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg"
+          >
             About us
-          </div>
-          <div className="border-b-2 border-transparent hover:border-gray-900 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
+          </HashLink>
+          <HashLink
+            smooth
+            to="#contact-us"
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
+          >
             Contact us
-          </div>
-          <div className="border-b-2 border-transparent hover:border-gray-900 transition-all hover:-translate-y-1 hover:shadow-mg duration-200">
-            Profile
-          </div>
+          </HashLink>
+           <HashLink
+            smooth
+            to="/#home"
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
+          >
+            home
+          </HashLink>
         </div>
         <div className="md:hidden flex mr-5  ">
           <button
@@ -106,8 +125,7 @@ const SideBar = ({
   const [isVisible, setVisible] = useState<boolean>(false);
   const [isRotated, setRotated] = useState<boolean>(false);
 
-  useEffect(() => {
-  }, [isRotated]);
+  useEffect(() => {}, [isRotated]);
 
   useEffect(() => {
     if (IsOpen) {
