@@ -2,8 +2,15 @@ import { coustomWarningMsg } from "@components/customAlerts";
 import axios from "axios";
 import { StarIcon } from "lucide-react";
 import { MapPinIcon } from "lucide-react";
-import { useState } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Gym1 from "@assets/gym1.webp";
+import Gym2 from "@assets/gym2.webp";
+import Gym3 from "@assets/gym3.webp";
+import Gym4 from "@assets/gym4.webp";
+
+// import Gym5 from "@assests/gym1.png";
+
 export const ChooseGym = () => {
   interface gym {
     name: string;
@@ -15,37 +22,37 @@ export const ChooseGym = () => {
   const gyms: gym[] = [
     {
       name: "Golds Gym ",
-      image: "/src/assets/gym1.webp",
+      image: Gym1,
       rating: 4.8,
       location: "Aundh",
     },
     {
       name: "PowerPulse Gym",
-      image: "/src/assets/gym2.webp",
+      image: Gym2,
       rating: 4.6,
       location: "Westside, Near pimpari",
     },
     {
       name: "FlexFit Studio",
-      image: "/src/assets/gym3.webp",
+      image: Gym3,
       rating: 4.9,
       location: "Northside, vimanagar",
     },
     {
       name: "IronCore Fitness",
-      image: "/src/assets/gym4.webp",
+      image: Gym4,
       rating: 4.7,
       location: "Eastside, kothrud",
     },
     {
       name: "Gymdomniator",
-      image: "/src/assets/gym.jpg",
+      image: Gym1,
       rating: 4.7,
       location: "Eastside, near hadpasar",
     },
     {
       name: "Gymdomniator",
-      image: "/src/assets/gym.jpg",
+      image: Gym2,
       rating: 4.7,
       location: "Eastside, near hadpasar",
     },
