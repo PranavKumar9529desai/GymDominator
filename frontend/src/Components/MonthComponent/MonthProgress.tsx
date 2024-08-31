@@ -131,29 +131,34 @@ export const MonthProgressComponent = () => {
   }, [completedDays]);
 
   return (
-    <div className=" w-full max-w-3xl lg:max-w-6xl mx-auto p-6 space-y-6">
+    <div className=" w-full  lg:max-w-6xl mx-auto px-6  space-y-6  pb-40 lg:pb-0">
       {isLoading ? (
         <div className="flex justify-center items-center">Loading.....</div>
       ) : (
-        <div>
-          <h1 className="font-montserrat text-3xl font-bold text-center ">
+        <div className="pt-8 lg:pt-0">
+          <h1 className="font-montserrat text-3xl font-bold text-center hidden lg:block">
             Track your progress with Gymdominator
           </h1>
 
           <div className="text-sm text-center  lg:mt-2 lg:mb-0 text-gray-400 mt-2 mb-8 lg:flex justify-center gap-2 lg:gap-10">
-            <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
-              <span className="lg:text-base ">
-                Enrolled:{" "}
-                {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <Trophy className="w-4 h-4 mr-1" />
-              <span className="lg:text-base t">
-                Completion:{" "}
-                {format(completiondate || new Date(2025, 1, 1), "MMMM d, yyyy")}
-              </span>
+            <div className="hidden lg:flex gap-4">
+              <div className="flex items-center ">
+                <Calendar className="w-4 h-4 mr-1" />
+                <span className="lg:text-base ">
+                  <span className="">Enrolled Date: </span>
+                  {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
+                </span>
+              </div>
+              <div className="flex items-center">
+                <Trophy className="w-4 h-4 mr-1" />
+                <span className="lg:text-base t">
+                  <span className="">Completion Date: </span>
+                  {format(
+                    completiondate || new Date(2025, 1, 1),
+                    "MMMM d, yyyy"
+                  )}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -169,7 +174,7 @@ export const MonthProgressComponent = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-7 gap-3 lg:gap-4 ">
+          <div className="grid grid-cols-7 gap-4 lg:gap-4 ">
             {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
               <div key={day} className="text-center font-medium ">
                 {day}
@@ -180,11 +185,11 @@ export const MonthProgressComponent = () => {
                 <Button
                   key={day.toString()}
                   variant={isCompleted(day) ? "default" : "outline"}
-                  className={`h-12 lg:h-16 my-2 lg:my-0 ${
+                  className={`h-12 lg:h-16 my-2 lg:my-0 lg:w-36 w-10 ${
                     !isSameMonth(day, currentDate) ? "opacity-50" : ""
                   } ${
                     format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
-                      ? "bg-blue-300"
+                      ? "lg:bg-blue-300 text-xs px-2"
                       : ""
                   }`}
                   onClick={() => toggleDayCompletion(day)}
@@ -220,6 +225,23 @@ export const MonthProgressComponent = () => {
           </div>
         </div>
       )}
+
+      <div className="block lg:hidden">
+        <div className="flex items-center ">
+          <Calendar className="w-4 h-4 mr-1" />
+          <span className="lg:text-base ">
+            <span className="">Enrolled Date: </span>
+            {format(enrolledDate || new Date(2024, 7, 1), "MMMM d, yyyy")}
+          </span>
+        </div>
+        <div className="flex items-center">
+          <Trophy className="w-4 h-4 mr-1" />
+          <span className="lg:text-base t">
+            <span className="">Completion Date: </span>
+            {format(completiondate || new Date(2025, 1, 1), "MMMM d, yyyy")}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

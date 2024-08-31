@@ -11,7 +11,7 @@ export default function WorkoutCompleted() {
 
   return (
     <div
-      className={`max-w-md mx-auto bg-gray-100 rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 ease-in-out ${
+      className={`lg:mt-0  max-w-md mx-auto bg-[#f0f0f0] rounded-xl lg:shadow-lg overflow-hidden transform transition-all duration-500 ease-in-out ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       }`}
     >
@@ -28,7 +28,7 @@ export default function WorkoutCompleted() {
             stay consistent!
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 ">
           <button
             className="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full shadow-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:-translate-y-1"
             onClick={() => {

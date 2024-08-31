@@ -17,29 +17,22 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
+import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 
-// interface UserDetailsType {
-//   name: string;
+// interface UserDeatailsFromStrorageType {
+//   id: number;
+//   userid: number;
+//   fullname: string;
+//   diet: string;
+//   height: number;
+//   weight: number;
+//   contact: string;
 // }
 
-interface UserDeatailsFromStrorageType {
-  id: number;
-  userid: number;
-  fullname: string;
-  diet: string;
-  height: number;
-  weight: number;
-  contact: string;
-}
-
 export const Sidebar2 = () => {
-  const UserDeatailsFromStrorage: UserDeatailsFromStrorageType = JSON.parse(
-    localStorage.getItem("UserHealthProfile") || ""
-  );
-  console.log("localstroag from the localstorage ",UserDeatailsFromStrorage);
-  const UserDeatails = UserDeatailsFromStrorage.fullname;
-  console.log("sidebar ", UserDeatails);
+  
+  let UserDetails : { name : string } = useRecoilValue(UserDetailsAtom);
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
@@ -47,7 +40,6 @@ export const Sidebar2 = () => {
   const urlRoute = url.pathname.split("/");
 
   const acRoute = urlRoute[urlRoute.length - 1];
-  console.log("here are ", acRoute);
   interface SubItmestype {
     name: string;
     link: string;
@@ -105,24 +97,20 @@ export const Sidebar2 = () => {
   const handleItemClick = (item: menuItem) => {
     // @ts-ignore
     navigate(item.link);
-    console.log("item url ", item.link);
     if (item.name === "My Progress") {
       setIsProgressOpen(!isProgressOpen);
     } else {
       setIsProgressOpen(false);
     }
   };
-  console.log("active page is", activePage, "acrout is ", acRoute, "label is ");
   useEffect(() => {
     if (acRoute == "week" || acRoute == "month") {
-      console.log("controle is here");
       setActivePage("myprogress");
     } else {
       setActivePage(acRoute);
     }
   }, [acRoute]);
 
-  console.log("activ page is ", activePage);
 
   return (
     <div className="flex flex-col  bg-gray-900 text-white w-full py-8 h-dvh">
@@ -196,7 +184,7 @@ export const Sidebar2 = () => {
             <User className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-medium">{UserDeatails}</p>
+            <p className="font-medium">{UserDetails.name}</p>
             <p className="text-sm text-gray-400">Premium Member</p>
           </div>
         </div>

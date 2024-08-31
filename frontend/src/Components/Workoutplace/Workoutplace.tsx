@@ -10,7 +10,7 @@ export const Workoutplace = () => {
       <div className="lg:text-4xl text-center font-semibold text-3xl lg:relative top-10 font-overpass">
         WHERE DO YOU PREFER TO WORKOUT?
       </div>
-      <div className="h-full lg:flex lg:gap-32 justify-center gap-10 lg:mt-32 flex  lg:flex-row items-center mt-10">
+      <div className="h-full lg:flex lg:gap-32 justify-center gap-10 lg:mt-32 flex  lg:flex-row items-center mt-10 ">
         <WorkoutplaceCard text="IN home" img={InHome} />
         <WorkoutplaceCard text="IN the Gym" img={InGym} />
       </div>

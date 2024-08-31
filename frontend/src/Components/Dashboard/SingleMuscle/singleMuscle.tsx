@@ -63,9 +63,11 @@ const RecommenedExcercise = ({
         </div>
         <div className="">
           <div className="flex lg:gap-10 lg:flex-row flex-col gap-2  ">
-            {Excercises.map((excercise) => {
+            {Excercises.map((excercise, key) => {
               return (
-                <ExcerciseCard name={excercise.name} img={excercise.img} />
+                <div key={key}>
+                  <ExcerciseCard name={excercise.name} img={excercise.img} />
+                </div>
               );
             })}
           </div>

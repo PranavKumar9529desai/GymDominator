@@ -1,5 +1,4 @@
 export const ProgressSvg = ({ active }: { active: boolean }) => {
-  console.log("from progress svg", active);
   return (
     <svg
       height="20px"

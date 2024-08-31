@@ -7,7 +7,7 @@ export const ChooseGymRoute = () => {
       <div>
         <Navbar2 TextColor="black" />
       </div>
-      <div className="relative top-20  ">
+      <div className="relative top-20 ">
         <ChooseGym />
       </div>
     </div>

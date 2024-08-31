@@ -8,7 +8,6 @@ import Av4 from "@assets/av4.png";
 import Av3 from "@assets/av3.png";
 
 export const MainSection = () => {
-  console.log("helllo from the Mainsectionp",import.meta.env.VITE_GYMDOMINATOR_CDN);
   const Testimonial = [
     {
       name: "Harshdeep Singh",

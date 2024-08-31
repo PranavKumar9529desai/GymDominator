@@ -12,14 +12,12 @@ export const Progress = () => {
   );
 };
 
-// TODO when day is completed add cross to the day
 export const Weekcomponent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setisClicked] = useState<boolean>(false);
   const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const { isLoading, muscles } = FetchMusclesGroups();
   console.log("data from the progress", muscles);
-  // console.log(muscles);
   let SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
 
   useEffect(() => {

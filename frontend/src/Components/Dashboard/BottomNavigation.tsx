@@ -127,7 +127,7 @@ export const BottomNavigation = () => {
         } `}
       >
         {location.pathname == "/dashboard/today'splan" ? (
-          <GoalIcon color="#29b6f6" />
+          <GoalIcon color="#42A5F5" />
         ) : (
           <GoalIcon color="#9e9e9e" />
         )}

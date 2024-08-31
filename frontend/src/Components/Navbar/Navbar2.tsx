@@ -30,7 +30,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
               src={GymdominatorLogo}
               alt="logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative lg:-left-8 -left-7 font-montserrat top-[1px]">
+            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative lg:-left-8 -left-8 font-montserrat top-[1px]">
               GymDominator
             </span>
           </div>
@@ -39,7 +39,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
           <HashLink
             to="/#about-us"
             smooth
-            className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg"
+            className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg "
           >
             About us
           </HashLink>
@@ -82,19 +82,19 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
                 <path
                   d="M4 18L20 18"
                   stroke="#000000"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 12L20 12"
                   stroke="#000000"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 6L20 6"
                   stroke="#000000"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
               </g>

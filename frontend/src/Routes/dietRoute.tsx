@@ -2,6 +2,8 @@ import { Diet } from "@components/Diet/diet";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
 export const DietRoute = () => {
+  
+
   return (
     <div className="h-screen bg-[#f0f0f0]">
       <div className="lg:grid grid-cols-5 h-screen">

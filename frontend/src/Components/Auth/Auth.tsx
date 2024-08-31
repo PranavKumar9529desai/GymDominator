@@ -5,11 +5,11 @@ import { SignupInput, SigninInput } from "../../../backend/src/zod/types";
 import axios from "axios";
 import { BarLoader } from "react-spinners";
 import { coustomAlert } from "@components/customAlerts";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState} from "recoil";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 
 export function Auth({ type }: { type: "signup" | "signin" }) {
-  const setUserDeatails = useSetRecoilState(UserDetailsAtom);
+  const [UserDeatials, setUserDeatails] = useRecoilState(UserDetailsAtom);
   let [loading, setLoading] = useState(false);
   const [postInputs, setpostInput] = useState<SignupInput>({
     email: "",
@@ -29,12 +29,11 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
       );
 
       const response = newReq.data;
-      console.log(newReq.data.msg);
       const jwt = response.token;
       localStorage.setItem("jwt", jwt);
       setUserDeatails({ name: response.name });
-      console.log("user name from the response.name", response.name);
-      console.log("user name is userdeatils atom");
+      console.log("UserDeatails name" , response.name);
+      console.log("user name is userdeatils atom", UserDeatials);
       navigate("/");
       const message =
         type == "signup" ? "User created Sucessfully" : "Logged in Sucessfully";

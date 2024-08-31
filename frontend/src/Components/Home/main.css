@@ -126,7 +126,7 @@ header:after {
   z-index: 10;
   position: absolute;
   bottom: 2rem;
-  left: 49%;
+  left: 45%;
   transform: translateY(4rem);
   animation: no-transform 2s 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
     pulse 1.5s ease-in-out 3s infinite;
@@ -248,5 +248,12 @@ body {
   }
   header {
     background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Media query for large screens */
+@media (min-width: 1024px) {
+  .header-down-arrow {
+    left: 49%;
   }
 }

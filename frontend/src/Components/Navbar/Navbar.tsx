@@ -29,14 +29,14 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
          ${(TextColor as string) == "white" ? "text-white" : " "} 
           container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full `}
       >
-        <div className=" inline-flex items-center ">
+        <div className=" inline-flex items-center -ml-6 lg:-ml-0">
           <div className="inline-flex w-36 h-16 ">
             <img
               className="object-cover mt-1 "
               src={GymdominatorLogo}
               alt="logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center text-2xl font-extrabold relative -left-5 font-montserrat top-[1px]">
+            <span className="inline-flex whitespace-nowrap items-center mb-[2px] text-2xl font-extrabold relative -left-8 font-montserrat top-[1px]">
               GymDominator
             </span>
           </div>
@@ -56,12 +56,12 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
           >
             Contact us
           </HashLink>
-          <HashLink
-            to="#home"
+        <HashLink
             smooth
+            to="#home"
             className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
           >
-            Home
+            home
           </HashLink>
         </div>
         <div className="md:hidden flex mr-5  ">
@@ -89,19 +89,19 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 <path
                   d="M4 18L20 18"
                   stroke="#ffffff"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 12L20 12"
                   stroke="#ffffff"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M4 6L20 6"
                   stroke="#ffffff"
-                  strokeWidth="2.256"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
               </g>
@@ -157,11 +157,11 @@ const SideBar = ({
 
   return (
     <div
-      className={`bg-white h-dvh w-[300px] absolute z-30 transition-all duration-500 top-[-10px]  ${
+      className={`bg-white h-screen w-[280px] absolute z-30 transition-all duration-500 top-0 ${
         isVisible ? "left-[0px]" : "left-[-340px]"
       }`}
     >
-      <div className="bg-gray-950 w-full h-40  mt-[-4px] flex flex-col justify-center items-center py-2 font-pop ">
+      <div className="bg-gray-950 w-full h-40  mt-[-4px] flex flex-col justify-center items-center py-2 font-pop lg:-ml-0 ">
         <p className="flex mt-4 text-xl text-white">Browse</p>
         <p className="flex font-bold text-2xl text-white ">Gymdominator</p>
       </div>

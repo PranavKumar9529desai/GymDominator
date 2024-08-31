@@ -19,22 +19,21 @@ export const Allworkouts = () => {
           }
           `}
       >
-        <div className=" h-dvh  bg-[#f5f5f5]  -mt-5 ">
-          <div className="block w-full ">
-            <div className="">
+        <div className="-mt-5 h-full ">
+          <div className="block w-full h-full ">
+            <div className="h-full">
               <div className="flex w-full h-10 justify-center pt-8 lg:mb-5 ">
                 <span className="font-extrabold  lg:text-5xl text-3xl flex text-center font-montserrat">
                   Choose Muscle to Train
                 </span>
               </div>
-              <div className="">
+              <div className="lg:mt-16">
                 {isLoading ? (
                   <div className="flex justify-center w-full mt-3 relative top-40">
                     Loading.....
-                    {/* <CustomSkelton size="large" /> */}
                   </div>
                 ) : (
-                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !pb-40 mt-8 lg:mt-10 max-h-screen  ">
+                  <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !pb-40 mt-8 lg:mt-10  ">
                     {muscles.map((muscle) => {
                       return (
                         <div className="lg:w-fit w-full lg:ml-0 text-center ">
@@ -43,8 +42,6 @@ export const Allworkouts = () => {
                       );
                     })}
                   </div>
-                  // TODO add the customloader to the loading deparment
-                  // <div className="flex justify-center w-full ">Loading...</div>
                 )}
               </div>
             </div>
