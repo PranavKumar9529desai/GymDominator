@@ -1,7 +1,7 @@
 export const WorkoutSvg = ({ active }: { active: boolean }) => {
   return (
     <svg
-    className={active ? "fill-blue-500 mr-[2px]" : "group-hover:fill-blue-500 mr-[2px]"}
+    className={active ? "fill-blue-400 mr-[2px]" : "group-hover:fill-blue-500 mr-[2px]"}
       fill={active ?  "blue"  :  "gray" }
       width="25px"
       height="25px"

@@ -84,8 +84,9 @@ export const TodaysPlans = () => {
       }
     }, [allTasksCompleted]);
 
+                  // <div className="flex justify-center w-full ">Loading...</div>
     return (
-      <div className="w-full h-full">
+      <div className="w-full h-screen">
         {isLoading ? (
           <div className="flex justify-center items-center w-full h-full text-xl">
             Loading....
@@ -104,7 +105,7 @@ export const TodaysPlans = () => {
                     height={window.innerHeight}
                   />
                 )}
-                <h1 className="text-4xl font-bold text-black mb-2 text-center lg:text-left">
+                <h1 className="text-4xl font-bold text-black mb-2 text-center lg:text-left pt-4">
                   Today's Plan
                 </h1>
                 <p className="text-gray-500 mb-6 text-center lg:text-left">

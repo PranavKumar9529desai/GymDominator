@@ -226,7 +226,7 @@ export const MonthProgressComponent = () => {
         </div>
       )}
 
-      <div className="block lg:hidden">
+      <div className="block lg:hidden text-gray-500">
         <div className="flex items-center ">
           <Calendar className="w-4 h-4 mr-1" />
           <span className="lg:text-base ">
