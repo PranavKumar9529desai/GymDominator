@@ -12,67 +12,20 @@ import {
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { Button } from "@components/ui/ui/button";
 import { Progress } from "@components/ui/ui/progress";
-
-import axios, { AxiosResponse } from "axios";
+import { FetchCompletedDays } from "@hooks/FetchCompltedDays";
 import { useRecoilState } from "recoil";
-import { CompletedDaysAtom } from "@state/Atom/completedDays";
-
-interface getallcompletedDaysType {
-  msg: string;
-  completedDays: Date[];
-  enrolledDate: Date;
-  completionDate: Date;
-}
+import { DaysAtom } from "@state/Atom/completedDays";
 
 export const MonthProgressComponent = () => {
-  const [isLoading, setisLoading] = useState<boolean>(false);
+  const { CompltedDays, isLoading } = FetchCompletedDays();
+  console.log("CompleteDays", CompltedDays, isLoading);
+  const [daysState] = useRecoilState(DaysAtom);
+  const { enrolledDate, completiondate } = daysState;
   const [currentDate, setCurrentDate] = useState(new Date());
   const [completedDays, setCompletedDays] = useState<Date[]>([
     new Date(1, 7, 2024),
     new Date(24, 8, 2024),
   ]);
-  const [enrolledDate, setenrolledDate] = useState<Date>();
-  const [completiondate, setcompletiondate] = useState<Date>();
-  const [isVisible, setIsVisible] = useState(false);
-  console.log(isVisible);
-  useEffect(() => {
-    if (isLoading == false) {
-      setIsVisible(true);
-    }
-  }, []);
-
-  // storing the dates in the atom so the dates should presist throughout the routes
-  const [CachedCompletedDays, setCachedCompletedDays] =
-    useRecoilState(CompletedDaysAtom);
-
-  async function getallcompletedDays() {
-    try {
-      setisLoading(true);
-      const response: AxiosResponse<getallcompletedDaysType> = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/compltedDays`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("jwt"),
-          },
-        }
-      );
-      setenrolledDate(response.data.enrolledDate);
-      setcompletiondate(response.data.completionDate);
-      let completedDaysArray = response.data.completedDays.map(
-        (dateString: Date) => {
-          console.log(dateString);
-          return new Date(dateString);
-        }
-      );
-      setCompletedDays(completedDaysArray);
-      setCachedCompletedDays({ DateArray: completedDaysArray });
-      // setCompletedDays([...completedDays, response.data.completedDays]);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setisLoading(false);
-    }
-  }
 
   const today = new Date();
   const monthStart = startOfMonth(currentDate);
@@ -83,19 +36,11 @@ export const MonthProgressComponent = () => {
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
   const toggleDayCompletion = (day: Date) => {
-    setCompletedDays((prev) =>
-      prev.some((d) => d.getTime() === day.getTime())
+    setCompletedDays((prev) => {
+      const updatedDays = prev.some((d) => d.getTime() === day.getTime())
         ? prev.filter((d) => d.getTime() !== day.getTime())
-        : [...prev, day]
-    );
-
-    setCachedCompletedDays((prev) => {
-      const updatedDays = prev.DateArray.some(
-        (d) => d.getTime() === day.getTime()
-      )
-        ? prev.DateArray.filter((d) => d.getTime() !== day.getTime())
-        : [...prev.DateArray, day];
-      return { DateArray: updatedDays };
+        : [...prev, day];
+      return updatedDays;
     });
   };
 
@@ -108,27 +53,18 @@ export const MonthProgressComponent = () => {
   };
 
   const isCompleted = (day: Date) => {
-    const dayParts = extractDateParts(day);
-    return CachedCompletedDays.DateArray.some((d) => {
-      const completedDayParts = extractDateParts(d);
+    return CompltedDays.some((d) => {
+      const completedDay = new Date(d);
       return (
-        completedDayParts.day === dayParts.day &&
-        completedDayParts.month === dayParts.month &&
-        completedDayParts.year === dayParts.year
+        completedDay.getDate() === day.getDate() &&
+        completedDay.getMonth() === day.getMonth() &&
+        completedDay.getFullYear() === day.getFullYear()
       );
     });
   };
 
   const progressPercentage = (completedDays.length / daysInMonth.length) * 100;
   console.log("comleted days are", completedDays);
-  console.log("atom has these values", CachedCompletedDays);
-
-  useEffect(() => {
-    // setCachedCompletedDays({ DateArray: [...completedDays , ] });
-    if (CachedCompletedDays.DateArray.length == 0) {
-      getallcompletedDays();
-    }
-  }, [completedDays]);
 
   return (
     <div className=" w-full  lg:max-w-6xl mx-auto px-6  space-y-6  pb-40 lg:pb-0">

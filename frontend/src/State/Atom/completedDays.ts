@@ -1,10 +1,14 @@
 import { atom } from "recoil";
 
+interface DaysAtomType {
+    enrolledDate: Date;
+    completiondate: Date;
+}
 
-
-export const CompletedDaysAtom = atom<{ DateArray: Date[] }>({
+export const DaysAtom = atom<DaysAtomType>({
     key: "CompletedDaysAtom",
     default: {
-        DateArray: []
+        enrolledDate: new Date(2021, 1, 1),
+        completiondate: new Date(2021, 1, 1),
     }
 })
