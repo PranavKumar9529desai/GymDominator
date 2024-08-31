@@ -1,5 +1,5 @@
 import { Calendar, Trophy } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   format,
   addMonths,
@@ -44,13 +44,6 @@ export const MonthProgressComponent = () => {
     });
   };
 
-  const extractDateParts = (date: Date) => {
-    return {
-      day: date.getDate(),
-      month: date.getMonth(),
-      year: date.getFullYear(),
-    };
-  };
 
   const isCompleted = (day: Date) => {
     return CompltedDays.some((d) => {
