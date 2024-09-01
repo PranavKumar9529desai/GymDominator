@@ -38,7 +38,7 @@ export const SingleMuscles = () => {
       <div className="mt-8 ">
         {isLoading ? (
           <div className="flex justify-center items-center relative top-40 text-3xl">
-            <PropagateLoader />
+            <PropagateLoader color="#81d4fa" />
           </div>
         ) : (
           <RecommenedExcercise Excercises={Excercise} />
