@@ -92,7 +92,7 @@ export const TodaysPlans = () => {
             Loading....
           </div>
         ) : (
-          <div className="max-w-4xl mx-auto  rounded-xl lg:bg-inherit lg:mt-10">
+          <div className="max-w-4xl mx-auto  rounded-xl lg:bg-inherit lg:mt-10 bg-[#f0f0f0]">
             {isCompleted ? (
               <div className="lg:mt-20 ">
                 <WorkoutCompleted />
