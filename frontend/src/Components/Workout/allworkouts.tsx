@@ -1,6 +1,7 @@
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
 import { useState, useEffect } from "react";
 import { WorkoutModal } from "./WorkoutModel";
+import { PropagateLoader } from "react-spinners";
 export const Allworkouts = () => {
   const { isLoading, muscles } = FetchMusclesGroups();
   const [isVisible, setIsVisible] = useState(false);
@@ -30,7 +31,9 @@ export const Allworkouts = () => {
               <div className="lg:mt-16">
                 {isLoading ? (
                   <div className="flex justify-center w-full mt-3 relative top-40">
-                    Loading.....
+                    <PropagateLoader
+                      color="#81d4fa"
+                    />
                   </div>
                 ) : (
                   <div className="flex flex-wrap lg:gap-10 gap-5 w-full justify-center lg:mb-0 !pb-40 mt-8 lg:mt-10  ">

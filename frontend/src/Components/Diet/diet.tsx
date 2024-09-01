@@ -1,5 +1,6 @@
 import { FetchdietsGroups } from "@hooks/FetchDiets";
 import { useEffect, useState } from "react";
+import { PropagateLoader } from "react-spinners";
 export const Diet = () => {
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
@@ -31,7 +32,7 @@ export const Diet = () => {
       <div>
         {isLoading ? (
           <div className="text-center relative mt-40 text-xl font-montserrat h-screen">
-            Loading....
+            <PropagateLoader color="#81d4fa" />
           </div>
         ) : (
           <div className="flex  flex-wrap w-full gap-10 justify-center mt-4">

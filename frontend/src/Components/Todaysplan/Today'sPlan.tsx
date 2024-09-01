@@ -6,6 +6,7 @@ import { Dumbbell, Utensils, ChevronRight, Check } from "lucide-react";
 import Confetti from "react-confetti";
 import axios, { AxiosResponse } from "axios";
 import WorkoutCompleted from "./CompletedPlans";
+import { PropagateLoader } from "react-spinners";
 
 interface TodayplanPropsType {
   msg: string;
@@ -84,12 +85,12 @@ export const TodaysPlans = () => {
       }
     }, [allTasksCompleted]);
 
-                  // <div className="flex justify-center w-full ">Loading...</div>
+    // <div className="flex justify-center w-full ">Loading...</div>
     return (
       <div className="w-full h-screen">
         {isLoading ? (
           <div className="flex justify-center items-center w-full h-full text-xl">
-            Loading....
+            <PropagateLoader color="#81d4fa" />
           </div>
         ) : (
           <div className="max-w-4xl mx-auto  rounded-xl lg:bg-inherit lg:mt-10 bg-[#f0f0f0]">
