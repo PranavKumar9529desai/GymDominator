@@ -24,10 +24,15 @@ export const WorkoutModal = ({
           &times;
         </button>
         <h3 className="text-2xl font-bold mb-4">
-          Selected Muscle: {muscleName}
+          Selected Muscle:{" "}
+          {muscleName.charAt(0).toUpperCase() +
+            muscleName.slice(1).toLocaleLowerCase()}
         </h3>
         <p className="mb-4">
-          Check out different workouts for the {muscleName}.
+          Check out different workouts for the{" "}
+          {muscleName.charAt(0).toUpperCase() +
+            muscleName.slice(1).toLowerCase()}
+          .
         </p>
         <div className="flex justify-end space-x-4">
           <button
