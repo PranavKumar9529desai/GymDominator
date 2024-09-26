@@ -1,6 +1,5 @@
 import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
 import { MonthProgressComponent } from "@components/MonthComponent/MonthProgress";
-import MonthProgressComponent2 from "@components/MonthComponent/Monthprogress2";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 export const MonthProgressRoute = () => {
   return (
