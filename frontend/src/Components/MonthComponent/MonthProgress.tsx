@@ -1,5 +1,5 @@
 import { Calendar, Trophy } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   format,
   addMonths,
@@ -18,15 +18,11 @@ import { DaysAtom } from "@state/Atom/completedDays";
 import { PropagateLoader } from "react-spinners";
 
 export const MonthProgressComponent = () => {
-  const { CompltedDays, isLoading } = FetchCompletedDays();
-  console.log("CompleteDays", CompltedDays, isLoading);
+  let { CompltedDays, isLoading } = FetchCompletedDays();
   const [daysState] = useRecoilState(DaysAtom);
   const { enrolledDate, completiondate } = daysState;
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [completedDays, setCompletedDays] = useState<Date[]>([
-    new Date(1, 7, 2024),
-    new Date(24, 8, 2024),
-  ]);
+  let [arrayOfCompletedDays, setArrayOfCompletedDays] = useState<Date[]>([]);
 
   const today = new Date();
   const monthStart = startOfMonth(currentDate);
@@ -36,29 +32,53 @@ export const MonthProgressComponent = () => {
   const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
-  const toggleDayCompletion = (day: Date) => {
-    setCompletedDays((prev) => {
-      const updatedDays = prev.some((d) => d.getTime() === day.getTime())
-        ? prev.filter((d) => d.getTime() !== day.getTime())
-        : [...prev, day];
-      return updatedDays;
-    });
-  };
+  useEffect(() => {
+    setArrayOfCompletedDays([...arrayOfCompletedDays, ...CompltedDays]);
+  }, [CompltedDays, isLoading]);
 
-  const isCompleted = (day: Date) => {
-    return CompltedDays.some((d) => {
-      const completedDay = new Date(d);
-      return (
+  console.log("does it worked or not ", arrayOfCompletedDays);
+
+  const toggleDayCompletion = (day: Date) => {
+    // make sure don't let them add the duplicate value
+
+    arrayOfCompletedDays.some((d) => {
+      let completedDay = new Date(d);
+      console.log("compleday from the arrayofthedates", completedDay);
+      console.log(day.getDate(), completedDay.getDate());
+      console.log(completedDay.getMonth(), day.getMonth());
+      console.log(completedDay.getFullYear(), day.getFullYear());
+      if (
         completedDay.getDate() === day.getDate() &&
         completedDay.getMonth() === day.getMonth() &&
         completedDay.getFullYear() === day.getFullYear()
-      );
+      ) {
+        console.log("already completed the workout");
+        alert("already completed the workout");
+        return true;
+        // this tell to stop the serch
+      }
     });
+    setArrayOfCompletedDays([...arrayOfCompletedDays, day]);
+    console.log(arrayOfCompletedDays);
   };
 
-  const progressPercentage = (completedDays.length / daysInMonth.length) * 100;
-  console.log("comleted days are", completedDays);
-  console.log("isloading is", isLoading);
+  const isCompleted = (day: Date) => {
+    let iscompleteflag = false;
+    arrayOfCompletedDays.forEach((d) => {
+      const completedDay = new Date(d);
+      if (
+        completedDay.getDate() === day.getDate() &&
+        completedDay.getMonth() === day.getMonth() &&
+        completedDay.getFullYear() === day.getFullYear()
+      ) {
+        iscompleteflag = true;
+      }
+    });
+    return iscompleteflag;
+  };
+
+  const progressPercentage =
+    (arrayOfCompletedDays.length / daysInMonth.length) * 100;
   return (
     <div className=" w-full  h-full lg:max-w-6xl mx-auto px-6  space-y-6  pb-40 lg:pb-0">
       {isLoading ? (
@@ -127,7 +147,13 @@ export const MonthProgressComponent = () => {
                         ? "lg:bg-blue-300 text-xs px-2"
                         : ""
                     }`}
-                    onClick={() => toggleDayCompletion(day)}
+                    onClick={() => {
+                      toggleDayCompletion(day);
+                      console.log(
+                        "returned the updated Array",
+                        toggleDayCompletion(day)
+                      );
+                    }}
                   >
                     {isCompleted(day) ? (
                       <div className="lg:text-4xl text-2xl">💪</div>

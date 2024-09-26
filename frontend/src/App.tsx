@@ -17,6 +17,7 @@ import { ChooseAccountibilityPartnerRoute } from "@routes/ChooseAccountibilityPa
 import { HealthProfileFormRoute } from "@routes/HealthprofileformRoute";
 import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { ChooseGymRoute } from "@routes/ChooseGymRoute";
+import { ChallengeRoute } from "@routes/ChallengeRoute";
 function Main() {
   return (
     <Routes>
@@ -59,6 +60,7 @@ function Main() {
         path="/onboarding/healthprofile/workoutplace/choosegym"
         element={<ChooseGymRoute />}
       />
+      <Route path="/dashboard/challenges" element={<ChallengeRoute />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
