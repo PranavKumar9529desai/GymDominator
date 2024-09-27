@@ -9,6 +9,7 @@ export const Home = () => {
       </div>
       <div>
         <LadingPage />
+        
       </div>
     </div>
   );

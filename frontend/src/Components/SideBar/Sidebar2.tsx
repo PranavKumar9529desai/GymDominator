@@ -8,17 +8,18 @@ import {
   Dumbbell,
   Utensils,
   Book,
-  Calendar,
   User,
   LogOut,
   TrendingUp,
   LineChart,
   LucideIcon,
+  SwordsIcon
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
+import { FetchUserData } from "@hooks/FetchUserData";
 
 // interface UserDeatailsFromStrorageType {
 //   id: number;
@@ -31,8 +32,9 @@ import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 // }
 
 export const Sidebar2 = () => {
-  
-  let UserDetails : { name : string } = useRecoilValue(UserDetailsAtom);
+  const { isloading, userdata } = FetchUserData();
+  console.log("user name is ", userdata.name);
+  let UserDetails: { name: string } = useRecoilValue(UserDetailsAtom);
   const [activePage, setActivePage] = useState("My Progress");
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const navigate = useNavigate();
@@ -87,11 +89,19 @@ export const Sidebar2 = () => {
       label: "Recipes",
     },
     {
-      name: "Today's plan",
-      icon: Calendar,
-      link: "/dashboard/today'splan",
-      label: "today'splan",
-    },
+      name: "Challenges",
+      icon: SwordsIcon,
+      link: "/dashboard/challenges",
+      label: "challenges" 
+    
+    }
+    
+    // {
+    //   name: "challenges",
+    //   icon: Calendar,
+    //   link: "/dashboard/today'splan",
+    //   label: "today'splans",
+    // },
   ];
 
   const handleItemClick = (item: menuItem) => {
@@ -110,7 +120,6 @@ export const Sidebar2 = () => {
       setActivePage(acRoute);
     }
   }, [acRoute]);
-
 
   return (
     <div className="flex flex-col  bg-gray-900 text-white w-full py-8 h-dvh">
@@ -184,8 +193,16 @@ export const Sidebar2 = () => {
             <User className="w-6 h-6" />
           </div>
           <div>
-            <p className="font-medium">{UserDetails.name}</p>
-            <p className="text-sm text-gray-400">Premium Member</p>
+            {isloading ? (
+              <>
+                <p className="font-medium">{UserDetails.name}</p>
+                <p className="text-sm text-gray-400">Premium Member</p>
+              </>
+            ) : (
+              <>
+                <p className="font-medium">{userdata.name}</p>
+                <p className="text-sm text-gray-400">Gymdominator</p> </>
+            )}
           </div>
         </div>
         <button

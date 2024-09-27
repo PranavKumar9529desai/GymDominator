@@ -41,7 +41,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
             </span>
           </div>
         </div>
-        <div className="gap-20 mr-12 lg:flex hidden text-xl font-extrabold  ">
+        <div className="gap-20 mr-12 lg:flex hidden text-xl font-extrabold ">
           <HashLink
             to="#about-us"
             smooth

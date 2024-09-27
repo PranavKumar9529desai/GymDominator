@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GoalIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ChevronUp, BarChart2, TrendingUp } from "lucide-react";
-export const BottomNavigation = () => {
+export const BottomNavigation2 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setisOpen] = useState<boolean>(false);
@@ -114,11 +114,11 @@ export const BottomNavigation = () => {
           Recipes
         </span>
       </button> */}
-     <button
+      <button
         onClick={() => {
-          navigate("/dashboard/challenges");
+          navigate("/dashboard/chanllenges");
           console.log(
-            "challenges Route=",
+            "today plan route ==",
             location.pathname == "/dashboard/challenges"
           );
         }}
@@ -140,38 +140,9 @@ export const BottomNavigation = () => {
           } `}
         >
           {" "}
-          Challenges{" "}
+          chanllenges{" "}
         </span>
       </button>
-      {/* <button
-        onClick={() => {
-          navigate("/dashboard/today'splan");
-          console.log(
-            "today plan route ==",
-            location.pathname == "/dashboard/today'splan"
-          );
-        }}
-        className={`flex flex-col justify-center w-full items-center group transition-all relative ${
-          location.pathname == "/dashboard/today'splan" ? `!bg-gray-200` : ` `
-        } `}
-      >
-        {location.pathname == "/dashboard/today'splan" ? (
-          <GoalIcon color="#42A5F5" />
-        ) : (
-          <GoalIcon color="#9e9e9e" />
-        )}
-
-        <span
-          className={`text-base text-gray-500  ${
-            location.pathname == "/dashboard/today'splan"
-              ? `!text-blue-400 `
-              : ` `
-          } `}
-        >
-          {" "}
-          Today's plan{" "}
-        </span>
-      </button> */}
       {isOpen ? (
         <div className="">
           <DrawerForTodaysPlan />

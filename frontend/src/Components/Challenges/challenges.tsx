@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CalendarDaysIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 export const ChallegeComponent = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
+  function handlleClick(title: string) {
+    console.log("handle click is called", title);
+    navigate("/onboarding");
+  }
   const challenges = [
     {
       title: "Free 28-Day Challenge",
@@ -59,13 +66,20 @@ export const ChallegeComponent = () => {
                     {challenge.duration}
                   </span>
                 </div>
-                <h3 className=" text-blue-400 text-xl font-bold mb-2">{challenge.title}</h3>
+                <h3 className="text-nowrap text-blue-400 text-xl font-bold mb-2">
+                  {challenge.title}
+                </h3>
                 <p className="text-gray-400 text-sm leading-relaxed line-clamp-4 ">
                   {challenge.description}
                 </p>
               </div>
               <div className="px-6 py-4">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105">
+                <button
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
+                  onClick={() => {
+                    handlleClick(challenge.title);
+                  }}
+                >
                   Join Challenge
                 </button>
               </div>

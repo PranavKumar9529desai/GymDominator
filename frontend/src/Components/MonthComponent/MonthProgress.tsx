@@ -144,7 +144,7 @@ export const MonthProgressComponent = () => {
                       !isSameMonth(day, currentDate) ? "opacity-50" : ""
                     } ${
                       format(day, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
-                        ? "lg:bg-blue-300 text-xs px-2"
+                        ? "text-xs px-2 bg-blue-200 "
                         : ""
                     }`}
                     onClick={() => {

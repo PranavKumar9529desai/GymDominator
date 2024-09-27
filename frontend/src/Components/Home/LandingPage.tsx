@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./main.css";
 import { MainSection } from "./mainsection/mainsecion";
 import { Footer } from "./Footer";
-import DownArrow from "@assets/downarrow.png"
-import greenTick from "@assets/green-tick-icon.png"
+import DownArrow from "@assets/downarrow.png";
+import greenTick from "@assets/green-tick-icon.png";
 
 export const LadingPage = () => {
   const navigate = useNavigate();
@@ -24,12 +24,7 @@ export const LadingPage = () => {
           </div>
           <div className="header-subtitle animate-pop-in">
             <div className="icon-container my-1 mr-2">
-              <img
-                src={greenTick}
-                alt=""
-                width={20}
-                height={18}
-              />
+              <img src={greenTick} alt="" width={20} height={18} />
             </div>
             <p>start now and get 50% discount</p>
           </div>
@@ -39,10 +34,6 @@ export const LadingPage = () => {
                 onClick={() => {
                   if (localStorage.getItem("jwt") === null) {
                     navigate("/signin");
-                  } else if (
-                    localStorage.getItem("UserHealthProfile") == null
-                  ) {
-                    navigate("/onboarding");
                   } else {
                     navigate("/dashboard/myprogress");
                   }
