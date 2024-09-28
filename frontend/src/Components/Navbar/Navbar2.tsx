@@ -16,7 +16,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
              ? "text-white bg-black"
              : "text-black bg-white"
          } 
-          container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full border-b-2 border-gray-100 shadow-xl`}
+         flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full border-b-2 border-gray-100 shadow-xl`}
       >
         <button
           className=" inline-flex items-center "
@@ -138,7 +138,6 @@ const SideBar = ({
     }
   }, [IsOpen]);
 
-  // console.log("isRotated is " , isRotated);
 
   const handleClose = () => {
     setVisible(false);
@@ -146,7 +145,6 @@ const SideBar = ({
     setTimeout(() => SetIsOpen(false), 500);
   };
 
-  // console.log("isvisible is :", isVisible);
 
   return (
     <div

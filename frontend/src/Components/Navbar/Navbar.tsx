@@ -27,7 +27,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
       <nav
         className={`${isscrolled ? "bg-slate-900 text-white" : "text-black"}
          ${(TextColor as string) == "white" ? "text-white" : " "} 
-          container flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full `}
+           flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full `}
       >
         <div className=" inline-flex items-center -ml-6 lg:-ml-0">
           <div className="inline-flex w-36 h-16 ">
