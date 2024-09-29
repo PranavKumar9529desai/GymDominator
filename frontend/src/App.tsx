@@ -18,7 +18,8 @@ import { HealthProfileFormRoute } from "@routes/HealthprofileformRoute";
 import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { ChallengeRoute } from "@routes/ChallengeRoute";
-import { QrCodeComponent } from "@components/QrcodeComponent/qrcode";
+import { QrCodeComponent } from "@components/Qrcode/qrcode";
+import { QrScannerRoute } from "@routes/QrScannerRoute";
 function Main() {
   return (
     <Routes>
@@ -63,6 +64,7 @@ function Main() {
       />
       <Route path="/dashboard/challenges" element={<ChallengeRoute />} />
       <Route path="/dashboard/qrcode" element={<QrCodeComponent />} />
+      <Route path="qrscanner" element={<QrScannerRoute />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );

@@ -1,0 +1,24 @@
+{
+  "name": "gymdominator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev-backend": "cd backend && npm run dev",
+    "dev-frontend": "cd frontend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PranavKumar9529desai/GymDominator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PranavKumar9529desai/GymDominator/issues"
+  },
+  "homepage": "https://github.com/PranavKumar9529desai/GymDominator#readme",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

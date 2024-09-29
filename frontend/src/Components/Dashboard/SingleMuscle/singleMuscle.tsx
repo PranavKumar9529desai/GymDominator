@@ -18,7 +18,7 @@ export const SingleMuscles = () => {
       exercise.MuscleGroup.name.toLowerCase() === muscle.toLowerCase()
   );
   return (
-    <div>
+    <div className="bg-[#f0f0f0] lg:h-dvh">
       <div className="lg:block hidden">
         <Navbar2 TextColor="black" />
       </div>
@@ -41,7 +41,9 @@ export const SingleMuscles = () => {
             <PropagateLoader color="#81d4fa" />
           </div>
         ) : (
-          <RecommenedExcercise Excercises={Excercise} />
+          <div className="">
+            <RecommenedExcercise Excercises={Excercise} />
+          </div>
         )}
       </div>
     </div>
