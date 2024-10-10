@@ -8,7 +8,11 @@ export const ChallegeComponent = () => {
   const navigate = useNavigate();
   function handlleClick(title: string) {
     console.log("handle click is called", title);
-    navigate("/onboarding");
+    if (localStorage.getItem("jwt") == null) {
+      navigate("/signin");
+    } else {
+      navigate("/onboarding");
+    }
   }
   const challenges = [
     {

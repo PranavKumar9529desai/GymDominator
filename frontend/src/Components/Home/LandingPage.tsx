@@ -32,11 +32,12 @@ export const LadingPage = () => {
             <div className="header-button animate-pop-in w-fit bg-blue-600 px-5 py-3 rounded-lg text-white font-bold hover:bg-blue-800 transition-colors ">
               <button
                 onClick={() => {
-                  if (localStorage.getItem("jwt") === null) {
-                    navigate("/signin");
-                  } else {
-                    navigate("/dashboard/myprogress");
-                  }
+                  // if (localStorage.getItem("jwt") === null) {
+                  // let user use the website
+                  //   navigate("/signin");
+                  // } else {
+                  navigate("/dashboard/myprogress");
+                  // }
                 }}
               >
                 Get Started

@@ -483,3 +483,44 @@ UserRouter.get("/getuserdata", async (c) => {
     return c.json({ msg: "something went wrong" });
   }
 });
+
+UserRouter.get("/allusers", async (c) => {
+  interface user {
+    name: string;
+    HealthProfile: {
+      weight: number;
+      height: number;
+    };
+  }
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  // fetchining the jwt
+  const token = c.req.header("Authorization");
+  const jwt = token?.split(" ")[1];
+  if (jwt == undefined) {
+    c.status(400);
+    return c.json({ msg: "no token is send" });
+  }
+  const { header, payload } = decode(jwt);
+  const email = payload.jwttoken;
+
+  if (!email) {
+    c.status(300);
+    return c.json({ msg: "error", data: "email provided is not rigth" });
+  }
+
+  try {
+    const user = await prisma.user.findMany({
+      select: { name: true, HealthProfile: true },
+    });
+    c.status(200);
+    return c.json({ msg: "successs", data: user });
+  } catch (error) {
+    console.log(error);
+    c.status(400);
+    return c.json({ msg: "something went wrong" });
+  }
+});

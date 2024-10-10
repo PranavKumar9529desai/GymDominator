@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 export const QrCodeScannerComponent = () => {
   const navigate = useNavigate();
 
-  function handleScan() {
+  function handleScan() { 
+  
     console.log("this component is called");
+
     navigate("/dashboard/workouts");
   }
 
