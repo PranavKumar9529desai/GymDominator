@@ -7,8 +7,9 @@ import {
   CardTitle,
 } from "@components/ui/ui/card";
 import { QrCode } from "lucide-react";
-
+import { useNavigate } from "react-router";
 export default function QRCodeScannerComponent() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-sm h-[600px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
@@ -25,6 +26,7 @@ export default function QRCodeScannerComponent() {
             <Scanner
               onScan={(result) => {
                 console.log("result of the qrcode is ", result);
+                navigate("/dashboard");
               }}
               // constraints={{ facingMode: "environment" }}
               // className="w-full h-full"
