@@ -1,26 +1,42 @@
 import { Scanner } from "@yudiel/react-qr-scanner";
-import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@components/ui/ui/card";
+import { QrCode } from "lucide-react";
 
-export const QrCodeScannerComponent = () => {
-  const navigate = useNavigate();
-
-  function handleScan() { 
-  
-    console.log("this component is called");
-
-    navigate("/dashboard/workouts");
-  }
-
+export default function QRCodeScannerComponent() {
   return (
-    <>
-      <div className="w-60">
-        <Scanner
-          onScan={() => {
-            console.log("handle scan is called");
-            handleScan();
-          }}
-        />
-      </div>
-    </>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <Card className="w-full max-w-sm h-[600px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <CardHeader className="bg-blue-600 text-white py-6">
+          <CardTitle className="text-2xl font-bold text-center flex items-center justify-center space-x-2">
+            <QrCode className="w-8 h-8" />
+            <span>Scan Attendance QR</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex-grow flex flex-col items-center justify-center p-6 space-y-6">
+          <div className="w-full aspect-square relative overflow-hidden rounded-2xl">
+            <div className="absolute inset-0 z-10 border-4 border-blue-400 rounded-2xl animate-pulse"></div>
+            <div className="absolute inset-0 z-20 border-2 border-white"></div>
+            <Scanner
+              onScan={(result) => {
+                console.log("result of the qrcode is ", result);
+              }}
+              // constraints={{ facingMode: "environment" }}
+              // className="w-full h-full"
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="bg-gray-50 py-4">
+          <p className="text-sm text-gray-500 w-full text-center">
+            - powered by gymdominator.
+          </p>
+        </CardFooter>
+      </Card>
+    </div>
   );
-};
+}
