@@ -26,10 +26,8 @@ export default function QRCodeScannerComponent() {
             <Scanner
               onScan={(result) => {
                 console.log("result of the qrcode is ", result);
-                navigate("/dashboard");
+                navigate("/attendancestatus");
               }}
-              // constraints={{ facingMode: "environment" }}
-              // className="w-full h-full"
             />
           </div>
         </CardContent>

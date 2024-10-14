@@ -19,6 +19,7 @@ import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { ChallengeRoute } from "@routes/ChallengeRoute";
 import { QrScannerRoute } from "@routes/QrScannerRoute";
+import { AttendanceStatus } from "@routes/AttendanceStatusRoute";
 function Main() {
   return (
     <Routes>
@@ -62,7 +63,8 @@ function Main() {
         element={<ChooseGymRoute />}
       />
       <Route path="/dashboard/challenges" element={<ChallengeRoute />} />
-      <Route path="qrscanner" element={<QrScannerRoute />} />
+      <Route path="/qrscanner" element={<QrScannerRoute />} />
+      <Route path="/attendancestatus" element={<AttendanceStatus />} />
       <Route path="*" element={<Home />} />
     </Routes>
   );
