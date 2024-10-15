@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const AttendanceStatus = () => {
   // TODO   this status will come from the backend
-  const [AttendanceState, setAttendanceState] = useState<boolean>(true);
+  const [AttendanceState] = useState<boolean>(true);
   if (AttendanceState) {
     return (
       <>

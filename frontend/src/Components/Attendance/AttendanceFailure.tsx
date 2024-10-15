@@ -16,13 +16,13 @@ export default function AttendanceFailed() {
     day: "numeric",
   });
 
-  const failureReasons = [
-    "Network connectivity issues",
-    "Server error",
-    "Location services not enabled",
-    "Outside gym premises",
-    "Attendance already marked for today",
-  ];
+  // const failureReasons = [
+  //   "Network connectivity issues",
+  //   "Server error",
+  //   "Location services not enabled",
+  //   "Outside gym premises",
+  //   "Attendance already marked for today",
+  // ];
 
   const handleRetry = () => {
     console.log("Retrying attendance...");
