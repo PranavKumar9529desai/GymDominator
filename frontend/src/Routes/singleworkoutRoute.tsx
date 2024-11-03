@@ -1,4 +1,4 @@
-import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
+import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 import { Navbar2 } from "@components/Navbar/Navbar2";
 import { SingleWorkout } from "@components/Singleworkout/singleworkout";
 export const SingleWorkoutRoute = () => {

@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum MuscleGroupEnum {
+  CHEST
+  UPPERBACK
+  SHOULDERS
+  BICEPS
+  TRICEPS
+  ABS
+}
+
+
 model Exercise {
   id           Int         @id @default(autoincrement())
   name         String
@@ -29,10 +39,11 @@ model User {
   id                  Int                  @id @default(autoincrement())
   name                String
   email               String
-  password            String
+  password            String   
   HealthProfile       UserHealthprofile?
   Workplacepreference Workplacepreference?
   UserProgress        UserProgress[]
+  // UserSessions        UserSessions?
 }
 
 // UserHealthprofile is the optional filed
@@ -55,15 +66,6 @@ model Workplacepreference {
   User         User    @relation(fields: [userid], references: [id])
   workoutplace String
   gymname      String?
-}
-
-enum MuscleGroupEnum {
-  CHEST
-  UPPERBACK
-  SHOULDERS
-  BICEPS
-  TRICEPS
-  ABS
 }
 
 model Diet {
@@ -93,4 +95,9 @@ model UserProgress {
   @@unique([userid, enrolledDate])
 }
 
-
+// model UserSessions{
+//   id  Int @id @default(autoincrement())
+//   userid Int @unique 
+//   User   User  @relation(fields: [userid] , references: [id])
+//   jwt  String
+// }

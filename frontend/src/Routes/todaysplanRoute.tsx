@@ -1,6 +1,6 @@
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { TodaysPlans } from "@components/Todaysplan/Today'sPlan";
-import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
+import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 export const TodaysPlanRoute = () => {
   return (
     <div className="h-full bg-[#f0f0f0] ">

@@ -1,4 +1,4 @@
-import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
+import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 import { MonthProgressComponent } from "@components/MonthComponent/MonthProgress";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 export const MonthProgressRoute = () => {

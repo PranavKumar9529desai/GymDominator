@@ -5,12 +5,10 @@ export const Home = () => {
   return (
     <div>
       <div className="w-dvh">
-        <Navbar TextColor="white"  />
+        <Navbar TextColor="white" />
       </div>
       <div>
         <LadingPage />
-
-        
       </div>
     </div>
   );

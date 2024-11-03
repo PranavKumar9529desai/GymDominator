@@ -3,7 +3,7 @@ import { ProgressSvg } from "@components/Svg/progressSvg";
 import { RecipesSvg } from "@components/Svg/recipesSvg";
 import { WorkoutSvg } from "@components/Svg/workoutSvg";
 import gymLaunch from "@assets/gym-launch-logo.png";
-import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
+import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 import { useLocation, useNavigate } from "react-router-dom";
 import { RigthArrow } from "@components/Svg/rigtharrow";
 import { useState } from "react";

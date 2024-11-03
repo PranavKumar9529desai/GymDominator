@@ -1,4 +1,4 @@
-import { BottomNavigation } from "@components/Dashboard/BottomNavigation";
+import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { Allworkouts } from "@components/Workout/allworkouts";
 

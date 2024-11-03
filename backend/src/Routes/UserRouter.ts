@@ -12,13 +12,12 @@ import { env } from "hono/adapter";
 import { decode, jwt, sign, verify } from "hono/jwt";
 import { JWTPayload } from "hono/utils/jwt/types";
 import { string } from "zod";
+import { setCookie } from "hono/cookie";
 export const UserRouter = new Hono<{
   Bindings: Bindings;
 }>();
 
-UserRouter.get("/pranav", (c) => {
-  return c.json({ msg: "you have reuested the user route" });
-});
+// check if the user has active sesstion
 
 UserRouter.post("signup", async (c) => {
   try {
@@ -44,6 +43,7 @@ UserRouter.post("signup", async (c) => {
     const payload = { jwttoken: body.email };
     console.log("the secret is ", c.env?.JWT_SECRET);
     const token = await sign(payload, c.env.JWT_SECRET);
+    // add this the jwt to the database
     console.log("toeke is :", token);
     return c.json({ msg: "Success", token: token, name: newUser.name });
   } catch (error) {
@@ -81,6 +81,12 @@ UserRouter.post("signin", async (c) => {
     }
 
     if (isUserexist.password == body.password) {
+      setCookie(
+        c,
+        "this is the first cookie ",
+        "this the value of the first cookie",
+        { secure: true, httpOnly: true }
+      );
       c.status(200);
       return c.json({ msg: "sucess", token: token, name: isUserexist.name });
     } else {

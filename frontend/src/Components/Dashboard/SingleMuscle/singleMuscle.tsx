@@ -1,7 +1,7 @@
 import { Navbar2 } from "@components/Navbar/Navbar2";
 import { PropagateLoader } from "react-spinners";
 import { useNavigate, useParams } from "react-router-dom";
-import { BottomNavigation } from "../BottomNavigation";
+import { BottomNavigation } from "../PremiumUsersBNC";
 import { FetchExcercise } from "@hooks/FetchExcercise";
 import { Excercisetype } from "@state/Selectors/ExcerciseSelectorsfamily";
 export const SingleMuscles = () => {

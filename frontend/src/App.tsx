@@ -19,7 +19,9 @@ import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { ChallengeRoute } from "@routes/ChallengeRoute";
 import { QrScannerRoute } from "@routes/QrScannerRoute";
-import { AttendanceStatus } from "@routes/AttendanceStatusRoute";
+import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
+import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
+import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
 function Main() {
   return (
     <Routes>
@@ -27,7 +29,10 @@ function Main() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard" element={<WorkoutRoute />} />
-      <Route path="/dashboard/workouts" element={<WorkoutRoute />} />
+      <Route
+        path="/dashboard/workout/viewworkouts"
+        element={<WorkoutRoute />}
+      />
       <Route
         path="/dashboard/workouts/:muscle"
         element={<SingleMusclesRoute />}
@@ -36,7 +41,15 @@ function Main() {
         path="/dashboard/workouts/:muscle/:workoutname"
         element={<SingleWorkoutRoute />}
       />
-      <Route path="/dashboard/diet" element={<DietRoute />} />
+      <Route path="/dashboard/diet/alldiets" element={<DietRoute />} />
+      <Route
+        path="/dashboard/diet/personalizeddiet"
+        element={<PersonalizedDietRoute />}
+      />
+      <Route
+        path="/dashboard/workouts/personalizedworkout"
+        element={<PersonalizedWorkoutRoute />}
+      />
       <Route path="/dashboard/recipes" element={<RecicpesRoute />} />
       <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
       <Route path="/dashboard/myprogress/week" element={<MyProgressRoute />} />
@@ -63,8 +76,15 @@ function Main() {
         element={<ChooseGymRoute />}
       />
       <Route path="/dashboard/challenges" element={<ChallengeRoute />} />
-      <Route path="/qrscanner" element={<QrScannerRoute />} />
-      <Route path="/attendancestatus" element={<AttendanceStatus />} />
+      <Route
+        path="/dashboard/attendance/qrscanner"
+        element={<QrScannerRoute />}
+      />
+
+      <Route
+        path="/dashboard/attendance/todaysattendance"
+        element={<TodaysAttendanceStatusRoute />}
+      />
       <Route path="*" element={<Home />} />
     </Routes>
   );
