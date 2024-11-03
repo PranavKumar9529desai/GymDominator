@@ -4,7 +4,6 @@ import { MainSection } from "./mainsection/mainsecion";
 import { Footer } from "./Footer";
 import DownArrow from "@assets/downarrow.png";
 import greenTick from "@assets/green-tick-icon.png";
-
 export const LadingPage = () => {
   const navigate = useNavigate();
   return (
