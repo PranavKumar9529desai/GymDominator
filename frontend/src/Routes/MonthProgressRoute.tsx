@@ -1,5 +1,6 @@
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
-import { MonthProgressComponent } from "@components/MonthComponent/MonthProgress";
+import MonthlyProgress from "@components/NewMonthlyProgressComponent";
+// import { MonthProgressComponent } from "@components/MonthComponent/MonthProgress";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 export const MonthProgressRoute = () => {
   return (
@@ -11,8 +12,8 @@ export const MonthProgressRoute = () => {
         <div className="block lg:hidden">
           <BottomNavigation />
         </div>
-        <div className="col-span-4 -ml-2  h-screen lg:-mt-0 -mt-8">
-        <MonthProgressComponent />
+        <div className="col-span-4 lg:h-screen flex items-center justify-center mb-20">
+          <MonthlyProgress />
         </div>
       </div>
     </div>
