@@ -168,7 +168,7 @@ export default function ProfessionalMonthlyProgress() {
         </div>
       </CardHeader>
       <CardContent className="">
-        <div className="grid grid-cols-7 gap-2 mb-4 ">
+        <div className="grid grid-cols-7 gap-8 lg:gap-2  mb-4 ">
           {DAYS.map((day) => (
             <div
               key={day}
@@ -178,7 +178,7 @@ export default function ProfessionalMonthlyProgress() {
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7 lg:gap-x-3 lg:gap-y-6  gap-2 gap-y-10">
+        <div className="grid grid-cols-7 lg:gap-x-3 lg:gap-y-6  gap-3 gap-y-10">
           {getDaysInMonth(currentDate).map((date, index) => (
             <div className=" inline-flex justify-center" key={index}>
               {renderDay(date)}
