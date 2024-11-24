@@ -31,7 +31,7 @@ header {
 header:before {
   -webkit-animation: fade-slide-down 2s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
   animation: fade-slide-down 2s 0.5s cubic-bezier(0, 0.5, 0, 1) forwards;
-  background: var(--asset-url) no-repeat ;
+  background: url('../../assets/bg3.jpg') no-repeat;
   
   background-size: cover;
   bottom: 0;

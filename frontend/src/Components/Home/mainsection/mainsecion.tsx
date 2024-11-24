@@ -5,7 +5,7 @@ import Recipes from "@assets/recipes.png";
 import Av1 from "@assets/av1.png";
 import Av4 from "@assets/av4.png";
 import Av3 from "@assets/av3.png";
-
+import PersonalizedMentor from "@assets/personaltrainer.png"
 export const MainSection = () => {
   const Testimonial = [
     {
@@ -77,7 +77,7 @@ export const MainSection = () => {
           <Card className="bg-gray-800 border-gray-700">
             <CardContent className="flex flex-col items-center space-y-4 p-6">
               <img
-                src={`${import.meta.env.VITE_GYMDOMINATOR_CDN}/assets/personaltrainer.png`}
+                src={PersonalizedMentor}
                 alt="Personal Mentor"
                 width={300}
                 height={200}
