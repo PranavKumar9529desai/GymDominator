@@ -64,11 +64,16 @@ GymDominator (Users) is a user-focused platform designed to enhance the gym-goin
 ### **User Dashboard**  
 _Experience a personalized gym journey through the user dashboard._  
 
-**User Dashboard Image 1**  
-<img src="/public/user-1.png" alt="User Dashboard Screenshot 1" width="300" height="500" style="object-fit: cover"/>  
-
-**User Dashboard Image 2**  
-<img src="/public/user-2.png" alt="User Dashboard Screenshot 2" width="300" height="500" style="object-fit: cover"/>  
+<div style="display: flex; gap: 20px; justify-content: center;">
+    <div>
+        <p><strong>User Dashboard Image 1</strong></p>
+        <img src="/public/user-1.png" alt="User Dashboard Screenshot 1" width="300" height="500" style="object-fit: cover"/>
+    </div>
+    <div>
+        <p><strong>User Dashboard Image 2</strong></p>
+        <img src="/public/user-2.png" alt="User Dashboard Screenshot 2" width="300" height="500" style="object-fit: cover"/>
+    </div>
+</div>
 
 ---
 
