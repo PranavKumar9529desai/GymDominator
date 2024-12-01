@@ -1,24 +1,59 @@
 {
   "name": "gymdominator",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
-    "dev-backend": "cd backend && npm run dev",
-    "dev-frontend": "cd frontend && npm run dev"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PranavKumar9529desai/GymDominator.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PranavKumar9529desai/GymDominator/issues"
-  },
-  "homepage": "https://github.com/PranavKumar9529desai/GymDominator#readme",
   "dependencies": {
-    "concurrently": "^9.0.1"
+    "@radix-ui/react-avatar": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-progress": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@types/axios": "^0.14.0",
+    "@types/react-circular-progressbar": "^1.1.0",
+    "@yudiel/react-qr-scanner": "^2.0.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "flowbite": "^2.5.1",
+    "framer-motion": "^11.3.30",
+    "input-otp": "^1.2.4",
+    "lucide-react": "^0.428.0",
+    "qrcode.react": "^4.0.1",
+    "react": "^18.3.1",
+    "react-confetti": "^6.1.0",
+    "react-day-picker": "^8.10.1",
+    "react-dom": "^18.3.1",
+    "react-router-hash-link": "^2.4.3",
+    "react-spinners": "^0.14.1",
+    "react-youtube": "^10.1.0",
+    "recoil": "^0.7.7",
+    "serve": "^14.2.4",
+    "sweetalert2": "^11.12.4",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-router-hash-link": "^2.4.9",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4"
   }
 }
