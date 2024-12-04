@@ -12,7 +12,7 @@ export default function TodaysAttendanceRoute() {
           <BottomNavigation />
         </div>
 
-        <div className="col-span-4 overflow-y-auto  h-full flex items-center justify-center w-full">
+        <div className="lg:col-span-4 w-full h-screen flex justify-center items-top lg:items-center ">
           <TodayAttendance streak={20} entryTime="9 Am" />
         </div>
       </div>
