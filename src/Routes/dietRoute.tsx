@@ -19,3 +19,5 @@ export const DietRoute = () => {
     </div>
   );
 };
+
+// diet route
