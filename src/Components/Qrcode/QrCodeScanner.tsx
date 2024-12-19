@@ -9,9 +9,21 @@ import {
 import { QrCode } from "lucide-react";
 import { useNavigate } from "react-router";
 
+interface QrValueType {
+  AttendanceAction: {
+    // dummy actions
+    name: string;
+    action: string;
+  };
+  OnboardingAction: {
+    gymname: string;
+    gymid: string;
+    hash: string;
+  };
+}
+
 export default function QRCodeScannerComponent() {
   const navigate = useNavigate();
-  
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -35,10 +47,21 @@ export default function QRCodeScannerComponent() {
 
                   // Parse the rawValue if it's a JSON string
                   try {
-                    const parsedData = JSON.parse(rawValue);
+                    const parsedData: QrValueType = JSON.parse(rawValue);
+                    if (parsedData.OnboardingAction) {
+                      const { gymname, gymid, hash } =
+                        parsedData.OnboardingAction;
+                      console.log(
+                        "Onbording action data:",
+                        parsedData.AttendanceAction
+                      );
+                      // do the user attachment backend call
+                      navigate(
+                        `/onboarding/beforegymenrollment?gymname=${gymname}&hash=${hash}&gymid=${gymid}`
+                      );
+                    }
                     console.log("Parsed data:", parsedData);
-                    // Navigate or handle the parsed data as needed
-                    // navigate('/some-path', { state: parsedData });
+                    // TODO handle the attendance action
                   } catch (error) {
                     console.error("Failed to parse rawValue:", error);
                   }

@@ -9,18 +9,33 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { GetEnrollmentStatus } from "@hooks/Enrollment/GetEnrollmentStatus";
-
+import { AttachUserToGymType } from "@hooks/AttachUserToGym";
+import { AttachUserToGym } from "@hooks/AttachUserToGym";
+import { useSearchParams } from "react-router-dom";
 export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const [shouldRefetch, setShouldRefetch] = useState(false);
 
+  const [searchParams] = useSearchParams();
+  const params = {
+    gymname: searchParams.get("gymname") || "",
+    hash: searchParams.get("hash") || "",
+    gymid: searchParams.get("gymid") || "",
+  };
   useEffect(() => {
     const checkEnrollmentStatus = async () => {
       try {
         setIsPending(true);
-        const { msg, isEnrolled: enrollmentStatus } = await GetEnrollmentStatus();
+        const { msg, isEnrolled: enrollmentStatus } =
+          await GetEnrollmentStatus();
         console.log("Enrollment status:", msg, enrollmentStatus);
+        const { msgs, user }: AttachUserToGymType = await AttachUserToGym(
+          params.gymname,
+          params.gymid,
+          params.hash
+        );
+        console.log("msg and user from the backend is ", user, msgs);
         setIsEnrolled(enrollmentStatus);
       } catch (error) {
         console.error("Error checking enrollment:", error);
@@ -34,7 +49,7 @@ export default function BeforeGymEnrollment() {
   }, [shouldRefetch]);
 
   const handleRefresh = () => {
-    setShouldRefetch(prev => !prev);
+    setShouldRefetch((prev) => !prev);
   };
 
   return (
@@ -70,14 +85,20 @@ export default function BeforeGymEnrollment() {
         )}
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button
-          onClick={handleRefresh}
-          disabled={isPending}
-          className="flex items-center space-x-2"
-        >
-          <RefreshCw className={`w-4 h-4 ${isPending ? 'animate-spin' : ''}`} />
-          <span>Check Status</span>
-        </Button>
+        {isEnrolled ? (
+          <Button>Go to Gym Dashboard</Button>
+        ) : (
+          <Button
+            onClick={handleRefresh}
+            disabled={isPending}
+            className="flex items-center space-x-2"
+          >
+            <RefreshCw
+              className={`w-4 h-4 ${isPending ? "animate-spin" : ""}`}
+            />
+            <span>Check Status</span>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
