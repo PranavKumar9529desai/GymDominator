@@ -1,12 +1,12 @@
 import { AlertCircle, RefreshCw, HelpCircle } from "lucide-react";
-import { Button } from "@components/ui/ui/button";
+import { Button } from "@components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@components/ui/ui/card";
+} from "@components/ui/card";
 
 export default function AttendanceFailed() {
   const name = "John"; // This would typically come from your app's state or context

@@ -4,10 +4,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@components/ui/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@components/ui/ui/avatar";
-import { Badge } from "@components/ui/ui/badge";
-import { Progress } from "@components/ui/ui/progress";
+} from "@components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@components/ui/avatar";
+import { Badge } from "@components/ui/badge";
+import { Progress } from "@components/ui/progress";
 import { Dumbbell, Calendar, Clock, Trophy, User } from "lucide-react";
 
 export default function PersonalizedWorkouts() {

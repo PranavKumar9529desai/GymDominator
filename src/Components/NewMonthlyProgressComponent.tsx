@@ -5,8 +5,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@components/ui/ui/card";
-import { Button } from "@components/ui/ui/button";
+} from "@components/ui/card";
+import { Button } from "@components/ui/button";
 
 // This would typically come from your backend or state management
 const gymAttendanceDays = [

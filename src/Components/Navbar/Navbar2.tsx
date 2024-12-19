@@ -8,7 +8,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
   const [isOpen, SetIsOpen] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className="w-full ">
       <nav
         className={`
          ${

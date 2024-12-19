@@ -5,11 +5,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@components/ui/ui/card";
+} from "@components/ui/card";
 import { QrCode } from "lucide-react";
 import { useNavigate } from "react-router";
+
 export default function QRCodeScannerComponent() {
   const navigate = useNavigate();
+  
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -25,9 +27,25 @@ export default function QRCodeScannerComponent() {
             <div className="absolute inset-0 z-10 border-4 border-blue-400 rounded-2xl animate-pulse"></div>
             <div className="absolute inset-0 z-20 border-2 border-white"></div>
             <Scanner
-              onScan={(result) => {
-                console.log("result of the qrcode is ", result);
-                navigate("/dashboard/attendance/todaysattendance");
+              onScan={(results) => {
+                if (results && results.length > 0) {
+                  const result = results[0];
+                  const rawValue = result.rawValue;
+                  console.log("Raw value of the QR code is:", rawValue);
+
+                  // Parse the rawValue if it's a JSON string
+                  try {
+                    const parsedData = JSON.parse(rawValue);
+                    console.log("Parsed data:", parsedData);
+                    // Navigate or handle the parsed data as needed
+                    // navigate('/some-path', { state: parsedData });
+                  } catch (error) {
+                    console.error("Failed to parse rawValue:", error);
+                  }
+                }
+              }}
+              onError={(error) => {
+                console.error("Error scanning QR code:", error);
               }}
             />
           </div>

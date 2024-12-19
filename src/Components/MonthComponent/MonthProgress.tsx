@@ -15,8 +15,8 @@ import {
   eachDayOfInterval,
   isSameMonth,
 } from "date-fns";
-import { Button } from "@components/ui/ui/button";
-import { Progress } from "@components/ui/ui/progress";
+import { Button } from "@components/ui/button";
+import { Progress } from "@components/ui/progress";
 // import { PropagateLoader } from "react-spinners";
 
 export const MonthProgressComponent = () => {

@@ -22,69 +22,67 @@ import { QrScannerRoute } from "@routes/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
 import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
+import { OnboardingLayout } from "./Layouts/OnboardingLayout";
+import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
 function Main() {
   return (
     <Routes>
+      {/* Public routes - No navbar */}
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/dashboard" element={<WorkoutRoute />} />
-      <Route
-        path="/dashboard/workout/viewworkouts"
-        element={<WorkoutRoute />}
-      />
-      <Route
-        path="/dashboard/workouts/:muscle"
-        element={<SingleMusclesRoute />}
-      />
-      <Route
-        path="/dashboard/workouts/:muscle/:workoutname"
-        element={<SingleWorkoutRoute />}
-      />
-      <Route path="/dashboard/diet/alldiets" element={<DietRoute />} />
-      <Route
-        path="/dashboard/diet/personalizeddiet"
-        element={<PersonalizedDietRoute />}
-      />
-      <Route
-        path="/dashboard/workouts/personalizedworkout"
-        element={<PersonalizedWorkoutRoute />}
-      />
-      <Route path="/dashboard/recipes" element={<RecicpesRoute />} />
-      <Route path="/dashboard/myprogress" element={<MyProgressRoute />} />
-      <Route path="/dashboard/myprogress/week" element={<MyProgressRoute />} />
-      <Route
-        path="/dashboard/myprogress/month"
-        element={<MonthProgressRoute />}
-      />
-      <Route path="/dashboard/today'splan" element={<TodaysPlanRoute />} />
-      <Route path="/onboarding" element={<OnboardingRoute />} />
-      <Route
-        path="/onboarding/chooseacpartner"
-        element={<ChooseAccountibilityPartnerRoute />}
-      />
-      <Route
-        path="/onboarding/healthprofile"
-        element={<HealthProfileFormRoute />}
-      />
-      <Route
-        path="/onboarding/healthprofile/workoutplace"
-        element={<WorkoutplaceRoute />}
-      />
-      <Route
-        path="/onboarding/healthprofile/workoutplace/choosegym"
-        element={<ChooseGymRoute />}
-      />
-      <Route path="/dashboard/challenges" element={<ChallengeRoute />} />
-      <Route
-        path="/dashboard/attendance/qrscanner"
-        element={<QrScannerRoute />}
-      />
 
-      <Route
-        path="/dashboard/attendance/todaysattendance"
-        element={<TodaysAttendanceStatusRoute />}
-      />
+      {/* Dashboard routes - No navbar */}
+      <Route path="/dashboard">
+        <Route index element={<WorkoutRoute />} />
+        <Route path="workout/viewworkouts" element={<WorkoutRoute />} />
+        <Route path="workouts/:muscle" element={<SingleMusclesRoute />} />
+        <Route
+          path="workouts/:muscle/:workoutname"
+          element={<SingleWorkoutRoute />}
+        />
+        <Route path="diet/alldiets" element={<DietRoute />} />
+        <Route
+          path="diet/personalizeddiet"
+          element={<PersonalizedDietRoute />}
+        />
+        <Route
+          path="workouts/personalizedworkout"
+          element={<PersonalizedWorkoutRoute />}
+        />
+        <Route path="recipes" element={<RecicpesRoute />} />
+        <Route path="myprogress" element={<MyProgressRoute />} />
+        <Route path="myprogress/week" element={<MyProgressRoute />} />
+        <Route path="myprogress/month" element={<MonthProgressRoute />} />
+        <Route path="today'splan" element={<TodaysPlanRoute />} />
+        <Route path="challenges" element={<ChallengeRoute />} />
+        <Route path="attendance/qrscanner" element={<QrScannerRoute />} />
+        <Route
+          path="attendance/todaysattendance"
+          element={<TodaysAttendanceStatusRoute />}
+        />
+      </Route>
+
+      {/* Other routes - With MainLayout navbar */}
+      <Route element={<OnboardingLayout />}>
+        <Route path="/onboarding">
+          <Route index element={<OnboardingRoute />} />
+          <Route path="beforegymenrollment" element={<BeforeGymEnrollment />} />
+          <Route
+            path="chooseacpartner"
+            element={<ChooseAccountibilityPartnerRoute />}
+          />
+          <Route path="healthprofile">
+            <Route index element={<HealthProfileFormRoute />} />
+            <Route path="workoutplace">
+              <Route index element={<WorkoutplaceRoute />} />
+              <Route path="choosegym" element={<ChooseGymRoute />} />
+            </Route>
+          </Route>
+        </Route>
+      </Route>
+
+      {/* Fallback route */}
       <Route path="*" element={<Home />} />
     </Routes>
   );
@@ -92,13 +90,11 @@ function Main() {
 
 function App() {
   return (
-    <>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Main />
-        </BrowserRouter>
-      </RecoilRoot>
-    </>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 

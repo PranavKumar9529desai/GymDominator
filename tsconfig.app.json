@@ -7,8 +7,8 @@
       "@routes/*": ["src/Routes/*"],
       "@hooks/*": ["src/Hooks/*"],
       "@state/*": ["src/State/*"],
-      "@ui" : ["src/ui"],
-      "@lib" : ["src/lib"],
+      "@ui/*": ["src/Components/ui/*"],
+      "@lib/*": ["src/Components/lib/*"]
     },
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",

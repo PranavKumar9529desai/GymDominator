@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@components/ui/ui/card";
-import { Button } from "@components/ui/ui/button";
+import { Card, CardContent } from "@components/ui/card";
+import { Button } from "@components/ui/button";
 import WorkoutPlans from "@assets/workoutplans.png";
 import Recipes from "@assets/recipes.png";
 import Av1 from "@assets/av1.png";
