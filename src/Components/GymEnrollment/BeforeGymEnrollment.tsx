@@ -27,15 +27,17 @@ export default function BeforeGymEnrollment() {
     const checkEnrollmentStatus = async () => {
       try {
         setIsPending(true);
-        const { msg, isEnrolled: enrollmentStatus } =
-          await GetEnrollmentStatus();
-        console.log("Enrollment status:", msg, enrollmentStatus);
-        const { msgs, user }: AttachUserToGymType = await AttachUserToGym(
-          params.gymname,
-          params.gymid,
-          params.hash
-        );
-        console.log("msg and user from the backend is ", user, msgs);
+        const { msg, isEnrolled: enrollmentStatus } = await GetEnrollmentStatus();
+        // if (!enrollmentStatus) {
+        //   const { msgs, user }: AttachUserToGymType = await AttachUserToGym(
+        //     params.gymname,
+        //     params.gymid,
+        //     params.hash
+        //   );
+          console.log("msg and user from the backend is ", isEnrolled , msg);
+        // }
+        
+       
         setIsEnrolled(enrollmentStatus);
       } catch (error) {
         console.error("Error checking enrollment:", error);

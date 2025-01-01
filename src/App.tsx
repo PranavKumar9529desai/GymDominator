@@ -25,6 +25,8 @@ import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
 import { OnboardingLayout } from "./Layouts/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Welcome from "./Components/Welcome/welcome";
+import { GeneralQrScannerRoute } from "@routes/GeneralQrScannerRoute";
 
 function Main() {
   return (
@@ -33,6 +35,7 @@ function Main() {
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/welcome" element={<Welcome />} />
 
       {/* Dashboard routes - No navbar */}
       <Route path="/dashboard">
@@ -83,6 +86,9 @@ function Main() {
           </Route>
         </Route>
       </Route>
+
+      {/* QR Scanner route */}
+      <Route path="/qr-scanner" element={<GeneralQrScannerRoute />} />
 
       {/* Fallback route */}
       <Route path="*" element={<Home />} />

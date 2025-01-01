@@ -8,6 +8,7 @@ import { toast } from "sonner";
 
 export function GoogleAuth() {
   const [, setUserDetails] = useRecoilState(UserDetailsAtom);
+  const navigate = useNavigate();
 
   return (
     <div className="mt-6">
@@ -44,12 +45,13 @@ export function GoogleAuth() {
                 }
               );
 
-              localStorage.setItem("jwt", response.data.token);
+              localStorage.setItem("jwt", response.data.newToken);
               setUserDetails({ name: decoded.name });
               toast.success("Successfully logged in!", {
                 description: `Welcome back, ${decoded.name}!`,
               });
-              // Add delay before navigation
+              // Navigate to welcome page
+              navigate('/welcome');
             } catch (error) {
               console.error("Google auth error:", error);
               toast.error("Authentication Failed", {
