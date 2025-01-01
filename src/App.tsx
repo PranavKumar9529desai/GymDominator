@@ -24,6 +24,8 @@ import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
 import { OnboardingLayout } from "./Layouts/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 function Main() {
   return (
     <Routes>
@@ -92,7 +94,9 @@ function App() {
   return (
     <RecoilRoot>
       <BrowserRouter>
-        <Main />
+        <GoogleOAuthProvider clientId="347915935220-9kirggi81g89botl2vk8claori5jqb2f.apps.googleusercontent.com">
+          <Main />
+        </GoogleOAuthProvider>
       </BrowserRouter>
     </RecoilRoot>
   );

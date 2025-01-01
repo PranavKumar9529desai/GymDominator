@@ -1,169 +1,231 @@
+"use client";
 import { Link, useNavigate } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
-//@ts-ignore
-import { SignupInput, SigninInput } from "../../../backend/src/zod/types";
+import { ChangeEvent, useState, useTransition } from "react";
+import { z } from "zod";
 import axios from "axios";
-import { BarLoader } from "react-spinners";
-import { coustomAlert } from "@components/customAlerts";
-import { useRecoilState} from "recoil";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { useRecoilState } from "recoil";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
+import { GoogleAuth } from './GoogleAuth';
 
-export function Auth({ type }: { type: "signup" | "signin" }) {
-  const [UserDeatials, setUserDeatails] = useRecoilState(UserDetailsAtom);
-  let [loading, setLoading] = useState(false);
-  const [postInputs, setpostInput] = useState<SignupInput>({
+// Zod schemas for form validation
+const userSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  username: z.string().min(2, "Username must be at least 2 characters"),
+});
+
+type UserSchema = z.infer<typeof userSchema>;
+
+interface AuthProps {
+  type: "signup" | "signin";
+}
+
+export function Auth({ type }: AuthProps) {
+  const [isPending, startTransition] = useTransition();
+  const [formErrors, setFormErrors] = useState<Partial<UserSchema>>({});
+  const [, setUserDetails] = useRecoilState(UserDetailsAtom);
+
+  const [formData, setFormData] = useState<UserSchema>({
     email: "",
     password: "",
     username: "",
   });
+
   const navigate = useNavigate();
 
-  async function SendData(postInputs: SigninInput) {
+  const validateForm = () => {
     try {
-      setLoading(true);
-      const newReq = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/user${
-          type == "signup" ? "/signup" : "/signin"
-        }`,
-        postInputs
-      );
-
-      const response = newReq.data;
-      const jwt = response.token;
-      localStorage.setItem("jwt", jwt);
-      setUserDeatails({ name: response.name });
-      console.log("UserDeatails name" , response.name);
-      console.log("user name is userdeatils atom", UserDeatials);
-      navigate("/");
-      const message =
-        type == "signup" ? "User created Sucessfully" : "Logged in Sucessfully";
-      coustomAlert("success", message);
-    } catch (error: any) {
-      console.log(error.response.data.msg);
-      // add the custom alert here
-      coustomAlert("error", error.response.data.msg);
-    } finally {
-      setLoading(false);
+      userSchema.parse(formData);
+      setFormErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: Partial<UserSchema> = {};
+        error.errors.forEach((err) => {
+          if (err.path) {
+            errors[err.path[0] as keyof UserSchema] = err.message;
+          }
+        });
+        setFormErrors(errors);
+      }
+      return false;
     }
+  };
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    startTransition(() => {
+      axios
+        .post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user${
+        type === "signup" ? "/signup" : "/signin"
+          }`,
+          {
+        email: formData.email,
+        username: formData.username,
+        password: formData.password
+          },
+          {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+          }
+        )
+        .then((response) => {
+          const { token, name } = response.data;
+          localStorage.setItem("jwt", token);
+          setUserDetails({ name });
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+          // Show error toast
+        });
+    });
   }
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
-    <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          SendData(postInputs);
-          //send the data when the form is submitted
-          // using form makes code much much cleaner html5 makes it much cleaner
-        }}
-      >
-        {/* this div is nessary to quote appear on rigth side */}
-        <div className="relative  sm:w-[500px] w-80 bg-white border border-gray-200 rounded-xl shadow  hover:shadow-2xl hover:-translate-y-1  transition-all duration-300 overflow-hidden ">
-          <BarLoader color="#36d7b7" height={4} width={600} loading={loading} />
-
-          <div className="flex justify-center items-center  flex-col sm:my-10 sm:mx-12 p-8 ">
-            <div className="sm:text-4xl text-3xl font-extrabold ">
-              {type == "signup" ? "Create account" : "Login"}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="w-full max-w-md"
+    >
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="bg-white p-8 rounded-2xl shadow-xl">
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                {type === "signup" ? "Create your account" : "Welcome back"}
+              </h1>
+              <p className="mt-2 text-sm text-gray-600">
+                {type === "signup"
+                  ? "Start your fitness journey today"
+                  : "Continue your fitness journey"}
+              </p>
             </div>
-            <div className="flex sm:mt-4 ">
-              <div className="flex justify-center flex-col bg-white">
-                {/* when signup show Username field */}
-                {type === "signup" ? (
-                  <LabeledInput
-                    label="Username"
-                    placeholder="Pranav"
-                    onChange={(e) => {
-                      setpostInput((c: SignupInput) => ({
-                        ...c,
-                        username: e.target.value,
-                      }));
-                    }}
-                    type="text"
-                  />
-                ) : (
-                  ""
-                )}
 
+            {type === "signup" && (
+              <div>
                 <LabeledInput
-                  label="Email"
-                  placeholder="xyz@gmail.com    "
-                  onChange={(e) => {
-                    setpostInput((c: SignupInput) => ({
-                      ...c,
-                      email: e.target.value,
-                    }));
-                  }}
-                  type="email"
+                  label="Username"
+                  name="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  error={formErrors.username}
                 />
-
-                {/* palceholder dots  */}
-                <LabeledInput
-                  label="Password"
-                  placeholder="&#9679;&#9679;&#9679;&#9679;"
-                  onChange={(e) => {
-                    setpostInput((c: SignupInput) => ({
-                      // overidng the previous input
-                      ...c,
-                      password: e.target.value,
-                    }));
-                  }}
-                  type="password"
-                />
-                <button
-                  type="submit"
-                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 / mt-5 w-full pd-2 hover:shadow-md hover:-translate-y-1.5 transition-all"
-                >
-                  {type == "signup" ? "Sign up" : "Sign in"}
-                </button>
               </div>
+            )}
+
+            <div>
+              <LabeledInput
+                label="Email"
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleInputChange}
+                error={formErrors.email}
+              />
             </div>
-            <div className="font-ligh mt-1 text-slate-400">
-              {type == "signup"
-                ? "Already have an account ? "
-                : "Don't have an account ? "}
-              <Link
-                to={type == "signup" ? "/signin" : "/signup"}
-                className="underline text-blue-500 font-semibold"
-              >
-                {type == "signup" ? "Login" : "Sign Up"}
-              </Link>
+
+            <div>
+              <LabeledInput
+                label="Password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleInputChange}
+                error={formErrors.password}
+              />
             </div>
           </div>
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className="mt-8 w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isPending ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : type === "signup" ? (
+              "Create Account"
+            ) : (
+              "Sign In"
+            )}
+          </button>
+
+          {/* Add Google Auth */}
+          <GoogleAuth />
+
+          <p className="mt-4 text-center text-sm text-gray-600">
+            {type === "signup"
+              ? "Already have an account? "
+              : "Don't have an account? "}
+            <Link
+              to={type === "signup" ? "/signin" : "/signup"}
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              {type === "signup" ? "Sign in" : "Sign up"}
+            </Link>
+          </p>
         </div>
       </form>
-    </>
+    </motion.div>
   );
 }
 
-interface LabeledInput {
+interface LabeledInputProps {
   label: string;
+  name: string;
+  type: string;
   placeholder: string;
+  value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
+  error?: string;
 }
 
-export function LabeledInput({
+function LabeledInput({
   label,
-  placeholder,
-  onChange,
+  name,
   type,
-}: LabeledInput) {
+  placeholder,
+  value,
+  onChange,
+  error,
+}: LabeledInputProps) {
   return (
-    <>
-      <div className="flex flex-col justify-start sm:w-80 w-60 mt-2">
-        <label className="block mb-2 text-md font-medium text-gray-900 ">
-          {label}
-        </label>
+    <div>
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <div className="mt-1">
         <input
-          required
+          name={name}
+          type={type}
+          value={value}
           onChange={onChange}
-          id="first_name"
-          type={type || "text"}
-          autoComplete="on"
-          className=" border border-gray-300 text-gray-900 text-md rounded-lg focus:outline-none focus:ring focus:ring-blue-200 block w-full p-2.5   shadow hover:shadow-md hover:-translate-y-1.5 transition-all"
           placeholder={placeholder}
+          className={`
+            w-full px-3 py-2 border rounded-lg shadow-sm
+            focus:outline-none focus:ring-2 focus:ring-blue-500
+            ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300"}
+          `}
         />
+        {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
       </div>
-    </>
+    </div>
   );
 }

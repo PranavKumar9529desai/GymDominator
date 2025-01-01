@@ -11,12 +11,12 @@ import {
 import { GetEnrollmentStatus } from "@hooks/Enrollment/GetEnrollmentStatus";
 import { AttachUserToGymType } from "@hooks/AttachUserToGym";
 import { AttachUserToGym } from "@hooks/AttachUserToGym";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const [shouldRefetch, setShouldRefetch] = useState(false);
-
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const params = {
     gymname: searchParams.get("gymname") || "",
@@ -86,7 +86,9 @@ export default function BeforeGymEnrollment() {
       </CardContent>
       <CardFooter className="flex justify-center">
         {isEnrolled ? (
-          <Button>Go to Gym Dashboard</Button>
+          <Button onClick={()=>{
+            navigate("/dashboard");
+          }}>Go to Gym Dashboard</Button>
         ) : (
           <Button
             onClick={handleRefresh}
