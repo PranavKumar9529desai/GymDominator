@@ -69,7 +69,8 @@ function Main() {
       </Route>
 
       {/* Other routes - With MainLayout navbar */}
-      <Route element={<OnboardingLayout />}>
+      {/* <Route element={<OnboardingLayout />}> */}
+      <Route >
         <Route path="/onboarding">
           <Route index element={<OnboardingRoute />} />
           <Route path="beforegymenrollment" element={<BeforeGymEnrollment />} />

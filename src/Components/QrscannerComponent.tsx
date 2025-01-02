@@ -11,15 +11,29 @@ import { useNavigate } from "react-router";
 
 interface QrValueType {
   AttendanceAction: {
-    // dummy actions
-    name: string;
-    action: string;
+    gymname: string;
+    gymid: number;
+    timestamp: string;
   };
   OnboardingAction: {
     gymname: string;
     gymid: string;
     hash: string;
   };
+}
+
+function handleAttendanceAction(data: QrValueType) {
+  const now = new Date();
+  now.setMinutes(0, 0, 0); // Set to current hour
+  const scannedTime = new Date(data.AttendanceAction.timestamp);
+  
+  if (now.getTime() === scannedTime.getTime()) {
+    console.log("Valid attendance QR code for:", data.AttendanceAction);
+    // TODO: Process the attendance
+  } else {
+    console.log("QR code has expired");
+    // TODO: Show error message to user
+  }
 }
 
 export default function QRCodeScannerComponent() {
@@ -53,15 +67,19 @@ export default function QRCodeScannerComponent() {
                         parsedData.OnboardingAction;
                       console.log(
                         "Onbording action data:",
-                        parsedData.AttendanceAction
+                        parsedData.OnboardingAction
                       );
                       // navigate this route
                       navigate(
                         `/onboarding/beforegymenrollment?gymname=${gymname}&hash=${hash}&gymid=${gymid}`
                       );
+                    } else if (parsedData.AttendanceAction) {
+                      handleAttendanceAction(parsedData);
                     }
                     console.log("Parsed data:", parsedData);
+                    // handleAttendanceAction(parsedData);
                     // TODO handle the attendance action
+
                   } catch (error) {
                     console.error("Failed to parse rawValue:", error);
                   }
