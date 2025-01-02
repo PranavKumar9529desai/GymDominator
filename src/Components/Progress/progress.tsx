@@ -1,6 +1,6 @@
 import { ProgressBar } from "@components/progressBar";
 import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
-import { excercise  } from "@state/Selectors/MuscleGrpSelectot";
+import { excercise } from "@state/Selectors/MuscleGrpSelectot";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { OnboardingRoute } from "@routes/OnboardingRoute";
 import "./App.css";
-import { MonthProgressRoute } from "@routes/MonthProgressRoute";
+import { MonthProgressRoute } from "@routes/MonthProgressRoute/MonthProgressRoute";
 import { Home } from "@routes/homeRoute";
 import { RecoilRoot } from "recoil";
 import { SignIn } from "@routes/signinRoute";
@@ -18,7 +18,7 @@ import { HealthProfileFormRoute } from "@routes/HealthprofileformRoute";
 import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { ChallengeRoute } from "@routes/ChallengeRoute";
-import { QrScannerRoute } from "@routes/QrScannerRoute";
+import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
 import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";

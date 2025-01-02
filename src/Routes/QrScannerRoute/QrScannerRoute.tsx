@@ -1,6 +1,7 @@
 import QRCodeScannerComponent from "@components/Qrcode/QrCodeScanner";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
+import AttendanceQRScanner from "../../Components/Qrcode/AttendanceQrScanner";
 export const QrScannerRoute = () => {
   return (
     <div className="h-screen bg-[#f0f0f0]">
@@ -13,7 +14,7 @@ export const QrScannerRoute = () => {
         </div>
 
         <div className="col-span-4 overflow-y-auto ">
-          <QRCodeScannerComponent />
+        <AttendanceQRScanner />
         </div>
       </div>
     </div>

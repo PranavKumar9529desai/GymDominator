@@ -7,23 +7,7 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { Button } from "@components/ui/button";
-
-// This would typically come from your backend or state management
-const gymAttendanceDays = [
-  new Date(2024, 10, 13),
-  new Date(2024, 10, 4),
-  new Date(2024, 10, 7),
-  new Date(2024, 10, 9),
-  new Date(2024, 10, 11),
-  new Date(2024, 10, 14),
-  new Date(2024, 10, 16),
-  new Date(2024, 10, 18),
-  new Date(2024, 10, 21),
-  new Date(2024, 10, 23),
-  new Date(2024, 10, 25),
-  new Date(2024, 10, 28),
-  new Date(2024, 10, 30),
-];
+import { GetAttendanceDays } from "@routes/MonthProgressRoute/GetAttendandedDays";
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = [
@@ -44,6 +28,25 @@ const MONTHS = [
 export default function ProfessionalMonthlyProgress() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [progress, setProgress] = useState(0);
+  const [gymAttendanceDays, setGymAttendanceDays] = useState<Date[]>([]);
+
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const response = await GetAttendanceDays();
+        if (response.success && response.data) {
+          console.log("Fetched attendance data:", response.data);
+          // Convert ISO date strings to Date objects
+          const attendanceDates = response.data.map(date => new Date(date));
+          setGymAttendanceDays(attendanceDates);
+        }
+      } catch (error) {
+        console.error("Failed to fetch attendance data:", error);
+      }
+    };
+
+    fetchAttendance();
+  }, []);
 
   useEffect(() => {
     // Calculate progress
@@ -59,7 +62,7 @@ export default function ProfessionalMonthlyProgress() {
     ).length;
     const workoutDays = daysInMonth - Math.floor(daysInMonth / 7); // Excluding Sundays
     setProgress(Math.round((attendedDays / workoutDays) * 100));
-  }, [currentDate]);
+  }, [currentDate, gymAttendanceDays]);
 
   const isToday = (date: Date) => {
     const today = new Date();

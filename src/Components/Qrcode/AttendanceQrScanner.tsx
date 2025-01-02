@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { QrCode } from "lucide-react";
-import { useNavigate } from "react-router";
+import { MarkAttendance } from "@routes/QrScannerRoute/MarkAttedance";
 
 interface QrValueType {
   AttendanceAction: {
@@ -15,29 +15,31 @@ interface QrValueType {
     gymid: number;
     timestamp: string;
   };
-  OnboardingAction: {
-    gymname: string;
-    gymid: string;
-    hash: string;
-  };
 }
 
-function handleAttendanceAction(data: QrValueType) {
+async function handleAttendanceAction(data: QrValueType) {
+  console.log("Handling attendance action:", data);
   const now = new Date();
-  now.setMinutes(0, 0, 0); // Set to current hour
+  now.setMinutes(0, 0, 0);
   const scannedTime = new Date(data.AttendanceAction.timestamp);
   
   if (now.getTime() === scannedTime.getTime()) {
-    console.log("Valid attendance QR code for:", data.AttendanceAction);
-    // TODO: Process the attendance
+    try {
+      const response = await MarkAttendance();
+      if (response.success) {
+        console.log("Attendance marked successfully");
+      } else {
+        console.error("Failed to mark attendance:", response.error);
+      }
+    } catch (error) {
+      console.error("Error marking attendance:", error);
+    }
   } else {
     console.log("QR code has expired");
-    // TODO: Show error message to user
   }
 }
 
-export default function QRCodeScannerComponent() {
-  const navigate = useNavigate();
+export default function AttendanceQRScanner() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -45,7 +47,7 @@ export default function QRCodeScannerComponent() {
         <CardHeader className="bg-blue-600 text-white py-6">
           <CardTitle className="text-2xl font-bold text-center flex items-center justify-center space-x-2">
             <QrCode className="w-8 h-8" />
-            <span>Scan QR Code</span>
+            <span>Scan Attendance QR</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="flex-grow flex flex-col items-center justify-center p-6 space-y-6">
@@ -59,29 +61,13 @@ export default function QRCodeScannerComponent() {
                   const rawValue = result.rawValue;
                   console.log("Raw value of the QR code is:", rawValue);
 
-                  // Parse the rawValue if it's a JSON string
                   try {
                     const parsedData: QrValueType = JSON.parse(rawValue);
-                    if (parsedData.OnboardingAction) {
-                      const { gymname, gymid, hash } =
-                        parsedData.OnboardingAction;
-                      console.log(
-                        "Onbording action data:",
-                        parsedData.OnboardingAction
-                      );
-                      // navigate this route
-                      navigate(
-                        `/onboarding/beforegymenrollment?gymname=${gymname}&hash=${hash}&gymid=${gymid}`
-                      );
-                    } else if (parsedData.AttendanceAction) {
+                    if (parsedData.AttendanceAction) {
                       handleAttendanceAction(parsedData);
                     }
-                    console.log("Parsed data:", parsedData);
-                    // handleAttendanceAction(parsedData);
-                    // TODO handle the attendance action
-
                   } catch (error) {
-                    console.error("Failed to parse rawValue:", error);
+                    console.error("Failed to parse QR code:", error);
                   }
                 }
               }}
@@ -93,7 +79,7 @@ export default function QRCodeScannerComponent() {
         </CardContent>
         <CardFooter className="bg-gray-50 py-4">
           <p className="text-sm text-gray-500 w-full text-center">
-            - powered by gymnavigator.
+            - powered by gymdominator.
           </p>
         </CardFooter>
       </Card>
