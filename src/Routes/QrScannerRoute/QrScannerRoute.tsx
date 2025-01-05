@@ -1,4 +1,3 @@
-import QRCodeScannerComponent from "@components/Qrcode/QrCodeScanner";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 import AttendanceQRScanner from "../../Components/Qrcode/AttendanceQrScanner";

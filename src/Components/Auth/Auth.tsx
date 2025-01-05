@@ -7,16 +7,22 @@ import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { useRecoilState } from "recoil";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
-import { GoogleAuth } from './GoogleAuth';
+import { GoogleAuth } from "./GoogleAuth";
 
-// Zod schemas for form validation
-const userSchema = z.object({
+const signUpSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   username: z.string().min(2, "Username must be at least 2 characters"),
 });
 
-type UserSchema = z.infer<typeof userSchema>;
+const signInSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type SignUpSchema = z.infer<typeof signUpSchema>;
+type SignInSchema = z.infer<typeof signInSchema>;
+type FormData = SignUpSchema | SignInSchema;
 
 interface AuthProps {
   type: "signup" | "signin";
@@ -24,30 +30,29 @@ interface AuthProps {
 
 export function Auth({ type }: AuthProps) {
   const [isPending, startTransition] = useTransition();
-  const [formErrors, setFormErrors] = useState<Partial<UserSchema>>({});
+  const [formErrors, setFormErrors] = useState<Partial<FormData>>({});
   const [, setUserDetails] = useRecoilState(UserDetailsAtom);
 
-  const [formData, setFormData] = useState<UserSchema>({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
-    username: "",
+    ...(type === "signup" ? { username: "" } : {}),
   });
 
   const navigate = useNavigate();
 
   const validateForm = () => {
     try {
-      userSchema.parse(formData);
+      if (type === "signup") {
+        signUpSchema.parse(formData);
+      } else {
+        signInSchema.parse(formData);
+      }
       setFormErrors({});
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errors: Partial<UserSchema> = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            errors[err.path[0] as keyof UserSchema] = err.message;
-          }
-        });
+        const errors = error.flatten().fieldErrors;
         setFormErrors(errors);
       }
       return false;
@@ -55,33 +60,42 @@ export function Auth({ type }: AuthProps) {
   };
 
   async function handleSubmit(e: React.FormEvent) {
+    console.log("form is not getting submitted", validateForm());
     e.preventDefault();
 
     if (!validateForm()) return;
 
     startTransition(() => {
+      const payload =
+        type === "signup"
+          ? {
+              email: formData.email,
+              username: formData.username,
+              password: formData.password,
+            }
+          : {
+              email: formData.email,
+              password: formData.password,
+            };
+
       axios
         .post(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/user${
-        type === "signup" ? "/signup" : "/signin"
+            type === "signup" ? "/signup" : "/signin"
           }`,
+          payload,
           {
-        email: formData.email,
-        username: formData.username,
-        password: formData.password
-          },
-          {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-        }
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
           }
         )
         .then((response) => {
           const { token, name } = response.data;
           localStorage.setItem("jwt", token);
           setUserDetails({ name });
-          navigate("/");
+          navigate("/welcome");
         })
         .catch((error) => {
           console.log("Error:", error);
@@ -94,7 +108,6 @@ export function Auth({ type }: AuthProps) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -103,7 +116,7 @@ export function Auth({ type }: AuthProps) {
       className="w-full max-w-md"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-white p-8 rounded-2xl shadow-xl">
+        <div className="bg-white p-8 rounded-2xl lg:shadow-xl">
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900">

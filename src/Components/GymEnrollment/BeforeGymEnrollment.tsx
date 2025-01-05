@@ -10,38 +10,57 @@ import { Button } from "@components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetEnrollmentStatus } from "@hooks/Enrollment/GetEnrollmentStatus";
-import { AttachUserToGymType } from "@hooks/AttachUserToGym";
 import { AttachUserToGym } from "@hooks/AttachUserToGym";
 
 export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isPending, setIsPending] = useState(true);
-  const [shouldRefetch, setShouldRefetch] = useState(false);
+  const [isAttaching, setIsAttaching] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
   const params = {
     gymname: searchParams.get("gymname") || "",
     hash: searchParams.get("hash") || "",
     gymid: searchParams.get("gymid") || "",
   };
+
   useEffect(() => {
-    const checkEnrollmentStatus = async () => {
+    const attachAndCheckStatus = async () => {
       try {
-        setIsPending(true);
-        const { msg, isEnrolled: enrollmentStatus } =
-          await GetEnrollmentStatus();
-        console.log("msg and user from the backend is ", isEnrolled, msg);
+        if (!params.gymid || !params.hash) {
+          setIsPending(false);
+          return;
+        }
+
+        // First attach user to gym
+        setIsAttaching(true);
+        const attachResult = await AttachUserToGym(
+          params.gymname,
+          params.gymid,
+          params.hash
+        );
+        setIsAttaching(false);
+
+        if (!attachResult.user) {
+          setIsPending(false);
+          return;
+        }
+
+        // Then check enrollment status
+        const { isEnrolled: enrollmentStatus } = await GetEnrollmentStatus();
         setIsEnrolled(enrollmentStatus);
+        setIsPending(false);
+
       } catch (error) {
-        console.error("Error checking enrollment:", error);
+        console.error("Error:", error);
         setIsEnrolled(false);
-      } finally {
         setIsPending(false);
       }
     };
 
-    checkEnrollmentStatus();
-  }, [shouldRefetch]);
+    attachAndCheckStatus();
+  }, [params.gymid, params.hash, params.gymname]);
 
   const handleRefresh = () => {
     setShouldRefetch((prev) => !prev);
@@ -65,7 +84,7 @@ export default function BeforeGymEnrollment() {
           {params.gymname && (
             <div className="mt-2 px-4">
               <div className="bg-white/10 rounded-lg py-2 px-3">
-                <p className="text-white/90 text-center text-sm">
+                <p className="text-white/90 text-center text-xl font-bold tracking-[0.5px]">
                   {params.gymname}
                 </p>
               </div>
@@ -76,7 +95,7 @@ export default function BeforeGymEnrollment() {
         {/* Content - Scrollable if needed */}
         <div className="flex-1 flex items-center justify-center px-4 py-6">
           <AnimatePresence mode="wait">
-            {isPending ? (
+            {isPending || isAttaching ? (
               <motion.div
                 key="pending"
                 initial={{ opacity: 0 }}
@@ -91,7 +110,7 @@ export default function BeforeGymEnrollment() {
                   </div>
                 </div>
                 <p className="mt-6 text-base sm:text-lg font-medium text-gray-600">
-                  Verifying your enrollment...
+                  {isAttaching ? "Attaching to gym..." : "Verifying your enrollment..."}
                 </p>
               </motion.div>
             ) : isEnrolled ? (
@@ -144,14 +163,14 @@ export default function BeforeGymEnrollment() {
                 <Button
                   onClick={handleRefresh}
                   disabled={isPending}
-                  className="mt-8 w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 
+                  className="mt-8 w-full max-w-40  px-6 py-3 bg-blue-600 hover:bg-blue-700 
                            text-white rounded-xl sm:rounded-full flex items-center justify-center 
-                           gap-2 transition-all duration-300"
+                           gap-2 transition-all duration-300 mx-auto"
                 >
                   <RefreshCw
                     className={`w-4 h-4 ${isPending ? "animate-spin" : ""}`}
                   />
-                  <span>Check Status</span>
+                  <span className="text-center">Check Status</span>
                 </Button>
               </motion.div>
             )}

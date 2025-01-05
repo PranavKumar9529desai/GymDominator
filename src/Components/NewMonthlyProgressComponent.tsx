@@ -38,6 +38,7 @@ export default function ProfessionalMonthlyProgress() {
           console.log("Fetched attendance data:", response.data);
           // Convert ISO date strings to Date objects
           const attendanceDates = response.data.map(date => new Date(date));
+          console.log("dates are this", attendanceDates);
           setGymAttendanceDays(attendanceDates);
         }
       } catch (error) {
@@ -49,19 +50,34 @@ export default function ProfessionalMonthlyProgress() {
   }, []);
 
   useEffect(() => {
-    // Calculate progress
-    const daysInMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      0
-    ).getDate();
+    // Get all days in the current month
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    // Count non-Sunday days (available workout days)
+    let availableWorkoutDays = 0;
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      if (date.getDay() !== 0) { // Skip Sundays
+        availableWorkoutDays++;
+      }
+    }
+
+    // Count attended days (excluding Sundays)
     const attendedDays = gymAttendanceDays.filter(
       (date) =>
         date.getMonth() === currentDate.getMonth() &&
-        date.getFullYear() === currentDate.getFullYear()
+        date.getFullYear() === currentDate.getFullYear() &&
+        date.getDay() !== 0 // Exclude Sundays
     ).length;
-    const workoutDays = daysInMonth - Math.floor(daysInMonth / 7); // Excluding Sundays
-    setProgress(Math.round((attendedDays / workoutDays) * 100));
+
+    // Calculate progress percentage
+    const calculatedProgress = availableWorkoutDays > 0 
+      ? Math.round((attendedDays / availableWorkoutDays) * 100)
+      : 0;
+
+    setProgress(calculatedProgress);
   }, [currentDate, gymAttendanceDays]);
 
   const isToday = (date: Date) => {
@@ -112,137 +128,138 @@ export default function ProfessionalMonthlyProgress() {
   };
 
   const renderDay = (date: Date | null) => {
-    if (!date) return <div className="w-10 h-10 md:w-12 md:h-12" />;
+    if (!date) return <div className="w-12 h-12 md:w-14 md:h-14" />;
 
     const isSunday = date.getDay() === 0;
     const dayClasses = `
       flex flex-col items-center justify-center
-      w-10 h-10 md:w-12 md:h-12 rounded-full text-center
-      transition-all duration-200 ease-in-out
-      ${isToday(date) ? "!bg-blue-500 text-white" : ""}
-      ${isGymDay(date) ? "bg-green-400 text-primary-foreground p-1" : ""}
-      ${isMissedDay(date) ? "bg-red-100 dark:bg-red-900" : ""}
-      ${
-        isSunday
-          ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600"
-          : ""
-      }
+      w-12 h-12 md:w-14 md:h-14 rounded-lg text-center
+      transition-all duration-300 ease-in-out
+      hover:scale-105 hover:shadow-md
+      cursor-default
+      ${isToday(date) ? "!bg-blue-500 text-white shadow-blue-200 dark:shadow-blue-900" : ""}
+      ${isGymDay(date) ? "bg-green-300 text-primary-foreground shadow-green-200 dark:shadow-green-900" : ""}
+      ${isMissedDay(date) ? "bg-red-100 dark:bg-red-900/50" : ""}
+      ${isSunday ? "bg-gray-100 dark:bg-gray-800/50 text-gray-400 dark:text-gray-600" : ""}
     `;
 
     return (
       <div key={date.toString()} className={dayClasses}>
-        <span className="text-sm md:text-base font-medium">
+        <span className="text-base md:text-lg font-semibold">
           {date.getDate()}
         </span>
         {isGymDay(date) && !isSunday && (
-          <Dumbbell className="w-3 h-3 md:w-4 md:h-4" />
+          <Dumbbell className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
         )}
         {isMissedDay(date) && (
-          <X className="w-3 h-3 md:w-4 md:h-4 text-red-500" />
+          <X className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
         )}
       </div>
     );
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-white dark:bg-gray-900 shadow-lg">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="hidden lg:block font-bold text-gray-800 dark:text-gray-200">
+    <Card className="w-full max-w-4xl mx-auto bg-white/50 dark:bg-gray-900/50 shadow-xl backdrop-blur-sm">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6">
+        {/* <CardTitle className="hidden lg:block text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">
           Gym Progress
-        </CardTitle>
-        <div className="w-full lg:w-fit justify-center py-4 flex items-center space-x-6">
+        </CardTitle> */}
+        <div className="w-full lg:w-full justify-center flex items-center space-x-8 py-8 pt-2">
           <Button
             variant="outline"
             size="icon"
+            className="hover:bg-gray-100 dark:hover:bg-gray-800"
             onClick={() => setCurrentDate(addMonths(currentDate, -1))}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </Button>
-          <span className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+          <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
             {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
           </span>
           <Button
             variant="outline"
             size="icon"
+            className="hover:bg-gray-100 dark:hover:bg-gray-800"
             onClick={() => setCurrentDate(addMonths(currentDate, 1))}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="">
-        <div className="grid grid-cols-7 gap-8 lg:gap-2  mb-4 ">
+      <CardContent>
+        <div className="grid grid-cols-7 gap-8 lg:gap-4 mb-6">
           {DAYS.map((day) => (
             <div
               key={day}
-              className="text-center font-medium text-gray-500 dark:text-gray-400"
+              className="text-center font-semibold text-gray-600 dark:text-gray-400"
             >
               {day}
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7 lg:gap-x-3 lg:gap-y-6  gap-3 gap-y-10">
+        <div className="grid grid-cols-7 gap-3 lg:gap-4">
           {getDaysInMonth(currentDate).map((date, index) => (
-            <div className=" inline-flex justify-center" key={index}>
+            <div className="inline-flex justify-center" key={index}>
               {renderDay(date)}
             </div>
           ))}
         </div>
-        <div className="mt-6 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-4 md:mb-0">
-            <div className="flex items-center">
-              <div className="w-4 h-4 rounded-full bg-green-400 mr-2"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+        <div className="mt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-wrap justify-center md:justify-start gap-6 mb-6 md:mb-0">
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 rounded-md bg-green-400 shadow-lg shadow-green-200 dark:shadow-green-900"></div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Gym Day
               </span>
             </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 rounded-full bg-blue-500 mr-2"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 rounded-md bg-blue-500 shadow-lg shadow-blue-200 dark:shadow-blue-900"></div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Today
               </span>
             </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 rounded-full bg-red-100 dark:bg-red-900 mr-2"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 rounded-md bg-red-100 dark:bg-red-900/50 shadow-lg shadow-red-200 dark:shadow-red-900"></div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Missed
               </span>
             </div>
-            <div className="flex items-center">
-              <div className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 mr-2"></div>
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 rounded-md bg-gray-100 dark:bg-gray-800/50 shadow-lg shadow-gray-200 dark:shadow-gray-900"></div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Off Day (Sunday)
               </span>
             </div>
           </div>
-          <div className="relative w-24 h-24">
-            <svg className="w-full h-full" viewBox="0 0 36 36">
-              <path
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
+          <div className="relative w-32 h-32">
+            <svg className="w-full h-full transform -rotate-90">
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
                 fill="none"
-                stroke="#E5E7EB"
-                strokeWidth="3"
+                stroke="currentColor"
+                strokeWidth="8"
+                className="text-gray-200 dark:text-gray-800"
               />
-              <path
-                d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
+              <circle
+                cx="60"
+                cy="60"
+                r="54"
                 fill="none"
-                stroke="#10B981"
-                strokeWidth="3"
-                strokeDasharray={`${progress}, 100`}
+                stroke="currentColor"
+                strokeWidth="8"
+                strokeLinecap="round"
+                className="text-green-500"
+                strokeDasharray={`${progress * 3.39}, 339.292`}
+                style={{ transition: 'stroke-dasharray 1s ease-in-out' }}
               />
-              <text
-                x="18"
-                y="20.35"
-                className="text-xs font-bold text-gray-800 dark:text-gray-200"
-                textAnchor="middle"
-              >
-                {progress}%
-              </text>
             </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                {progress}%
+              </span>
+            </div>
           </div>
         </div>
       </CardContent>

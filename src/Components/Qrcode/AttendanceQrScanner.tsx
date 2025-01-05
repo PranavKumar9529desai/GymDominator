@@ -8,6 +8,7 @@ import {
 } from "@components/ui/card";
 import { QrCode } from "lucide-react";
 import { MarkAttendance } from "@routes/QrScannerRoute/MarkAttedance";
+import { useNavigate } from 'react-router-dom';
 
 interface QrValueType {
   AttendanceAction: {
@@ -17,29 +18,32 @@ interface QrValueType {
   };
 }
 
-async function handleAttendanceAction(data: QrValueType) {
-  console.log("Handling attendance action:", data);
-  const now = new Date();
-  now.setMinutes(0, 0, 0);
-  const scannedTime = new Date(data.AttendanceAction.timestamp);
-  
-  if (now.getTime() === scannedTime.getTime()) {
-    try {
-      const response = await MarkAttendance();
-      if (response.success) {
-        console.log("Attendance marked successfully");
-      } else {
-        console.error("Failed to mark attendance:", response.error);
-      }
-    } catch (error) {
-      console.error("Error marking attendance:", error);
-    }
-  } else {
-    console.log("QR code has expired");
-  }
-}
-
 export default function AttendanceQRScanner() {
+  const navigate = useNavigate();
+
+  async function handleAttendanceAction(data: QrValueType) {
+    console.log("Handling attendance action:", data);
+    const now = new Date();
+    now.setMinutes(0, 0, 0);
+    const scannedTime = new Date(data.AttendanceAction.timestamp);
+    
+    if (now.getTime() === scannedTime.getTime()) {
+      try {
+        const response = await MarkAttendance();
+        if (response.success) {
+          navigate('/attendance/success');
+        } else {
+          navigate('/attendance/failure');
+        }
+      } catch (error) {
+        console.error("Error marking attendance:", error);
+        navigate('/attendance/failure');
+      }
+    } else {
+      console.log("QR code has expired");
+      navigate('/attendance/failure');
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">

@@ -22,11 +22,14 @@ import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
 import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
-import { OnboardingLayout } from "./Layouts/OnboardingLayout";
+// import { OnboardingLayout } from "@layout/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Welcome from "./Components/Welcome/welcome";
 import { GeneralQrScannerRoute } from "@routes/GeneralQrScannerRoute";
+import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTrainer";
+import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
+import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
 
 function Main() {
   return (
@@ -66,11 +69,13 @@ function Main() {
           path="attendance/todaysattendance"
           element={<TodaysAttendanceStatusRoute />}
         />
+        <Route path="attendance/success" element={<AttendanceSuccess />} />
+        <Route path="attendance/failure" element={<AttendanceFailure />} />
       </Route>
 
       {/* Other routes - With MainLayout navbar */}
       {/* <Route element={<OnboardingLayout />}> */}
-      <Route >
+      <Route>
         <Route path="/onboarding">
           <Route index element={<OnboardingRoute />} />
           <Route path="beforegymenrollment" element={<BeforeGymEnrollment />} />
@@ -90,6 +95,9 @@ function Main() {
 
       {/* QR Scanner route */}
       <Route path="/qr-scanner" element={<GeneralQrScannerRoute />} />
+
+      {/* About Personal Trainer route */}
+      <Route path="/trainer" element={<AboutPersonalTrainer />} />
 
       {/* Fallback route */}
       <Route path="*" element={<Home />} />

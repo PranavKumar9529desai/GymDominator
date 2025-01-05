@@ -1,10 +1,8 @@
 import AttendanceQRScanner from "@components/Qrcode/AttendanceQrScanner";
-import { MainLayout } from "@layouts/MainLayout";
+// import { MainLayout } from "@layout/MainLayout";
 
 export function QrScannerRoute() {
   return (
-    <MainLayout>
       <AttendanceQRScanner />
-    </MainLayout>
   );
 }

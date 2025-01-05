@@ -19,7 +19,7 @@ export const GetAttendanceDays = async (): Promise<AttendanceDaysResponse> => {
         },
       }
     );
-
+    console.log("dates are this", response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

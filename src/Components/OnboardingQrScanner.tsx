@@ -27,12 +27,12 @@ async function handleAttendanceAction(data: QrValueType) {
   const now = new Date();
   now.setMinutes(0, 0, 0); // Set to current hour
   const scannedTime = new Date(data.AttendanceAction.timestamp);
-  
+
   if (now.getTime() === scannedTime.getTime()) {
     try {
       // Get userId from your auth context or local storage
       const response = await MarkAttendance();
-      
+
       if (response.success) {
         console.log("Attendance marked successfully");
         // TODO: Show success message to user
@@ -88,13 +88,18 @@ export default function QRCodeScannerComponent() {
                         `/onboarding/beforegymenrollment?gymname=${gymname}&hash=${hash}&gymid=${gymid}`
                       );
                     } else if (parsedData.AttendanceAction) {
-                      console.log("Attendance action data called : ", parsedData.AttendanceAction);
+                      console.log(
+                        "Attendance action data called : ",
+                        parsedData.AttendanceAction
+                      );
                       handleAttendanceAction(parsedData);
                     }
-                    console.log("Parsed data: is this ", parsedData.AttendanceAction.gymname);
+                    console.log(
+                      "Parsed data: is this ",
+                      parsedData.AttendanceAction.gymname
+                    );
                     // handleAttendanceAction(parsedData);
                     // TODO handle the attendance action
-
                   } catch (error) {
                     console.error("Failed to parse rawValue:", error);
                   }
