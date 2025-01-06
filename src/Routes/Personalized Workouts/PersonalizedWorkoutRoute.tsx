@@ -1,4 +1,4 @@
-import PersonalizedWorkouts from "@components/Workout/PersonalizedWorkouts";
+import PersonalizedWorkouts from "@routes/Personalized Workouts/PersonalizedWorkouts";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 export default function PersonalizedWorkoutRoute() {

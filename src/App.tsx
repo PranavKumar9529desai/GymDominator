@@ -20,7 +20,7 @@ import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { ChallengeRoute } from "@routes/ChallengeRoute";
 import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
-import PersonalizedWorkoutRoute from "@routes/PersonalizedWorkoutRoute";
+import PersonalizedWorkoutRoute from "@routes/Personalized Workouts/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
 // import { OnboardingLayout } from "@layout/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
