@@ -16,6 +16,7 @@ export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [isPending, setIsPending] = useState(true);
   const [isAttaching, setIsAttaching] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);  // Add this state
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -33,21 +34,24 @@ export default function BeforeGymEnrollment() {
           return;
         }
 
-        // First attach user to gym
-        setIsAttaching(true);
-        const attachResult = await AttachUserToGym(
-          params.gymname,
-          params.gymid,
-          params.hash
-        );
-        setIsAttaching(false);
+        // Only attach user if it hasn't been done before
+        if (!isEnrolled && !isAttaching) {
+          setIsAttaching(true);
+          const attachResult = await AttachUserToGym(
+            params.gymname,
+            params.gymid,
+            params.hash
+          );
+          setIsAttaching(false);
 
-        if (!attachResult.user) {
-          setIsPending(false);
-          return;
+          if (!attachResult.user) {
+            setIsPending(false);
+            return;
+          }
         }
 
-        // Then check enrollment status
+        // Always check enrollment status
+        setIsPending(true);
         const { isEnrolled: enrollmentStatus } = await GetEnrollmentStatus();
         setIsEnrolled(enrollmentStatus);
         setIsPending(false);
@@ -60,10 +64,11 @@ export default function BeforeGymEnrollment() {
     };
 
     attachAndCheckStatus();
-  }, [params.gymid, params.hash, params.gymname]);
+  }, [params.gymid, params.hash, params.gymname, shouldRefetch]); // Add shouldRefetch to dependencies
 
   const handleRefresh = () => {
-    setShouldRefetch((prev) => !prev);
+    setIsPending(true);  // Show loading state immediately
+    setShouldRefetch(prev => !prev);  // Toggle refetch trigger
   };
 
   return (
@@ -170,7 +175,7 @@ export default function BeforeGymEnrollment() {
                   <RefreshCw
                     className={`w-4 h-4 ${isPending ? "animate-spin" : ""}`}
                   />
-                  <span className="text-center">Check Status</span>
+                  <span>{isPending ? "Checking..." : "Check Status"}</span>
                 </Button>
               </motion.div>
             )}

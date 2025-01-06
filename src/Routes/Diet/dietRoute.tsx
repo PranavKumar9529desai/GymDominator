@@ -1,4 +1,4 @@
-import { Diet } from "@components/Diet/diet";
+import { Diet } from "@routes/Diet/diet";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 export const DietRoute = () => {

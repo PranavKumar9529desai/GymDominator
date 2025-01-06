@@ -1,4 +1,4 @@
-import PersonalizedDiets from "@components/Diet/PersonalizedDiets";
+import PersonalizedDiets from "@routes/Diet/PersonalizedDiets";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 export default function PersonalizedDietRoute() {
