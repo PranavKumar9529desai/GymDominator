@@ -23,113 +23,162 @@ interface WeeklyWorkouts {
   };
 }
 
+// Add new interfaces for muscle-specific workouts
+interface Exercise {
+  name: string;
+  sets: number;
+  reps: string;
+  description: string;
+}
+
+interface MuscleWorkout {
+  muscle: string;
+  exercises: Exercise[];
+}
+
+const muscleSchedule: { [key: string]: MuscleWorkout } = {
+  'Monday': {
+    muscle: 'Chest',
+    exercises: [
+      { name: 'Bench Press', sets: 4, reps: '8-12', description: 'Flat bench barbell press for upper chest development' },
+      { name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', description: 'Incline press for upper chest focus' },
+      { name: 'Cable Flyes', sets: 3, reps: '12-15', description: 'Cable crossovers for chest isolation' },
+    ],
+  },
+  'Tuesday': {
+    muscle: 'Back',
+    exercises: [
+      { name: 'Deadlifts', sets: 4, reps: '6-8', description: 'Conventional deadlifts for overall back strength' },
+      { name: 'Pull-ups', sets: 3, reps: '8-12', description: 'Wide-grip pull-ups for lat development' },
+      { name: 'Barbell Rows', sets: 3, reps: '10-12', description: 'Bent-over rows for middle back' },
+    ],
+  },
+  'Wednesday': {
+    muscle: 'Legs',
+    exercises: [
+      { name: 'Squats', sets: 4, reps: '8-10', description: 'Barbell back squats for overall leg development' },
+      { name: 'Romanian Deadlifts', sets: 3, reps: '10-12', description: 'RDLs for hamstring focus' },
+      { name: 'Leg Press', sets: 3, reps: '12-15', description: 'Machine leg press for quad development' },
+    ],
+  },
+  'Thursday': {
+    muscle: 'Shoulders',
+    exercises: [
+      { name: 'Military Press', sets: 4, reps: '8-10', description: 'Overhead press for shoulder strength' },
+      { name: 'Lateral Raises', sets: 3, reps: '12-15', description: 'Dumbbell raises for lateral delts' },
+      { name: 'Face Pulls', sets: 3, reps: '15-20', description: 'Cable face pulls for rear delts' },
+    ],
+  },
+  'Friday': {
+    muscle: 'Arms',
+    exercises: [
+      { name: 'Barbell Curls', sets: 4, reps: '10-12', description: 'Standing barbell curls for biceps' },
+      { name: 'Skull Crushers', sets: 3, reps: '12-15', description: 'Lying tricep extensions' },
+      { name: 'Hammer Curls', sets: 3, reps: '12-15', description: 'Dumbbell hammer curls for forearms' },
+    ],
+  },
+  'Saturday': {
+    muscle: 'Core',
+    exercises: [
+      { name: 'Cable Crunches', sets: 4, reps: '15-20', description: 'Weighted cable crunches for abs' },
+      { name: 'Planks', sets: 3, reps: '45-60s', description: 'Isometric hold for core stability' },
+      { name: 'Russian Twists', sets: 3, reps: '20 each side', description: 'Weighted twists for obliques' },
+    ],
+  },
+};
+
 export default function PersonalizedWorkouts() {
-  const [workouts, setWorkouts] = useState<WeeklyWorkouts[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-
-  // Helper function to get the current week's date range
-  const getCurrentWeekRange = () => {
-    const curr = new Date();
-    const first = curr.getDate() - curr.getDay();
-    const last = first + 6;
-    const firstDay = new Date(curr.setDate(first));
-    const lastDay = new Date(curr.setDate(last));
-    return `${firstDay.toISOString().split('T')[0]} to ${lastDay.toISOString().split('T')[0]}`;
-  };
-
-  // Define dummy workout data
-  const dummyWorkouts: WeeklyWorkouts[] = [
-    {
-      week: getCurrentWeekRange(),
-      workoutsByDay: {
-        'Sunday': [
-          {
-            id: 1,
-            title: 'Rest Day',
-            description: 'Active recovery and stretching',
-            duration: '30 minutes',
-            caloriesBurned: 100,
-          },
-        ],
-        'Monday': [
-          {
-            id: 2,
-            title: 'Chest and Triceps',
-            description: 'Bench press, Incline dumbbell press, Tricep extensions',
-            duration: '1 hour',
-            caloriesBurned: 500,
-          },
-        ],
-        'Tuesday': [
-          {
-            id: 3,
-            title: 'Back and Biceps',
-            description: 'Deadlifts, Pull-ups, Barbell curls',
-            duration: '1 hour',
-            caloriesBurned: 450,
-          },
-        ],
-        'Wednesday': [
-          {
-            id: 4,
-            title: 'Legs',
-            description: 'Squats, Lunges, Leg press',
-            duration: '1 hour',
-            caloriesBurned: 600,
-          },
-        ],
-        'Thursday': [
-          {
-            id: 5,
-            title: 'Shoulders',
-            description: 'Military press, Lateral raises, Face pulls',
-            duration: '45 minutes',
-            caloriesBurned: 400,
-          },
-        ],
-        'Friday': [
-          {
-            id: 6,
-            title: 'Full Body',
-            description: 'Compound movements and HIIT',
-            duration: '1 hour',
-            caloriesBurned: 550,
-          },
-        ],
-        'Saturday': [
-          {
-            id: 7,
-            title: 'Cardio',
-            description: 'Running, Cycling, Swimming',
-            duration: '45 minutes',
-            caloriesBurned: 400,
-          },
-        ],
-      },
-    },
-  ];
-
-  useEffect(() => {
-    setWorkouts(dummyWorkouts);
-  }, []);
 
   const getWorkoutsForDate = (date: Date): Workout[] => {
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-    return workouts[0]?.workoutsByDay[dayName] || [];
+    const muscleDay = muscleSchedule[dayName];
+    
+    if (dayName === 'Sunday') {
+      return [{ 
+        id: 0,
+        title: 'Rest Day',
+        description: 'Take time to recover and prepare for next week',
+        duration: '0 minutes',
+        caloriesBurned: 0
+      }];
+    }
+
+    if (muscleDay) {
+      return [{
+        id: Date.now(),
+        title: `${muscleDay.muscle} Day`,
+        description: muscleDay.exercises.map(ex => ex.name).join(', '),
+        duration: '60 minutes',
+        caloriesBurned: 400
+      }];
+    }
+
+    return [];
   };
 
   const getTileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
+      const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
       const isSelected = selectedDate.toDateString() === date.toDateString();
+
       if (isSelected) {
         return 'bg-blue-500 text-white rounded-full font-bold hover:bg-blue-600';
       }
-      const hasWorkouts = getWorkoutsForDate(date).length > 0;
-      if (hasWorkouts) {
-        return 'font-semibold hover:bg-gray-100';
+      if (dayName === 'Sunday') {
+        return 'text-red-500';
       }
+      return 'hover:bg-gray-100';
     }
     return '';
+  };
+
+  const WorkoutCard = ({ workout }: { workout: Workout }) => {
+    const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+    const muscleDay = muscleSchedule[dayName];
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 20 }}
+        className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+      >
+        <div className="p-4">
+          <div className="flex items-start justify-between">
+            <div className="w-full">
+              <h3 className="text-lg font-semibold text-gray-900">
+                {workout.title}
+              </h3>
+              {muscleDay && muscleDay.exercises && muscleDay.exercises.map((exercise, index) => (
+                <div key={index} className="mt-3 border-t pt-2">
+                  <p className="font-medium text-gray-800">{exercise.name}</p>
+                  <p className="text-sm text-gray-600">
+                    {exercise.sets} sets × {exercise.reps}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">{exercise.description}</p>
+                </div>
+              ))}
+              {!muscleDay && (
+                <p className="text-gray-600 mt-1">{workout.description}</p>
+              )}
+            </div>
+            <ChevronRight className="h-5 w-5 text-gray-400 flex-shrink-0" />
+          </div>
+          
+          <div className="flex items-center gap-4 mt-4 text-sm">
+            <div className="flex items-center text-blue-600">
+              <Clock className="h-4 w-4 mr-1" />
+              <span>{workout.duration}</span>
+            </div>
+            <div className="flex items-center text-orange-600">
+              <Flame className="h-4 w-4 mr-1" />
+              <span>{workout.caloriesBurned} kcal</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
   };
 
   return (
@@ -206,38 +255,7 @@ export default function PersonalizedWorkouts() {
                   layout
                 >
                   {getWorkoutsForDate(selectedDate).map(workout => (
-                    <motion.div
-                      key={workout.id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
-                    >
-                      <div className="p-4">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <h3 className="text-lg font-semibold text-gray-900">
-                              {workout.title}
-                            </h3>
-                            <p className="text-gray-600 mt-1">
-                              {workout.description}
-                            </p>
-                          </div>
-                          <ChevronRight className="h-5 w-5 text-gray-400" />
-                        </div>
-                        
-                        <div className="flex items-center gap-4 mt-4 text-sm">
-                          <div className="flex items-center text-blue-600">
-                            <Clock className="h-4 w-4 mr-1" />
-                            <span>{workout.duration}</span>
-                          </div>
-                          <div className="flex items-center text-orange-600">
-                            <Flame className="h-4 w-4 mr-1" />
-                            <span>{workout.caloriesBurned} kcal</span>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
+                    <WorkoutCard key={workout.id} workout={workout} />
                   ))}
                 </motion.div>
               )}
