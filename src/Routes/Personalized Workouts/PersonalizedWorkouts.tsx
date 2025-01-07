@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -6,10 +6,7 @@ import { Dumbbell, Clock, Flame, ChevronRight, Calendar as CalendarIcon } from '
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { ScrollArea } from "@components/ui/scroll-area";
-import { GetPersonalizedWorkout, WorkoutPlan } from './GetPersonalizedWorkout';
-import { toast } from 'sonner';
-import { GetHealthFormStatus } from '@routes/PersoanlizedDietRoute/gethealthFormStatus';
-import NoHealthProfile from '@routes/PersoanlizedDietRoute/NoHealthProfile';
+import { WorkoutPlan } from './GetPersonalizedWorkout';
 
 // Define TypeScript interfaces
 interface Workout {
@@ -20,116 +17,135 @@ interface Workout {
   caloriesBurned: number;
 }
 
-interface WeeklyWorkouts {
-  week: string;
-  workoutsByDay: {
-    [day: string]: Workout[];
-  };
-}
-
-// Add new interfaces for muscle-specific workouts
 interface Exercise {
+  id: number;
+  order: number;
   name: string;
   sets: number;
   reps: string;
   description: string;
 }
 
-interface MuscleWorkout {
-  muscle: string;
-  exercises: Exercise[];
-}
 
-const muscleSchedule: { [key: string]: MuscleWorkout } = {
-  'Monday': {
-    muscle: 'Chest',
-    exercises: [
-      { name: 'Bench Press', sets: 4, reps: '8-12', description: 'Flat bench barbell press for upper chest development' },
-      { name: 'Incline Dumbbell Press', sets: 3, reps: '10-12', description: 'Incline press for upper chest focus' },
-      { name: 'Cable Flyes', sets: 3, reps: '12-15', description: 'Cable crossovers for chest isolation' },
-    ],
-  },
-  'Tuesday': {
-    muscle: 'Back',
-    exercises: [
-      { name: 'Deadlifts', sets: 4, reps: '6-8', description: 'Conventional deadlifts for overall back strength' },
-      { name: 'Pull-ups', sets: 3, reps: '8-12', description: 'Wide-grip pull-ups for lat development' },
-      { name: 'Barbell Rows', sets: 3, reps: '10-12', description: 'Bent-over rows for middle back' },
-    ],
-  },
-  'Wednesday': {
-    muscle: 'Legs',
-    exercises: [
-      { name: 'Squats', sets: 4, reps: '8-10', description: 'Barbell back squats for overall leg development' },
-      { name: 'Romanian Deadlifts', sets: 3, reps: '10-12', description: 'RDLs for hamstring focus' },
-      { name: 'Leg Press', sets: 3, reps: '12-15', description: 'Machine leg press for quad development' },
-    ],
-  },
-  'Thursday': {
-    muscle: 'Shoulders',
-    exercises: [
-      { name: 'Military Press', sets: 4, reps: '8-10', description: 'Overhead press for shoulder strength' },
-      { name: 'Lateral Raises', sets: 3, reps: '12-15', description: 'Dumbbell raises for lateral delts' },
-      { name: 'Face Pulls', sets: 3, reps: '15-20', description: 'Cable face pulls for rear delts' },
-    ],
-  },
-  'Friday': {
-    muscle: 'Arms',
-    exercises: [
-      { name: 'Barbell Curls', sets: 4, reps: '10-12', description: 'Standing barbell curls for biceps' },
-      { name: 'Skull Crushers', sets: 3, reps: '12-15', description: 'Lying tricep extensions' },
-      { name: 'Hammer Curls', sets: 3, reps: '12-15', description: 'Dumbbell hammer curls for forearms' },
-    ],
-  },
-  'Saturday': {
-    muscle: 'Core',
-    exercises: [
-      { name: 'Cable Crunches', sets: 4, reps: '15-20', description: 'Weighted cable crunches for abs' },
-      { name: 'Planks', sets: 3, reps: '45-60s', description: 'Isometric hold for core stability' },
-      { name: 'Russian Twists', sets: 3, reps: '20 each side', description: 'Weighted twists for obliques' },
-    ],
-  },
+const dummyWorkoutPlan: WorkoutPlan = {
+  id: 1,
+  name: 'Science-Based Strength Program',
+  description: 'A scientifically structured routine focusing on progressive overload.',
+  schedules: [
+    {
+      id: 101,
+      dayOfWeek: 'Monday',
+      muscleTarget: 'Chest & Triceps',
+      duration: 60,
+      calories: 400,
+      exercises: [
+        { id: 1, order: 1, name: 'Bench Press', sets: 4, reps: '8-12', description: 'Flat bench barbell press' },
+        { id: 2, order: 2, name: 'Incline Dumbbell Press', sets: 4, reps: '8-12', description: 'Incline bench for upper chest' },
+        { id: 3, order: 3, name: 'Cable Flyes', sets: 3, reps: '12-15', description: 'Isolation exercise for chest' },
+        { id: 4, order: 4, name: 'Triceps Pushdown', sets: 3, reps: '10-12', description: 'Cable pushdowns for triceps' },
+        { id: 5, order: 5, name: 'Skull Crushers', sets: 3, reps: '10-12', description: 'Lying tricep extensions' },
+        { id: 6, order: 6, name: 'Dips', sets: 3, reps: 'Max', description: 'Bodyweight or assisted dips' },
+      ],
+    },
+    {
+      id: 102,
+      dayOfWeek: 'Tuesday',
+      muscleTarget: 'Back & Biceps',
+      duration: 60,
+      calories: 400,
+      exercises: [
+        { id: 7, order: 1, name: 'Deadlifts', sets: 4, reps: '6-8', description: 'Conventional style' },
+        { id: 8, order: 2, name: 'Pull-ups', sets: 3, reps: '8-12', description: 'Wide grip for lat width' },
+        { id: 9, order: 3, name: 'Barbell Rows', sets: 3, reps: '8-10', description: 'Bent-over rows for back thickness' },
+        { id: 10, order: 4, name: 'Seated Cable Row', sets: 3, reps: '10-12', description: 'Keep back neutral' },
+        { id: 11, order: 5, name: 'Biceps Curl', sets: 3, reps: '10-12', description: 'Dumbbell or barbell curls' },
+        { id: 12, order: 6, name: 'Hammer Curls', sets: 3, reps: '10-12', description: 'Focus on forearms and brachialis' },
+      ],
+    },
+    {
+      id: 103,
+      dayOfWeek: 'Wednesday',
+      muscleTarget: 'Legs',
+      duration: 60,
+      calories: 450,
+      exercises: [
+        { id: 13, order: 1, name: 'Squats', sets: 4, reps: '8-10', description: 'Barbell back squat' },
+        { id: 14, order: 2, name: 'Romanian Deadlifts', sets: 3, reps: '10-12', description: 'Hamstring focus' },
+        { id: 15, order: 3, name: 'Leg Press', sets: 3, reps: '10-12', description: 'Quad emphasis' },
+        { id: 16, order: 4, name: 'Lunges', sets: 3, reps: '10-12', description: 'Alternate legs' },
+        { id: 17, order: 5, name: 'Calf Raises', sets: 4, reps: '12-15', description: 'Standing or seated' },
+        { id: 18, order: 6, name: 'Glute Bridges', sets: 3, reps: '10-12', description: 'Hip-driven movement' },
+      ],
+    },
+    {
+      id: 104,
+      dayOfWeek: 'Thursday',
+      muscleTarget: 'Shoulders',
+      duration: 60,
+      calories: 400,
+      exercises: [
+        { id: 19, order: 1, name: 'Military Press', sets: 4, reps: '8-10', description: 'Standing overhead press' },
+        { id: 20, order: 2, name: 'Arnold Press', sets: 3, reps: '10-12', description: 'Rotational dumbbell press' },
+        { id: 21, order: 3, name: 'Lateral Raises', sets: 3, reps: '12-15', description: 'Focus on medial deltoid' },
+        { id: 22, order: 4, name: 'Rear Delt Flyes', sets: 3, reps: '10-12', description: 'Face-down or cable variation' },
+        { id: 23, order: 5, name: 'Upright Rows', sets: 3, reps: '8-10', description: 'Grip width for comfort' },
+        { id: 24, order: 6, name: 'Shrugs', sets: 3, reps: '10-12', description: 'Trap focus' },
+      ],
+    },
+    {
+      id: 105,
+      dayOfWeek: 'Friday',
+      muscleTarget: 'Arms & Core',
+      duration: 60,
+      calories: 400,
+      exercises: [
+        { id: 25, order: 1, name: 'Barbell Curls', sets: 3, reps: '10-12', description: 'Standing barbell curls' },
+        { id: 26, order: 2, name: 'Concentration Curls', sets: 3, reps: '10-12', description: 'Isolate the biceps' },
+        { id: 27, order: 3, name: 'Close-Grip Bench Press', sets: 3, reps: '8-10', description: 'Tricep emphasis' },
+        { id: 28, order: 4, name: 'Cable Crunches', sets: 3, reps: '15-20', description: 'Weighted crunch' },
+        { id: 29, order: 5, name: 'Planks', sets: 3, reps: '45-60s', description: 'Maintain neutral spine' },
+      ],
+    },
+    {
+      id: 106,
+      dayOfWeek: 'Saturday',
+      muscleTarget: 'Full Body Conditioning',
+      duration: 60,
+      calories: 450,
+      exercises: [
+        { id: 30, order: 1, name: 'Kettlebell Swings', sets: 4, reps: '12-15', description: 'Explosive hip hinge' },
+        { id: 31, order: 2, name: 'Push Press', sets: 3, reps: '8-10', description: 'Full body power' },
+        { id: 32, order: 3, name: 'Goblet Squats', sets: 3, reps: '10-12', description: 'Front-loaded squat' },
+        { id: 33, order: 4, name: 'Renegade Rows', sets: 3, reps: '10-12', description: 'Core stabilization' },
+        { id: 34, order: 5, name: 'Mountain Climbers', sets: 3, reps: '30s', description: 'Cardio & core' },
+        { id: 35, order: 6, name: 'Farmer’s Walk', sets: 3, reps: '30s', description: 'Grip & core strength' },
+      ],
+    },
+  ],
 };
 
 export default function PersonalizedWorkouts() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasHealthProfile, setHasHealthProfile] = useState(false);
 
   useEffect(() => {
-    const checkHealthFormStatus = async () => {
-      try {
-        const formStatus = await GetHealthFormStatus();
-        if (formStatus.healthProfile) {
-          setHasHealthProfile(true);
-          // Only fetch workout plan if health profile exists
-          const response = await GetPersonalizedWorkout();
-          if (response.success && response.data) {
-            setWorkoutPlan(response.data);
-          } else {
-            toast.error(response.message || 'Failed to load workout plan');
-          }
-        } else {
-          setHasHealthProfile(false);
-        }
-      } catch (error) {
-        console.error('Error checking health form status:', error);
-        setHasHealthProfile(false);
-        toast.error('Error checking health profile status');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkHealthFormStatus();
+    // Remove backend calls; directly set dummy data
+    setWorkoutPlan(dummyWorkoutPlan);
+    setIsLoading(false);
   }, []);
 
   const getWorkoutsForDate = (date: Date): Workout[] => {
-    if (!workoutPlan) return [];
+    if (!workoutPlan || !workoutPlan.schedules) {
+      console.log('No workout plan or schedules available');
+      return [];
+    }
     
     const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    console.log('Looking for workouts for:', dayName);
+    
     const schedule = workoutPlan.schedules.find(s => s.dayOfWeek === dayName);
+    console.log('Found schedule:', schedule);
 
     if (dayName === 'Sunday') {
       return [{ 
@@ -144,15 +160,24 @@ export default function PersonalizedWorkouts() {
     if (schedule) {
       return [{
         id: schedule.id,
-        title: `${schedule.muscleTarget} Day`,
-        description: schedule.exercises.map(ex => ex.name).join(', '),
+        title: `${schedule.muscleTarget} Training`,
+        description: schedule.exercises.map((ex: Exercise) => 
+          `${ex.name} (${ex.sets}×${ex.reps})`
+        ).join(' • '),
         duration: `${schedule.duration} minutes`,
         caloriesBurned: schedule.calories
       }];
     }
 
+    console.log('No schedule found for this day');
     return [];
   };
+  
+  useEffect(() => {
+    // Remove backend calls; directly set dummy data
+    setWorkoutPlan(dummyWorkoutPlan);
+    setIsLoading(false);
+  }, []);
 
   const getTileClassName = ({ date, view }: { date: Date; view: string }) => {
     if (view === 'month') {
@@ -172,7 +197,7 @@ export default function PersonalizedWorkouts() {
 
   const WorkoutCard = ({ workout }: { workout: Workout }) => {
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
-    const muscleDay = muscleSchedule[dayName];
+    const schedule = workoutPlan?.schedules?.find(s => s.dayOfWeek === dayName);
 
     return (
       <motion.div
@@ -187,7 +212,7 @@ export default function PersonalizedWorkouts() {
               <h3 className="text-lg font-semibold text-gray-900">
                 {workout.title}
               </h3>
-              {muscleDay && muscleDay.exercises && muscleDay.exercises.map((exercise, index) => (
+              {schedule && schedule.exercises.map((exercise: Exercise, index) => (
                 <div key={index} className="mt-3 border-t pt-2">
                   <p className="font-medium text-gray-800">{exercise.name}</p>
                   <p className="text-sm text-gray-600">
@@ -196,7 +221,7 @@ export default function PersonalizedWorkouts() {
                   <p className="text-xs text-gray-500 mt-1">{exercise.description}</p>
                 </div>
               ))}
-              {!muscleDay && (
+              {!schedule && workout.title !== 'Rest Day' && (
                 <p className="text-gray-600 mt-1">{workout.description}</p>
               )}
             </div>
@@ -231,11 +256,6 @@ export default function PersonalizedWorkouts() {
     );
   }
 
-  if (!hasHealthProfile) {
-    console.log('No health profile found');
-    return <NoHealthProfile />;
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Mobile View Calendar Sheet */}
@@ -250,6 +270,7 @@ export default function PersonalizedWorkouts() {
           </SheetTrigger>
           <SheetContent side="bottom" className="h-[500px] rounded-t-3xl">
             <Calendar
+            // @ts-ignore
               onChange={setSelectedDate}
               value={selectedDate}
               className="mx-auto"
@@ -283,7 +304,7 @@ export default function PersonalizedWorkouts() {
           <div className="hidden md:block md:w-1/3">
             <div className="sticky top-6">
               <Calendar
-                onChange={setSelectedDate}
+                onChange={(value) => value instanceof Date ? setSelectedDate(value) : null}
                 value={selectedDate}
                 className="shadow-lg rounded-xl border border-gray-200"
                 tileClassName={getTileClassName}
@@ -301,14 +322,10 @@ export default function PersonalizedWorkouts() {
                   exit={{ opacity: 0 }}
                   className="flex flex-col items-center justify-center p-8 text-center"
                 >
-                  <Dumbbell className="h-16 w-16 text-gray-400 mb-4" />
-                  <p className="text-gray-600">No workouts scheduled for today.</p>
+                  No workouts scheduled for this day
                 </motion.div>
               ) : (
-                <motion.div 
-                  className="space-y-4 px-1"
-                  layout
-                >
+                <motion.div>
                   {getWorkoutsForDate(selectedDate).map(workout => (
                     <WorkoutCard key={workout.id} workout={workout} />
                   ))}

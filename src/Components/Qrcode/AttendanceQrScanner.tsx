@@ -31,9 +31,9 @@ export default function AttendanceQRScanner() {
       try {
         const response = await MarkAttendance();
         if (response.success) {
-          navigate('/attendance/success');
+          navigate('/dashboard/attendance/success');
         } else {
-          navigate('/attendance/failure');
+          navigate('/dashboard/attendance/failure');
         }
       } catch (error) {
         console.error("Error marking attendance:", error);

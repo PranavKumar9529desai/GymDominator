@@ -59,8 +59,8 @@ export function GoogleAuth() {
               });
             }
           }}
-          onError={(error) => {
-            console.error("Login Failed:", error);
+          onError={() => {
+            console.error("Login Failed");
             toast.error("Google Login Failed", {
               description: "Something went wrong with Google authentication.",
             });

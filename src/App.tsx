@@ -107,7 +107,7 @@ function App() {
   return (
     <RecoilRoot>
       <BrowserRouter>
-        <GoogleOAuthProvider clientId="347915935220-9kirggi81g89botl2vk8claori5jqb2f.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <Main />
         </GoogleOAuthProvider>
       </BrowserRouter>

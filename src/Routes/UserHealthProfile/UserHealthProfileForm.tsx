@@ -65,16 +65,6 @@ const healthProfileSchema = z.object({
 
 export type HealthProfileFormData = z.infer<typeof healthProfileSchema>;
 
-interface FormData {
-  fullName: string;
-  contactNumber: string;
-  age: string;
-  gender: string;
-  weight: string;
-  height: string;
-  goal: string;
-  dietPreference: string;
-}
 
 export default function UserHealthProfileForm() {
   const [isPending, startTransition] = useTransition();

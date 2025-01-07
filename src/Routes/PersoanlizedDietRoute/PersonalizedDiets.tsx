@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 import { Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -22,6 +21,13 @@ interface DietPlan {
   protein: number;
   fat: number;
   meals: Array<{ title: string; ingredients: string[] }>;
+}
+
+interface HealthProfile {
+  weight: number;
+  height: number;
+  age: number;
+  gender: string;
 }
 
 const calculateDietPlan = (weight: number, height: number, age: number, gender: string): DietPlan => {
@@ -167,13 +173,12 @@ export default function PersonalizedDiets() {
     ]
   };
 
-  const total = data.carbs + data.protein + data.fat;
 
   const chartOptions = {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom',
+        position: 'bottom' as const,
         labels: {
           padding: 20,
           font: {

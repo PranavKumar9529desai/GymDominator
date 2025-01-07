@@ -6,10 +6,8 @@ import {
   Dumbbell,
   UserCheck,
   ChevronUp,
-  BarChart2,
   TrendingUp,
   Scan,
-  UtensilsCrossedIcon,
   DumbbellIcon,
 } from "lucide-react";
 

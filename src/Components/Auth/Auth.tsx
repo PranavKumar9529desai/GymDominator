@@ -20,9 +20,7 @@ const signInSchema = z.object({
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-type SignUpSchema = z.infer<typeof signUpSchema>;
-type SignInSchema = z.infer<typeof signInSchema>;
-type FormData = SignUpSchema | SignInSchema;
+type FormData = { username?: string; email: string; password: string };
 
 interface AuthProps {
   type: "signup" | "signin";
@@ -65,7 +63,7 @@ export function Auth({ type }: AuthProps) {
 
     startTransition(() => {
       const payload =
-        type === "signup"
+        type === "signup" && "username" in formData
           ? {
               email: formData.email,
               username: formData.username,
@@ -206,7 +204,7 @@ interface LabeledInputProps {
   name: string;
   type: string;
   placeholder: string;
-  value: string;
+  value: string | undefined;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
 }
