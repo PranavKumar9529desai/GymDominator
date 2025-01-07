@@ -1,12 +1,12 @@
 import { atom } from "recoil";
 
-// interface UserDetailsAtomType {
-//     name: string
-// }
+interface UserDetailsType {
+  name: string;
+}
 
-export const UserDetailsAtom = atom<{ name: string }>({
-    key: "UserDetailsAtom",
-    default: {
-        name: "Anonymous"
-    }
-})
+export const UserDetailsAtom = atom<UserDetailsType>({
+  key: "UserDetailsAtom",
+  default: {
+    name: ""  // Changed from "Anonymous" to empty string
+  }
+});

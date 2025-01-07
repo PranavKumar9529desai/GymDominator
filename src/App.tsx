@@ -21,7 +21,7 @@ import { ChallengeRoute } from "@routes/ChallengeRoute";
 import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
 import PersonalizedWorkoutRoute from "@routes/Personalized Workouts/PersonalizedWorkoutRoute";
-import PersonalizedDietRoute from "@routes/PersonalizedDietRoute";
+import PersonalizedDietRoute from "@routes/PersoanlizedDietRoute/PersonalizedDietRoute";
 // import { OnboardingLayout } from "@layout/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -49,7 +49,6 @@ function Main() {
           path="workouts/:muscle/:workoutname"
           element={<SingleWorkoutRoute />}
         />
-        <Route path="diet/alldiets" element={<DietRoute />} />
         <Route
           path="diet/personalizeddiet"
           element={<PersonalizedDietRoute />}

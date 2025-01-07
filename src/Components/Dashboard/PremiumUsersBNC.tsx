@@ -27,11 +27,6 @@ export const routes: Route[] = [
     icon: Activity,
     subRoutes: [
       {
-        name: "Weekly Progress",
-        path: "/dashboard/myprogress/week",
-        icon: BarChart2,
-      },
-      {
         name: "Monthly Progress",
         path: "/dashboard/myprogress/month",
         icon: TrendingUp,
@@ -60,11 +55,6 @@ export const routes: Route[] = [
     path: "/dashboard/diet",
     icon: Utensils,
     subRoutes: [
-      {
-        name: "All Diets",
-        icon: UtensilsCrossedIcon,
-        path: "/dashboard/diet/alldiets",
-      },
       {
         name: "Personlized Diets",
         icon: Utensils,

@@ -44,71 +44,91 @@ export const Sidebar2 = () => {
     (item.subRoutes &&
       item.subRoutes.some((subItem) => activeRoute === subItem.path));
 
-  const renderRoute = (item: Route) => (
-    <li key={item.name}>
-      <button
-        onClick={() => handleItemClick(item)}
-        className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 ${
-          isActive(item)
-            ? "bg-blue-600 text-white"
-            : "text-gray-300 hover:bg-gray-800"
-        }`}
-      >
-        <item.icon className="w-5 h-5 mr-3" />
-        <span>{item.name}</span>
-        {item.subRoutes &&
-          (expandedItems.includes(item.name) ? (
-            <ChevronDown className="w-5 h-5 ml-auto" />
-          ) : (
-            <ChevronRight className="w-5 h-5 ml-auto" />
-          ))}
-      </button>
-      {item.subRoutes && expandedItems.includes(item.name) && (
-        <ul className="ml-6 mt-2 space-y-2">
-          {item.subRoutes.map((subItem) => renderRoute(subItem))}
-        </ul>
-      )}
-    </li>
-  );
-
   return (
-    <div className="flex flex-col bg-gray-900 text-white w-full py-8 h-dvh">
-      <div className="flex items-center mb-8 px-2 relative left-1">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
-          <img src={Gymdominator} alt="GymDominator Logo" className="cover" />
-        </div>
-        <h1 className="text-2xl font-bold">GymDominator</h1>
+    <div className="flex flex-col bg-slate-900 text-white w-64 h-screen">
+      {/* Logo Section */}
+      <div className="px-4 w-full flex items-center justify-center">
+        <img
+          src={Gymdominator}
+          alt="GymDominator Logo"
+          className="rounded-full w-32 h-32 p-6"
+        />
       </div>
 
-      <nav className="flex-grow">
-        <ul className="space-y-3">{routes.map(renderRoute)}</ul>
+      {/* Navigation Menu */}
+      <nav className="flex-grow px-4 py-2">
+        <ul className="space-y-2">
+          {routes.map((item) => (
+            <li key={item.name} className="whitespace-nowrap">
+              <button
+                onClick={() => handleItemClick(item)}
+                className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 
+                  ${
+                    isActive(item)
+                      ? "bg-blue-700 text-white"
+                      : "text-gray-300 hover:bg-gray-800"
+                  }`}
+              >
+                <item.icon className="w-5 h-5 mr-3" />
+                <span>{item.name}</span>
+                {item.subRoutes && (
+                  expandedItems.includes(item.name) ? (
+                    <ChevronDown className="w-5 h-5 ml-auto" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5 ml-auto" />
+                  )
+                )}
+              </button>
+              {item.subRoutes && expandedItems.includes(item.name) && (
+                <ul className="ml-6 mt-2 space-y-2">
+                  {item.subRoutes.map((subItem) => (
+                    <li key={subItem.name}>
+                      <button
+                        onClick={() => navigate(subItem.path)}
+                        className={`flex items-center w-full px-4 py-2 rounded-lg transition-colors duration-200 
+                          ${
+                            activeRoute === subItem.path
+                              ? "bg-blue-600 text-white"
+                              : "text-gray-300 hover:bg-gray-800"
+                          }`}
+                      >
+                        <span>{subItem.name}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
       </nav>
 
-      <div className="mt-auto">
-        <div className="flex items-center px-4 py-2 mb-4 bg-gray-800 rounded-lg">
-          <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center mr-3">
-            <User className="w-6 h-6" />
+      {/* User Profile & Logout Section */}
+      <div className="p-4 border-t border-gray-800">
+        <div className="mb-4 p-3 bg-gray-800/50 rounded-lg flex items-center">
+          <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mr-3">
+            <User className="w-5 h-5 text-gray-300" />
           </div>
           <div>
             {isloading ? (
               <>
-                <p className="font-medium">{UserDetails.name}</p>
+                <p className="font-medium text-white">{UserDetails.name}</p>
                 <p className="text-sm text-gray-400">Premium Member</p>
               </>
             ) : (
               <>
-                <p className="font-medium">{userdata.name}</p>
-                <p className="text-sm text-gray-400">Gymdominator</p>
+                <p className="font-medium text-white">{userdata.name}</p>
+                <p className="text-sm text-gray-400">GymDominator</p>
               </>
             )}
           </div>
         </div>
-        <button
-          className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+        <button 
           onClick={() => coustomLogoutAlert(navigate)}
+          className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
         >
-          <LogOut className="w-5 h-5 mr-3 text-red-400" />
-          <span className="text-red-400">Logout</span>
+          <LogOut className="w-5 h-5 mr-3" />
+          <span>Logout</span>
         </button>
       </div>
     </div>

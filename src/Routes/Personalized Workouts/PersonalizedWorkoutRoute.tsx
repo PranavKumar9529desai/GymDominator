@@ -4,15 +4,15 @@ import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
 export default function PersonalizedWorkoutRoute() {
   return (
     <div className="h-screen bg-[#f0f0f0]">
-      <div className="lg:grid grid-cols-5 h-screen">
-        <div className="col-span-1 hidden lg:block">
+      <div className="lg:flex h-screen">
+        <div className="hidden lg:block lg:w-1/5">
           <Sidebar2 />
         </div>
         <div className="lg:hidden block">
           <BottomNavigation />
         </div>
 
-        <div className="col-span-4 overflow-y-auto ">
+        <div className="lg:w-4/5 overflow-y-auto border-2 border-red-600">
           <PersonalizedWorkouts />
         </div>
       </div>

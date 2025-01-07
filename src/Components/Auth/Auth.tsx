@@ -59,10 +59,8 @@ export function Auth({ type }: AuthProps) {
     }
   };
 
-  async function handleSubmit(e: React.FormEvent) {
-    console.log("form is not getting submitted", validateForm());
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
     startTransition(() => {
@@ -94,15 +92,15 @@ export function Auth({ type }: AuthProps) {
         .then((response) => {
           const { token, name } = response.data;
           localStorage.setItem("jwt", token);
-          setUserDetails({ name });
+          // Update the atom with proper object structure
+          setUserDetails({ name: name });
           navigate("/welcome");
         })
         .catch((error) => {
-          console.log("Error:", error);
-          // Show error toast
+          console.error("Error:", error);
         });
     });
-  }
+  };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

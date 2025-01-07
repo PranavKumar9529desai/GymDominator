@@ -11,6 +11,8 @@ import {
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import ReactCardFlip from 'react-card-flip';
 import { GetHealthProfileData } from './GetHealthProfileData';
+import { GetHealthFormStatus } from './gethealthFormStatus';
+import NoHealthProfile from './NoHealthProfile';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -85,27 +87,37 @@ export default function PersonalizedDiets() {
   const [flipped, setFlipped] = useState<boolean[]>([]);
   const [bmi, setBmi] = useState<number | null>(null);
   const [healthProfile, setHealthProfile] = useState<HealthProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [hasHealthProfile, setHasHealthProfile] = useState(false);
 
   useEffect(() => {
-    const fetchHealthProfile = async () => {
+    const checkHealthFormStatus = async () => {
       try {
-        const healthProfileResponse = await GetHealthProfileData();
-        
-        if (healthProfileResponse.success && healthProfileResponse.data) {
-          const { weight, height, age, gender } = healthProfileResponse.data;
-          const calculatedBMI = calculateBMI(weight, height);
-          setBmi(calculatedBMI);
-          setHealthProfile(healthProfileResponse.data);
-          
-          const dietPlan = calculateDietPlan(weight, height, age, gender);
-          setData(dietPlan);
+        const formStatus = await GetHealthFormStatus();
+        if (formStatus.healthProfile) {
+          setHasHealthProfile(true);
+          // Only fetch health profile data if we have a profile
+          const healthProfileResponse = await GetHealthProfileData();
+          if (healthProfileResponse.success && healthProfileResponse.data) {
+            const { weight, height, age, gender } = healthProfileResponse.data;
+            const calculatedBMI = calculateBMI(weight, height);
+            setBmi(calculatedBMI);
+            setHealthProfile(healthProfileResponse.data);
+            const dietPlan = calculateDietPlan(weight, height, age, gender);
+            setData(dietPlan);
+          }
+        } else {
+          setHasHealthProfile(false);
         }
       } catch (error) {
-        console.error('Error fetching health profile:', error);
+        console.error('Error checking health form status:', error);
+        setHasHealthProfile(false);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchHealthProfile();
+    checkHealthFormStatus();
   }, []);
 
   useEffect(() => {
@@ -120,6 +132,18 @@ export default function PersonalizedDiets() {
       newFlips[index] = !newFlips[index];
       return newFlips;
     });
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  if (!hasHealthProfile) {
+    return <NoHealthProfile />;
   }
 
   if (!data) {
