@@ -10,7 +10,6 @@ import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
 import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 import { MyProgressRoute } from "@routes/myprogressRoute";
 import { WorkoutRoute } from "@routes/workoutRoute";
-import { DietRoute } from "@routes/Diet/dietRoute";
 import { RecicpesRoute } from "@routes/RecipesRoute";
 import { TodaysPlanRoute } from "@routes/todaysplanRoute";
 import { ChooseAccountibilityPartnerRoute } from "@routes/ChooseAccountibilityPartnerRoute";

@@ -12,7 +12,7 @@ export const MonthProgressRoute = () => {
         <div className="block lg:hidden">
           <BottomNavigation />
         </div>
-        <div className="col-span-4 lg:h-screen flex items-center justify-center mb-20">
+        <div className="col-span-4 lg:h-screen flex items-center justify-center ">
           <MonthlyProgress />
         </div>
       </div>

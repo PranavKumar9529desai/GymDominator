@@ -90,6 +90,7 @@ export function Auth({ type }: AuthProps) {
           }
         )
         .then((response) => {
+ 
           const { token, name } = response.data;
           localStorage.setItem("jwt", token);
           // Update the atom with proper object structure

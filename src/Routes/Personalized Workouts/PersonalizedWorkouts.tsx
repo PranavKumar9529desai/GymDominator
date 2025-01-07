@@ -6,6 +6,10 @@ import { Dumbbell, Clock, Flame, ChevronRight, Calendar as CalendarIcon } from '
 import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { ScrollArea } from "@components/ui/scroll-area";
+import { GetPersonalizedWorkout, WorkoutPlan } from './GetPersonalizedWorkout';
+import { toast } from 'sonner';
+import { GetHealthFormStatus } from '@routes/PersoanlizedDietRoute/gethealthFormStatus';
+import NoHealthProfile from '@routes/PersoanlizedDietRoute/NoHealthProfile';
 
 // Define TypeScript interfaces
 interface Workout {
@@ -89,11 +93,44 @@ const muscleSchedule: { [key: string]: MuscleWorkout } = {
 
 export default function PersonalizedWorkouts() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasHealthProfile, setHasHealthProfile] = useState(false);
+
+  useEffect(() => {
+    const checkHealthFormStatus = async () => {
+      try {
+        const formStatus = await GetHealthFormStatus();
+        if (formStatus.healthProfile) {
+          setHasHealthProfile(true);
+          // Only fetch workout plan if health profile exists
+          const response = await GetPersonalizedWorkout();
+          if (response.success && response.data) {
+            setWorkoutPlan(response.data);
+          } else {
+            toast.error(response.message || 'Failed to load workout plan');
+          }
+        } else {
+          setHasHealthProfile(false);
+        }
+      } catch (error) {
+        console.error('Error checking health form status:', error);
+        setHasHealthProfile(false);
+        toast.error('Error checking health profile status');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkHealthFormStatus();
+  }, []);
 
   const getWorkoutsForDate = (date: Date): Workout[] => {
-    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-    const muscleDay = muscleSchedule[dayName];
+    if (!workoutPlan) return [];
     
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
+    const schedule = workoutPlan.schedules.find(s => s.dayOfWeek === dayName);
+
     if (dayName === 'Sunday') {
       return [{ 
         id: 0,
@@ -104,13 +141,13 @@ export default function PersonalizedWorkouts() {
       }];
     }
 
-    if (muscleDay) {
+    if (schedule) {
       return [{
-        id: Date.now(),
-        title: `${muscleDay.muscle} Day`,
-        description: muscleDay.exercises.map(ex => ex.name).join(', '),
-        duration: '60 minutes',
-        caloriesBurned: 400
+        id: schedule.id,
+        title: `${schedule.muscleTarget} Day`,
+        description: schedule.exercises.map(ex => ex.name).join(', '),
+        duration: `${schedule.duration} minutes`,
+        caloriesBurned: schedule.calories
       }];
     }
 
@@ -180,6 +217,24 @@ export default function PersonalizedWorkouts() {
       </motion.div>
     );
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        >
+          <Dumbbell className="w-10 h-10 text-blue-500" />
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (!hasHealthProfile) {
+    console.log('No health profile found');
+    return <NoHealthProfile />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

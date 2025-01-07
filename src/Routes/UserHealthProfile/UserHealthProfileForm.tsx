@@ -99,7 +99,7 @@ export default function UserHealthProfileForm() {
         try {
           const response = await PostUserHealthProfileForm(data);
           toast.success('Health profile updated successfully!');
-          navigate('/dashboard/diet');
+          navigate('/dashboard/diet/personalizeddiet');
           console.log(response);
         } catch (error) {
           console.error("Error submitting form:", error);

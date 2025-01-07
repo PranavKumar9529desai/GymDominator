@@ -15,7 +15,7 @@ export const UserDataSelector: RecoilValueReadOnly<Userdata> = selector({
   key: "UserDataSelector",
   get: async () => {
     const response: AxiosResponse<UserDataResponse> = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/getuserdata`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/protected/getuserdata`,
       {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwt"),

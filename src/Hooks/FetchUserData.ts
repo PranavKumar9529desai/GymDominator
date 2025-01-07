@@ -4,12 +4,10 @@ import { Loadable, useRecoilValueLoadable } from "recoil";
 
 export const FetchUserData = () => {
   const [isloading, setisloading] = useState<boolean>(true);
+  const [userdata, setuserdata] = useState<Userdata | null>(null);
   const UserDataLoadble: Loadable<Userdata> =
     useRecoilValueLoadable(UserDataSelector);
-  const [userdata, setuserdata] = useState<Userdata>({
-    name: "Pranav",
-    email: "dpranav7745@gmail.com",
-  });
+  
   useEffect(() => {
     switch (UserDataLoadble.state) {
       case "hasValue":

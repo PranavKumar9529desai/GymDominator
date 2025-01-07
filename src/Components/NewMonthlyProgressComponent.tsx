@@ -127,28 +127,32 @@ export default function ProfessionalMonthlyProgress() {
     return newDate;
   };
 
-  const renderDay = (date: Date | null) => {
-    if (!date) return <div className="w-12 h-12 md:w-14 md:h-14" />;
-
+  const getDayClasses = (date: Date) => {
     const isSunday = date.getDay() === 0;
-    const dayClasses = `
+    const isGymAttendance = isGymDay(date);
+    
+    return `
       flex flex-col items-center justify-center
       w-12 h-12 md:w-14 md:h-14 rounded-lg text-center
       transition-all duration-300 ease-in-out
       hover:scale-105 hover:shadow-md
       cursor-default
-      ${isToday(date) ? "!bg-blue-500 text-white shadow-blue-200 dark:shadow-blue-900" : ""}
-      ${isGymDay(date) ? "bg-green-300 text-primary-foreground shadow-green-200 dark:shadow-green-900" : ""}
+      ${isGymAttendance ? "bg-green-300 text-primary-foreground shadow-green-200 dark:shadow-green-900" : ""}
+      ${isToday(date) && !isGymAttendance ? "!bg-blue-500 text-white shadow-blue-200 dark:shadow-blue-900" : ""}
       ${isMissedDay(date) ? "bg-red-100 dark:bg-red-900/50" : ""}
       ${isSunday ? "bg-gray-100 dark:bg-gray-800/50 text-gray-400 dark:text-gray-600" : ""}
     `;
+  };
+
+  const renderDay = (date: Date | null) => {
+    if (!date) return <div className="w-12 h-12 md:w-14 md:h-14" />;
 
     return (
-      <div key={date.toString()} className={dayClasses}>
+      <div key={date.toString()} className={getDayClasses(date)}>
         <span className="text-base md:text-lg font-semibold">
           {date.getDate()}
         </span>
-        {isGymDay(date) && !isSunday && (
+        {isGymDay(date) && date.getDay() !== 0 && (
           <Dumbbell className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
         )}
         {isMissedDay(date) && (
@@ -160,10 +164,7 @@ export default function ProfessionalMonthlyProgress() {
 
   return (
     <Card className="w-full max-w-4xl mx-auto bg-white/50 dark:bg-gray-900/50 shadow-xl backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6">
-        {/* <CardTitle className="hidden lg:block text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">
-          Gym Progress
-        </CardTitle> */}
+      <CardHeader className="flex flex-col items-center space-y-4 pb-6">
         <div className="w-full lg:w-full justify-center flex items-center space-x-8 py-8 pt-2">
           <Button
             variant="outline"
@@ -173,9 +174,29 @@ export default function ProfessionalMonthlyProgress() {
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
-          <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
-            {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
-          </span>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+              {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
+            </span>
+            {isGymDay(new Date()) ? (
+              <span className="mt-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                {new Date().toLocaleDateString('en-US', { 
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+                {' '}• Workout Complete
+              </span>
+            ) : (
+              <span className="mt-2 text-gray-500 text-sm">
+                {new Date().toLocaleDateString('en-US', { 
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </span>
+            )}
+          </div>
           <Button
             variant="outline"
             size="icon"
