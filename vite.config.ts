@@ -19,9 +19,11 @@ export default defineConfig({
       "@assets": "/src/assets",
       "@state": "/src/State",
       "@hooks": "/src/Hooks",
-      "@routes": "/src/Routes",
+      "@routes": "/src/Routes",  // Updated from "Routes" to "routes"
+      "@config": "/src/routes",  // Add this alias as alternative
       "@ui": "/src/Components/ui",
       "@lib": "/src/Components/lib",
+      "@layouts": "/src/Layouts"
     },
   },
 });

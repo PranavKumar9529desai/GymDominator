@@ -4,12 +4,14 @@
     "paths": {
       "@components/*": ["src/Components/*"],
       "@assets/*": ["src/assets/*"],
-      "@routes/*": ["src/Routes/*"],
+      "@routes/*": ["src/Routes/*"],  // Updated from "Routes" to "routes"
       "@hooks/*": ["src/Hooks/*"],
       "@state/*": ["src/State/*"],
       "@ui/*": ["src/Components/ui/*"],
       "@lib/*": ["src/Components/lib/*"],
-      "@layout/*": ["src/Layouts/*"]
+      "@layout/*": ["src/Layouts/*"],
+      "@layouts/*": ["src/Layouts/*"],
+      "@config/*": ["src/routes/*"]   // Add this alias as alternative
     },
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",

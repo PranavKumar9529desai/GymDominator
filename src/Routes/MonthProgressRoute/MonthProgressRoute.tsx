@@ -1,7 +1,8 @@
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
-import MonthlyProgress from "@components/NewMonthlyProgressComponent";
+import MonthlyProgress from "@routes/MonthProgressRoute/NewMonthlyProgressComponent";
 // import { MonthProgressComponent } from "@components/MonthComponent/MonthProgress";
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
+
 export const MonthProgressRoute = () => {
   return (
     <div className="h-screen ">
