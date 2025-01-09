@@ -37,11 +37,11 @@ export default function AttendanceQRScanner() {
         }
       } catch (error) {
         console.error("Error marking attendance:", error);
-        navigate('/attendance/failure');
+        navigate('/dashboard/attendance/failure');
       }
     } else {
       console.log("QR code has expired");
-      navigate('/attendance/failure');
+      navigate('/dashboard/attendance/failure');
     }
   }
 
