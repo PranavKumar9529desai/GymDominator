@@ -29,7 +29,7 @@ import { GeneralQrScannerRoute } from "@routes/GeneralQrScannerRoute";
 import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTrainer";
 import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
 import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
-
+import DashboardLayout from "./Layouts/DashboardLayout";
 function Main() {
   return (
     <Routes>
@@ -40,7 +40,7 @@ function Main() {
       <Route path="/welcome" element={<Welcome />} />
 
       {/* Dashboard routes - No navbar */}
-      <Route path="/dashboard">
+      <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<WorkoutRoute />} />
         <Route path="workout/viewworkouts" element={<WorkoutRoute />} />
         <Route path="workouts/:muscle" element={<SingleMusclesRoute />} />
