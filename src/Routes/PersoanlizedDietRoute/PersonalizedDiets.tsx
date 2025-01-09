@@ -185,6 +185,7 @@ export default function PersonalizedDiets() {
           font: {
             size: 14
           },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           generateLabels: function(chart: any) {
             const data = chart.data;
             const total = data.datasets[0].data.reduce((a: number, b: number) => a + b, 0);
