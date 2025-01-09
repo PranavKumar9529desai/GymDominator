@@ -23,11 +23,31 @@ export default function AttendanceQRScanner() {
 
   async function handleAttendanceAction(data: QrValueType) {
     console.log("Handling attendance action:", data);
-    const now = new Date();
-    now.setMinutes(0, 0, 0);
-    const scannedTime = new Date(data.AttendanceAction.timestamp);
     
-    if (now.getTime() === scannedTime.getTime()) {
+    // Get current time in UTC
+    const now = new Date();
+    const currentUTC = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours()
+    );
+
+    // Convert scanned timestamp to UTC
+    const scannedTime = new Date(data.AttendanceAction.timestamp);
+    const scannedUTC = Date.UTC(
+      scannedTime.getUTCFullYear(),
+      scannedTime.getUTCMonth(),
+      scannedTime.getUTCDate(),
+      scannedTime.getUTCHours()
+    );
+
+    // Add logging for debugging
+    console.log("Current UTC time:", new Date(currentUTC).toISOString());
+    console.log("Scanned QR UTC time:", new Date(scannedUTC).toISOString());
+
+    // Allow for small time differences (within the same hour)
+    if (currentUTC === scannedUTC) {
       try {
         const response = await MarkAttendance();
         if (response.success) {
@@ -40,7 +60,8 @@ export default function AttendanceQRScanner() {
         navigate('/dashboard/attendance/failure');
       }
     } else {
-      console.log("QR code has expired");
+      console.log("QR code has expired. Time difference in hours:", 
+        Math.abs(currentUTC - scannedUTC) / (1000 * 60 * 60));
       navigate('/dashboard/attendance/failure');
     }
   }
