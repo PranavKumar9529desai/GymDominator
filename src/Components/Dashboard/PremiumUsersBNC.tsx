@@ -21,7 +21,7 @@ export type Route = {
 export const routes: Route[] = [
   {
     name: "Progress",
-    path: "/dashboard/myprogress",
+    path: "/dashboard",
     icon: Activity,
     subRoutes: [
       {
