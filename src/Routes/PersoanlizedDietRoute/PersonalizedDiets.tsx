@@ -30,6 +30,7 @@ interface HealthProfile {
   gender: string;
 }
 
+
 const calculateDietPlan = (weight: number, height: number, age: number, gender: string): DietPlan => {
   // Harris-Benedict BMR Formula
   const bmr = gender === 'male'
