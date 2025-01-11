@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -49,6 +50,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.1",
+    "react-minimal-pie-chart": "^9.1.0",
     "react-router-hash-link": "^2.4.3",
     "react-spinners": "^0.14.1",
     "react-tilt": "^1.0.2",

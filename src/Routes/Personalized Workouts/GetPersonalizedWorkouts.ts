@@ -18,11 +18,19 @@ export interface WorkoutSchedule {
   exercises: Exercise[];
 }
 
+export interface WorkoutProgress {
+  completedWorkouts: number;
+  currentStreak: number;
+  bestStreak: number;
+  lastWorkoutDate: string | null;
+}
+
 export interface WorkoutPlan {
   id: number;
   name: string;
   description: string | null;
   schedules: WorkoutSchedule[];
+  progress: WorkoutProgress;
 }
 
 export const GetPersonalizedWorkout = async () => {

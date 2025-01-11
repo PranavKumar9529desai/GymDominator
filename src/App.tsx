@@ -21,7 +21,6 @@ import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
 import PersonalizedWorkoutRoute from "@routes/Personalized Workouts/PersonalizedWorkoutRoute";
 import PersonalizedDietRoute from "@routes/PersoanlizedDietRoute/PersonalizedDietRoute";
-// import { OnboardingLayout } from "@layout/OnboardingLayout";
 import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Welcome from "./Components/Welcome/welcome";
@@ -30,6 +29,8 @@ import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTr
 import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
 import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
 import DashboardLayout from "./Layouts/DashboardLayout";
+import { Toaster } from 'sonner';
+
 function Main() {
   return (
     <Routes>
@@ -108,6 +109,7 @@ function App() {
     <RecoilRoot>
       <BrowserRouter>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+          <Toaster richColors position="top-right" />
           <Main />
         </GoogleOAuthProvider>
       </BrowserRouter>
