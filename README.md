@@ -1,11 +1,11 @@
-# GymDominator (Users)
+# GymNavigator (Users)
 
-[![GymDominator](https://img.shields.io/badge/version-1.0.0-brightgreen)]()  
+[![GymNavigator](https://img.shields.io/badge/version-1.0.0-brightgreen)]()  
 [![React](https://img.shields.io/badge/Frontend-React-blue)](https://reactjs.org/)  
 [![Cloudflare Workers](https://img.shields.io/badge/Backend-Cloudflare%20Workers-orange)](https://workers.cloudflare.com/)  
 [![Prisma](https://img.shields.io/badge/Database-Prisma-blue)](https://www.prisma.io/)  
 
-GymDominator (Users) is a user-focused platform designed to enhance the gym-going experience by providing personalized dashboards, workout plans, and attendance tracking. Built with modern web technologies, this application ensures a seamless and engaging user interface that makes managing gym memberships intuitive and efficient.
+GymNavigator (Users) is a user-focused platform designed to enhance the gym-going experience by providing personalized dashboards, workout plans, and attendance tracking. Built with modern web technologies, this application ensures a seamless and engaging user interface that makes managing gym memberships intuitive and efficient.
 
 ---
 
@@ -81,5 +81,5 @@ _Experience a personalized gym journey through the user dashboard._
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/gymdominator-user.git
-   cd gymdominator-user
+   git clone https://github.com/your-username/GymNavigator-user.git
+   cd GymNavigator-user

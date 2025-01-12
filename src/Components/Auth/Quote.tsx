@@ -7,7 +7,7 @@ function Quote() {
           <div>with</div>
           <div className="text-7xl !font-[1200px] ">
             <span className=" !font-[1200px] border-b-2  bg-gradient-to-r from-blue-300 to-cyan-400 bg-clip-text text-transparent">
-              Gymdominator
+              GymNavigator
             </span>
           </div>
           <br />

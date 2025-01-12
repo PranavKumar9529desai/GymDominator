@@ -37,7 +37,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
               alt="logo"
             />
             <span className="inline-flex whitespace-nowrap items-center mb-[2px] text-2xl font-extrabold relative -left-8 font-montserrat top-[1px]">
-              GymDominator
+              GymNavigator
             </span>
           </div>
         </div>
@@ -163,7 +163,7 @@ const SideBar = ({
     >
       <div className="bg-gray-950 w-full h-40  mt-[-4px] flex flex-col justify-center items-center py-2 font-pop lg:-ml-0 ">
         <p className="flex mt-4 text-xl text-white">Browse</p>
-        <p className="flex font-bold text-2xl text-white ">Gymdominator</p>
+        <p className="flex font-bold text-2xl text-white ">GymNavigator</p>
       </div>
 
       <div

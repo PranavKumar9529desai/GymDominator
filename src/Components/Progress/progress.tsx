@@ -44,7 +44,7 @@ export const Weekcomponent = () => {
             Week 1
           </span>
           <span className="text-gray-400 lg:text-lg font-overpass">
-            Track your progress and consistency using the Gymdominator.
+            Track your progress and consistency using the GymNavigator.
           </span>
         </div>
 

@@ -104,7 +104,7 @@ export default function AttendanceQRScanner() {
         </CardContent>
         <CardFooter className="bg-gray-50 py-4">
           <p className="text-sm text-gray-500 w-full text-center">
-            - powered by gymdominator.
+            - powered by GymNavigator.
           </p>
         </CardFooter>
       </Card>

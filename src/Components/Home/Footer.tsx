@@ -17,7 +17,7 @@ export const Footer = () => {
           <div className="grid grid-cols-1  lg:gap-48 gap-10 w-full lg:grid-cols-3 ">
             <div className="space-y-4">
               <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
-                GymDominator
+                GymNavigator
               </h3>
               <p className="text-sm">
                 Empowering you to dominate your fitness goals with free
@@ -59,7 +59,7 @@ export const Footer = () => {
                 </li>
                 <li className="flex items-center">
                   <Mail size={18} className="mr-2 text-cyan-400" />
-                  info@gymdominator.com
+                  info@GymNavigator.com
                 </li>
               </ul>
             </div>
@@ -87,7 +87,7 @@ export const Footer = () => {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm">
             <p>
-              &copy; {new Date().getFullYear()} GymDominator. All rights
+              &copy; {new Date().getFullYear()} GymNavigator. All rights
               reserved.
             </p>
           </div>

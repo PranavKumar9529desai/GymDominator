@@ -11,7 +11,7 @@ export const MainSection = () => {
   const Testimonial = [
     {
       name: "Harshdeep Singh",
-      text: "GymDominator's free plans transformed my routine. I've never felt stronger!",
+      text: "GymNavigator's free plans transformed my routine. I've never felt stronger!",
       image: { Av4 },
     },
     {
@@ -21,7 +21,7 @@ export const MainSection = () => {
     },
     {
       name: "Sachin Patil",
-      text: "From workouts to meals, GymDominator offers an unbeatable free fitness package.",
+      text: "From workouts to meals, GymNavigator offers an unbeatable free fitness package.",
       image: { Av3 },
     },
   ];

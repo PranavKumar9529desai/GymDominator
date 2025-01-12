@@ -6,7 +6,7 @@ export default function AboutPersonalTrainer() {
     name: "John Doe",
     image: "/trainer-image.jpg", // Replace with actual image path
     phone: "+1 (234) 567-8900",
-    email: "john.doe@gymdominator.com",
+    email: "john.doe@GymNavigator.com",
     location: "Main Gym Floor",
     timings: [
       { days: "Monday - Friday", hours: "6:00 AM - 9:00 PM" },

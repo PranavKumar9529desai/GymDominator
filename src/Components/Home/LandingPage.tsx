@@ -15,7 +15,7 @@ export const LadingPage = () => {
           </div>
           <div className="header-title animate-pop-in font-overpass ">
             <p>
-              Gymdominator Will Ensure Your{" "}
+              GymNavigator Will Ensure Your{" "}
               <span className="line-break  bg-gradient-to-r from-[hsl(193,95%,68%)] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
                 Consistency.
               </span>

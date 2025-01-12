@@ -119,7 +119,7 @@ const ExcerciseDescription = ({
             );
           })}
           <div className="lg:text-xl text-sm font-semibold text-gray-400 mb-32 font-mono">
-            Subscribe GymDominator for more content ❤️
+            Subscribe GymNavigator for more content ❤️
           </div>
         </div>
       </div>

@@ -40,7 +40,7 @@ export default function MonthProgressComponent2() {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-8">Track your progress with GymDominator</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">Track your progress with GymNavigator</h1>
       <div className="flex justify-between items-center mb-4">
         <button onClick={prevMonth} className="p-2 rounded-full hover:bg-gray-200">
           <ChevronLeftIcon className="w-6 h-6" />

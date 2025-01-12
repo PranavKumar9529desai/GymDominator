@@ -118,7 +118,7 @@ export const Sidebar2 = () => {
             ) : (
               <>
                 <p className="font-medium text-white">{userdata?.name ?? 'Guest'}</p>
-                <p className="text-sm text-gray-400">GymDominator</p>
+                <p className="text-sm text-gray-400">GymNavigator</p>
               </>
             )}
           </div>
