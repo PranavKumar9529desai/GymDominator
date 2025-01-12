@@ -19,6 +19,7 @@ export const GetStartDate = async (): Promise<Date | null> => {
       }
     );
 
+    console.log("date from the backend is " , response.data);
     if (response.data.success && response.data.data.startDate) {
       return new Date(response.data.data.startDate);
     }

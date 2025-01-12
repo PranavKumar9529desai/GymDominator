@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import NewPersonalizedDiet from "./NewPersonalizedDiet/NewPersonalizedDiet";
 import NoHealthProfile from "./NoHealthProfile";
 import { GetHealthFormStatus } from "./actions/gethealthFormStatus";
 import { Loader2 } from "lucide-react";
+import NewPersonalizedDietRoute from "./NewPersonalizedDiet/NewPersonalizedDietRoute";
 
 export default function PersonalizedDietRoute() {
   const [hasHealthProfile, setHasHealthProfile] = useState<boolean | null>(null);
@@ -41,5 +41,5 @@ export default function PersonalizedDietRoute() {
     );
   }
 
-  return hasHealthProfile ? <NewPersonalizedDiet /> : <NoHealthProfile />;
+  return hasHealthProfile ? <NewPersonalizedDietRoute /> : <NoHealthProfile />;
 }

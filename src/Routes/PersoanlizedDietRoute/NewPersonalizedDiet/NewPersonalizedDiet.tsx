@@ -66,15 +66,31 @@ export default function NewPersonalizedDiet() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <HealthSummary healthData={healthData} bmi={bmi} />
-      <CalorieBreakdown healthData={healthData} bmi={bmi} />
-      <WeeklyMealPlan
-        currentWeek={currentWeek}
-        mealPlan={currentMeal}
-        onWeekChange={handleWeekChange}
-        isLocked={calculateWeekLock(currentWeek)}
-        totalWeeks={4}
-      />
+      <div className="flex flex-col space-y-8">
+        {/* Health Summary - Always at top */}
+        <div className="order-1">
+          <HealthSummary healthData={healthData} bmi={bmi} />
+        </div>
+
+        {/* Weekly Meal Plan - Second on mobile, third on desktop */}
+        <div className="order-2 md:order-3">
+          <WeeklyMealPlan
+            currentWeek={currentWeek}
+            mealPlan={currentMeal}
+            onWeekChange={handleWeekChange}
+            isLocked={calculateWeekLock(currentWeek)}
+            totalWeeks={4}
+          />
+        </div>
+
+        {/* Calorie Breakdown - Third on mobile, second on desktop */}
+        <div className="order-3 md:order-2">
+          <CalorieBreakdown 
+            healthData={healthData} 
+            startDate={startDate}
+          />
+        </div>
+      </div>
     </div>
   );
 }
