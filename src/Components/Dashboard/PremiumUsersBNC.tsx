@@ -11,6 +11,7 @@ import {
   DumbbellIcon,
 } from "lucide-react";
 
+
 export type Route = {
   name: string;
   path: string;
@@ -57,6 +58,11 @@ export const routes: Route[] = [
         name: "Personlized Diets",
         icon: Utensils,
         path: "/dashboard/diet/personalizeddiet",
+      },
+      {
+        name: "Grocery List",
+        icon: Utensils,
+        path: "/dashboard/diet/grocerylist",
       },
     ],
   },

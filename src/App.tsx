@@ -30,6 +30,7 @@ import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
 import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
 import DashboardLayout from "./Layouts/DashboardLayout";
 import { Toaster } from 'sonner';
+import GroceryListRoute from "./Routes/GroceryList/GroceryListRoute";
 
 function Main() {
   return (
@@ -58,6 +59,10 @@ function Main() {
           element={<PersonalizedWorkoutRoute />}
         />
         <Route path="recipes" element={<RecicpesRoute />} />
+        <Route
+          path="diet/grocerylist"
+          element={<GroceryListRoute />}
+        />
         <Route path="myprogress" element={<MyProgressRoute />} />
         <Route path="myprogress/week" element={<MyProgressRoute />} />
         <Route path="myprogress/month" element={<MonthProgressRoute />} />
