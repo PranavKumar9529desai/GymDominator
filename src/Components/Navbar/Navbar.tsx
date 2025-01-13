@@ -60,14 +60,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
           </div>
 
           <button
-            className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="lg:hidden p-2 hover:bg-white/10 rounded-lg transition-colors text-white"
             onClick={() => setIsOpen(true)}
             aria-label="Open menu"
           >
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 stroke-current"
               fill="none"
-              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path

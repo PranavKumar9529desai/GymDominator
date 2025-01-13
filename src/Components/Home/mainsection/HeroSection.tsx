@@ -7,7 +7,12 @@ export function HeroSection() {
 
   useEffect(() => {
     const typed = new Typed(typedRef.current!, {
-      strings: ["Custom Workouts", "Detailed Meal Plans", "One-on-One Mentoring"],
+      strings: [
+        "Member Management",
+        "Attendance Tracking",
+        "Payment Solutions",
+        "Equipment Maintenance"
+      ],
       typeSpeed: 40,
       backSpeed: 30,
       loop: true,
@@ -22,7 +27,7 @@ export function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl md:text-6xl font-bold mb-4"
       >
-        Elevate Your Fitness
+        Gym Management Made Easy
       </motion.h1>
       <span
         ref={typedRef}
