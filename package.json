@@ -27,6 +27,7 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-calendar": "^3.9.0",
     "@types/react-circular-progressbar": "^1.1.0",
+    "@types/swiper": "^5.4.3",
     "@yudiel/react-qr-scanner": "^2.0.8",
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.7",
@@ -60,6 +61,7 @@
     "serve": "^14.2.4",
     "sonner": "^1.7.1",
     "sweetalert2": "^11.12.4",
+    "swiper": "^11.2.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
