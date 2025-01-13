@@ -29,19 +29,29 @@ import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTr
 import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
 import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
 import DashboardLayout from "./Layouts/DashboardLayout";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 import GroceryListRoute from "./Routes/GroceryList/GroceryListRoute";
-import { ErrorBoundary } from '@components/ErrorBoundary/ErrorBoundary';
+import { ErrorBoundary } from "@components/ErrorBoundary/ErrorBoundary";
+import AboutUs from "./Components/Home/pages/AboutUs";
+import Pricing from "./Components/Home/pages/Pricing";
+import ContactUs from "./Components/Home/pages/ContactUs";
+import { Navbar } from "./Components/Navbar/Navbar";
+import Features from "./Components/Home/pages/Features";
 
 function Main() {
   return (
     <ErrorBoundary>
+      <Navbar TextColor="white" />
       <Routes>
-        {/* Public routes - No navbar */}
+        {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/features" element={<Features />} />
 
         {/* Dashboard routes - No navbar */}
         <Route path="/dashboard" element={<DashboardLayout />}>
@@ -61,10 +71,7 @@ function Main() {
             element={<PersonalizedWorkoutRoute />}
           />
           <Route path="recipes" element={<RecicpesRoute />} />
-          <Route
-            path="diet/grocerylist"
-            element={<GroceryListRoute />}
-          />
+          <Route path="diet/grocerylist" element={<GroceryListRoute />} />
           <Route path="myprogress" element={<MyProgressRoute />} />
           <Route path="myprogress/week" element={<MyProgressRoute />} />
           <Route path="myprogress/month" element={<MonthProgressRoute />} />
@@ -84,7 +91,10 @@ function Main() {
         <Route>
           <Route path="/onboarding">
             <Route index element={<OnboardingRoute />} />
-            <Route path="beforegymenrollment" element={<BeforeGymEnrollment />} />
+            <Route
+              path="beforegymenrollment"
+              element={<BeforeGymEnrollment />}
+            />
             <Route
               path="chooseacpartner"
               element={<ChooseAccountibilityPartnerRoute />}

@@ -6,6 +6,7 @@ import FeaturesSection from "../Features/FeaturesSection";
 import { TestimonialsSection } from "../sections/TestimonialsSection";
 import { HowItWorksSection } from "../sections/HowItWorksSection";
 import { CTASection } from "../sections/CTASection";
+import { FAQSection } from "../sections/FAQSection";
 
 export const MainSection = () => {
   const testimonials = [
@@ -50,7 +51,7 @@ export const MainSection = () => {
       image: "https://randomuser.me/api/portraits/women/45.jpg",
       role: "Wellness Coach",
       rating: 5,
-    }
+    },
   ];
 
   const stats = [
@@ -60,37 +61,13 @@ export const MainSection = () => {
     { number: "24/7", label: "Support" },
   ];
 
- 
-
-  const howItWorks = [
-    {
-      step: 1,
-      title: "Sign Up",
-      description: "Create your free account in seconds",
-    },
-    {
-      step: 2,
-      title: "Set Goals",
-      description: "Tell us your fitness goals and preferences",
-    },
-    {
-      step: 3,
-      title: "Get Your Plan",
-      description: "Receive your personalized workout and meal plans",
-    },
-    {
-      step: 4,
-      title: "Start Training",
-      description: "Begin your journey with expert guidance",
-    },
-  ];
-
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900 text-white">
       <StatsSection stats={stats} />
       <FeaturesSection />
       <TestimonialsSection testimonials={testimonials} />
-      <HowItWorksSection steps={howItWorks} />
+      <HowItWorksSection />
+      <FAQSection />
       <CTASection />
     </section>
   );

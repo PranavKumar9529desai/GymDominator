@@ -1,4 +1,4 @@
-import { LadingPage } from "@components/Home/LandingPage";
+import { LandingPage } from "@components/Home/LandingPage";
 import { Navbar } from "@components/Navbar/Navbar";
 
 export const Home = () => {
@@ -8,7 +8,7 @@ export const Home = () => {
         <Navbar TextColor="white" />
       </div>
       <div>
-        <LadingPage />
+        <LandingPage />
       </div>
     </div>
   );
