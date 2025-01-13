@@ -34,7 +34,7 @@ export const MainSection = () => {
     {
       name: "Meera Iyer",
       text: "The analytics tracking helped me achieve my fitness goals while maintaining a balanced lifestyle!",
-      image: "https://api.uifaces.co/our-content/donated/FJkaAKvh.jpg", // Indian female profile
+      image: Av1, // Indian female profile
       role: "Fitness Trainer",
       rating: 5,
     },
