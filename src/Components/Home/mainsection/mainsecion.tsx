@@ -11,51 +11,51 @@ import { FAQSection } from "../sections/FAQSection";
 export const MainSection = () => {
   const testimonials = [
     {
-      name: "Harshdeep Singh",
-      text: "GymNavigator's free plans transformed my routine. I've never felt stronger!",
+      name: "Rajesh Sharma",
+      text: "GymNavigator's free plans transformed my fitness journey. Best decision ever!",
       image: Av4,
-      role: "Fitness Enthusiast",
+      role: "Software Engineer & Fitness Enthusiast",
       rating: 5,
     },
     {
-      name: "Joseph Paul",
-      text: "The personal mentor keeps me accountable. It's like having a pro trainer for free!",
-      image: Av1,
-      role: "Amateur Athlete",
+      name: "Priya Patel",
+      text: "The personal mentor keeps me motivated. Finally found a program that works for me!",
+      image: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg", // Indian female profile
+      role: "Yoga Instructor",
       rating: 5,
     },
     {
-      name: "Sachin Patil",
-      text: "From workouts to meals, GymNavigator offers an unbeatable free fitness package.",
+      name: "Amit Deshmukh",
+      text: "From workouts to meals, GymNavigator understands Indian fitness needs perfectly.",
       image: Av3,
-      role: "Gym Regular",
+      role: "Business Professional",
       rating: 5,
     },
     {
-      name: "Athrav Deshmane",
-      text: "The analytics tracking helped me visualize my progress. Love how the app adapts to my changing fitness levels!",
-      image: "https://randomuser.me/api/portraits/women/32.jpg",
-      role: "Fitness Competitor",
+      name: "Meera Iyer",
+      text: "The analytics tracking helped me achieve my fitness goals while maintaining a balanced lifestyle!",
+      image: "https://api.uifaces.co/our-content/donated/FJkaAKvh.jpg", // Indian female profile
+      role: "Fitness Trainer",
       rating: 5,
     },
     {
-      name: "Pranavkumar Desai",
-      text: "As a gym owner, this platform streamlined our operations. Member engagement has increased significantly!",
-      image: "https://randomuser.me/api/portraits/men/92.jpg",
+      name: "Vikram Malhotra",
+      text: "As a gym owner in Mumbai, this platform has revolutionized how we manage our members.",
+      image: "https://api.uifaces.co/our-content/donated/N5PLzyan.jpg", // Indian male profile
       role: "Gym Owner",
       rating: 5,
     },
     {
-      name: "Snehalata Patil",
-      text: "The personalized meal plans and workout tracking have made my fitness journey so much easier to manage.",
-      image: "https://randomuser.me/api/portraits/women/45.jpg",
-      role: "Wellness Coach",
+      name: "Anjali Verma",
+      text: "The diet plans perfectly balance modern fitness needs with traditional Indian nutrition.",
+      image: "https://api.uifaces.co/our-content/donated/KtCFjlD4.jpg", // Indian female profile
+      role: "Nutritionist",
       rating: 5,
     },
   ];
 
   const stats = [
-    { number: "10K+", label: "Active Users" },
+    { number: "10+", label: "Enrolled" },
     { number: "500+", label: "Workout Plans" },
     { number: "98%", label: "Success Rate" },
     { number: "24/7", label: "Support" },
