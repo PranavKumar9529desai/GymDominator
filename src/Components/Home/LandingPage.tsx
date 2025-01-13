@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { MainSection } from "./mainsection/mainsecion";
 import { Footer } from "./Footer";
 import greenTick from "@assets/green-tick-icon.png";
@@ -9,12 +10,24 @@ optimizedBgImage.src = GymHero;
 
 export const LadingPage = () => {
   const navigate = useNavigate();
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    // Check if the custom font is loaded
+    document.fonts.ready.then(() => {
+      setFontLoaded(true);
+    });
+  }, []);
+
   return (
     <div>
       <header className="flex items-center justify-center h-screen relative overflow-hidden text-center text-lg">
         {/* Background with gradient for mobile and image for larger screens */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 md:bg-none"
+          className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-900/90 to-indigo-950 md:bg-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle at top right, rgba(29, 78, 216, 0.15), transparent 60%), radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.15), transparent 60%)'
+          }}
         >
           {/* Image background only for md and larger screens */}
           <div 
@@ -29,12 +42,21 @@ export const LadingPage = () => {
         
         <section className="container relative z-10">
           <div 
-            className="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold mb-8 font-overpass relative"
+            className={`
+              text-white text-3xl md:text-5xl lg:text-6xl font-extrabold mb-8 
+              transition-all duration-300 ease-out
+              ${fontLoaded ? 'font-overpass' : 'font-sans'}
+            `}
             style={{ animation: 'fadeInUp 0.5s ease-out 0.2s forwards' }}
           >
             <p className="flex flex-col items-center gap-2">
               GymNavigator Will Ensure
-              <span className="inline-block bg-gradient-to-r from-[#64dff4] to-[#03a3d7] text-transparent bg-clip-text relative">
+              <span className={`
+                inline-block bg-gradient-to-r from-[#64dff4] to-[#03a3d7] 
+                text-transparent bg-clip-text relative
+                transition-all duration-300 ease-out
+                ${fontLoaded ? 'font-overpass' : 'font-sans'}
+              `}>
                 Your Consistency
                 {/* Glow effect */}
                 <span className="absolute -bottom-4 left-0 right-0 h-[2px] bg-blue-500 blur-sm"></span>
