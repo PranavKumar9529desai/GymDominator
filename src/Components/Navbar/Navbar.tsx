@@ -25,6 +25,12 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
     setIsOpen(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    navigate("/");
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (scrollY > 50) {
@@ -106,6 +112,17 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
               >
                 {localStorage.getItem("jwt") ? "Go to Dashboard" : "Get Started"}
               </motion.button>
+
+              {localStorage.getItem("jwt") && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-lg border border-red-500/50 hover:bg-red-500/10 text-red-500 font-medium transition-colors"
+                >
+                  Sign Out
+                </motion.button>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -215,21 +232,49 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
                 {/* Footer */}
                 <div className="p-6 border-t border-white/10">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => {
-                      const token = localStorage.getItem("jwt");
-                      navigate(token ? "/dashboard" : "/signin");
-                      setIsOpen(false);
-                    }}
-                    className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
-                  >
-                    {localStorage.getItem("jwt") ? "Dashboard" : "Get Started"}
-                  </motion.button>
+                  {localStorage.getItem("jwt") ? (
+                    <div className="space-y-2">
+                      <motion.button
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        onClick={() => {
+                          navigate("/profile");
+                          setIsOpen(false);
+                        }}
+                        className="w-full py-2.5 px-4 rounded-lg bg-white/10 text-white font-medium hover:bg-white/15 transition-colors flex items-center gap-2"
+                      >
+                        <div className="w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-sm">
+                          {localStorage.getItem("username")?.[0]?.toUpperCase() || "U"}
+                        </div>
+                        Profile
+                      </motion.button>
 
+                      <button
+                        onClick={handleLogout}
+                        className="w-full py-2.5 px-4 text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        navigate("/signin");
+                        setIsOpen(false);
+                      }}
+                      className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
+                    >
+                      Get Started
+                    </motion.button>
+                  )}
+
+                  {/* Existing social links */}
                   <div className="mt-6 flex justify-center space-x-4">
-                    {/* Social Links */}
                     <a href="#" className="text-gray-400 hover:text-white transition-colors">
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
