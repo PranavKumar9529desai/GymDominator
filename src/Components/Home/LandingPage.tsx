@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Footer } from "./Footer";
 import HeroSection from "./mainsection/HeroSection";
 import { MainSection } from "./mainsection/mainsecion";
+import { ErrorBoundary } from 'react-error-boundary';
 
 export const LandingPage = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -13,10 +14,36 @@ export const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900">
-      <HeroSection fontLoaded={fontLoaded} />
-      <MainSection />
-      <Footer />
-    </div>
+    <Suspense 
+      fallback={
+        <div role="alert" aria-busy="true" className="loading-state">
+          Loading...
+        </div>
+      }
+    >
+      <ErrorBoundary 
+        fallback={
+          <div role="alert" className="error-state">
+            Something went wrong. Please try again.
+          </div>
+        }
+      >
+        <div className="min-h-screen flex flex-col bg-gray-900">
+          <header role="banner">
+            <HeroSection fontLoaded={fontLoaded} />
+          </header>
+
+          <main role="main">
+            <article>
+              <MainSection />
+            </article>
+          </main>
+
+          <footer role="contentinfo">
+            <Footer />
+          </footer>
+        </div>
+      </ErrorBoundary>
+    </Suspense>
   );
 };

@@ -32,42 +32,56 @@ export default function HeroSection({ fontLoaded }: { fontLoaded: boolean }) {
                 value: "#050816"
               }
             },
-            fpsLimit: 120,
+            fpsLimit: 60,
             interactivity: {
               events: {
+                onClick: {
+                  enable: false
+                },
                 onHover: {
                   enable: true,
-                  mode: "repulse"
+                  mode: "grab"
                 },
                 resize: true
               },
               modes: {
-                repulse: {
-                  distance: 100,
-                  duration: 0.4
+                grab: {
+                  distance: 140,
+                  links: {
+                    opacity: 0.5
+                  }
                 }
               }
             },
             particles: {
               color: {
-                value: "#60A5FA"
+                value: "#ffffff"
               },
               links: {
-                color: "#3B82F6",
+                color: "#ffffff",
                 distance: 150,
                 enable: true,
-                opacity: 0.2,
-                width: 1
+                opacity: 0.1,
+                width: 0.8,
+                triangles: {
+                  enable: true,
+                  opacity: 0.05
+                }
               },
               move: {
-                direction: "none",
                 enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
                 outModes: {
                   default: "bounce"
                 },
-                random: false,
-                speed: 0.8,
-                straight: false
+                attract: {
+                  enable: true,
+                  rotateX: 600,
+                  rotateY: 1200
+                }
               },
               number: {
                 density: {
@@ -77,13 +91,27 @@ export default function HeroSection({ fontLoaded }: { fontLoaded: boolean }) {
                 value: 80
               },
               opacity: {
-                value: 0.3
+                value: 0.15,
+                random: true,
+                animation: {
+                  enable: true,
+                  speed: 0.5,
+                  minimumValue: 0.1,
+                  sync: false
+                }
               },
               shape: {
                 type: "circle"
               },
               size: {
-                value: { min: 1, max: 3 }
+                value: { min: 1, max: 3 },
+                random: true,
+                animation: {
+                  enable: true,
+                  speed: 2,
+                  minimumValue: 0.1,
+                  sync: false
+                }
               }
             },
             detectRetina: true
