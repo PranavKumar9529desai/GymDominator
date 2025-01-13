@@ -1,5 +1,4 @@
 import { useEffect, useState, Dispatch } from "react";
-import GymdominatorLogo from "@assets/gym-launch-logo.png"
 import { HashLink } from "react-router-hash-link";
 
 type colors = "white" | "black";
@@ -25,98 +24,92 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   return (
     <div>
       <nav
-        className={`${isscrolled ? "bg-slate-900 text-white" : "text-black"}
-         ${(TextColor as string) == "white" ? "text-white" : " "} 
-           flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full `}
+        className={`
+          fixed w-full z-10 h-16 transition-all duration-300 px-6
+          ${isscrolled ? 'bg-slate-900 text-white shadow-lg' : 'bg-transparent'}
+          ${TextColor === "white" ? "text-white" : "text-black"}
+        `}
       >
-        <div className=" inline-flex items-center -ml-6 lg:-ml-0">
-          <div className="inline-flex w-36 h-16 ">
+        <div className="flex justify-between items-center h-full w-full">
+          <div className="flex items-center gap-2">
             <img
-              className="object-cover mt-1 "
-              src={GymdominatorLogo}
-              alt="logo"
+              className="h-10 w-10 object-contain"
+              src="/favicon.ico"
+              alt="GymNavigator Logo"
             />
-            <span className="inline-flex whitespace-nowrap items-center mb-[2px] text-2xl font-extrabold relative -left-8 font-montserrat top-[1px]">
+            <span className="text-2xl font-montserrat font-extrabold">
               GymNavigator
             </span>
           </div>
-        </div>
-        <div className="gap-20 mr-12 lg:flex hidden text-xl font-extrabold ">
-          <HashLink
-            to="#about-us"
-            smooth
-            className="border-b-2 border-transparent hover:text-cyan-400 transition-all duration-200 hover:-translate-y-1 hover:shadow-mg"
-          >
-            About us
-          </HashLink>
-          <HashLink
-            smooth
-            to="#contact-us"
-            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
-          >
-            Contact us
-          </HashLink>
-        <HashLink
-            smooth
-            to="#home"
-            className="border-b-2 border-transparent hover:text-cyan-400 transition-all hover:-translate-y-1 hover:shadow-mg duration-200"
-          >
-            home
-          </HashLink>
-        </div>
-        <div className="md:hidden flex mr-5  ">
-          <button
-            className="size-10 "
-            onClick={() => {
-              // console.log("isopen is ", isOpen);
-              SetIsOpen((prevState) => !prevState);
-            }}
-          >
-            <svg
-              viewBox="0 0 24.00 24.00"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#999999"
+          
+          <div className="hidden lg:flex items-center gap-16 text-lg font-bold">
+            <HashLink
+              to="#about-us"
+              smooth
+              className="hover:text-cyan-400 transition-all duration-200 hover:-translate-y-0.5"
             >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                {" "}
-                <path
-                  d="M4 18L20 18"
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
+              About us
+            </HashLink>
+            <HashLink
+              to="#contact-us"
+              smooth
+              className="hover:text-cyan-400 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              Contact us
+            </HashLink>
+            <HashLink
+              to="#home"
+              smooth
+              className="hover:text-cyan-400 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              Home
+            </HashLink>
+          </div>
+
+          <div className="lg:hidden">
+            <button
+              className="p-2"
+              onClick={() => SetIsOpen(!isOpen)}
+            >
+              <svg
+                viewBox="0 0 24.00 24.00"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#999999"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
                   strokeLinecap="round"
-                ></path>{" "}
-                <path
-                  d="M4 12L20 12"
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                ></path>{" "}
-                <path
-                  d="M4 6L20 6"
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                ></path>{" "}
-              </g>
-            </svg>
-          </button>
-          <div
-            className={`${
-              isOpen
-                ? `flex justify-center  text-base whitespace-nowrap   `
-                : `hidden`
-            }`}
-          >
-            <SideBar SetIsOpen={SetIsOpen} IsOpen={isOpen} />
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M4 18L20 18"
+                    stroke="#ffffff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  ></path>{" "}
+                  <path
+                    d="M4 12L20 12"
+                    stroke="#ffffff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  ></path>{" "}
+                  <path
+                    d="M4 6L20 6"
+                    stroke="#ffffff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  ></path>{" "}
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
+        
+        {isOpen && <SideBar SetIsOpen={SetIsOpen} IsOpen={isOpen} />}
       </nav>
     </div>
   );

@@ -1,7 +1,5 @@
-import { Navbar2 } from "@components/Navbar/Navbar2";
 import { PropagateLoader } from "react-spinners";
 import { useNavigate, useParams } from "react-router-dom";
-import { BottomNavigation } from "../PremiumUsersBNC";
 import { FetchExcercise } from "@hooks/FetchExcercise";
 import { Excercisetype } from "@state/Selectors/ExcerciseSelectorsfamily";
 export const SingleMuscles = () => {
@@ -9,9 +7,9 @@ export const SingleMuscles = () => {
   if (muscle == undefined) {
     muscle = "chest";
   }
-  let { isLoading, Excercise } = FetchExcercise({ muscle });
+  const { isLoading, Excercise } = FetchExcercise({ muscle });
 
-  Excercise = Excercise.filter(
+  const filteredExercises = Excercise.filter(
     (exercise) =>
       exercise.MuscleGroup &&
       exercise.MuscleGroup.name &&
@@ -19,12 +17,7 @@ export const SingleMuscles = () => {
   );
   return (
     <div className="bg-[#f0f0f0] lg:h-dvh">
-      <div className="lg:block hidden">
-        <Navbar2 TextColor="black" />
-      </div>
-      <div className="md:hidden block ">
-        <BottomNavigation />
-      </div>
+    
       <div className="w-full text-center lg:pt-20 pt-4">
         <div className="lg:text-5xl font-bold text-3xl  ">
           {muscle.charAt(0).toUpperCase() + muscle.slice(1)} Excercises
@@ -42,7 +35,7 @@ export const SingleMuscles = () => {
           </div>
         ) : (
           <div className="">
-            <RecommenedExcercise Excercises={Excercise} />
+            <RecommenedExcercise Excercises={filteredExercises} />
           </div>
         )}
       </div>
@@ -55,7 +48,7 @@ const RecommenedExcercise = ({
 }: {
   Excercises: Excercisetype[];
 }): JSX.Element => {
-  let { muscle } = useParams<{ muscle: string }>();
+  const { muscle } = useParams<{ muscle: string }>();
 
   return (
     <div className="w-full ">

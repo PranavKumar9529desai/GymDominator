@@ -4,7 +4,6 @@ import { useRecoilValue } from "recoil";
 import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
 import { FetchUserData } from "@hooks/FetchUserData";
 import { coustomLogoutAlert } from "@components/customAlerts";
-import Gymdominator from "@assets/Gymdominator.ico";
 import { ChevronRight, ChevronDown, User, LogOut } from "lucide-react";
 import { routes } from "@components/Dashboard/PremiumUsersBNC";
 import { Route } from "@components/Dashboard/PremiumUsersBNC";
@@ -45,14 +44,15 @@ export const Sidebar2 = () => {
       item.subRoutes.some((subItem) => activeRoute === subItem.path));
 
   return (
-    <div className="flex flex-col bg-slate-900 text-white w-64 h-screen">
+    <div className="flex flex-col bg-slate-900 text-white w-64 h-screen ">
       {/* Logo Section */}
-      <div className="px-4 w-full flex items-center justify-center">
+      <div className=" flex items-center justify-start py-6 px-4  w-fit  mx-auto space-x-2">
         <img
-          src={Gymdominator}
-          alt="GymDominator Logo"
-          className="rounded-full w-32 h-32 p-6"
+          src="/favicon.ico"
+          alt="Gymnavigator Logo"
+          className="rounded-full w-10 h-10"
         />
+        <h1 className="ml-2 text-xl font-bold text-white">GymNavigator</h1>
       </div>
 
       {/* Navigation Menu */}
