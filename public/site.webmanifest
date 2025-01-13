@@ -17,5 +17,7 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/"
+  "start_url": "https://client.gymnavigator.in",
+  "scope": "/",
+  "id": "in.gymnavigator.client"
 }

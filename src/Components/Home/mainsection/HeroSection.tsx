@@ -40,48 +40,37 @@ export default function HeroSection({ fontLoaded }: { fontLoaded: boolean }) {
                 },
                 onHover: {
                   enable: true,
-                  mode: "grab"
+                  mode: "repulse"
                 },
                 resize: true
               },
               modes: {
-                grab: {
-                  distance: 140,
-                  links: {
-                    opacity: 0.5
-                  }
+                repulse: {
+                  distance: 200,
+                  duration: 0.4
                 }
               }
             },
             particles: {
               color: {
-                value: "#ffffff"
+                value: ["#64dff4", "#4db8f5", "#03a3d7"]
               },
               links: {
-                color: "#ffffff",
+                color: "#4db8f5",
                 distance: 150,
                 enable: true,
-                opacity: 0.1,
-                width: 0.8,
-                triangles: {
-                  enable: true,
-                  opacity: 0.05
-                }
+                opacity: 0.3,
+                width: 1
               },
               move: {
-                enable: true,
-                speed: 0.5,
                 direction: "none",
-                random: true,
-                straight: false,
+                enable: true,
                 outModes: {
                   default: "bounce"
                 },
-                attract: {
-                  enable: true,
-                  rotateX: 600,
-                  rotateY: 1200
-                }
+                random: false,
+                speed: 2,
+                straight: false
               },
               number: {
                 density: {
@@ -91,27 +80,18 @@ export default function HeroSection({ fontLoaded }: { fontLoaded: boolean }) {
                 value: 80
               },
               opacity: {
-                value: 0.15,
-                random: true,
+                value: 0.5,
                 animation: {
                   enable: true,
                   speed: 0.5,
-                  minimumValue: 0.1,
-                  sync: false
+                  minimumValue: 0.1
                 }
               },
               shape: {
                 type: "circle"
               },
               size: {
-                value: { min: 1, max: 3 },
-                random: true,
-                animation: {
-                  enable: true,
-                  speed: 2,
-                  minimumValue: 0.1,
-                  sync: false
-                }
+                value: { min: 1, max: 5 }
               }
             },
             detectRetina: true

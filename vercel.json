@@ -5,5 +5,16 @@
       "dest": "/",
       "status": 200
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://client.gymnavigator.in"
+        }
+      ]
+    }
   ]
 }
