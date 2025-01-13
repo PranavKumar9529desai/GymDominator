@@ -12,24 +12,33 @@ export const LadingPage = () => {
   return (
     <div>
       <header className="flex items-center justify-center h-screen relative overflow-hidden text-center text-lg">
-        {/* Background with overlay */}
+        {/* Background with gradient for mobile and image for larger screens */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-[-1]"
-          style={{
-            backgroundImage: `url(${GymHero})`,
-            animation: 'fadeIn 0.5s ease-out',
-          }}
+          className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 md:bg-none"
         >
-          <div className="absolute inset-0 bg-black/60" />
+          {/* Image background only for md and larger screens */}
+          <div 
+            className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${GymHero})`,
+            }}
+          >
+            <div className="absolute inset-0 bg-black/60" />
+          </div>
         </div>
         
         <section className="container relative z-10">
-          <div className="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold mb-8 font-overpass"
-               style={{ animation: 'fadeInUp 0.5s ease-out 0.2s forwards' }}>
+          <div 
+            className="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold mb-8 font-overpass relative"
+            style={{ animation: 'fadeInUp 0.5s ease-out 0.2s forwards' }}
+          >
             <p className="flex flex-col items-center gap-2">
               GymNavigator Will Ensure
-              <span className="inline-block bg-gradient-to-r from-[#64dff4] to-[#03a3d7] text-transparent bg-clip-text">
+              <span className="inline-block bg-gradient-to-r from-[#64dff4] to-[#03a3d7] text-transparent bg-clip-text relative">
                 Your Consistency
+                {/* Glow effect */}
+                <span className="absolute -bottom-4 left-0 right-0 h-[2px] bg-blue-500 blur-sm"></span>
+                <span className="absolute -bottom-4 left-0 right-0 h-[1px] bg-blue-300"></span>
               </span>
             </p>
           </div>
