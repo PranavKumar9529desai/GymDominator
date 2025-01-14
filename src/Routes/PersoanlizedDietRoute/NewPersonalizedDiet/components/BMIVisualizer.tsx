@@ -17,15 +17,17 @@ const getBMICategory = (bmi: number) => {
 };
 
 const getNeedleRotation = (bmi: number) => {
-  // Map BMI value to angle between 180 (start) and 0 (end) degrees
-  // BMI Range: 15-40 maps to 180-0 degrees
   const minBMI = 15;
   const maxBMI = 40;
+  const minAngle = -90; // Left side of semicircle
+  const maxAngle = 90;  // Right side of semicircle
+  
+  // Clamp BMI value to our range
   const clampedBMI = Math.min(Math.max(bmi, minBMI), maxBMI);
   
-  // Reverse the angle (180 - result) because our scale goes from 180 to 0
-  const angle = 180 - (((clampedBMI - minBMI) / (maxBMI - minBMI)) * 180);
-  console.log(`rotate(${angle} 200 200)`);
+  // Linear interpolation between angles based on BMI
+  const angle = minAngle + (clampedBMI - minBMI) * (maxAngle - minAngle) / (maxBMI - minBMI);
+  
   return `rotate(${angle} 200 200)`;
 };
 
@@ -72,13 +74,13 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
             ))}
           </Pie>
           
-          {/* Updated needle component with corrected orientation */}
+          {/* Updated needle with outward pointing design */}
           <g transform={getNeedleRotation(bmi)}>
             <motion.path
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              d="M 198 200 L 200 260 L 202 200 Z"  // Changed Y from 140 to 260 to invert the direction
+              d="M 200 200 L 200 140 L 196 200 L 204 200 Z"  // Triangle pointing outward
               fill={category.color}
             />
             <circle cx={200} cy={200} r={6} fill={category.color} />
