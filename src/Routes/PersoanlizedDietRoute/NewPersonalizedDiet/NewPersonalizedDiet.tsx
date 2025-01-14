@@ -6,8 +6,8 @@ import { WeeklyMealPlan } from "./components/WeeklyMealPlan";
 import weeklyDietPlan from "../weekly_diet_plan.json";
 import { getBMICategory, DietCategories } from "./types/diet";
 import { HealthData } from "./types/health";
-import { CalorieBreakdown } from './components/CalorieBreakdown';
-import { BMIVisualizer } from './components/BMIVisualizer';
+import { CalorieBreakdown } from "./components/CalorieBreakdown";
+import { BMIVisualizer } from "./components/BMIVisualizer";
 
 export default function NewPersonalizedDiet() {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -28,7 +28,7 @@ export default function NewPersonalizedDiet() {
           // Transform the gender to match our type
           const transformedData: HealthData = {
             ...health.data,
-            gender: health.data.gender as 'male' | 'female' | 'other'
+            gender: health.data.gender as "male" | "female" | "other",
           };
           setHealthData(transformedData);
         }
@@ -91,10 +91,7 @@ export default function NewPersonalizedDiet() {
 
         {/* Calorie Breakdown - Move to order-4 */}
         <div className="order-4 md:order-3">
-          <CalorieBreakdown 
-            healthData={healthData} 
-            startDate={startDate}
-          />
+          <CalorieBreakdown healthData={healthData} startDate={startDate} />
         </div>
       </div>
     </div>

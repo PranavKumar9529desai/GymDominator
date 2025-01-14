@@ -1,108 +1,109 @@
 {
-    "categories": {
-        "overweight": {
-            "week_1": {
-                "breakfast": "Warm water with honey, lemon, cinnamon",
-                "lunch": "Vegetable upma, poha, and buttermilk",
-                "snacks": "Fresh fruit (apple, orange, berries)",
-                "dinner": "2 multigrain roti, 1 bowl green sabji"
-            },
-            "week_2": {
-                "breakfast": "Green tea with mint leaves",
-                "lunch": "Multigrain idli or dosa with sambar",
-                "snacks": "Roasted chana or roasted makhana",
-                "dinner": "Vegetable stir-fry with brown rice"
-            },
-            "week_3": {
-                "breakfast": "Apple vinegar and ginger water, oats porridge with nuts and berries",
-                "lunch": "Yogurt with chia seeds",
-                "snacks": "None",
-                "dinner": "Lentil soup with 1 multigrain bhakri"
-            },
-            "week_4": {
-                "breakfast": "Egg white omelet with spinach and wheat toast",
-                "lunch": "Warm water with honey, lemon, cinnamon",
-                "snacks": "None",
-                "dinner": "Vegetable khichadi or daliya, 1 cup of green tea"
-            }
-        },
-        "obesity_class_1": {
-            "week_1": {
-                "breakfast": "2 bowls of vegetable soup",
-                "lunch": "1 cup green tea with lemon, 2 boiled pumpkin with salt and spice only, and half bowl rice",
-                "snacks": "None",
-                "dinner": "Any fruit you like"
-            },
-            "week_2": {
-                "breakfast": "Soya sabji with 1 multigrain roti",
-                "lunch": "1 cup green tea with ginger, 1 bowl beetroot rice, and 1 bowl salad",
-                "snacks": "None",
-                "dinner": "Coconut water"
-            },
-            "week_3": {
-                "breakfast": "Soya sabji with 1/2 bowl rice",
-                "lunch": "1 cup green tea with ginger, 1 bowl beetroot rice, and 1 bowl salad",
-                "snacks": "None",
-                "dinner": "Coconut water"
-            },
-            "week_4": {
-                "breakfast": "Apple with 2 pomegranates",
-                "lunch": "1 bowl beetroot rice with 1 bowl salad, 1 cup green tea with lemon",
-                "snacks": "None",
-                "dinner": "Coconut water"
-            }
-        },
-        "normal_weight": {
-            "week_1": {
-                "breakfast": "Soyabean curry with multigrain roti",
-                "lunch": "Brown rice, 2 chapati, 1 bowl green veggies",
-                "snacks": "Sprouts cheela",
-                "dinner": "Tea with roasted makhane"
-            },
-            "week_2": {
-                "breakfast": "Mix dal with rice, curd, and salad",
-                "lunch": "Shahi paneer with brown rice",
-                "snacks": "Poha with curd",
-                "dinner": "Tea with roasted makhane"
-            },
-            "week_3": {
-                "breakfast": "Soyabean lentil sabji with 2 multigrain chapati and salad",
-                "lunch": "Methi paratha with cucumber raita, ragi dosa",
-                "snacks": "None",
-                "dinner": "Any fruit with tea"
-            },
-            "week_4": {
-                "breakfast": "Paneer tikka with salad and 2 multigrain chapati",
-                "lunch": "Sarso ka saag with multigrain chapati, stuffed beans cheela",
-                "snacks": "None",
-                "dinner": "Any fruit with tea"
-            }
-        },
-        "underweight": {
-            "week_1": {
-                "breakfast": "4 roti / 1 bowl brown rice / 1 cup dal with paneer / 1 cup curd",
-                "lunch": "Any sabji with brown rice & 2 multigrain roti",
-                "snacks": "1 glass of banana smoothie",
-                "dinner": "Any fruit with tea or coffee with wheat biscuits"
-            },
-            "week_2": {
-                "breakfast": "4 roti / 1 bowl brown rice / 1 cup dal with soya sabji / 1 cup curd",
-                "lunch": "2 bowls veg fried brown rice / 1 bowl palak sabji",
-                "snacks": "2 banana smoothie with walnuts",
-                "dinner": "Any fruit with tea or coffee with almonds and walnuts"
-            },
-            "week_3": {
-                "breakfast": "4 roti / 1 bowl brown rice / 1 cup dal with leafy veggies / 1 cup curd",
-                "lunch": "1 bowl rice & rajma with 2 roti & salad or fish curry",
-                "snacks": "2 banana smoothie with walnuts",
-                "dinner": "Any fruit with tea or coffee with almonds and walnuts"
-            },
-            "week_4": {
-                "breakfast": "Soyabean curry with multigrain roti",
-                "lunch": "Brown rice, 2 chapati, 1 bowl green veggies",
-                "snacks": "Sprouts cheela",
-                "dinner": "Tea with roasted makhane"
-            }
-        }
+  "categories": {
+    "overweight": {
+      "week_1": {
+        "breakfast": "Warm water with honey, lemon, and cinnamon",
+        "lunch": "Vegetable upma with poha and buttermilk",
+        "snacks": "Fresh fruit (apple, orange, or berries)",
+        "dinner": "2 multi grain roti with 1 bowl green sabji"
+      },
+    "week_2": {
+      "breakfast": "Green tea with mint leaves",
+      "lunch": "Multigrain idli or dosa with samber",
+      "snacks": "Roasted chana or roasted makhana",
+      "dinner": "Vegetable stir-fry with brown rice"
+    },
+    "week_3": {
+      "breakfast": "Apple vinegar & ginger water",
+      "lunch": "Oats porridge with nuts & berries",
+      "snacks": "Yogurt with chia seeds",
+      "dinner": "Lentil soup with 1 multigrain bhakri"
+    },
+    "week_4": {
+      "breakfast": "Warm water with honey, lemon, and cinnamon",
+      "lunch": "Egg white omelet with spinach & wheat toast",
+      "snacks": "1 cup of green tea",
+      "dinner": "Vegetable khichadi or daliya"
     }
+    },
+    "obesity_class_1": {
+      "week_1": {
+        "breakfast": "1 cup green tea with lemon",
+        "lunch": "2 bowls of vegetable soup",
+        "snacks": "Any fruit you like",
+        "dinner": "2 boiled pumpkin with salt and spice only & half bowl rice"
+      },
+    "week_2": {
+      "breakfast": "1 cup green tea with ginger",
+      "lunch": "Soya sabji with 1 multigrain roti",
+      "snacks": "Coconut water",
+      "dinner": "1 bowl beetroot rice with 1 bowl salad"
+    },
+    "week_3": {
+      "breakfast": "1 cup green tea with ginger",
+      "lunch": "Soya sabji with 1/2 bowl rice",
+      "snacks": "Coconut water",
+      "dinner": "1 bowl beetroot rice with 1 bowl salad"
+    },
+    "week_4": {
+      "breakfast": "1 cup green tea with lemon",
+      "lunch": "Apple with 2 pomegranate",
+      "snacks": "Coconut water",
+      "dinner": "1 bowl beetroot rice with 1 bowl salad"
+    }
+    },
+    "normal_weight": {
+      "week_1": {
+        "breakfast": "Sprouts cheela",
+        "lunch": "Soyabean curry with multigrain roti",
+        "snacks": "Tea with roasted makhane",
+        "dinner": "Brown rice, 2 chapati, 1 bowl green veggies"
+      },
+      "week_2": {
+        "breakfast": "Poha with curd",
+        "lunch": "Mix dal with rice, curd, and salad",
+        "snacks": "Tea with roasted makhane",
+        "dinner": "Shahi paneer with brown rice"
+      },
+      "week_3": {
+        "breakfast": "Ragi Dosa",
+        "lunch": "soyabean lantil sabji 2 multigrain chapati& SALAD",
+        "snacks": "Any fruit with tea",
+        "dinner": "methi paratha with cucumber raita"
+
+      },
+    "week_4": {
+      "breakfast": "Stuffed beans cheela",
+      "lunch": "Paneer tikka with salad & 2 multigrain chapati",
+      "snacks": "Any fruit with tea",
+      "dinner": "Sarso ka saag with multigrain chapati"
+    }
+    },
+    "underweight": {
+    "week_1": {
+      "breakfast": "1 glass of banana smoothie",
+      "lunch": "4 roti / 1 bowl brown rice / 1 cup dal with paneer / 1 cup curd",
+      "snacks": "Any fruit with tea or coffee with wheat biscuits",
+      "dinner": "Any sabji with brown rice & 2 multigrain roti"
+    },
+    "week_2": {
+      "breakfast": "2 banana smoothie with 2 walnuts and 1 spoon honey",
+      "lunch": "4 roti / 1 bowl brown rice / 1 cup dal with soya sabji / 1 cup curd",
+      "snacks": "Any fruit with tea or coffee with wheat biscuits",
+      "dinner": "2 bowl veg fried brown rice / 1 bowl palak sabji"
+    },
+    "week_3": {
+      "breakfast": "2 banana smoothie with 2 walnuts, 1 spoon honey",
+      "lunch": "4 roti / 1 bowl brown rice / 1 cup dal with soya sabji / 1 cup curd",
+      "snacks": "Any fruit with tea or coffee with 2 almonds & walnuts", 
+      "dinner": "1 bowl rice & rajma with 2 roti & salad or fish curry"
+    },
+    "week_4": {
+      "breakfast": "1 banana & roasted chana with honey",
+      "lunch": "4 roti / 1 bowl brown rice / 1 cup dal with leafy veggies / 1 cup curd",
+      "snacks": "Any fruit with tea or coffee with 2 almonds & walnuts",
+      "dinner": "2 bowl brown rice / paneer sabji / fish curry"
+    }
+    }
+  }
 }

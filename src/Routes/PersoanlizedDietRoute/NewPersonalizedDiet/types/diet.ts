@@ -21,9 +21,12 @@ export interface DietCategories {
   };
 }
 
+export type BMICategory = 'underweight' | 'normal_weight' | 'overweight' | 'obesity_class_1';
+
 export const getBMICategory = (bmi: number): keyof DietCategories['categories'] => {
   if (bmi < 18.5) return 'underweight';
-  if (bmi < 25) return 'normal_weight';
-  if (bmi < 30) return 'overweight';
-  return 'obesity_class_1';
+  if (bmi >= 18.5 && bmi < 25) return 'normal_weight';
+  if (bmi >= 25 && bmi < 30) return 'overweight';
+  if (bmi >= 30) return 'obesity_class_1';
+  return 'normal_weight'; // default case
 };

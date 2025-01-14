@@ -128,67 +128,67 @@
     },
     "normal_weight": {
       "week_1": {
-        "proteins": ["soya chunks", "paneer"],
-        "grains": ["multigrain atta", "brown rice"],
-        "vegetables": ["green vegetables", "mixed vegetables"],
-        "snacks": ["sprouts"],
-        "other": ["makhana", "tea"],
+        "proteins": ["soya chunks"],
+        "grains": ["multigrain atta"],
+        "vegetables": ["mixed sprouts", "mixed vegetables"],
+        "beverages": ["tea"],
+        "snacks": ["makhana"],
         "quantities": {
           "soya chunks": "500g",
           "multigrain atta": "1 kg",
-          "brown rice": "1 kg",
-          "green vegetables": "1 kg",
+          "mixed sprouts": "500g",
           "mixed vegetables": "1 kg",
-          "sprouts": "500g",
+          "tea": "1 pack",
+          "makhana": "200g"
+        }
+      },
+      "week_2": {
+        "dairy": ["curd"],
+        "grains": ["poha", "rice", "mixed dal"],
+        "vegetables": ["mixed vegetables", "salad vegetables"],
+        "proteins": ["paneer"],
+        "snacks": ["makhana"],
+        "beverages": ["tea"],
+        "quantities": {
+          "curd": "500g",
+          "poha": "500g",
+          "rice": "1 kg",
+          "mixed dal": "500g",
+          "mixed vegetables": "1 kg",
+          "salad vegetables": "500g",
+          "paneer": "500g",
           "makhana": "200g",
           "tea": "1 pack"
         }
       },
-      "week_2": {
-        "proteins": ["mixed dal", "paneer"],
-        "grains": ["brown rice", "poha"],
-        "dairy": ["curd"],
-        "vegetables": ["mixed vegetables", "salad vegetables"],
-        "snacks": ["makhana"],
-        "quantities": {
-          "mixed dal": "500g",
-          "paneer": "500g",
-          "brown rice": "1 kg",
-          "poha": "500g",
-          "curd": "1 kg",
-          "mixed vegetables": "1 kg",
-          "salad vegetables": "500g",
-          "makhana": "200g"
-        }
-      },
       "week_3": {
+        "grains": ["ragi", "multigrain atta"],
         "proteins": ["soya chunks", "dal"],
-        "grains": ["multigrain atta", "ragi"],
-        "vegetables": ["methi", "cucumber"],
-        "other": ["tea"],
+        "vegetables": ["methi", "mixed vegetables", "cucumber"],
+        "beverages": ["tea"],
         "fruits": ["seasonal fruits"],
         "quantities": {
+          "ragi": "500g",
+          "multigrain atta": "1 kg",
           "soya chunks": "500g",
           "dal": "500g",
-          "multigrain atta": "1 kg",
-          "ragi": "500g",
           "methi": "300g",
+          "mixed vegetables": "1 kg",
           "cucumber": "500g",
           "tea": "1 pack",
           "seasonal fruits": "1 kg"
         }
       },
       "week_4": {
-        "proteins": ["paneer", "rajma"],
-        "vegetables": ["sarso saag", "beans", "mixed vegetables"],
+        "proteins": ["paneer"],
+        "vegetables": ["beans", "sarso saag", "mixed vegetables"],
         "grains": ["multigrain atta"],
-        "other": ["tea"],
+        "beverages": ["tea"],
         "fruits": ["seasonal fruits"],
         "quantities": {
           "paneer": "500g",
-          "rajma": "500g",
-          "sarso saag": "500g",
           "beans": "500g",
+          "sarso saag": "1 kg",
           "mixed vegetables": "1 kg",
           "multigrain atta": "1 kg",
           "tea": "1 pack",

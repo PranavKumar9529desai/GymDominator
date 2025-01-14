@@ -52,6 +52,15 @@ const calculateLabelPosition = (bmiValue: number) => {
   return { x, y };
 };
 
+const calculateRangeLabelPosition = (startValue: number, endValue: number) => {
+  const midPoint = (startValue + endValue) / 2;
+  const pos = calculateLabelPosition(midPoint);
+  return {
+    x: pos.x,
+    y: pos.y + 20, // Offset the range labels slightly below the tick marks
+  };
+};
+
 export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
   const [chartSize, setChartSize] = useState({ width: 400, height: 240 });
   const [centerPoint, setCenterPoint] = useState({ x: 200, y: 200 });
@@ -71,14 +80,14 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
 
   const category = getBMICategory(bmi);
   const data = [
-    { value: 16, color: '#3B82F6' },      // Severe Thinness
-    { value: 1, color: '#60A5FA' },       // Moderate Thinness
-    { value: 1.5, color: '#93C5FD' },     // Mild Thinness
-    { value: 6.5, color: '#10B981' },     // Normal
-    { value: 5, color: '#F59E0B' },       // Overweight
-    { value: 5, color: '#FB7185' },       // Obese Class I
-    { value: 5, color: '#EF4444' },       // Obese Class II
-    { value: 5, color: '#B91C1C' },       // Obese Class III
+    { value: 1, color: '#3B82F6' },      // Severe Thinness (0-16)
+    { value: 1, color: '#60A5FA' },       // Moderate Thinness (16-17)
+    { value: 1.5, color: '#93C5FD' },     // Mild Thinness (17-18.5)
+    { value: 6.5, color: '#10B981' },     // Normal (18.5-25)
+    { value: 5, color: '#F59E0B' },       // Overweight (25-30)
+    { value: 5, color: '#FB7185' },       // Obese Class I (30-35)
+    { value: 5, color: '#EF4444' },       // Obese Class II (35-40)
+    { value: 5, color: '#B91C1C' },       // Obese Class III (40+)
   ];
 
   const CustomLabel = () => (
@@ -149,12 +158,33 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
                 y={pos.y * (chartSize.height / 240)} 
                 textAnchor="middle" 
                 dominantBaseline="middle"
-                className="text-[10px] md:text-xs"
+                className="text-[10px] md:text-xs font-medium"
               >
                 {value}
               </text>
             );
           })}
+
+          {/* Add range labels */}
+          {BMI_RANGES.map((range, index) => {
+            if (range.max === Infinity) return null; // Skip the last range
+            const pos = calculateRangeLabelPosition(range.min, range.max);
+            return (
+              <g key={`range-${index}`}>
+                <text
+                  x={pos.x * (chartSize.width / 400)}
+                  y={pos.y * (chartSize.height / 240)}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[9px] text-gray-500"
+                  fill={range.color}
+                >
+                  {`${range.min}-${range.max}`}
+                </text>
+              </g>
+            );
+          })}
+
         </PieChart>
 
         {/* Updated BMI Categories Legend */}
