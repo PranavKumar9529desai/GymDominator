@@ -46,8 +46,10 @@ export default function AttendanceQRScanner() {
     console.log("Current UTC time:", new Date(currentUTC).toISOString());
     console.log("Scanned QR UTC time:", new Date(scannedUTC).toISOString());
 
-    // Allow for small time differences (within the same hour)
-    if (currentUTC === scannedUTC) {
+    const toleranceInHours = 1; // Allow up to 1 hour difference
+    const timeDiff = Math.abs(currentUTC - scannedUTC) / (1000 * 60 * 60);
+
+    if (timeDiff <= toleranceInHours) {
       try {
         const response = await MarkAttendance();
         if (response.success) {
@@ -60,8 +62,7 @@ export default function AttendanceQRScanner() {
         navigate('/dashboard/attendance/failure');
       }
     } else {
-      console.log("QR code has expired. Time difference in hours:", 
-        Math.abs(currentUTC - scannedUTC) / (1000 * 60 * 60));
+      console.log("QR code has expired. Time difference in hours:", timeDiff);
       navigate('/dashboard/attendance/failure');
     }
   }

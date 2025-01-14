@@ -16,14 +16,20 @@ interface MarkAttendanceResponse {
 
 export const MarkAttendance = async (): Promise<MarkAttendanceResponse> => {
   try {
-    const clientDate = new Date();
-    clientDate.setMinutes(0, 0, 0); // Set minutes, seconds, and milliseconds to 0
+    const now = new Date();
+    const clientUTC = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours()
+    );
+    const truncatedUtcDate = new Date(clientUTC);
     const response = await axios.post<MarkAttendanceResponse>(
       `${
         import.meta.env.VITE_BACKEND_URL
       }/api/v1/user/protected/mark-attendance`,
       {
-        clientDate: clientDate.toISOString(),
+        clientDate: truncatedUtcDate.toISOString(),
       },
       {
         headers: {

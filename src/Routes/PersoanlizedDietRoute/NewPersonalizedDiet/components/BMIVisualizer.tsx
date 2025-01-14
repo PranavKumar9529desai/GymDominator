@@ -52,15 +52,6 @@ const calculateLabelPosition = (bmiValue: number) => {
   return { x, y };
 };
 
-const calculateRangeLabelPosition = (startValue: number, endValue: number) => {
-  const midPoint = (startValue + endValue) / 2;
-  const pos = calculateLabelPosition(midPoint);
-  return {
-    x: pos.x,
-    y: pos.y + 20, // Offset the range labels slightly below the tick marks
-  };
-};
-
 export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
   const [chartSize, setChartSize] = useState({ width: 400, height: 240 });
   const [centerPoint, setCenterPoint] = useState({ x: 200, y: 200 });
@@ -158,33 +149,12 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
                 y={pos.y * (chartSize.height / 240)} 
                 textAnchor="middle" 
                 dominantBaseline="middle"
-                className="text-[10px] md:text-xs font-medium"
+                className="text-[10px] md:text-xs"
               >
                 {value}
               </text>
             );
           })}
-
-          {/* Add range labels */}
-          {BMI_RANGES.map((range, index) => {
-            if (range.max === Infinity) return null; // Skip the last range
-            const pos = calculateRangeLabelPosition(range.min, range.max);
-            return (
-              <g key={`range-${index}`}>
-                <text
-                  x={pos.x * (chartSize.width / 400)}
-                  y={pos.y * (chartSize.height / 240)}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="text-[9px] text-gray-500"
-                  fill={range.color}
-                >
-                  {`${range.min}-${range.max}`}
-                </text>
-              </g>
-            );
-          })}
-
         </PieChart>
 
         {/* Updated BMI Categories Legend */}
@@ -221,10 +191,17 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
           style={{ backgroundColor: `${category.color}20` }}
         >
           <p className="text-xs md:text-sm" style={{ color: category.color }}>
-            {category.category === 'Normal' 
-              ? "Great job! You're maintaining a healthy BMI."
-              : `Your BMI indicates you're in the ${category.category.toLowerCase()} range. 
-                 Let's work together towards a healthier you!`}
+            {category.category === 'Normal' ? (
+              "Great job! You're maintaining a healthy BMI."
+            ) : (
+              <>
+                Your BMI of <span className="font-bold">{bmi.toFixed(1)}</span> indicates you're in the{' '}
+                <span className="font-bold text-[1.1em]" style={{ color: category.color }}>
+                  {category.category.toLowerCase()}
+                </span>{' '}
+                range. Let's work together towards a healthier you!
+              </>
+            )}
           </p>
         </motion.div>
       </div>
