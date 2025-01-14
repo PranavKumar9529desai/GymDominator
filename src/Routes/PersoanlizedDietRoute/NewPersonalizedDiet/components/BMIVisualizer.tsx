@@ -7,10 +7,14 @@ type BMIVisualizerProps = {
 };
 
 const BMI_RANGES = [
-  { min: 0, max: 18.5, category: 'Underweight', color: '#3B82F6' },  // Blue
-  { min: 18.5, max: 24.9, category: 'Normal', color: '#10B981' },   // Green
-  { min: 25, max: 29.9, category: 'Overweight', color: '#F59E0B' }, // Yellow
-  { min: 30, max: 40, category: 'Obese', color: '#EF4444' }         // Red
+  { min: 0, max: 16, category: 'Severe Thinness', color: '#3B82F6' },
+  { min: 16, max: 17, category: 'Moderate Thinness', color: '#60A5FA' },
+  { min: 17, max: 18.5, category: 'Mild Thinness', color: '#93C5FD' },
+  { min: 18.5, max: 25, category: 'Normal', color: '#10B981' },
+  { min: 25, max: 30, category: 'Overweight', color: '#F59E0B' },
+  { min: 30, max: 35, category: 'Obese Class I', color: '#FB7185' },
+  { min: 35, max: 40, category: 'Obese Class II', color: '#EF4444' },
+  { min: 40, max: Infinity, category: 'Obese Class III', color: '#B91C1C' },
 ];
 
 const getBMICategory = (bmi: number) => {
