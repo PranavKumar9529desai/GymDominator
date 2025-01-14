@@ -1,0 +1,128 @@
+import { PieChart, Pie, Cell, Sector } from 'recharts';
+import { motion } from 'framer-motion';
+
+type BMIVisualizerProps = {
+  bmi: number;
+};
+
+const BMI_RANGES = [
+  { min: 0, max: 18.5, category: 'Underweight', color: '#3B82F6' },  // Blue
+  { min: 18.5, max: 24.9, category: 'Normal', color: '#10B981' },   // Green
+  { min: 25, max: 29.9, category: 'Overweight', color: '#F59E0B' }, // Yellow
+  { min: 30, max: 40, category: 'Obese', color: '#EF4444' }         // Red
+];
+
+const getBMICategory = (bmi: number) => {
+  return BMI_RANGES.find(range => bmi >= range.min && bmi < range.max) || BMI_RANGES[BMI_RANGES.length - 1];
+};
+
+const getNeedleRotation = (bmi: number) => {
+  // Map BMI value to angle between 180 (start) and 0 (end) degrees
+  // BMI Range: 15-40 maps to 180-0 degrees
+  const minBMI = 15;
+  const maxBMI = 40;
+  const clampedBMI = Math.min(Math.max(bmi, minBMI), maxBMI);
+  
+  // Reverse the angle (180 - result) because our scale goes from 180 to 0
+  const angle = 180 - (((clampedBMI - minBMI) / (maxBMI - minBMI)) * 180);
+  console.log(`rotate(${angle} 200 200)`);
+  return `rotate(${angle} 200 200)`;
+};
+
+export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
+  const category = getBMICategory(bmi);
+  const data = BMI_RANGES.map(range => ({
+    value: range.max - range.min,
+    color: range.color
+  }));
+
+  const CustomLabel = () => (
+    <g>
+      <text x={200} y={160} textAnchor="middle" className="text-3xl font-bold">
+        {bmi.toFixed(1)}
+      </text>
+      <text x={200} y={190} textAnchor="middle" className="text-lg" fill={category.color}>
+        {category.category}
+      </text>
+    </g>
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="p-6 rounded-2xl bg-white shadow-lg"
+    >
+      <div className="relative w-full max-w-md mx-auto">
+        <PieChart width={400} height={240}>
+          {/* Semi-circular gauge background */}
+          <Pie
+            data={data}
+            cx={200}
+            cy={200}
+            startAngle={180}
+            endAngle={0}
+            innerRadius={100}
+            outerRadius={140}
+            paddingAngle={0}
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+          
+          {/* Updated needle component */}
+          <g transform={getNeedleRotation(bmi)}>
+            <motion.path
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              d="M 198 200 L 200 140 L 202 200 Z"  // Made needle longer and thinner
+              fill={category.color}
+            />
+            <circle cx={200} cy={200} r={6} fill={category.color} />  // Smaller pivot point
+          </g>
+
+          {/* BMI value and category */}
+          <CustomLabel />
+
+          {/* Updated BMI range labels with better positioning */}
+          <text x={80} y={220} textAnchor="middle" className="text-xs">15</text>
+          <text x={140} y={160} textAnchor="middle" className="text-xs">25</text>
+          <text x={260} y={160} textAnchor="middle" className="text-xs">35</text>
+          <text x={320} y={220} textAnchor="middle" className="text-xs">40</text>
+        </PieChart>
+
+        {/* BMI Categories Legend */}
+        <div className="flex justify-between mt-4 px-4">
+          {BMI_RANGES.map((range, index) => (
+            <div key={range.category} className="flex flex-col items-center">
+              <div 
+                className="w-3 h-3 rounded-full mb-1" 
+                style={{ backgroundColor: range.color }}
+              />
+              <span className="text-xs text-gray-600">{range.category}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Health Message */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className={`mt-6 p-4 rounded-lg text-center`}
+          style={{ backgroundColor: `${category.color}20` }}
+        >
+          <p className="text-sm" style={{ color: category.color }}>
+            {category.category === 'Normal' 
+              ? "Great job! You're maintaining a healthy BMI."
+              : `Your BMI indicates you're in the ${category.category.toLowerCase()} range. 
+                 Let's work together towards a healthier you!`}
+          </p>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+};

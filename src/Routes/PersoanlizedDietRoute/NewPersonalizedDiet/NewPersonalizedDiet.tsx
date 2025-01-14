@@ -7,6 +7,7 @@ import weeklyDietPlan from "../weekly_diet_plan.json";
 import { getBMICategory, DietCategories } from "./types/diet";
 import { HealthData } from "./types/health";
 import { CalorieBreakdown } from './components/CalorieBreakdown';
+import { BMIVisualizer } from './components/BMIVisualizer';
 
 export default function NewPersonalizedDiet() {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -72,8 +73,13 @@ export default function NewPersonalizedDiet() {
           <HealthSummary healthData={healthData} bmi={bmi} />
         </div>
 
-        {/* Weekly Meal Plan - Second on mobile, third on desktop */}
-        <div className="order-2 md:order-3">
+        {/* New BMI Visualizer */}
+        <div className="order-2">
+          <BMIVisualizer bmi={bmi} />
+        </div>
+
+        {/* Weekly Meal Plan - Move to order-3 */}
+        <div className="order-3 md:order-4">
           <WeeklyMealPlan
             currentWeek={currentWeek}
             mealPlan={currentMeal}
@@ -83,8 +89,8 @@ export default function NewPersonalizedDiet() {
           />
         </div>
 
-        {/* Calorie Breakdown - Third on mobile, second on desktop */}
-        <div className="order-3 md:order-2">
+        {/* Calorie Breakdown - Move to order-4 */}
+        <div className="order-4 md:order-3">
           <CalorieBreakdown 
             healthData={healthData} 
             startDate={startDate}

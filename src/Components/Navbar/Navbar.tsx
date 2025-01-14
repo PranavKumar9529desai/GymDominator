@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 type colors = "white" | "black";
@@ -10,6 +10,7 @@ optimizedLogo.src = "/favicon.ico";
 export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isscrolled, setScrolled] = useState<boolean>(false);
+  const location = useLocation();
 
   const navigate = useNavigate();
 
@@ -88,14 +89,21 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 >
                   <button
                     onClick={() => handleNavigation(section.path)}
-                    className="relative group py-2 font-medium text-white"
+                    className="relative py-2 font-medium"
                   >
-                    <span className="relative z-10">{section.name}</span>
-                    <motion.span
-                      className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
+                    <span 
+                      className={
+                        location.pathname === section.path
+                          ? "text-blue-400"
+                          : "text-white hover:text-blue-400 transition-colors"
+                      }
+                    >
+                      {section.name}
+                    </span>
+                    <span 
+                      className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left transition-transform duration-300 ${
+                        location.pathname === section.path ? 'scale-x-100' : 'scale-x-0'
+                      }`}
                     />
                   </button>
                 </motion.div>
@@ -214,11 +222,17 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
                         onClick={() => handleNavigation(section.path)}
-                        className="flex items-center w-full p-4 text-white/90 hover:bg-white/10 rounded-lg group transition-all"
+                        className={`flex items-center w-full p-4 rounded-lg group transition-all ${
+                          location.pathname === section.path
+                            ? 'bg-blue-500/20 text-blue-400'
+                            : 'text-white/90 hover:bg-white/10'
+                        }`}
                       >
                         <span className="flex-1 text-left">{section.name}</span>
                         <svg 
-                          className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform"
+                          className={`w-5 h-5 ${
+                            location.pathname === section.path ? 'text-blue-400' : 'text-gray-400'
+                          } group-hover:translate-x-1 transition-transform`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
