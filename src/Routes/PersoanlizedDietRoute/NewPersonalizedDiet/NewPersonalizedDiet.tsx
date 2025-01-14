@@ -74,7 +74,7 @@ export default function NewPersonalizedDiet() {
         </div>
 
         {/* New BMI Visualizer */}
-        <div className="order-2">
+        <div className="order-2 ">
           <BMIVisualizer bmi={bmi} />
         </div>
 

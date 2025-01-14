@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell } from 'recharts';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 type BMIVisualizerProps = {
   bmi: number;
@@ -48,6 +49,22 @@ const calculateLabelPosition = (bmiValue: number) => {
 };
 
 export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
+  const [chartSize, setChartSize] = useState({ width: 400, height: 240 });
+  const [centerPoint, setCenterPoint] = useState({ x: 200, y: 200 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      const containerWidth = Math.min(window.innerWidth - 48, 400); // 48px for padding
+      const height = (containerWidth * 0.6); // maintain aspect ratio
+      setChartSize({ width: containerWidth, height });
+      setCenterPoint({ x: containerWidth / 2, y: containerWidth / 2 });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
   const category = getBMICategory(bmi);
   const data = BMI_RANGES.map(range => ({
     value: range.max - range.min,
@@ -56,10 +73,21 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
 
   const CustomLabel = () => (
     <g>
-      <text x={200} y={160} textAnchor="middle" className="text-3xl font-bold">
+      <text 
+        x={centerPoint.x} 
+        y={centerPoint.y - 40} 
+        textAnchor="middle" 
+        className="text-2xl md:text-3xl font-bold"
+      >
         {bmi.toFixed(1)}
       </text>
-      <text x={200} y={190} textAnchor="middle" className="text-lg" fill={category.color}>
+      <text 
+        x={centerPoint.x} 
+        y={centerPoint.y - 10} 
+        textAnchor="middle" 
+        className="text-base md:text-lg" 
+        fill={category.color}
+      >
         {category.category}
       </text>
     </g>
@@ -69,19 +97,18 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-6 rounded-2xl bg-white shadow-lg"
+      className="p-4 md:p-6 rounded-2xl bg-white shadow-lg overflow-hidden"
     >
-      <div className="relative w-full max-w-md mx-auto">
-        <PieChart width={400} height={240}>
-          {/* Semi-circular gauge background */}
+      <div className="relative w-full mx-auto flex flex-col items-center">
+        <PieChart width={chartSize.width} height={chartSize.height}>
           <Pie
             data={data}
-            cx={200}
-            cy={200}
+            cx={centerPoint.x}
+            cy={centerPoint.y}
             startAngle={180}
             endAngle={0}
-            innerRadius={100}
-            outerRadius={140}
+            innerRadius={chartSize.width * 0.25}
+            outerRadius={chartSize.width * 0.35}
             paddingAngle={0}
             dataKey="value"
           >
@@ -90,49 +117,50 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
             ))}
           </Pie>
           
-          {/* Updated needle with outward pointing design */}
-          <g transform={getNeedleRotation(bmi)}>
+          <g transform={`rotate(${getNeedleRotation(bmi)} ${centerPoint.x} ${centerPoint.y})`}>
             <motion.path
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              d="M 200 200 L 200 140 L 196 200 L 204 200 Z"  // Triangle pointing outward
+              d={`M ${centerPoint.x} ${centerPoint.y} L ${centerPoint.x} ${centerPoint.y - 60} L ${centerPoint.x - 4} ${centerPoint.y} L ${centerPoint.x + 4} ${centerPoint.y} Z`}
               fill={category.color}
             />
-            <circle cx={200} cy={200} r={6} fill={category.color} />
+            <circle cx={centerPoint.x} cy={centerPoint.y} r={6} fill={category.color} />
           </g>
 
-          {/* BMI value and category */}
           <CustomLabel />
 
-          {/* Updated BMI range labels with exact positioning */}
           {[15, 20, 25, 30, 35, 40].map(value => {
             const pos = calculateLabelPosition(value);
             return (
               <text 
                 key={value}
-                x={pos.x} 
-                y={pos.y} 
+                x={pos.x * (chartSize.width / 400)} 
+                y={pos.y * (chartSize.height / 240)} 
                 textAnchor="middle" 
                 dominantBaseline="middle"
-                className="text-xs"
+                className="text-[10px] md:text-xs"
               >
                 {value}
               </text>
             );
           })}
-
         </PieChart>
 
-        {/* BMI Categories Legend */}
-        <div className="flex justify-between mt-4 px-4">
+        {/* Updated BMI Categories Legend */}
+        <div className="grid grid-cols-2 md:flex items-center justify-center gap-3 md:gap-6 mt-4 px-2 w-full">
           {BMI_RANGES.map((range) => (
-            <div key={range.category} className="flex flex-col items-center">
+            <div 
+              key={range.category} 
+              className="flex items-center justify-center space-x-1.5 min-w-[80px]"
+            >
               <div 
-                className="w-3 h-3 rounded-full mb-1" 
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0" 
                 style={{ backgroundColor: range.color }}
               />
-              <span className="text-xs text-gray-600">{range.category}</span>
+              <span className="text-[10px] md:text-xs text-gray-600 whitespace-nowrap">
+                {range.category}
+              </span>
             </div>
           ))}
         </div>
@@ -142,10 +170,10 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className={`mt-6 p-4 rounded-lg text-center`}
+          className="mt-4 md:mt-6 p-3 md:p-4 rounded-lg text-center w-full"
           style={{ backgroundColor: `${category.color}20` }}
         >
-          <p className="text-sm" style={{ color: category.color }}>
+          <p className="text-xs md:text-sm" style={{ color: category.color }}>
             {category.category === 'Normal' 
               ? "Great job! You're maintaining a healthy BMI."
               : `Your BMI indicates you're in the ${category.category.toLowerCase()} range. 
