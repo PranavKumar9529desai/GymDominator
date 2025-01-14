@@ -70,10 +70,16 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
   }, []);
 
   const category = getBMICategory(bmi);
-  const data = BMI_RANGES.map(range => ({
-    value: range.max - range.min,
-    color: range.color
-  }));
+  const data = [
+    { value: 16, color: '#3B82F6' },      // Severe Thinness
+    { value: 1, color: '#60A5FA' },       // Moderate Thinness
+    { value: 1.5, color: '#93C5FD' },     // Mild Thinness
+    { value: 6.5, color: '#10B981' },     // Normal
+    { value: 5, color: '#F59E0B' },       // Overweight
+    { value: 5, color: '#FB7185' },       // Obese Class I
+    { value: 5, color: '#EF4444' },       // Obese Class II
+    { value: 5, color: '#B91C1C' },       // Obese Class III
+  ];
 
   const CustomLabel = () => (
     <g>
@@ -156,14 +162,21 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
           {BMI_RANGES.map((range) => (
             <div 
               key={range.category} 
-              className="flex items-center justify-center space-x-1.5 min-w-[80px]"
+              className="flex flex-col items-center justify-center space-y-1 min-w-[80px]"
             >
-              <div 
-                className="w-2.5 h-2.5 rounded-full flex-shrink-0" 
-                style={{ backgroundColor: range.color }}
-              />
-              <span className="text-[10px] md:text-xs text-gray-600 whitespace-nowrap">
-                {range.category}
+              <div className="flex items-center space-x-1.5">
+                <div 
+                  className="w-2.5 h-2.5 rounded-full flex-shrink-0" 
+                  style={{ backgroundColor: range.color }}
+                />
+                <span className="text-[10px] md:text-xs text-gray-600 whitespace-nowrap">
+                  {range.category}
+                </span>
+              </div>
+              <span className="text-[9px] md:text-[10px] text-gray-500">
+                {range.max === Infinity 
+                  ? `>${range.min}` 
+                  : `${range.min} - ${range.max}`}
               </span>
             </div>
           ))}
