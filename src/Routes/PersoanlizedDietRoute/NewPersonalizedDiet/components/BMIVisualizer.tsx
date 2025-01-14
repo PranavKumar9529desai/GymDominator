@@ -72,16 +72,16 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
             ))}
           </Pie>
           
-          {/* Updated needle component */}
+          {/* Updated needle component with corrected orientation */}
           <g transform={getNeedleRotation(bmi)}>
             <motion.path
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              d="M 198 200 L 200 140 L 202 200 Z"  // Made needle longer and thinner
+              d="M 198 200 L 200 260 L 202 200 Z"  // Changed Y from 140 to 260 to invert the direction
               fill={category.color}
             />
-            <circle cx={200} cy={200} r={6} fill={category.color} />  // Smaller pivot point
+            <circle cx={200} cy={200} r={6} fill={category.color} />
           </g>
 
           {/* BMI value and category */}
