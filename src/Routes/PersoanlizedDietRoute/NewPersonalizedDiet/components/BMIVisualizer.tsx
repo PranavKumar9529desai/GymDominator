@@ -29,7 +29,7 @@ const getNeedleRotation = (bmi: number) => {
   // Linear interpolation between angles based on BMI
   const angle = minAngle + (clampedBMI - minBMI) * (maxAngle - minAngle) / (maxBMI - minBMI);
   
-  return `rotate(${angle} 200 200)`;
+  return angle; // return only the numeric angle
 };
 
 const calculateLabelPosition = (bmiValue: number) => {
@@ -44,7 +44,7 @@ const calculateLabelPosition = (bmiValue: number) => {
   const radius = 160;
   const x = 200 + Math.cos(angleInRadians) * radius;
   const y = 200 - Math.sin(angleInRadians) * radius;
-  
+ 
   return { x, y };
 };
 
