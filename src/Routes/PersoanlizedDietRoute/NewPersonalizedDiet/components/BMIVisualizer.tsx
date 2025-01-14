@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, Sector } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 import { motion } from 'framer-motion';
 
 type BMIVisualizerProps = {
@@ -29,6 +29,22 @@ const getNeedleRotation = (bmi: number) => {
   const angle = minAngle + (clampedBMI - minBMI) * (maxAngle - minAngle) / (maxBMI - minBMI);
   
   return `rotate(${angle} 200 200)`;
+};
+
+const calculateLabelPosition = (bmiValue: number) => {
+  const minBMI = 15;
+  const maxBMI = 40;
+  
+  // Reverse the mapping: 15 should be at 180° (left) and 40 at 0° (right)
+  const angleInDegrees = 180 - (((bmiValue - minBMI) / (maxBMI - minBMI)) * 180);
+  const angleInRadians = angleInDegrees * (Math.PI / 180);
+  
+  // Calculate position on the semicircle
+  const radius = 160;
+  const x = 200 + Math.cos(angleInRadians) * radius;
+  const y = 200 - Math.sin(angleInRadians) * radius;
+  
+  return { x, y };
 };
 
 export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
@@ -89,16 +105,28 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
           {/* BMI value and category */}
           <CustomLabel />
 
-          {/* Updated BMI range labels with better positioning */}
-          <text x={80} y={220} textAnchor="middle" className="text-xs">15</text>
-          <text x={140} y={160} textAnchor="middle" className="text-xs">25</text>
-          <text x={260} y={160} textAnchor="middle" className="text-xs">35</text>
-          <text x={320} y={220} textAnchor="middle" className="text-xs">40</text>
+          {/* Updated BMI range labels with exact positioning */}
+          {[15, 20, 25, 30, 35, 40].map(value => {
+            const pos = calculateLabelPosition(value);
+            return (
+              <text 
+                key={value}
+                x={pos.x} 
+                y={pos.y} 
+                textAnchor="middle" 
+                dominantBaseline="middle"
+                className="text-xs"
+              >
+                {value}
+              </text>
+            );
+          })}
+
         </PieChart>
 
         {/* BMI Categories Legend */}
         <div className="flex justify-between mt-4 px-4">
-          {BMI_RANGES.map((range, index) => (
+          {BMI_RANGES.map((range) => (
             <div key={range.category} className="flex flex-col items-center">
               <div 
                 className="w-3 h-3 rounded-full mb-1" 
