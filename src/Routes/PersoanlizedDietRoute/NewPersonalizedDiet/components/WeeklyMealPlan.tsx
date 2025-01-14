@@ -1,16 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeftIcon, ChevronRightIcon, LockClosedIcon, ClockIcon } from '@heroicons/react/24/solid';
-import { MealPlan } from '../types/diet';
 
 interface Props {
   currentWeek: number;
-  mealPlan: MealPlan;
+  mealPlan: {
+    breakfast: string;
+    lunch: string;
+    dinner: string;
+    snacks: string;
+  };
   onWeekChange: (direction: 'prev' | 'next') => void;
   isLocked: boolean;
   totalWeeks: number;
 }
-
-const mealTimes = ['breakfast', 'lunch', 'dinner', 'snacks'] as const;
 
 const WeekNavigator = ({ 
   currentWeek, 
@@ -81,7 +83,37 @@ const MealCard = ({ time, meal }: { time: string; meal: string }) => (
   </motion.div>
 );
 
-export const WeeklyMealPlan = ({ currentWeek, mealPlan, onWeekChange, isLocked, totalWeeks }: Props) => {
+export const WeeklyMealPlan: React.FC<Props> = ({
+  currentWeek,
+  mealPlan,
+  onWeekChange,
+  isLocked,
+  totalWeeks,
+}) => {
+  if (!mealPlan) {
+    return (
+      <div className="bg-white rounded-xl shadow-sm p-6">
+        <div className="flex items-center justify-between mb-8">
+          <WeekNavigator
+            currentWeek={currentWeek}
+            totalWeeks={totalWeeks}
+            onWeekChange={onWeekChange}
+          />
+        </div>
+        <div className="text-center text-gray-600 py-8">
+          No meal plan available for your BMI category.
+        </div>
+      </div>
+    );
+  }
+
+  const mealTimes = [
+    { time: "breakfast", meal: mealPlan.breakfast },
+    { time: "lunch", meal: mealPlan.lunch },
+    { time: "snacks", meal: mealPlan.snacks },
+    { time: "dinner", meal: mealPlan.dinner },
+  ];
+
   return (
     <div className="bg-white rounded-xl shadow-sm p-6">
       <div className="flex items-center justify-between mb-8">
@@ -97,12 +129,12 @@ export const WeeklyMealPlan = ({ currentWeek, mealPlan, onWeekChange, isLocked, 
           <LockedWeek currentWeek={currentWeek} />
         ) : (
           <div className="space-y-6">
-            {mealTimes.map((time) => (
-              mealPlan[time] && (
+            {mealTimes.map(({ time, meal }) => (
+              meal && (
                 <MealCard
                   key={time}
                   time={time}
-                  meal={mealPlan[time]}
+                  meal={meal}
                 />
               )
             ))}

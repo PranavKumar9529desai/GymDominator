@@ -1,15 +1,15 @@
 export interface MealPlan {
   breakfast: string;
   lunch: string;
+  snacks: string;
   dinner: string;
-  snacks?: string;
 }
 
 export interface WeeklyPlan {
-  meal_1: MealPlan;
-  meal_2: MealPlan;
-  meal_3: MealPlan;
-  meal_4: MealPlan;
+  week_1: MealPlan;
+  week_2: MealPlan;
+  week_3: MealPlan;
+  week_4: MealPlan;
 }
 
 export interface DietCategories {

@@ -47,7 +47,7 @@ export default function NewPersonalizedDiet() {
   const bmi = healthData.weight / Math.pow(healthData.height / 100, 2);
   const category = getBMICategory(bmi);
   const dietPlan = (weeklyDietPlan as DietCategories).categories[category];
-  const mealKey = `meal_${currentWeek}` as keyof typeof dietPlan;
+  const mealKey = `week_${currentWeek}` as keyof typeof dietPlan;
   const currentMeal = dietPlan[mealKey];
 
   const calculateWeekLock = (week: number) => {
