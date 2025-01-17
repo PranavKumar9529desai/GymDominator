@@ -127,9 +127,9 @@ function App() {
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
           <Toaster richColors position="top-right" />
           <ErrorBoundary>
+            <UpdatePrompt />
             <Main />
             <InstallPrompt />
-            <UpdatePrompt /> {/* Add this */}
           </ErrorBoundary>
         </GoogleOAuthProvider>
       </BrowserRouter>
