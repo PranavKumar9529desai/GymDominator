@@ -64,7 +64,7 @@ function Main() {
           {/* Dashboard routes - No navbar */}
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<WorkoutRoute />} />
-            <Route path="workout/viewworkouts" element={<WorkoutRoute />} />
+            <Route path="workouts/viewworkouts" element={<WorkoutRoute />} />
             <Route path="workouts/:muscle" element={<SingleMusclesRoute />} />
             <Route
               path="workouts/:muscle/:workoutname"

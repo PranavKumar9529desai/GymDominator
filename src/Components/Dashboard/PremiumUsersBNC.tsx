@@ -11,7 +11,6 @@ import {
   DumbbellIcon,
 } from "lucide-react";
 
-
 export type Route = {
   name: string;
   path: string;
@@ -22,7 +21,7 @@ export type Route = {
 export const routes: Route[] = [
   {
     name: "Progress",
-    path: "/dashboard/progress",
+    path: "/dashboard/myprogress",
     icon: Activity,
     subRoutes: [
       {
@@ -39,7 +38,7 @@ export const routes: Route[] = [
     subRoutes: [
       {
         name: "View Workouts",
-        path: "/dashboard/workout/viewworkouts",
+        path: "/dashboard/workouts/viewworkouts",
         icon: DumbbellIcon,
       },
       {
