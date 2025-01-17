@@ -1,6 +1,6 @@
 {
   "name": "GymNavigator",
-  "short_name": "GymNav",
+  "short_name": "GymNav client",
   "description": "Your personal gym management assistant",
   "start_url": "/",
   "display": "standalone",
