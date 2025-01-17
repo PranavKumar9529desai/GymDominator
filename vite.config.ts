@@ -7,23 +7,27 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'autoUpdate', // This handles automatic updates
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'GymNavigator',
         short_name: 'GymNav',
         description: 'Your personal gym management assistant',
         theme_color: '#2563eb',
+        background_color: '#ffffff',
+        display: 'standalone',
         icons: [
           {
             src: '/icons/icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
             src: '/icons/icon-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any maskable' // This makes your 512x512 icon maskable
           }
         ]
       },

@@ -33,6 +33,7 @@ import ContactUs from "./Components/Home/pages/ContactUs";
 import Features from "./Components/Home/pages/Features";
 import HomeLayout from "./Layouts/HomeLayout";
 import { InstallPrompt } from "@components/PWA/InstallPrompt";
+import { UpdatePrompt } from "@components/PWA/UpdatePrompt";
 
 // Lazy load route components
 const OnboardingRoute = lazy(() => import("@routes/OnboardingRoute"));
@@ -128,6 +129,7 @@ function App() {
           <ErrorBoundary>
             <Main />
             <InstallPrompt />
+            <UpdatePrompt /> {/* Add this */}
           </ErrorBoundary>
         </GoogleOAuthProvider>
       </BrowserRouter>
