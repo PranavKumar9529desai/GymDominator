@@ -1,9 +1,5 @@
-
 import { Allworkouts } from "@components/Workout/allworkouts";
 
-export const WorkoutRoute = () => {
-  return (
-   <Allworkouts />
-
-  );
-};
+export default function WorkoutRoute() {
+  return <Allworkouts />;
+}

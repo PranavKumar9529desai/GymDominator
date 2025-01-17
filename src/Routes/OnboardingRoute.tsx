@@ -1,9 +1,9 @@
 import { Onbording } from "@components/Onboarding/Onboarding";
 
-export const OnboardingRoute = () => {
+export default function OnboardingRoute() {
   return (
     <div>
       <Onbording />
     </div>
   );
-};
+}
