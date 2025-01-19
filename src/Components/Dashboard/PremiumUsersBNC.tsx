@@ -123,7 +123,7 @@ export const BottomNavigation: React.FC = () => {
 
   return (
     <>
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-40">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-50">
         <div className="grid grid-cols-4 h-16">
           {routes.map((route) => (
             <button
@@ -142,7 +142,7 @@ export const BottomNavigation: React.FC = () => {
 
       {isDrawerVisible && (
         <div
-          className={`fixed inset-0  transition-opacity duration-300 ease-in-out z-50 ${
+          className={`fixed inset-0 transition-opacity duration-300 ease-in-out z-[60] ${
             isDrawerOpen ? "bg-opacity-50" : "bg-opacity-0 pointer-events-none"
           }`}
           onClick={() => setIsDrawerOpen(false)}

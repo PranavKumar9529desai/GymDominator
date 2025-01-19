@@ -1,32 +1,38 @@
 import { useState, useEffect } from 'react';
 import { GroceryList } from './components/GroceryList';
 import { GetStartDate } from './hooks/GetStartDate';
-import { useHealthProfile } from './hooks/useHealthProfile';
+import { GetHealthFormStatus } from './gethealthFormStatus';
 import NoHealthProfile from './components/NoHealthProfile';
 import BeforeDiet from './components/BeforeDiet';
+import type { HealthProfile } from './gethealthFormStatus';
 
 export default function GroceryListRoute() {
   const [currentWeek, setCurrentWeek] = useState(1);
-  const { healthData, loading: healthLoading } = useHealthProfile();
   const [startDate, setStartDate] = useState<Date | null>(null);
-  const [isLoadingDate, setIsLoadingDate] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [healthProfile, setHealthProfile] = useState<HealthProfile | null>(null);
 
   useEffect(() => {
     const initializeData = async () => {
-      if (healthData) {
-        try {
+      try {
+        // First check health profile status
+        const healthStatus = await GetHealthFormStatus();
+        setHealthProfile(healthStatus.healthProfile);
+
+        // Only fetch start date if we have a health profile
+        if (healthStatus.healthProfile) {
           const date = await GetStartDate();
           setStartDate(date);
-        } catch (error) {
-          console.error('Error fetching start date:', error);
-        } finally {
-          setIsLoadingDate(false);
         }
+      } catch (error) {
+        console.error('Error initializing data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     initializeData();
-  }, [healthData]);
+  }, []);
 
   useEffect(() => {
     if (startDate) {
@@ -37,7 +43,7 @@ export default function GroceryListRoute() {
     }
   }, [startDate]);
 
-  if (healthLoading || isLoadingDate) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600" />
@@ -45,14 +51,17 @@ export default function GroceryListRoute() {
     );
   }
 
-  if (!healthData) {
+  // Show NoHealthProfile if health profile is null
+  if (!healthProfile) {
     return <NoHealthProfile />;
   }
 
+  // Show BeforeDiet if we have health profile but no start date
   if (!startDate) {
     return <BeforeDiet />;
   }
 
+  // Show GroceryList if we have both health profile and start date
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <GroceryList week={currentWeek} onWeekChange={setCurrentWeek} />

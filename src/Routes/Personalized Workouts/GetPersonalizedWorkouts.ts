@@ -18,24 +18,22 @@ export interface WorkoutSchedule {
   exercises: Exercise[];
 }
 
-export interface WorkoutProgress {
-  completedWorkouts: number;
-  currentStreak: number;
-  bestStreak: number;
-  lastWorkoutDate: string | null;
-}
-
 export interface WorkoutPlan {
   id: number;
   name: string;
   description: string | null;
   schedules: WorkoutSchedule[];
-  progress: WorkoutProgress;
 }
 
-export const GetPersonalizedWorkout = async () => {
+interface WorkoutResponse {
+  success: boolean;
+  data?: WorkoutPlan;
+  message?: string;
+}
+
+export const GetPersonalizedWorkout = async (): Promise<WorkoutResponse> => {
   try {
-    const response = await axios.get(
+    const response = await axios.get<WorkoutResponse>(
       `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/protected/getpersonalizedworkout`,
       {
         headers: {
@@ -43,10 +41,17 @@ export const GetPersonalizedWorkout = async () => {
         }
       }
     );
-    console.log('Workout data received:', response.data);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message || 'Failed to fetch workout plan');
+    }
+    console.log("data is this",response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching workout plan:', error);
-    return { success: false, message: 'Failed to fetch workout plan' };
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'Failed to fetch workout plan'
+    };
   }
 };

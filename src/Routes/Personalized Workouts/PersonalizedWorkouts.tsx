@@ -1,141 +1,57 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Flame, Dumbbell, Check, Timer } from "lucide-react";
-import { ScrollArea } from "@components/ui/scroll-area";
-import { Progress } from "@components/ui/progress";
 import { GetPersonalizedWorkout } from "./GetPersonalizedWorkouts";
-import type { Exercise } from "./GetPersonalizedWorkouts";
-import { toast } from "sonner";
-import { CompletedTodaysWorkout } from "./CompletedTodaysWorkout";
-import {
-  checkWorkoutCompletion,
-  markWorkoutCompleted,
-} from "./IsCompletedTodaysWorkouts";
+import { motion } from "framer-motion";
+import { Clock, Flame, ChevronRight, Dumbbell } from "lucide-react";
+import { Card } from "@components/ui/card";
+import type { WorkoutSchedule } from "./GetPersonalizedWorkouts";
 
-interface WorkoutSession {
-  id: number;
-  title: string;
-  description: string;
-  duration: string;
-  caloriesBurned: number;
-  exercises: Exercise[];
-  progress: number;
-  currentExerciseIndex: number;
-  streak: number;
-  totalCompleted: number;
-}
+const getDayOfWeek = () => {
+  return new Date().toLocaleDateString('en-US', { 
+    weekday: 'long' 
+  });
+};
 
 export default function PersonalizedWorkouts() {
-  const [session, setSession] = useState<WorkoutSession | null>(null);
+  const [todayWorkout, setTodayWorkout] = useState<WorkoutSchedule | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeExercise, setActiveExercise] = useState<number>(0);
-  const [isWorkoutStarted, setIsWorkoutStarted] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [workoutStats, setWorkoutStats] = useState({
-    streak: 0,
-    totalCompleted: 0,
-  });
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTodayWorkout = async () => {
+    const fetchWorkout = async () => {
       try {
         const response = await GetPersonalizedWorkout();
         if (response.success && response.data) {
-          const today = new Date().toLocaleDateString("en-US", {
-            weekday: "long",
-          });
-          const todaySchedule = response.data.schedules.find(
-            (s: { dayOfWeek: string }) => s.dayOfWeek === today
+          const schedules = response.data.schedules;
+          const today = getDayOfWeek();
+          const todaySchedule = schedules.find(
+            schedule => schedule.dayOfWeek.toLowerCase() === today.toLowerCase()
           );
-
+          
           if (todaySchedule) {
-            // Ensure exercises are sorted by order
-            const sortedExercises = [...todaySchedule.exercises].sort(
-              (a, b) => a.order - b.order
-            );
-
-            setSession({
-              id: todaySchedule.id,
-              title: `${todaySchedule.muscleTarget} Training`,
-              description: `Today's ${todaySchedule.muscleTarget.toLowerCase()} workout`,
-              duration: `${todaySchedule.duration} minutes`,
-              caloriesBurned: todaySchedule.calories,
-              exercises: sortedExercises, // Use sorted exercises
-              progress: 0,
-              currentExerciseIndex: 0,
-              streak: response.data.progress.currentStreak,
-              totalCompleted: response.data.progress.completedWorkouts,
-            });
-
-            setWorkoutStats({
-              streak: response.data.progress.currentStreak,
-              totalCompleted: response.data.progress.completedWorkouts,
-            });
+            setTodayWorkout(todaySchedule);
           } else {
-            toast.info("It's your rest day! Take time to recover.");
+            setError("No workout scheduled for today");
           }
+        } else {
+          setError(response.message || "Failed to load workout");
         }
       } catch (err) {
-        toast.error("Failed to load your workout");
-        console.error(err);
+        console.error("Error fetching workout:", err);
+        setError("Error loading workout data");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchTodayWorkout();
+    fetchWorkout();
   }, []);
-
-  useEffect(() => {
-    const checkCompletion = async () => {
-      const isCompleted = await checkWorkoutCompletion();
-      setIsCompleted(isCompleted);
-      setIsLoading(false);
-    };
-
-    checkCompletion();
-  }, []);
-
-  const handleStartWorkout = () => {
-    setIsWorkoutStarted(true);
-    toast.success("Workout started! Let's crush it! 💪");
-  };
-
-  const handleExerciseComplete = async (index: number) => {
-    if (!session) return;
-
-    const totalExercises = session.exercises.length;
-    const isLastExercise = index === totalExercises - 1;
-    const newProgress = ((index + 1) / totalExercises) * 100;
-
-    setSession((prev) => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        progress: newProgress,
-        currentExerciseIndex: index + 1,
-      };
-    });
-
-    if (isLastExercise) {
-      await markWorkoutCompleted();
-      setIsCompleted(true);
-      setActiveExercise(index + 1);
-      toast.success("Congratulations! Workout completed! 🎉");
-    } else {
-      setActiveExercise(index + 1);
-      toast.success(
-        `Exercise ${index + 1} of ${totalExercises} completed! Keep going! 🔥`
-      );
-    }
-  };
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         >
           <Dumbbell className="w-12 h-12 text-blue-500" />
         </motion.div>
@@ -143,164 +59,139 @@ export default function PersonalizedWorkouts() {
     );
   }
 
-  if (!session) {
+  if (error || !todayWorkout || !todayWorkout.exercises || todayWorkout.exercises.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="text-center space-y-4">
-          <h2 className="text-2xl font-bold text-gray-800">Rest Day</h2>
-          <p className="text-gray-600">
-            Take time to recover and prepare for your next session
-          </p>
-        </div>
+        <Card className="p-8 text-center max-w-md">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
+            <div className="flex justify-center">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                <Dumbbell className="w-16 h-16 text-blue-400 opacity-80" />
+              </motion.div>
+            </div>
+            
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-3">Rest & Recovery Day</h2>
+              <p className="text-gray-600 mb-6">
+                Today is your body's time to rebuild and grow stronger. Rest days are an essential part of your fitness journey.
+              </p>
+            </div>
+
+            <div className="bg-blue-50/80 rounded-lg p-5">
+              <h3 className="font-semibold text-blue-800 mb-4">Recovery Essentials:</h3>
+              <div className="grid gap-3 text-left">
+                <div className="flex items-start space-x-3">
+                  <Clock className="w-5 h-5 text-blue-500 mt-0.5" />
+                  <span className="text-sm text-gray-600">8 hours of quality sleep for optimal recovery</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <Flame className="w-5 h-5 text-blue-500 mt-0.5" />
+                  <span className="text-sm text-gray-600">Stay hydrated and maintain good nutrition</span>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <motion.div 
+                    animate={{ rotateY: 180 }}
+                    transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                  >
+                    <Dumbbell className="w-5 h-5 text-blue-500 mt-0.5" />
+                  </motion.div>
+                  <span className="text-sm text-gray-600">Light stretching or gentle mobility work</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-sm text-gray-500 bg-gray-50 p-4 rounded-lg">
+              <p className="italic">
+                "Recovery is not a break from training – it's an essential part of training."
+              </p>
+            </div>
+          </motion.div>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-6 pb-24 overflow-y-auto relative">
+      <div className="max-w-2xl mx-auto space-y-6">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center space-y-2"
+          className="text-center"
         >
-          <h1 className="text-3xl font-bold text-gray-900">{session.title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            {todayWorkout.muscleTarget} Day
+          </h1>
           <p className="text-gray-600">
-            {new Date().toLocaleDateString("en-US", {
-              weekday: "long",
-              month: "long",
-              day: "numeric",
+            {new Date().toLocaleDateString('en-US', { 
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric'
             })}
           </p>
-          <div className="flex items-center justify-center gap-6 text-sm">
-            <div className="flex items-center text-blue-600">
-              <Clock className="h-4 w-4 mr-1" />
-              <span>{session.duration}</span>
-            </div>
-            <div className="flex items-center text-orange-600">
-              <Flame className="h-4 w-4 mr-1" />
-              <span>{session.caloriesBurned} kcal</span>
-            </div>
-          </div>
         </motion.div>
 
-        {session && (
-          <div className="mb-6 grid grid-cols-2 gap-4">
-            <div className="bg-white rounded-xl p-4 shadow-sm">
-              <h3 className="font-semibold text-gray-700">Current Streak</h3>
-              <p className="text-2xl text-blue-600">
-                {workoutStats.streak} days
-              </p>
+        <Card className="p-4 bg-white/80 backdrop-blur">
+          <div className="flex justify-around p-4 border-b">
+            <div className="flex items-center space-x-2">
+              <Clock className="w-5 h-5 text-blue-500" />
+              <span className="text-sm">{todayWorkout.duration} mins</span>
             </div>
-            <div className="bg-white rounded-xl p-4 shadow-sm">
-              <h3 className="font-semibold text-gray-700">
-                Workouts Completed
-              </h3>
-              <p className="text-2xl text-green-600">
-                {workoutStats.totalCompleted}
-              </p>
+            <div className="flex items-center space-x-2">
+              <Flame className="w-5 h-5 text-orange-500" />
+              <span className="text-sm">{todayWorkout.calories} kcal</span>
             </div>
           </div>
-        )}
 
-        {isCompleted ? (
-          <CompletedTodaysWorkout
-            duration={session.duration}
-            caloriesBurned={session.caloriesBurned}
-            exercisesCompleted={session.exercises.length}
-          />
-        ) : (
-          <>
-            {!isWorkoutStarted ? (
+          <div className="divide-y">
+            {todayWorkout.exercises.map((exercise, index) => (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex justify-center"
+                key={exercise.id}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="p-4 hover:bg-gray-50 transition-colors rounded-lg"
               >
-                <button
-                  onClick={handleStartWorkout}
-                  className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold
-                    hover:bg-blue-700 transform transition hover:scale-105"
-                >
-                  Start Workout
-                </button>
-              </motion.div>
-            ) : (
-              <>
-                <div className="bg-white rounded-xl p-4 shadow-sm">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-semibold text-gray-700">Progress</h3>
-                    <span className="text-sm text-gray-500">
-                      {session.currentExerciseIndex}/{session.exercises.length}{" "}
-                      exercises
-                    </span>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-gray-900">
+                      {exercise.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {exercise.sets} sets × {exercise.reps} reps
+                    </p>
                   </div>
-                  <Progress value={session.progress} className="h-2" />
+                  <ChevronRight className="w-5 h-5 text-gray-400" />
                 </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  {exercise.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </Card>
 
-                <ScrollArea className="h-[calc(100vh-300px)]">
-                  <AnimatePresence mode="wait">
-                    {session.exercises.map((exercise, index) => (
-                      <motion.div
-                        key={exercise.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        className={`bg-white rounded-xl border border-gray-200 overflow-hidden 
-                          hover:shadow-md transition-all mb-4 ${
-                            index === activeExercise
-                              ? "ring-2 ring-blue-500"
-                              : ""
-                          }`}
-                      >
-                        <div className="p-4">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2">
-                                <span className="text-lg font-semibold text-gray-900">
-                                  {exercise.name}
-                                </span>
-                                {index < session.currentExerciseIndex && (
-                                  <Check className="h-5 w-5 text-green-500" />
-                                )}
-                              </div>
-                              <p className="text-sm text-gray-600 mt-1">
-                                {exercise.sets} sets × {exercise.reps}
-                              </p>
-                              <p className="text-xs text-gray-500 mt-2">
-                                {exercise.description}
-                              </p>
-
-                              <div className="mt-4 flex items-center gap-2">
-                                <Timer className="h-4 w-4 text-gray-400" />
-                                <span className="text-sm text-gray-500">
-                                  Estimated time: {exercise.sets * 2} mins
-                                </span>
-                              </div>
-                            </div>
-
-                            {index === activeExercise && (
-                              <button
-                                onClick={() => {
-                                  handleExerciseComplete(index);
-                                  setActiveExercise(index + 1);
-                                }}
-                                className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm
-                                  hover:bg-green-600 transition-colors"
-                              >
-                                Complete
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </ScrollArea>
-              </>
-            )}
-          </>
-        )}
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full py-4 bg-blue-600 text-white rounded-xl font-semibold
+            shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
+        >
+          Start Workout
+        </motion.button>
       </div>
     </div>
   );
