@@ -1,10 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar2 } from "@components/SideBar/Sidebar2";
 import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
+import { Navbar3 } from "@components/Navbar/Navbar3";
 
 export default function DashboardLayout() {
   return (
     <div className="h-screen w-full">
+      {/* Mobile Navbar */}
+      <div className="lg:hidden">
+        <Navbar3 />
+      </div>
+
       <div className="flex h-full">
         {/* Sidebar - fixed width */}
         <div className="hidden lg:block w-64 flex-shrink-0">
@@ -17,7 +23,7 @@ export default function DashboardLayout() {
         </div>
 
         {/* Main Content - takes remaining width */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto pt-16 lg:pt-0">
           <Outlet />
         </div>
       </div>

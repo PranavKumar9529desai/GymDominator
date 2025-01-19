@@ -34,6 +34,9 @@ import Features from "./Components/Home/pages/Features";
 import HomeLayout from "./Layouts/HomeLayout";
 import { InstallPrompt } from "@components/PWA/InstallPrompt";
 import { UpdatePrompt } from "@components/PWA/UpdatePrompt";
+import GymInfo from './Routes/Navbar/My Gym/GymInfo';
+import AboutTrainerRoute from './Routes/Navbar/About Triainer/AboutTrainerRoute';
+import HealthProfile from './Routes/Navbar/Healthprofile/Healthprofile';
 
 // Lazy load route components
 const OnboardingRoute = lazy(() => import("@routes/OnboardingRoute"));
@@ -61,7 +64,7 @@ function Main() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/welcome" element={<Welcome />} />
 
-          {/* Dashboard routes - No navbar */}
+          {/* Dashboard routes - With navbar */}
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<WorkoutRoute />} />
             <Route path="workouts/viewworkouts" element={<WorkoutRoute />} />
@@ -90,6 +93,11 @@ function Main() {
             />
             <Route path="attendance/success" element={<AttendanceSuccess />} />
             <Route path="attendance/failure" element={<AttendanceFailure />} />
+            
+            {/* Added these routes under dashboard */}
+            <Route path="gym" element={<GymInfo />} />
+            <Route path="trainer" element={<AboutTrainerRoute />} />
+            <Route path="health-profile" element={<HealthProfile />} />
           </Route>
 
           {/* Other routes - No navbar */}

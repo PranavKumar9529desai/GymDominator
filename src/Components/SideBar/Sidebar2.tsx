@@ -13,6 +13,7 @@ export const Sidebar2 = () => {
   const UserDetails = useRecoilValue(UserDetailsAtom);
   const [activeRoute, setActiveRoute] = useState("");
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -105,11 +106,14 @@ export const Sidebar2 = () => {
 
       {/* User Profile & Logout Section */}
       <div className="p-4 border-t border-gray-800">
-        <div className="mb-4 p-3 bg-gray-800/50 rounded-lg flex items-center">
+        <button 
+          onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+          className="mb-4 p-3 bg-gray-800/50 rounded-lg flex items-center w-full hover:bg-gray-700/50 transition-colors duration-200"
+        >
           <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mr-3">
             <User className="w-5 h-5 text-gray-300" />
           </div>
-          <div>
+          <div className="flex-grow text-left">
             {isloading ? (
               <>
                 <p className="font-medium text-white">{UserDetails.name}</p>
@@ -122,7 +126,33 @@ export const Sidebar2 = () => {
               </>
             )}
           </div>
-        </div>
+          {profileDropdownOpen ? (
+            <ChevronDown className="w-5 h-5 ml-2" />
+          ) : (
+            <ChevronRight className="w-5 h-5 ml-2" />
+          )}
+        </button>
+
+        {/* Profile Dropdown Menu */}
+        {profileDropdownOpen && (
+          <><div className="mb-4 ml-4 space-y-2"></div><button
+            onClick={() => navigate('/dashboard/health-profile')}
+            className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+          >
+            <span>Health Profile</span>
+          </button><button
+            onClick={() => navigate('/dashboard/gym')}
+            className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+          >
+              <span>My Gym</span>
+            </button><button
+              onClick={() => navigate('/dashboard/trainer')}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            >
+              <span>About Trainer</span>
+            </button></>
+        )}
+
         <button 
           onClick={() => coustomLogoutAlert(navigate)}
           className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
