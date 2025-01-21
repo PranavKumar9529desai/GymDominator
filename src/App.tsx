@@ -37,6 +37,7 @@ import { UpdatePrompt } from "@components/PWA/UpdatePrompt";
 import GymInfo from './Routes/Navbar/My Gym/GymInfo';
 import AboutTrainerRoute from './Routes/Navbar/About Triainer/AboutTrainerRoute';
 import HealthProfile from './Routes/Navbar/Healthprofile/Healthprofile';
+import { Wallet } from './Routes/Wallet/Wallet';
 
 // Lazy load route components
 const OnboardingRoute = lazy(() => import("@routes/OnboardingRoute"));
@@ -98,6 +99,7 @@ function Main() {
             <Route path="gym" element={<GymInfo />} />
             <Route path="trainer" element={<AboutTrainerRoute />} />
             <Route path="health-profile" element={<HealthProfile />} />
+            <Route path="wallet" element={<Wallet />} />
           </Route>
 
           {/* Other routes - No navbar */}

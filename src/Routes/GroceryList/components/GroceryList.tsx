@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useHealthProfile } from '../hooks/useHealthProfile';
-import weekwiseIngredients from '../weekwiseingredients.json';
-import { WeekwiseIngredients, WeeklyIngredients } from '../types/ingredients';
+import { useState, useEffect } from "react";
+import { useHealthProfile } from "../hooks/useHealthProfile";
+import weekwiseIngredients from "../weekwiseingredients.json";
+import { WeekwiseIngredients, WeeklyIngredients } from "../types/ingredients";
 
-const healthToDietCategory: Record<string, keyof WeekwiseIngredients['categories']> = {
-  underweight: 'underweight',
-  normal_weight: 'normal_weight',
-  overweight: 'overweight',
-  obesity_class_1: 'obesity_class_1'
+const healthToDietCategory: Record<
+  string,
+  keyof WeekwiseIngredients["categories"]
+> = {
+  underweight: "underweight",
+  normal_weight: "normal_weight",
+  overweight: "overweight",
+  obesity_class_1: "obesity_class_1",
 };
 
 interface GroceryItem {
-  id: string;  // Add this new property
+  id: string; // Add this new property
   name: string;
   category: string;
   quantity: string;
@@ -23,7 +26,8 @@ interface Props {
   onWeekChange?: (newWeek: number) => void; // Make this prop optional
 }
 
-export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provide default empty function
+export function GroceryList({ week, onWeekChange = () => {} }: Props) {
+  // Provide default empty function
   const [groceries, setGroceries] = useState<GroceryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const { category, loading: healthLoading } = useHealthProfile();
@@ -31,21 +35,26 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
   useEffect(() => {
     const fetchGroceryList = async () => {
       if (!category) return;
-      
+
       try {
         const dietCategory = healthToDietCategory[category];
         if (!dietCategory) {
           throw new Error(`Invalid category: ${category}`);
         }
 
-        const typedIngredients = weekwiseIngredients as unknown as WeekwiseIngredients;
+        const typedIngredients =
+          weekwiseIngredients as unknown as WeekwiseIngredients;
         const categoryIngredients = typedIngredients.categories[dietCategory];
-        const weeklyIngredients = categoryIngredients[`week_${week}` as keyof typeof categoryIngredients] as WeeklyIngredients;
-        
+        const weeklyIngredients = categoryIngredients[
+          `week_${week}` as keyof typeof categoryIngredients
+        ] as WeeklyIngredients;
+
         const items: GroceryItem[] = [];
-        
-        (Object.keys(weeklyIngredients) as Array<keyof WeeklyIngredients>).forEach((categoryKey) => {
-          if (categoryKey !== 'quantities') {
+
+        (
+          Object.keys(weeklyIngredients) as Array<keyof WeeklyIngredients>
+        ).forEach((categoryKey) => {
+          if (categoryKey !== "quantities") {
             const ingredientList = weeklyIngredients[categoryKey];
             if (Array.isArray(ingredientList)) {
               ingredientList.forEach((name: string) => {
@@ -53,8 +62,8 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
                   id: `${categoryKey}-${name}`,
                   name,
                   category: categoryKey as string,
-                  quantity: weeklyIngredients.quantities[name] || 'As needed',
-                  checked: false
+                  quantity: weeklyIngredients.quantities[name] || "As needed",
+                  checked: false,
                 });
               });
             }
@@ -72,18 +81,21 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
     fetchGroceryList();
   }, [week, category]);
 
-  const toggleItem = (id: string) => {  // Change parameter to id
-    setGroceries(prev => 
-      prev.map(item => 
+  const toggleItem = (id: string) => {
+    // Change parameter to id
+    setGroceries((prev) =>
+      prev.map((item) =>
         item.id === id ? { ...item, checked: !item.checked } : item
       )
     );
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 overflow-y-auto ">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Weekly Grocery List</h2>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+          Weekly Grocery List
+        </h2>
         <div className="flex items-center justify-center mt-4 space-x-4">
           <button
             onClick={() => week > 1 && onWeekChange(week - 1)}
@@ -91,13 +103,26 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
             className="inline-flex items-center p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Previous week"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
-          
+
           <div className="flex items-baseline">
-            <span className="text-3xl font-bold text-indigo-600">Week {week}</span>
+            <span className="text-3xl font-bold text-indigo-600">
+              Week {week}
+            </span>
             <span className="ml-2 text-gray-500">of 4</span>
           </div>
 
@@ -107,8 +132,19 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
             className="inline-flex items-center p-2 rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Next week"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
@@ -128,21 +164,30 @@ export function GroceryList({ week, onWeekChange = () => {} }: Props) { // Provi
               return acc;
             }, {} as Record<string, GroceryItem[]>)
           ).map(([category, items]) => (
-            <div key={category} className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <h3 className="text-lg font-semibold p-4 bg-gray-50 border-b">{category}</h3>
+            <div
+              key={category}
+              className="bg-white rounded-lg shadow-sm overflow-hidden"
+            >
+              <h3 className="text-lg font-semibold p-4 bg-gray-50 border-b">
+                {category}
+              </h3>
               <div className="divide-y divide-gray-200">
                 {items.map((item) => (
                   <div
-                    key={item.id}  // Change key to use id
+                    key={item.id} // Change key to use id
                     className="flex items-center p-4 border-b last:border-b-0"
                   >
                     <input
                       type="checkbox"
                       checked={item.checked}
-                      onChange={() => toggleItem(item.id)}  // Change to pass item.id
+                      onChange={() => toggleItem(item.id)} // Change to pass item.id
                       className="h-5 w-5 text-indigo-600 rounded"
                     />
-                    <span className={`ml-3 flex-1 ${item.checked ? 'line-through text-gray-400' : ''}`}>
+                    <span
+                      className={`ml-3 flex-1 ${
+                        item.checked ? "line-through text-gray-400" : ""
+                      }`}
+                    >
                       {item.name}
                     </span>
                     <span className="text-gray-500">{item.quantity}</span>

@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import { GroceryList } from './components/GroceryList';
-import { GetStartDate } from './hooks/GetStartDate';
-import { GetHealthFormStatus } from './gethealthFormStatus';
-import NoHealthProfile from './components/NoHealthProfile';
-import BeforeDiet from './components/BeforeDiet';
-import type { HealthProfile } from './gethealthFormStatus';
+import { useState, useEffect } from "react";
+import { GroceryList } from "./components/GroceryList";
+import { GetStartDate } from "./hooks/GetStartDate";
+import { GetHealthFormStatus } from "./gethealthFormStatus";
+import NoHealthProfile from "./components/NoHealthProfile";
+import BeforeDiet from "./components/BeforeDiet";
+import type { HealthProfile } from "./gethealthFormStatus";
 
 export default function GroceryListRoute() {
   const [currentWeek, setCurrentWeek] = useState(1);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [healthProfile, setHealthProfile] = useState<HealthProfile | null>(null);
+  const [healthProfile, setHealthProfile] = useState<HealthProfile | null>(
+    null
+  );
 
   useEffect(() => {
     const initializeData = async () => {
@@ -25,7 +27,7 @@ export default function GroceryListRoute() {
           setStartDate(date);
         }
       } catch (error) {
-        console.error('Error initializing data:', error);
+        console.error("Error initializing data:", error);
       } finally {
         setIsLoading(false);
       }
@@ -63,7 +65,7 @@ export default function GroceryListRoute() {
 
   // Show GroceryList if we have both health profile and start date
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-20 lg:py-4">
       <GroceryList week={currentWeek} onWeekChange={setCurrentWeek} />
     </div>
   );

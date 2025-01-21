@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiUser, FiHeart } from "react-icons/fi";
+import { FiMenu, FiX, FiUser, FiHeart, FiCreditCard } from "react-icons/fi"; // Add this import
 import { GiGymBag } from "react-icons/gi"; // New gym icon
 
 const optimizedLogo = new Image();
@@ -30,6 +30,11 @@ export const Navbar3 = () => {
       name: "Health Profile",
       path: "/dashboard/health-profile",
       icon: <FiHeart className="w-5 h-5" />,
+    },
+    {
+      name: "Wallet",
+      path: "/dashboard/wallet",
+      icon: <FiCreditCard className="w-5 h-5" />,
     },
   ];
 

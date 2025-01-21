@@ -65,15 +65,34 @@ export default function AboutTrainerComponent() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Your Trainer</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-2 text-center">Your Trainer</h1>
       <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
         <div className="flex flex-col md:flex-row items-center mb-8">
           <div className="mb-4 md:mb-0 md:mr-8">
-            <img 
-              src={trainerInfo.image} 
-              alt={trainerInfo.name}
-              className="w-32 h-32 rounded-full object-cover border-4 border-blue-100 hover:border-blue-200 transition-colors duration-300 shadow-lg"
-            />
+            {trainerInfo.image ? (
+              <img 
+                src={trainerInfo.image} 
+                alt={trainerInfo.name}
+                className="w-32 h-32 rounded-full object-cover border-4 border-blue-100 hover:border-blue-200 transition-colors duration-300 shadow-lg"
+              />
+            ) : (
+              <div className="w-32 h-32 rounded-full bg-blue-100 flex items-center justify-center border-4 border-blue-100 hover:border-blue-200 transition-colors duration-300 shadow-lg">
+                <svg 
+                  className="w-20 h-20 text-blue-500" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={1.5} 
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
+                  />
+                </svg>
+              </div>
+            )}
           </div>
           <div className="text-center md:text-left">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">{trainerInfo.name}</h2>

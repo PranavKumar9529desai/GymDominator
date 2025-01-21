@@ -7,13 +7,13 @@ import { coustomLogoutAlert } from "@components/customAlerts";
 import { ChevronRight, ChevronDown, User, LogOut } from "lucide-react";
 import { routes } from "@components/Dashboard/PremiumUsersBNC";
 import { Route } from "@components/Dashboard/PremiumUsersBNC";
-
+import { FiHeart, FiUser, FiCreditCard } from "react-icons/fi";
+import { GiGymBag } from "react-icons/gi";
 export const Sidebar2 = () => {
   const { isloading, userdata } = FetchUserData();
   const UserDetails = useRecoilValue(UserDetailsAtom);
   const [activeRoute, setActiveRoute] = useState("");
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -72,13 +72,12 @@ export const Sidebar2 = () => {
               >
                 <item.icon className="w-5 h-5 mr-3" />
                 <span>{item.name}</span>
-                {item.subRoutes && (
-                  expandedItems.includes(item.name) ? (
+                {item.subRoutes &&
+                  (expandedItems.includes(item.name) ? (
                     <ChevronDown className="w-5 h-5 ml-auto" />
                   ) : (
                     <ChevronRight className="w-5 h-5 ml-auto" />
-                  )
-                )}
+                  ))}
               </button>
               {item.subRoutes && expandedItems.includes(item.name) && (
                 <ul className="ml-6 mt-2 space-y-2">
@@ -105,11 +104,54 @@ export const Sidebar2 = () => {
       </nav>
 
       {/* User Profile & Logout Section */}
-      <div className="p-4 border-t border-gray-800">
-        <button 
-          onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-          className="mb-4 p-3 bg-gray-800/50 rounded-lg flex items-center w-full hover:bg-gray-700/50 transition-colors duration-200"
-        >
+      <div className="p-4 border-t border-gray-800 relative group">
+        {/* Profile Dropdown Menu - Shows on hover */}
+        <div className="absolute bottom-full left-0 w-full p-4 bg-slate-900 rounded-t-lg border-t border-x border-gray-800 shadow-lg 
+          opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 
+          group-hover:translate-y-0">
+          <div className="space-y-2">
+            <button
+              onClick={() => navigate("/dashboard/health-profile")}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            >
+              <FiHeart className="w-5 h-5 mr-3" />
+              <span>Health Profile</span>
+            </button>
+            <button
+              onClick={() => navigate("/dashboard/gym")}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            >
+              <GiGymBag className="w-5 h-5 mr-3" />
+              <span>My Gym</span>
+            </button>
+            <button
+              onClick={() => navigate("/dashboard/trainer")}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            >
+              <FiUser className="w-5 h-5 mr-3" />
+              <span>About Trainer</span>
+            </button>
+            <button
+              onClick={() => navigate("/dashboard/wallet")}
+              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+            >
+              <FiCreditCard className="w-5 h-5 mr-3" />
+              <span>Wallet</span>
+            </button>
+            <div className="pt-2 border-t border-gray-800">
+              <button
+                onClick={() => coustomLogoutAlert(navigate)}
+                className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
+              >
+                <LogOut className="w-5 h-5 mr-3" />
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Profile Button */}
+        <div className="p-3 bg-gray-800/50 rounded-lg flex items-center w-full hover:bg-gray-700/50 transition-colors duration-200">
           <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center mr-3">
             <User className="w-5 h-5 text-gray-300" />
           </div>
@@ -121,45 +163,15 @@ export const Sidebar2 = () => {
               </>
             ) : (
               <>
-                <p className="font-medium text-white">{userdata?.name ?? 'Guest'}</p>
+                <p className="font-medium text-white">
+                  {userdata?.name ?? "Guest"}
+                </p>
                 <p className="text-sm text-gray-400">GymNavigator</p>
               </>
             )}
           </div>
-          {profileDropdownOpen ? (
-            <ChevronDown className="w-5 h-5 ml-2" />
-          ) : (
-            <ChevronRight className="w-5 h-5 ml-2" />
-          )}
-        </button>
-
-        {/* Profile Dropdown Menu */}
-        {profileDropdownOpen && (
-          <><div className="mb-4 ml-4 space-y-2"></div><button
-            onClick={() => navigate('/dashboard/health-profile')}
-            className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
-          >
-            <span>Health Profile</span>
-          </button><button
-            onClick={() => navigate('/dashboard/gym')}
-            className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
-          >
-              <span>My Gym</span>
-            </button><button
-              onClick={() => navigate('/dashboard/trainer')}
-              className="flex items-center w-full px-4 py-2 text-gray-300 hover:bg-gray-800 rounded-lg transition-colors duration-200"
-            >
-              <span>About Trainer</span>
-            </button></>
-        )}
-
-        <button 
-          onClick={() => coustomLogoutAlert(navigate)}
-          className="flex items-center w-full px-4 py-2 text-red-400 hover:bg-gray-800 rounded-lg transition-colors duration-200"
-        >
-          <LogOut className="w-5 h-5 mr-3" />
-          <span>Logout</span>
-        </button>
+          <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:rotate-180" />
+        </div>
       </div>
     </div>
   );

@@ -178,7 +178,7 @@ export default function ProfessionalMonthlyProgress() {
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen pb-20 ">
       <Card className="w-full max-w-4xl mx-auto bg-white/80 dark:bg-gray-900/80 shadow-2xl backdrop-blur-x bordler-t border-white/60 dark:border-gray-800/60">
         <CardHeader className="flex flex-col items-center space-y-4 pb-6">
           <div className="w-full lg:w-full justify-center flex items-center space-x-8 py-8 pt-2">
@@ -277,7 +277,13 @@ export default function ProfessionalMonthlyProgress() {
               {/* Progress circle with gradient */}
               <svg className="w-full h-full transform -rotate-90">
                 <defs>
-                  <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <linearGradient
+                    id="progress-gradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
                     <stop offset="0%" stopColor="#4ade80" />
                     <stop offset="100%" stopColor="#22c55e" />
                   </linearGradient>

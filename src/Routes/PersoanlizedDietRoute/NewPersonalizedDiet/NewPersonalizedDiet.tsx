@@ -45,6 +45,7 @@ export default function NewPersonalizedDiet() {
   if (loading || !healthData) return <>Loading</>;
 
   const bmi = healthData.weight / Math.pow(healthData.height / 100, 2);
+  // const bmi = 28;
   const category = getBMICategory(bmi);
   const dietPlan = (weeklyDietPlan as DietCategories).categories[category];
   const mealKey = `week_${currentWeek}` as keyof typeof dietPlan;
