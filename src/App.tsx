@@ -32,7 +32,7 @@ import Pricing from "./Components/Home/pages/Pricing";
 import ContactUs from "./Components/Home/pages/ContactUs";
 import Features from "./Components/Home/pages/Features";
 import HomeLayout from "./Layouts/HomeLayout";
-import { InstallPrompt } from "@components/PWA/InstallPrompt";
+import { InstallPrompt } from "@components/PWA/InstallPrompt";`x`
 import { UpdatePrompt } from "@components/PWA/UpdatePrompt";
 import GymInfo from './Routes/Navbar/My Gym/GymInfo';
 import AboutTrainerRoute from './Routes/Navbar/About Triainer/AboutTrainerRoute';

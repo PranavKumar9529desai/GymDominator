@@ -65,7 +65,7 @@ export default function GroceryListRoute() {
 
   // Show GroceryList if we have both health profile and start date
   return (
-    <div className="max-w-7xl mx-auto px-4 py-20 lg:py-4">
+    <div className="max-w-7xl mx-auto px-4 py-4">
       <GroceryList week={currentWeek} onWeekChange={setCurrentWeek} />
     </div>
   );

@@ -67,7 +67,7 @@ export default function NewPersonalizedDiet() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 ">
       <div className="flex flex-col space-y-8">
         {/* Health Summary - Always at top */}
         <div className="order-1">

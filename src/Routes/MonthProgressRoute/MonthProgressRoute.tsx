@@ -2,7 +2,7 @@ import MonthlyProgress from "@routes/MonthProgressRoute/NewMonthlyProgressCompon
 
 export default function MonthProgressRoute() {
   return (
-    <div className="h-screen flex lg:items-center justify-center">
+    <div className="h-screen lg:py-10">
       <MonthlyProgress />
     </div>
   );

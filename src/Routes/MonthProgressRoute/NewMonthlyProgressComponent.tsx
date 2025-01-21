@@ -179,7 +179,7 @@ export default function ProfessionalMonthlyProgress() {
 
   return (
     <div className="min-h-screen pb-20 ">
-      <Card className="w-full max-w-4xl mx-auto bg-white/80 dark:bg-gray-900/80 shadow-2xl backdrop-blur-x bordler-t border-white/60 dark:border-gray-800/60">
+      <Card className="w-full max-w-4xl mx-auto bg-white/80 dark:bg-gray-900/80  backdrop-blur-x bordler-t border-white/60 dark:border-gray-800/60">
         <CardHeader className="flex flex-col items-center space-y-4 pb-6">
           <div className="w-full lg:w-full justify-center flex items-center space-x-8 py-8 pt-2">
             <Button

@@ -23,7 +23,7 @@ export default function DashboardLayout() {
         </div>
 
         {/* Main Content - takes remaining width */}
-        <div className="flex-1 overflow-y-auto pt-16 lg:pt-0">
+        <div className="flex-1 overflow-y-auto py-20 lg:py-0">
           <Outlet />
         </div>
       </div>
