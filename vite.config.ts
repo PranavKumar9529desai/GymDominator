@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate', // This handles automatic updates
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'android-chrome-512x512.png'],
       manifest: {
         name: 'GymNavigator',
         short_name: 'GymNav',
@@ -18,7 +18,7 @@ export default defineConfig({
         display: 'standalone',
         icons: [
           {
-            src: '/icons/icon-512x512.png',
+            src: '/android-chrome-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable' // This makes your 512x512 icon maskable
