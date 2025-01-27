@@ -10,7 +10,6 @@ import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTrainer";
 import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
-import { ChooseGymRoute } from "@routes/ChooseGymRoute";
 import { GeneralQrScannerRoute } from "@routes/GeneralQrScannerRoute";
 import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
 import { HealthProfileFormRoute } from "@routes/UserHealthProfile/HealthprofileformRoute";
@@ -21,7 +20,6 @@ import { SignUp } from "@routes/signupRoute";
 import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
 import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
 import { TodaysPlanRoute } from "@routes/todaysplanRoute";
-import { WorkoutplaceRoute } from "@routes/workoutplaceRoute";
 import { RecoilRoot } from "recoil";
 import { Toaster } from "sonner";
 import AboutUs from "./Components/Home/pages/AboutUs";
@@ -120,10 +118,7 @@ function Main() {
 
 						<Route path="healthprofile">
 							<Route index element={<HealthProfileFormRoute />} />
-							<Route path="workoutplace">
-								<Route index element={<WorkoutplaceRoute />} />
-								<Route path="choosegym" element={<ChooseGymRoute />} />
-							</Route>
+						
 						</Route>
 					</Route>
 

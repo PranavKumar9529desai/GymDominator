@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
@@ -68,6 +69,17 @@ export default defineConfig({
 				]
 			}
 		}),
+		ViteImageOptimizer({
+			jpg: {
+				quality: 80
+			},
+			png: {
+				quality: 80
+			},
+			webp: {
+				quality: 75
+			}
+		}),
 	],
 	resolve: {
 		alias: {
@@ -105,6 +117,8 @@ export default defineConfig({
 					"animation-vendor": ["framer-motion", "@react-spring/web"],
 					"form-vendor": ["react-hook-form", "zod"],
 					"visualization-vendor": ["recharts"],
+					'hero': ['./src/Components/Home/mainsection/HeroSection.tsx'],
+					'particles': ['react-tsparticles'],
 				},
 			},
 		},
