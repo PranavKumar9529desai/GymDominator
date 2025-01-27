@@ -1,65 +1,65 @@
-import { motion } from 'framer-motion';
-import { CheckCircle2, Calendar, ArrowRight, LineChart } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { CheckCircle2, Calendar, ArrowRight, LineChart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AttendanceConfirmation() {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8"
-    >
-      <div className="text-center space-y-6">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring" }}
-          className="mx-auto w-24 h-24 bg-green-100 rounded-full flex items-center justify-center"
-        >
-          <CheckCircle2 className="w-14 h-14 text-green-500" />
-        </motion.div>
+	return (
+		<motion.div
+			initial={{ opacity: 0, scale: 0.95 }}
+			animate={{ opacity: 1, scale: 1 }}
+			className="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8"
+		>
+			<div className="text-center space-y-6">
+				<motion.div
+					initial={{ scale: 0 }}
+					animate={{ scale: 1 }}
+					transition={{ delay: 0.2, type: "spring" }}
+					className="mx-auto w-24 h-24 bg-green-100 rounded-full flex items-center justify-center"
+				>
+					<CheckCircle2 className="w-14 h-14 text-green-500" />
+				</motion.div>
 
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-800">
-            Attendance Marked Successfully!
-          </h1>
-          <div className="flex items-center justify-center gap-2 text-gray-600">
-            <Calendar className="w-5 h-5" />
-            <p className="text-lg">
-              {new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
-          </div>
-        </div>
+				<div className="space-y-2">
+					<h1 className="text-2xl font-bold text-gray-800">
+						Attendance Marked Successfully!
+					</h1>
+					<div className="flex items-center justify-center gap-2 text-gray-600">
+						<Calendar className="w-5 h-5" />
+						<p className="text-lg">
+							{new Date().toLocaleDateString("en-US", {
+								weekday: "long",
+								year: "numeric",
+								month: "long",
+								day: "numeric",
+							})}
+						</p>
+					</div>
+				</div>
 
-        <div className="space-y-4 pt-6">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/dashboard/workouts/personalizedworkout')}
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors"
-          >
-            <ArrowRight className="w-5 h-5" />
-            View Today's Workout
-          </motion.button>
+				<div className="space-y-4 pt-6">
+					<motion.button
+						whileHover={{ scale: 1.02 }}
+						whileTap={{ scale: 0.98 }}
+						onClick={() => navigate("/dashboard/workouts/personalizedworkout")}
+						className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition-colors"
+					>
+						<ArrowRight className="w-5 h-5" />
+						View Today's Workout
+					</motion.button>
 
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => navigate('/dashboard/myprogress/month')}
-            className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-colors"
-          >
-            <LineChart className="w-5 h-5" />
-            Check Progress
-          </motion.button>
-        </div>
-      </div>
-    </motion.div>
-  );
+					<motion.button
+						whileHover={{ scale: 1.02 }}
+						whileTap={{ scale: 0.98 }}
+						onClick={() => navigate("/dashboard/myprogress/month")}
+						className="w-full flex items-center justify-center gap-2 bg-green-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-700 transition-colors"
+					>
+						<LineChart className="w-5 h-5" />
+						Check Progress
+					</motion.button>
+				</div>
+			</div>
+		</motion.div>
+	);
 }

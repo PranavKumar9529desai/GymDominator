@@ -4,31 +4,27 @@ import BeforeDiet from "./BeforeDiet";
 import { GetStartDate } from "./hooks/GetStartDate";
 
 export default function NewPersonalizedDietRoute() {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [loading, setLoading] = useState(true);
+	const [startDate, setStartDate] = useState<Date | null>(null);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchStartDate = async () => {
-      try {
-        const date = await GetStartDate();
-        setStartDate(date);
-      } catch (error) {
-        console.error("Error fetching start date:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+	useEffect(() => {
+		const fetchStartDate = async () => {
+			try {
+				const date = await GetStartDate();
+				setStartDate(date);
+			} catch (error) {
+				console.error("Error fetching start date:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    fetchStartDate();
-  }, []);
+		fetchStartDate();
+	}, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
-  return (
-    <div>
-      {startDate ? <NewPersonalizedDiet /> : <BeforeDiet />}
-    </div>
-  );
+	return <div>{startDate ? <NewPersonalizedDiet /> : <BeforeDiet />}</div>;
 }

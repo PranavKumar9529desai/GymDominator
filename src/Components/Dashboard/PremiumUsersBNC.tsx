@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import {
   Activity,
-  Utensils,
-  Dumbbell,
-  UserCheck,
   ChevronUp,
-  TrendingUp,
-  Scan,
+  Dumbbell,
   DumbbellIcon,
+  Scan,
+  TrendingUp,
+  UserCheck,
+  Utensils,
 } from "lucide-react";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export type Route = {
   name: string;
@@ -128,10 +129,12 @@ export const BottomNavigation: React.FC = () => {
           {routes.map((route) => (
             <button
               key={route.name}
+              type="button"
               className={`h-full flex flex-col items-center justify-center space-y-1 ${
                 isActive(route) ? "bg-gray-100 text-blue-500" : "text-gray-500"
               }`}
               onClick={() => handleNavigation(route)}
+              onKeyUp={() => handleNavigation(route)}
             >
               <route.icon className="h-5 w-5" />
               <span className="text-xs font-medium">{route.name}</span>
@@ -145,7 +148,6 @@ export const BottomNavigation: React.FC = () => {
           className={`fixed inset-0 transition-opacity duration-300 ease-in-out z-[60] ${
             isDrawerOpen ? "bg-opacity-50" : "bg-opacity-0 pointer-events-none"
           }`}
-          onClick={() => setIsDrawerOpen(false)}
         >
           <div
             className={`fixed inset-x-0 bottom-0 bg-white rounded-t-2xl shadow-lg transform transition-all duration-300 ease-in-out ${
@@ -154,7 +156,9 @@ export const BottomNavigation: React.FC = () => {
           >
             <div className="p-4">
               <button
+                type="button"
                 onClick={() => setIsDrawerOpen(false)}
+                onKeyUp={() => setIsDrawerOpen(false)}
                 className="absolute top-3 left-1/2 transform -translate-x-1/2 text-gray-500 hover:text-gray-700"
                 aria-label="Close drawer"
               >
@@ -167,7 +171,12 @@ export const BottomNavigation: React.FC = () => {
                 {activeRoute?.subRoutes?.map((subRoute) => (
                   <button
                     key={subRoute.name}
+                    type="button"
                     onClick={() => {
+                      navigate(subRoute.path);
+                      setIsDrawerOpen(false);
+                    }}
+                    onKeyUp={() => {
                       navigate(subRoute.path);
                       setIsDrawerOpen(false);
                     }}

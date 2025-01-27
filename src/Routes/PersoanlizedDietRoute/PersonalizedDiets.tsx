@@ -105,13 +105,12 @@
 //     return { category: 'Obese', color: 'text-red-500' };
 //   };
 
-
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
 //         // First check if health profile exists
 //         const formStatus = await GetHealthFormStatus();
-        
+
 //         if (!formStatus.healthProfile) {
 //           setHasHealthProfile(false);
 //           setLoading(false);
@@ -120,7 +119,7 @@
 
 //         // If health profile exists, fetch it along with diet plan
 //         setHasHealthProfile(true);
-        
+
 //         const [healthProfileResponse, dietPlanResponse] = await Promise.all([
 //           GetHealthProfileData(),
 //           GetPersonalizedDiets()
@@ -180,18 +179,18 @@
 //     const proteinRatio = dietPlan.proteinRatio / 100;
 //     const carbsRatio = dietPlan.carbsRatio / 100;
 //     const fatsRatio = dietPlan.fatsRatio / 100;
-  
+
 //     // Calculate calories for each macro
 //     const totalCalories = dietPlan.targetCalories;
 //     const proteinCalories = Math.round(totalCalories * proteinRatio);
 //     const carbsCalories = Math.round(totalCalories * carbsRatio);
 //     const fatsCalories = Math.round(totalCalories * fatsRatio);
-  
+
 //     // Calculate grams based on calories
 //     const proteinGrams = Math.round(proteinCalories / 4);
 //     const carbsGrams = Math.round(carbsCalories / 4);
 //     const fatsGrams = Math.round(fatsCalories / 9);
-  
+
 //     const data = {
 //       labels: ['Protein', 'Carbs', 'Fats'],
 //       datasets: [{
@@ -199,7 +198,7 @@
 //         backgroundColor: ['#4F46E5', '#10B981', '#F59E0B'],
 //       }]
 //     };
-  
+
 //     const options: ChartOptions<'pie'> = {
 //       plugins: {
 //         legend: {
@@ -219,7 +218,7 @@
 //       maintainAspectRatio: false,
 //       responsive: true
 //     };
-  
+
 //     return (
 //       <div className="bg-white rounded-xl shadow-lg p-6">
 //         <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
@@ -264,13 +263,13 @@
 //       </div>
 //     );
 //   };
-  
-//   const MacroCard = ({ 
-//     title, 
-//     grams, 
-//     calories, 
+
+//   const MacroCard = ({
+//     title,
+//     grams,
+//     calories,
 //     percentage,
-//     color 
+//     color
 //   }: {
 //     title: string;
 //     grams: number;
