@@ -123,4 +123,10 @@ export default defineConfig({
 			},
 		},
 	},
+	server: {
+		middlewareMode: true,
+		headers: {
+			'.xml': 'application/xml',
+		}
+	},
 });
