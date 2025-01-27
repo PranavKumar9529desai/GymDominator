@@ -4,6 +4,7 @@ const STATIC_ASSETS = [
 	'/index.html',
 	'/manifest.json',
 	'/site.webmanifest',
+	'/sitemap.xml', 
 	'/android-chrome-192x192.png',
 	'/android-chrome-512x512.png',
 	'/apple-touch-icon.png'
