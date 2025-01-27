@@ -7,40 +7,66 @@ export default defineConfig({
 	plugins: [
 		react(),
 		VitePWA({
-			registerType: "autoUpdate", // This handles automatic updates
+			registerType: "autoUpdate",
 			includeAssets: [
 				"apple-touch-icon.png",
 				"android-chrome-192x192.png",
 				"android-chrome-512x512.png",
+				"site.webmanifest",
+				"manifest.json"
 			],
 			manifest: {
 				name: "GymNavigator",
 				short_name: "GymNavigator",
-				description: "Your personal gym management assistant",
-				theme_color: "#2563eb",
+				description: "Transform your gym experience with GymNavigator. Feature-rich platform offering QR attendance, personalized workouts, and progress tracking.",
+				theme_color: "#ffffff",
 				background_color: "#ffffff",
 				display: "standalone",
+				start_url: "https://client.gymnavigator.in",
+				scope: "/",
+				id: "in.gymnavigator.client",
 				icons: [
 					{
 						src: "/android-chrome-192x192.png",
 						sizes: "192x192",
 						type: "image/png",
-						purpose: "any maskable",
+						purpose: "any maskable"
 					},
 					{
 						src: "/android-chrome-512x512.png",
 						sizes: "512x512",
 						type: "image/png",
-						purpose: "any maskable",
+						purpose: "any maskable"
 					},
-				],
+					{
+						src: "/apple-touch-icon.png",
+						sizes: "180x180",
+						type: "image/png"
+					}
+				]
 			},
 			workbox: {
 				cleanupOutdatedCaches: true,
 				clientsClaim: true,
 				skipWaiting: true,
 				maximumFileSizeToCacheInBytes: 3000000,
-			},
+				runtimeCaching: [
+					{
+						urlPattern: /^https:\/\/client\.gymnavigator\.in\/.*/i,
+						handler: 'NetworkFirst',
+						options: {
+							cacheName: 'gymnavigator-dynamic',
+							expiration: {
+								maxEntries: 100,
+								maxAgeSeconds: 24 * 60 * 60 // 24 hours
+							},
+							cacheableResponse: {
+								statuses: [0, 200]
+							}
+						}
+					}
+				]
+			}
 		}),
 	],
 	resolve: {

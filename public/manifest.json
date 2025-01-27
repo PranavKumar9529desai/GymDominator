@@ -1,11 +1,13 @@
 {
 	"name": "GymNavigator",
-	"short_name": "GymNav client",
-	"description": "Your personal gym management assistant",
-	"start_url": "/",
+	"short_name": "GymNavigator",
+	"description": "Transform your gym experience with GymNavigator. Feature-rich platform offering QR attendance, personalized workouts, and progress tracking.",
+	"start_url": "https://client.gymnavigator.in",
+	"scope": "/",
 	"display": "standalone",
 	"background_color": "#ffffff",
-	"theme_color": "#2563eb",
+	"theme_color": "#ffffff",
+	"id": "in.gymnavigator.client",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
