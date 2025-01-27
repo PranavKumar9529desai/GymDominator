@@ -11,7 +11,7 @@ export default defineConfig({
       includeAssets: ['apple-touch-icon.png', 'android-chrome-192x192.png', 'android-chrome-512x512.png'],
       manifest: {
         name: 'GymNavigator',
-        short_name: 'GymNav',
+        short_name: 'GymNavigator',
         description: 'Your personal gym management assistant',
         theme_color: '#2563eb',
         background_color: '#ffffff',
