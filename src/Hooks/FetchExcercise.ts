@@ -1,29 +1,42 @@
-import { useRecoilValueLoadable, Loadable } from "recoil";
-import {
-	Excercisetype,
-	ExcersiceSelector,
-} from "@state/Selectors/ExcerciseSelectorsfamily";
+import { type ExerciseWithMuscle, SingleWorkoutSelectorsFamily } from "@state/Selectors/SingleWorkoutSelectorsFamily";
 import { useEffect, useState } from "react";
-export const FetchExcercise = ({ muscle }: { muscle: string }) => {
-	const Excercises: Loadable<Excercisetype[]> = useRecoilValueLoadable(
-		ExcersiceSelector(muscle),
+import { type Loadable, useRecoilValueLoadable } from "recoil";
+
+interface FetchExerciseResult {
+	isLoading: boolean;
+	Excercise: ExerciseWithMuscle[];
+}
+
+export const FetchExcercise = ({ muscle }: { muscle: string }): FetchExerciseResult => {
+	const exercisesLoadable: Loadable<ExerciseWithMuscle[] | null> = useRecoilValueLoadable(
+		SingleWorkoutSelectorsFamily(muscle)
 	);
-	const [isLoading, setisLoadig] = useState<boolean>(false);
-	const [Excercise, setExcercise] = useState<Excercisetype[]>([]);
+
+	const [state, setState] = useState<FetchExerciseResult>({
+		isLoading: true,
+		Excercise: [],
+	});
+
 	useEffect(() => {
-		switch (Excercises.state) {
+		switch (exercisesLoadable.state) {
 			case "hasValue":
-				setisLoadig(false);
-				setExcercise(Excercises.contents);
+				setState({
+					isLoading: false,
+					Excercise: exercisesLoadable.contents || [],
+				});
 				break;
 			case "loading":
-				setisLoadig(true);
+				setState(prev => ({ ...prev, isLoading: true }));
 				break;
 			case "hasError":
-				setisLoadig(true);
-				throw Excercises.contents;
+				console.error("Error loading exercises:", exercisesLoadable.contents);
+				setState({
+					isLoading: false,
+					Excercise: [],
+				});
+				break;
 		}
-	}, [Excercises]);
+	}, [exercisesLoadable]);
 
-	return { isLoading, Excercise };
+	return state;
 };

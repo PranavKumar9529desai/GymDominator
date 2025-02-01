@@ -1,32 +1,38 @@
-import axios, { AxiosResponse } from "axios";
-import { RecoilValueReadOnly, selector } from "recoil";
+import axios, { type AxiosResponse } from "axios";
+import { type RecoilValueReadOnly, selector } from "recoil";
 
-export interface excercise {
+export interface Exercise {
 	id: number;
-	img: string;
-	muscle: string;
+	name: string;
+	image_url: string | null;
+	type: string | null;
+	equipment: string | null;
+	mechanics: string | null;
+	experience_level: string | null;
+	detail_url: string | null;
+	video_url: string | null;
+	muscle_image: string | null;
 	instructions: string;
-	videolink: string;
-	name: string;
+	muscle_group: string;
 }
 
-export interface MuscleGrp {
+export interface MuscleGroup {
+	id: number;
 	name: string;
-	img: string;
-	fullimage: string;
-	Exercise: excercise[];
+	image_url: string | null;
+	exercises: Exercise[];
 }
 
-interface res {
+interface MuscleGroupResponse {
 	msg: string;
-	muscleGrp: MuscleGrp[];
+	muscleGroups: MuscleGroup[];
 }
 
-export const MuscleSelector: RecoilValueReadOnly<MuscleGrp[]> = selector({
+export const MuscleSelector: RecoilValueReadOnly<MuscleGroup[]> = selector({
 	key: "MuscleSelector",
 	get: async () => {
 		// TODO : handle fectching errors
-		const response: AxiosResponse<res> = await axios(
+		const response: AxiosResponse<MuscleGroupResponse> = await axios(
 			`${import.meta.env.VITE_BACKEND_URL}/api/v1/workouts/`,
 			{
 				headers: {
@@ -34,6 +40,6 @@ export const MuscleSelector: RecoilValueReadOnly<MuscleGrp[]> = selector({
 				},
 			},
 		);
-		return response.data.muscleGrp;
+		return response.data.muscleGroups;
 	},
 });
