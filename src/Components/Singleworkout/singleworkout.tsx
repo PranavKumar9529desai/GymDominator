@@ -1,8 +1,12 @@
 import { FetchSingleWorkout } from "@hooks/FetchSingleWorkout";
-import type { ExerciseWithMuscle } from "@state/Selectors/SingleWorkoutSelectorsFamily";
-import { AnimatePresence, motion } from "framer-motion";
-import { BookMarked, ChevronRight, Heart, Play, Share2, Target } from "lucide-react";
-import { useState } from 'react';
+import { motion } from "framer-motion";
+import {
+  BookMarked,
+  Heart,
+  Share2,
+  Target,
+} from "lucide-react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const SingleWorkout = () => {
@@ -11,12 +15,15 @@ export const SingleWorkout = () => {
     muscle: string;
   }>();
 
-  const { isLoading, exercise, error } = FetchSingleWorkout({ workoutname, muscle });
+  const { isLoading, exercise, error } = FetchSingleWorkout({
+    workoutname,
+    muscle,
+  });
   const [isLiked, setIsLiked] = useState(false);
 
   if (error) {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex items-center justify-center min-h-[60vh] bg-red-50 mx-4 rounded-2xl"
@@ -25,8 +32,13 @@ export const SingleWorkout = () => {
           <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
             <span className="text-2xl">⚠️</span>
           </div>
-          <h2 className="text-2xl font-bold text-red-500">Exercise Not Found</h2>
-          <p className="text-gray-600 max-w-md">We couldn't load this exercise. Please try again or choose a different one.</p>
+          <h2 className="text-2xl font-bold text-red-500">
+            Exercise Not Found
+          </h2>
+          <p className="text-gray-600 max-w-md">
+            We couldn't load this exercise. Please try again or choose a
+            different one.
+          </p>
         </div>
       </motion.div>
     );
@@ -37,7 +49,9 @@ export const SingleWorkout = () => {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
-          <div className="mt-4 text-blue-600 font-medium">Loading exercise...</div>
+          <div className="mt-4 text-blue-600 font-medium">
+            Loading exercise...
+          </div>
         </div>
       </div>
     );
@@ -54,7 +68,7 @@ export const SingleWorkout = () => {
     >
       {/* Exercise Header */}
       <div className="space-y-6 mb-12">
-        <motion.h1 
+        <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
           className="text-4xl lg:text-6xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent"
@@ -68,18 +82,27 @@ export const SingleWorkout = () => {
             <span className="text-blue-700 font-medium">{muscle}</span>
           </div>
           <div className="flex gap-3">
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <button 
+              type="button"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
               <Share2 className="w-5 h-5 text-gray-600" />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <button 
+              type="button"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
               <BookMarked className="w-5 h-5 text-gray-600" />
             </button>
-            <button 
+            <button
+              type="button"
               onClick={() => setIsLiked(!isLiked)}
               className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
-              <Heart 
-                className={`w-5 h-5 ${isLiked ? 'text-red-500 fill-red-500' : 'text-gray-600'}`}
+              <Heart
+                className={`w-5 h-5 ${
+                  isLiked ? "text-red-500 fill-red-500" : "text-gray-600"
+                }`}
               />
             </button>
           </div>
@@ -129,16 +152,17 @@ const ExerciseDescription = ({
   // Clean and process instructions
   const instructions = instruction
     .split(".")
-    .map(line => {
+    .map((line) => {
       // Remove leading numbers and dots if they exist
-      const cleanLine = line.replace(/^\d+\.?\s*/, '')
+      const cleanLine = line
+        .replace(/^\d+\.?\s*/, "")
         // Remove all \n characters and multiple spaces
-        .replace(/\\n/g, ' ')
-        .replace(/\s+/g, ' ')
+        .replace(/\\n/g, " ")
+        .replace(/\s+/g, " ")
         .trim();
       return cleanLine;
     })
-    .filter(line => line.length > 0); // Remove empty lines
+    .filter((line) => line.length > 0); // Remove empty lines
 
   return (
     <div className="space-y-12">
@@ -156,8 +180,8 @@ const ExerciseDescription = ({
         {/* Muscle Image */}
         <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
-          <img 
-            src={img} 
+          <img
+            src={img}
             alt={`Diagram showing ${muscleName} muscle group`}
             className="w-full rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
           />
@@ -165,10 +189,12 @@ const ExerciseDescription = ({
 
         {/* Instructions */}
         <div className="mt-8 lg:mt-0 space-y-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">Step-by-Step Guide</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8">
+            Step-by-Step Guide
+          </h3>
           {instructions.map((line, index) => (
             <motion.div
-              key={`${muscleName}-instruction-${index}`}
+              key={`instruction-${line.substring(0, 20)}-${index}`}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}

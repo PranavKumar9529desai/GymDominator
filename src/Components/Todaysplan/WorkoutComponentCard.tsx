@@ -1,19 +1,19 @@
-import { WorkoutComponent } from "./WorkoutComponent";
-import { Excercisetype } from "@state/Selectors/SingleWorkoutSelectorsFamily";
 import { SvgWorkout } from "@components/Svg/today'splanworkoutSvg";
+import type { ExerciseWithMuscle } from "@state/Selectors/SingleWorkoutSelectorsFamily";
 import { useState } from "react";
+import { WorkoutComponent } from "./WorkoutComponent";
 
 export const WorkoutComponentCard = ({
 	Excercise,
 }: {
-	Excercise: Excercisetype[];
+	Excercise: ExerciseWithMuscle[];
 }) => {
 	const [completionStatus, setCompletionStatus] = useState<boolean[]>(
 		new Array(Excercise.length).fill(false),
 	);
 	const [allcomplete, setallcomplete] = useState<boolean>(false);
-	let handleCompletion = (index: number, iscomplete: boolean) => {
-		let newStaus = [...completionStatus];
+	const handleCompletion = (index: number, iscomplete: boolean) => {
+		const newStaus = [...completionStatus];
 		newStaus[index] = iscomplete;
 		setCompletionStatus(newStaus);
 		console.log(completionStatus);
@@ -49,7 +49,7 @@ export const WorkoutComponentCard = ({
 					<div className="space-y-4  mt-3 text-gray-600 ">
 						{Excercise.map((ex, index) => {
 							return (
-								<div className="" key={index}>
+								<div className="" key={`workout-${ex.name}-${index}`}>
 									<WorkoutComponent
 										name={ex.name}
 										onCompletionChange={(iscomplete: boolean) =>

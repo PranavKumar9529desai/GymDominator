@@ -7,7 +7,6 @@ import {
   Check,
   ChevronDown,
   Dumbbell,
-  Info,
   Search,
   X,
 } from "lucide-react";
@@ -114,7 +113,7 @@ const RecommenedExcercise = ({
 }: {
   Excercises: Excercisetype[];
 }): JSX.Element => {
-  const { muscle } = useParams<{ muscle: string }>();
+  // const { muscle } = useParams<{ muscle: string }>();
   const [searchQuery, setSearchQuery] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState<string[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -131,6 +130,8 @@ const RecommenedExcercise = ({
         ? prev.filter((f) => f !== filter)
         : [...prev, filter]
     );
+    // Close filter after selection
+    setIsFilterOpen(false);
   };
 
   const filteredExercises = Excercises.filter((exercise) => {
@@ -150,9 +151,17 @@ const RecommenedExcercise = ({
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 relative"> {/* Added relative positioning */}
+      {/* Overlay when filter is open */}
+      {isFilterOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-[1px] z-30"
+          onClick={() => setIsFilterOpen(false)}
+        />
+      )}
+
       {/* Search and Filter Bar */}
-      <div className=" z-10  backdrop-blur-sm py-4">
+      <div className="sticky top-0 z-40 backdrop-blur-sm py-4"> {/* Increased z-index */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
@@ -168,6 +177,7 @@ const RecommenedExcercise = ({
 
             <div className="relative">
               <button
+                type="button"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="flex items-center gap-2 px-4 py-3 text-sm border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
               >
@@ -187,7 +197,7 @@ const RecommenedExcercise = ({
               </button>
 
               {isFilterOpen && (
-                <div className="fixed md:absolute inset-x-0 bottom-0 md:bottom-auto md:right-0 md:top-full mt-2 md:mt-0 md:w-48 bg-white border border-gray-200 rounded-t-2xl md:rounded-2xl shadow-2xl md:shadow-lg p-4 md:p-2 z-20 max-h-[70vh] overflow-y-auto">
+                <div className="fixed md:absolute inset-x-0 bottom-0 md:bottom-auto md:right-0 md:top-full mt-2 md:mt-0 md:w-48 bg-white border border-gray-200 rounded-t-2xl md:rounded-2xl shadow-2xl md:shadow-lg p-4 md:p-2 z-50 max-h-[70vh] overflow-y-auto">
                   <div className="flex items-center justify-between mb-4 md:hidden">
                     <h3 className="text-lg font-semibold">
                       Filter by Difficulty
@@ -235,22 +245,24 @@ const RecommenedExcercise = ({
         </div>
       </div>
 
-      {/* Exercise Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
-        {filteredExercises.map((excercise) => (
-          <motion.div
-            key={`${excercise.name}-${excercise.MuscleGroup.id}`}
-            variants={itemVariants}
-            whileHover={{ y: -4 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ExcerciseCard
-              name={excercise.name}
-              img={excercise.img}
-              instructions={excercise.instructions}
-            />
-          </motion.div>
-        ))}
+      {/* Exercise Grid with lower z-index */}
+      <div className="relative z-10"> {/* Added relative positioning and lower z-index */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
+          {filteredExercises.map((excercise) => (
+            <motion.div
+              key={`${excercise.name}-${excercise.MuscleGroup.id}`}
+              variants={itemVariants}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ExcerciseCard
+                name={excercise.name}
+                img={excercise.img}
+                instructions={excercise.instructions}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

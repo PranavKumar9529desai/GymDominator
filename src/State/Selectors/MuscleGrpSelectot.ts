@@ -17,6 +17,7 @@ export interface Exercise {
 }
 
 export interface MuscleGroup {
+	img: string;
 	id: number;
 	name: string;
 	image_url: string | null;
