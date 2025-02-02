@@ -6,6 +6,10 @@ import { VitePWA } from "vite-plugin-pwa";
 // https://vitejs.dev/config/
 export default defineConfig({
   appType: "spa",
+  server: {
+    host: true, // or '0.0.0.0' to listen on all hosts
+    port: 5173, // You can optionally set a specific port
+  },
   plugins: [
     react(),
     VitePWA({
@@ -16,8 +20,8 @@ export default defineConfig({
         "android-chrome-512x512.png",
         "site.webmanifest",
         "manifest.json",
-        "sitemap.xml",  // Add this line
-        "robots.txt",  // Add this line
+        "sitemap.xml", // Add this line
+        "robots.txt", // Add this line
       ],
       manifest: {
         name: "GymNavigator",

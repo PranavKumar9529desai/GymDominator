@@ -105,9 +105,9 @@ export const Allworkouts = () => {
 			{/* Search and Filter Section */}
 			<div className="max-w-7xl mx-auto mb-12">
 				<div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-					{/* Category Filters - Fixed scrollbar issue */}
-					<div className="flex gap-2 w-full md:w-auto no-scrollbar">
-						<div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+					{/* Category Filters - Mobile Grid Layout */}
+					<div className="w-full md:w-auto">
+						<div className="grid grid-cols-2 md:flex md:flex-row gap-2 px-4 md:px-0">
 							{categories.map((category) => (
 								<motion.button
 									key={category.name}
@@ -115,7 +115,8 @@ export const Allworkouts = () => {
 									whileTap={{ scale: 0.95 }}
 									onClick={() => setSelectedCategory(category.name)}
 									className={cn(
-										"px-6 py-2 rounded-full flex items-center gap-2 transition-all whitespace-nowrap",
+										"px-4 py-2 rounded-full flex items-center justify-center gap-2 transition-all",
+										"w-full md:w-auto", // Full width on mobile, auto on desktop
 										selectedCategory === category.name
 											? "bg-blue-500 text-white shadow-lg shadow-blue-500/20"
 											: "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
@@ -123,7 +124,7 @@ export const Allworkouts = () => {
 									type="button"
 								>
 									<category.icon className="w-4 h-4" />
-									{category.name}
+									<span className="whitespace-nowrap">{category.name}</span>
 								</motion.button>
 							))}
 						</div>
