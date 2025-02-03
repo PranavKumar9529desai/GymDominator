@@ -151,17 +151,20 @@ const RecommenedExcercise = ({
   });
 
   return (
-    <div className="space-y-8 relative"> {/* Added relative positioning */}
+    <div className="space-y-8 relative">
+      {" "}
+      {/* Added relative positioning */}
       {/* Overlay when filter is open */}
       {isFilterOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/20 backdrop-blur-[1px] z-30"
           onClick={() => setIsFilterOpen(false)}
         />
       )}
-
       {/* Search and Filter Bar */}
-      <div className="sticky top-0 z-40 backdrop-blur-sm py-4"> {/* Increased z-index */}
+      <div className=" z-40 backdrop-blur-sm py-4">
+        {" "}
+        {/* Increased z-index */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="relative flex-1">
@@ -244,9 +247,10 @@ const RecommenedExcercise = ({
           </div>
         </div>
       </div>
-
       {/* Exercise Grid with lower z-index */}
-      <div className="relative z-10"> {/* Added relative positioning and lower z-index */}
+      <div className="relative z-10">
+        {" "}
+        {/* Added relative positioning and lower z-index */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
           {filteredExercises.map((excercise) => (
             <motion.div
