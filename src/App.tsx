@@ -33,6 +33,8 @@ import AboutTrainerRoute from "./Routes/Navbar/About Triainer/AboutTrainerRoute"
 import HealthProfile from "./Routes/Navbar/Healthprofile/Healthprofile";
 import GymInfo from "./Routes/Navbar/My Gym/GymInfo";
 import { Wallet } from "./Routes/Wallet/Wallet";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/react-query";
 
 // Lazy load route components
 const OnboardingRoute = lazy(() => import("@routes/OnboardingRoute"));
@@ -91,7 +93,16 @@ function Main() {
             <Route path="diet/grocerylist" element={<GroceryListRoute />} />
             <Route path="myprogress" element={<MyProgressRoute />} />
             <Route path="myprogress/week" element={<MyProgressRoute />} />
-            <Route path="myprogress/month" element={<MonthProgressRoute />} />
+            <Route
+              path="myprogress/month"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ErrorBoundary>
+                    <MonthProgressRoute />
+                  </ErrorBoundary>
+                </Suspense>
+              }
+            />
             <Route path="today'splan" element={<TodaysPlanRoute />} />
             <Route path="attendance/qrscanner" element={<QrScannerRoute />} />
             <Route
@@ -135,16 +146,18 @@ function Main() {
 function App() {
   return (
     <RecoilRoot>
-      <BrowserRouter>
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          <Toaster richColors position="top-right" />
-          <ErrorBoundary>
-            <UpdatePrompt />
-            <Main />
-            <InstallPrompt />
-          </ErrorBoundary>
-        </GoogleOAuthProvider>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+            <Toaster richColors position="top-right" />
+            <ErrorBoundary>
+              <UpdatePrompt />
+              <Main />
+              <InstallPrompt />
+            </ErrorBoundary>
+          </GoogleOAuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
     </RecoilRoot>
   );
 }

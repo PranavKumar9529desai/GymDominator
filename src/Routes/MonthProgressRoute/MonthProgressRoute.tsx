@@ -1,9 +1,11 @@
-import MonthlyProgress from "@routes/MonthProgressRoute/NewMonthlyProgressComponent";
+import MonthlyProgress from "./NewMonthlyProgressComponent";
 
-export default function MonthProgressRoute() {
-	return (
-		<div className="h-screen lg:py-10">
-			<MonthlyProgress />
-		</div>
-	);
-}
+const MonthProgressRoute = () => {
+  return (
+    <div className="h-screen lg:py-10">
+        <MonthlyProgress />
+    </div>
+  );
+};
+
+export default MonthProgressRoute;

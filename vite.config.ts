@@ -99,6 +99,7 @@ export default defineConfig({
       "@config": "/src/routes", // Add this alias as alternative
       "@ui": "/src/Components/ui",
       "@lib": "/src/Components/lib",
+
       "@layouts": "/src/Layouts",
     },
   },

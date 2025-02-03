@@ -28,6 +28,7 @@
 		"@radix-ui/react-slot": "^1.1.1",
 		"@react-oauth/google": "^0.12.1",
 		"@react-spring/web": "^9.7.5",
+		"@tanstack/react-query": "^5.66.0",
 		"@types/axios": "^0.14.0",
 		"@types/canvas-confetti": "^1.9.0",
 		"@types/jwt-decode": "^2.2.1",
@@ -82,6 +83,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@shadcn/ui": "^0.0.4",
+		"@tanstack/eslint-plugin-query": "^5.66.0",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"@types/react-router-hash-link": "^2.4.9",
