@@ -2,6 +2,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { VitePWA } from "vite-plugin-pwa";
+import compression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,18 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    compression({
+      algorithm: "gzip",
+      ext: ".gz",
+      threshold: 1024,
+      deleteOriginFile: false,
+    }),
+    compression({
+      algorithm: "brotliCompress",
+      ext: ".br",
+      threshold: 1024,
+      deleteOriginFile: false,
+    }),
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: [
@@ -105,13 +118,11 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 1500,
-    sourcemap: false,
-    minify: "terser",
-    terserOptions: {
-      sourceMap: {
-        includeSources: false,
-      },
-    },
+    minify: "esbuild",
+    target: "esnext",
+    cssMinify: true,
+    cssCodeSplit: true,
+    reportCompressedSize: true,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -133,10 +144,36 @@ export default defineConfig({
           "animation-vendor": ["framer-motion", "@react-spring/web"],
           "form-vendor": ["react-hook-form", "zod"],
           "visualization-vendor": ["recharts"],
-          hero: ["./src/Components/Home/mainsection/HeroSection.tsx"],
+          features: [
+            "./src/Components/Home/Features/Flipcard.tsx",
+            "./src/Components/Home/mainsection/HeroSection.tsx",
+          ],
+          auth: ["./src/Components/Auth/Auth.tsx"],
           particles: ["react-tsparticles"],
         },
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name ? assetInfo.name : "unknown";
+          const parts = info.split(".");
+          let extType = parts.length > 1 ? parts[1] : "unknown";
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = "img";
+          }
+          return `assets/${extType}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js",
       },
     },
+  },
+  optimizeDeps: {
+    include: [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "framer-motion",
+      "recoil",
+      "axios",
+    ],
+    exclude: ["react-tsparticles"],
   },
 });
