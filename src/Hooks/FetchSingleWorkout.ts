@@ -1,9 +1,9 @@
 import {
   type ExerciseWithMuscle,
   SingleWorkoutSelectorsFamily,
-} from "@state/Selectors/SingleWorkoutSelectorsFamily";
-import { useEffect, useState } from "react";
-import { type Loadable, useRecoilValueLoadable } from "recoil";
+} from '@state/Selectors/SingleWorkoutSelectorsFamily';
+import { useEffect, useState } from 'react';
+import { type Loadable, useRecoilValueLoadable } from 'recoil';
 
 interface FetchSingleWorkoutResult {
   isLoading: boolean;
@@ -20,8 +20,9 @@ export const FetchSingleWorkout = ({
   workoutname,
   muscle,
 }: FetchSingleWorkoutParams): FetchSingleWorkoutResult => {
-  const exerciseLoadable: Loadable<ExerciseWithMuscle[] | null> =
-    useRecoilValueLoadable(SingleWorkoutSelectorsFamily(`${muscle}|${workoutname}`));
+  const exerciseLoadable: Loadable<ExerciseWithMuscle[] | null> = useRecoilValueLoadable(
+    SingleWorkoutSelectorsFamily(`${muscle}|${workoutname}`)
+  );
 
   const [state, setState] = useState<FetchSingleWorkoutResult>({
     isLoading: true,
@@ -31,12 +32,12 @@ export const FetchSingleWorkout = ({
 
   useEffect(() => {
     switch (exerciseLoadable.state) {
-      case "hasValue":
+      case 'hasValue':
         if (!exerciseLoadable.contents || exerciseLoadable.contents.length === 0) {
           setState({
             isLoading: false,
             exercise: null,
-            error: new Error("Exercise not found"),
+            error: new Error('Exercise not found'),
           });
         } else {
           setState({
@@ -46,10 +47,10 @@ export const FetchSingleWorkout = ({
           });
         }
         break;
-      case "loading":
+      case 'loading':
         setState((prev) => ({ ...prev, isLoading: true, error: null }));
         break;
-      case "hasError":
+      case 'hasError':
         setState({
           isLoading: false,
           exercise: null,

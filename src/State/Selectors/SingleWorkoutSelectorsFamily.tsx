@@ -1,5 +1,5 @@
-import axios, { type AxiosResponse } from "axios";
-import { selectorFamily } from "recoil";
+import axios, { type AxiosResponse } from 'axios';
+import { selectorFamily } from 'recoil';
 
 export interface MuscleGroupType {
   id: number;
@@ -34,25 +34,21 @@ interface SingleExerciseResponse {
 // We'll use a string key in the format:
 // For single muscle: "muscle"
 // For specific exercise: "muscle|workoutname"
-export const SingleWorkoutSelectorsFamily = selectorFamily<
-  ExerciseWithMuscle[] | null,
-  string
->({
-  key: "singleworkoutselectorfamily",
+export const SingleWorkoutSelectorsFamily = selectorFamily<ExerciseWithMuscle[] | null, string>({
+  key: 'singleworkoutselectorfamily',
   get: (param: string) => async () => {
     try {
-      const parts = param.split("|");
+      const parts = param.split('|');
       const muscle = parts[0];
       const workoutname = parts[1];
 
       if (!muscle) {
-        console.error("Muscle parameter is required");
+        console.error('Muscle parameter is required');
         return null;
       }
 
       // Capitalize first letter to match database format
-      const formattedMuscle =
-        muscle.charAt(0).toUpperCase() + muscle.slice(1).toLowerCase();
+      const formattedMuscle = muscle.charAt(0).toUpperCase() + muscle.slice(1).toLowerCase();
 
       const response: AxiosResponse<SingleExerciseResponse> = await axios.get(
         `${
@@ -60,20 +56,16 @@ export const SingleWorkoutSelectorsFamily = selectorFamily<
         }/api/v1/workouts/${encodeURIComponent(formattedMuscle)}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           },
         }
       );
 
-      if (
-        response.data.msg === "success" &&
-        response.data.exercises.length > 0
-      ) {
+      if (response.data.msg === 'success' && response.data.exercises.length > 0) {
         // If workoutname is provided, find that specific exercise
         if (workoutname) {
           const exercise = response.data.exercises.find(
-            (e: ExerciseWithMuscle) =>
-              e.name.toLowerCase() === workoutname.toLowerCase()
+            (e: ExerciseWithMuscle) => e.name.toLowerCase() === workoutname.toLowerCase()
           );
           return exercise ? [exercise] : null;
         }
@@ -82,7 +74,7 @@ export const SingleWorkoutSelectorsFamily = selectorFamily<
       }
       return null;
     } catch (error) {
-      console.error("Error fetching exercise:", error);
+      console.error('Error fetching exercise:', error);
       return null;
     }
   },

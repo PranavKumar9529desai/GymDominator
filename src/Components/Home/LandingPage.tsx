@@ -1,8 +1,8 @@
-import { useState, useEffect, Suspense } from "react";
-import { Footer } from "./Footer";
-import HeroSection from "./mainsection/HeroSection";
-import { MainSection } from "./mainsection/mainsecion";
-import { ErrorBoundary } from "react-error-boundary";
+import { useState, useEffect, Suspense } from 'react';
+import { Footer } from './Footer';
+import HeroSection from './mainsection/HeroSection';
+import { MainSection } from './mainsection/mainsecion';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export const LandingPage = () => {
   const [fontLoaded, setFontLoaded] = useState(false);

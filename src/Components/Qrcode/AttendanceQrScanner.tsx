@@ -1,15 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@components/ui/card";
-import { MarkAttendance } from "@routes/QrScannerRoute/MarkAttedance";
-import { Scanner } from "@yudiel/react-qr-scanner";
-import { QrCode } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { queryClient } from "../../lib/react-query";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@components/ui/card';
+import { MarkAttendance } from '@routes/QrScannerRoute/MarkAttedance';
+import { Scanner } from '@yudiel/react-qr-scanner';
+import { QrCode } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { queryClient } from '../../lib/react-query';
 
 interface QrValueType {
   AttendanceAction: {
@@ -23,7 +17,7 @@ export default function AttendanceQRScanner() {
   const navigate = useNavigate();
 
   async function handleAttendanceAction(data: QrValueType) {
-    console.log("Handling attendance action:", data);
+    console.log('Handling attendance action:', data);
 
     // Get current time in UTC
     const now = new Date();
@@ -44,8 +38,8 @@ export default function AttendanceQRScanner() {
     );
 
     // Add logging for debugging
-    console.log("Current UTC time:", new Date(currentUTC).toISOString());
-    console.log("Scanned QR UTC time:", new Date(scannedUTC).toISOString());
+    console.log('Current UTC time:', new Date(currentUTC).toISOString());
+    console.log('Scanned QR UTC time:', new Date(scannedUTC).toISOString());
 
     const toleranceInHours = 1; // Allow up to 1 hour difference
     const timeDiff = Math.abs(currentUTC - scannedUTC) / (1000 * 60 * 60);
@@ -55,20 +49,20 @@ export default function AttendanceQRScanner() {
         const response = await MarkAttendance();
         if (response.success) {
           const isrevalidated = await queryClient.invalidateQueries({
-            queryKey: ["attendance"],
-          }); 
-          console.log("isrevalidated", isrevalidated);
-          navigate("/dashboard/attendance/success");
+            queryKey: ['attendance'],
+          });
+          console.log('isrevalidated', isrevalidated);
+          navigate('/dashboard/attendance/success');
         } else {
-          navigate("/dashboard/attendance/failure");
+          navigate('/dashboard/attendance/failure');
         }
       } catch (error) {
-        console.error("Error marking attendance:", error);
-        navigate("/dashboard/attendance/failure");
+        console.error('Error marking attendance:', error);
+        navigate('/dashboard/attendance/failure');
       }
     } else {
-      console.log("QR code has expired. Time difference in hours:", timeDiff);
-      navigate("/dashboard/attendance/failure");
+      console.log('QR code has expired. Time difference in hours:', timeDiff);
+      navigate('/dashboard/attendance/failure');
     }
   }
 
@@ -90,7 +84,7 @@ export default function AttendanceQRScanner() {
                 if (results && results.length > 0) {
                   const result = results[0];
                   const rawValue = result.rawValue;
-                  console.log("Raw value of the QR code is:", rawValue);
+                  console.log('Raw value of the QR code is:', rawValue);
 
                   try {
                     const parsedData: QrValueType = JSON.parse(rawValue);
@@ -98,20 +92,18 @@ export default function AttendanceQRScanner() {
                       handleAttendanceAction(parsedData);
                     }
                   } catch (error) {
-                    console.error("Failed to parse QR code:", error);
+                    console.error('Failed to parse QR code:', error);
                   }
                 }
               }}
               onError={(error) => {
-                console.error("Error scanning QR code:", error);
+                console.error('Error scanning QR code:', error);
               }}
             />
           </div>
         </CardContent>
         <CardFooter className="bg-gray-50 py-4">
-          <p className="text-sm text-gray-500 w-full text-center">
-            - powered by GymNavigator.
-          </p>
+          <p className="text-sm text-gray-500 w-full text-center">- powered by GymNavigator.</p>
         </CardFooter>
       </Card>
     </div>

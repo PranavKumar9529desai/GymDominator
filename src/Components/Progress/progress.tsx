@@ -1,9 +1,9 @@
-import { ProgressBar } from "@components/progressBar";
-import { FetchMusclesGroups } from "@hooks/FetchMusclesGroups";
-import type { Exercise } from "@state/Selectors/MuscleGrpSelectot";
-import { type Dispatch, type SetStateAction, useState } from "react";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { ProgressBar } from '@components/progressBar';
+import { FetchMusclesGroups } from '@hooks/FetchMusclesGroups';
+import type { Exercise } from '@state/Selectors/MuscleGrpSelectot';
+import { type Dispatch, type SetStateAction, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 export const Progress = () => {
   return (
     <div className=" flex justify-center ">
@@ -15,9 +15,9 @@ export const Progress = () => {
 export const Weekcomponent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClicked, setisClicked] = useState<boolean>(false);
-  const WeekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const WeekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const { isLoading, muscles } = FetchMusclesGroups();
-  console.log("data from the progress", muscles);
+  console.log('data from the progress', muscles);
   const SlicedMuscles = isClicked ? muscles.slice(0, 5) : muscles.slice(0, 3);
 
   useEffect(() => {
@@ -31,18 +31,14 @@ export const Weekcomponent = () => {
       <div
         className={`
            duration-500 ease-in-out>
-          ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }
+          ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}
           `}
       >
         <div className="*:block text-center p-4 *:m-2">
           <div>
             <ProgressBar width={10} />
           </div>
-          <span className=" text-5xl font-extrabold font-montserrat  ">
-            Week 1
-          </span>
+          <span className=" text-5xl font-extrabold font-montserrat  ">Week 1</span>
           <span className="text-gray-400 lg:text-lg font-overpass">
             Track your progress and consistency using the GymNavigator.
           </span>
@@ -50,13 +46,11 @@ export const Weekcomponent = () => {
 
         <div
           className={
-            "lg:flex lg:flex-wrap gap-10  justify-center pb-8 lg:pb-4 space-y-10 lg:space-y-0 w-full  "
+            'lg:flex lg:flex-wrap gap-10  justify-center pb-8 lg:pb-4 space-y-10 lg:space-y-0 w-full  '
           }
         >
           {isLoading ? (
-            <div className="lg:min-w-[1040px] text-center text-xl">
-              Loading ...
-            </div>
+            <div className="lg:min-w-[1040px] text-center text-xl">Loading ...</div>
           ) : (
             SlicedMuscles.map((mus, key) => (
               <div className="flex justify-center" key={`muscle-${mus.name}`}>
@@ -71,11 +65,7 @@ export const Weekcomponent = () => {
           )}
         </div>
         <div className="text-center mb-4">
-          {isLoading ? (
-            " "
-          ) : (
-            <SeeMore setisClicked={setisClicked} isClicked={isClicked} />
-          )}
+          {isLoading ? ' ' : <SeeMore setisClicked={setisClicked} isClicked={isClicked} />}
         </div>
       </div>
     </div>
@@ -95,9 +85,7 @@ const DayCard = ({
 }) => {
   return (
     <div className="border border-gray-200 w-80 text-center justify-center pt-3 rounded-lg bg-white">
-      <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">
-        {day}
-      </div>
+      <div className="text-center text-2xl font-semibold text-blue-400 font-montserrat">{day}</div>
       <div className="text-gray-400 text-lg font-montserrat">{muscle}</div>
 
       <div className="mx-auto py-4">
@@ -105,9 +93,7 @@ const DayCard = ({
       </div>
 
       <div>
-        <div className="text-left text-lg text-gray-500 ml-2 font-montserrat">
-          Excercises:
-        </div>
+        <div className="text-left text-lg text-gray-500 ml-2 font-montserrat">Excercises:</div>
         <div className="text-left ml-4 mt-2">
           <div className="">
             {ExcerciseList.map((excercise) => {
@@ -116,13 +102,10 @@ const DayCard = ({
                   key={`exercise-${excercise.name}`}
                   className="hover:text-blue-400 py-1  hover:-translate-y-1 transition-all font-montserrat font-semibold text-gray-500 h-10 my-auto"
                 >
-                  <input
-                    type="checkbox"
-                    className="mr-2 size-[18px] relative  top-1"
-                  />
+                  <input type="checkbox" className="mr-2 size-[18px] relative  top-1" />
                   <Link to={`/dashboard/workouts/chest/${excercise.name}`}>
                     <span className="align-center">
-                      {excercise.name ? excercise.name : "cardio"}
+                      {excercise.name ? excercise.name : 'cardio'}
                     </span>
                   </Link>
                 </div>
@@ -151,7 +134,7 @@ const SeeMore = ({
           setisClicked((prevState) => !prevState);
         }}
       >
-        {isClicked ? "See less" : "See more"}
+        {isClicked ? 'See less' : 'See more'}
       </button>
       <div />
     </div>

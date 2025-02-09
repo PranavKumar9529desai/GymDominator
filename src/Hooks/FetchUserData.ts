@@ -1,29 +1,28 @@
-import { Userdata, UserDataSelector } from "@state/Selectors/UserDataSelctor";
-import { useEffect, useState } from "react";
-import { Loadable, useRecoilValueLoadable } from "recoil";
-import { toast } from "sonner";
+import { UserDataSelector, type Userdata } from '@state/Selectors/UserDataSelctor';
+import { useEffect, useState } from 'react';
+import { type Loadable, useRecoilValueLoadable } from 'recoil';
+import { toast } from 'sonner';
 
 export const FetchUserData = () => {
-	const [isloading, setisloading] = useState<boolean>(true);
-	const [userdata, setuserdata] = useState<Userdata | null>(null);
-	const UserDataLoadble: Loadable<Userdata> =
-		useRecoilValueLoadable(UserDataSelector);
+  const [isLoading, SetisLoading] = useState<boolean>(true);
+  const [userData, setUserData] = useState<Userdata | null>(null);
+  const allUserData = useRecoilValueLoadable(UserDataSelector);
 
-	useEffect(() => {
-		switch (UserDataLoadble.state) {
-			case "hasValue":
-				setuserdata(UserDataLoadble.contents);
-				setisloading(false);
-				break;
-			case "loading":
-				setisloading(true);
-				break;
-			case "hasError":
-				setisloading(false);
-				toast.error("Failed to fetch user data");
-				throw new Error("Failed to fetch user data");
-		}
-	}, [UserDataLoadble]);
+  useEffect(() => {
+    switch (allUserData.state) {
+      case 'hasValue':
+        SetisLoading(false);
+        setUserData(allUserData.contents);
+        break;
+      case 'loading':
+        SetisLoading(true);
+        break;
+      case 'hasError':
+        SetisLoading(false);
+        toast.error('Error fetching user data');
+        break;
+    }
+  }, [allUserData]);
 
-	return { isloading, userdata };
+  return { isLoading, userData };
 };

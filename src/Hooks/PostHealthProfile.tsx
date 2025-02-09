@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const PostHealthProfile = async (data: any) => {
-	const response = await axios.post("/api/healthProfile", {
-		data,
-	});
+  const response = await axios.post('/api/healthProfile', {
+    data,
+  });
 
-	return response;
+  return response;
 };

@@ -1,5 +1,5 @@
-import { BottomNavigation } from "@components/Dashboard/PremiumUsersBNC";
-import { SingleWorkout } from "@components/Singleworkout/singleworkout";
+import { BottomNavigation } from '@components/Dashboard/PremiumUsersBNC';
+import { SingleWorkout } from '@components/Singleworkout/singleworkout';
 export const SingleWorkoutRoute = () => {
   return (
     <div>

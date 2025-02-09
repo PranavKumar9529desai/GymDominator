@@ -1,18 +1,11 @@
-import { FetchExcercise } from "@hooks/FetchExcercise";
-import type { Excercisetype } from "@state/Selectors/ExcerciseSelectorsfamily";
-import type { ExerciseWithMuscle } from "@state/Selectors/SingleWorkoutSelectorsFamily";
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  ChevronDown,
-  Dumbbell,
-  Search,
-  X,
-} from "lucide-react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { PropagateLoader } from "react-spinners";
+import { FetchExcercise } from '@hooks/FetchExcercise';
+import type { Excercisetype } from '@state/Selectors/ExcerciseSelectorsfamily';
+import type { ExerciseWithMuscle } from '@state/Selectors/SingleWorkoutSelectorsFamily';
+import { motion } from 'framer-motion';
+import { ArrowRight, Check, ChevronDown, Dumbbell, Search, X } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { PropagateLoader } from 'react-spinners';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -35,7 +28,7 @@ const itemVariants = {
 export const SingleMuscles = () => {
   let { muscle } = useParams<{ muscle: string }>();
   if (muscle === undefined) {
-    muscle = "chest";
+    muscle = 'chest';
   }
   const { isLoading, Excercise } = FetchExcercise({ muscle });
 
@@ -45,14 +38,14 @@ export const SingleMuscles = () => {
     ).map(
       (exercise: ExerciseWithMuscle): Excercisetype => ({
         name: exercise.name,
-        img: exercise.image_url || "",
+        img: exercise.image_url || '',
         instructions: exercise.instructions,
-        videolink: exercise.video_url || "",
+        videolink: exercise.video_url || '',
         MuscleGroup: {
           id: exercise.MuscleGroup.id,
           name: exercise.MuscleGroup.name,
-          img: exercise.MuscleGroup.image_url || "",
-          fullimage: exercise.muscle_image || "",
+          img: exercise.MuscleGroup.image_url || '',
+          fullimage: exercise.muscle_image || '',
         },
       })
     ) || [];
@@ -68,10 +61,7 @@ export const SingleMuscles = () => {
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white mt-4 mx-4 rounded-2xl shadow-lg">
         <div className="max-w-7xl mx-auto px-8 py-16 lg:py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptLTExLjk5NyAwYy02LjYyNyAwLTEyIDUuMzczLTEyIDEyczUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyLTUuMzczLTEyLTEyLTEyeiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9nPjwvc3ZnPg==')] opacity-10" />
-          <motion.div
-            variants={itemVariants}
-            className="relative flex flex-col items-center"
-          >
+          <motion.div variants={itemVariants} className="relative flex flex-col items-center">
             <span className="px-4 py-1.5 bg-blue-500/20 rounded-full text-blue-100 text-sm font-medium mb-6">
               Workout Guide
             </span>
@@ -83,8 +73,8 @@ export const SingleMuscles = () => {
                 <span className="ml-4 text-blue-100">Exercises</span>
               </h1>
               <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
-                Discover professional-grade exercises designed to target and
-                strengthen your {muscle.toLowerCase()} muscles effectively.
+                Discover professional-grade exercises designed to target and strengthen your{' '}
+                {muscle.toLowerCase()} muscles effectively.
               </p>
             </div>
           </motion.div>
@@ -114,48 +104,42 @@ const RecommenedExcercise = ({
   Excercises: Excercisetype[];
 }): JSX.Element => {
   // const { muscle } = useParams<{ muscle: string }>();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState<string[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const difficultyOptions = [
-    { value: "Beginner", color: "bg-green-500", label: "Beginner" },
-    { value: "Intermediate", color: "bg-yellow-500", label: "Intermediate" },
-    { value: "Advanced", color: "bg-red-500", label: "Advanced" },
+    { value: 'Beginner', color: 'bg-green-500', label: 'Beginner' },
+    { value: 'Intermediate', color: 'bg-yellow-500', label: 'Intermediate' },
+    { value: 'Advanced', color: 'bg-red-500', label: 'Advanced' },
   ];
 
   const toggleFilter = (filter: string) => {
     setDifficultyFilter((prev) =>
-      prev.includes(filter)
-        ? prev.filter((f) => f !== filter)
-        : [...prev, filter]
+      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
     );
     // Close filter after selection
     setIsFilterOpen(false);
   };
 
   const filteredExercises = Excercises.filter((exercise) => {
-    const matchesSearch = exercise.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+    const matchesSearch = exercise.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesDifficulty =
       difficultyFilter.length === 0 ||
-      (exercise.instructions.length > 500 &&
-        difficultyFilter.includes("Advanced")) ||
-      (exercise.instructions.length > 200 &&
-        difficultyFilter.includes("Intermediate")) ||
-      (exercise.instructions.length <= 200 &&
-        difficultyFilter.includes("Beginner"));
+      (exercise.instructions.length > 500 && difficultyFilter.includes('Advanced')) ||
+      (exercise.instructions.length > 200 && difficultyFilter.includes('Intermediate')) ||
+      (exercise.instructions.length <= 200 && difficultyFilter.includes('Beginner'));
 
     return matchesSearch && matchesDifficulty;
   });
 
   return (
     <div className="space-y-8 relative">
-      {" "}
+      {' '}
       {/* Added relative positioning */}
       {/* Overlay when filter is open */}
       {isFilterOpen && (
+        // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
         <div
           className="fixed inset-0 bg-black/20 backdrop-blur-[1px] z-30"
           onClick={() => setIsFilterOpen(false)}
@@ -163,7 +147,7 @@ const RecommenedExcercise = ({
       )}
       {/* Search and Filter Bar */}
       <div className=" z-40 backdrop-blur-sm py-4">
-        {" "}
+        {' '}
         {/* Increased z-index */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
@@ -187,9 +171,7 @@ const RecommenedExcercise = ({
                 <span>Filter</span>
                 <div className="relative">
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      isFilterOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}
                   />
                   {difficultyFilter.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
@@ -202,9 +184,7 @@ const RecommenedExcercise = ({
               {isFilterOpen && (
                 <div className="fixed md:absolute inset-x-0 bottom-0 md:bottom-auto md:right-0 md:top-full mt-2 md:mt-0 md:w-48 bg-white border border-gray-200 rounded-t-2xl md:rounded-2xl shadow-2xl md:shadow-lg p-4 md:p-2 z-50 max-h-[70vh] overflow-y-auto">
                   <div className="flex items-center justify-between mb-4 md:hidden">
-                    <h3 className="text-lg font-semibold">
-                      Filter by Difficulty
-                    </h3>
+                    <h3 className="text-lg font-semibold">Filter by Difficulty</h3>
                     <button
                       type="button"
                       onClick={() => setIsFilterOpen(false)}
@@ -228,13 +208,11 @@ const RecommenedExcercise = ({
                         <div
                           className={`w-3 h-3 rounded-full ${option.color} ${
                             difficultyFilter.includes(option.value)
-                              ? "ring-2 ring-offset-2 ring-blue-500"
-                              : ""
+                              ? 'ring-2 ring-offset-2 ring-blue-500'
+                              : ''
                           }`}
                         />
-                        <span className="text-sm whitespace-nowrap">
-                          {option.label}
-                        </span>
+                        <span className="text-sm whitespace-nowrap">{option.label}</span>
                         {difficultyFilter.includes(option.value) && (
                           <Check className="w-4 h-4 ml-auto text-blue-500" />
                         )}
@@ -249,7 +227,7 @@ const RecommenedExcercise = ({
       </div>
       {/* Exercise Grid with lower z-index */}
       <div className="relative z-10">
-        {" "}
+        {' '}
         {/* Added relative positioning and lower z-index */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
           {filteredExercises.map((excercise) => (
@@ -286,10 +264,10 @@ const ExcerciseCard = ({
   // Calculate difficulty based on instruction length
   const difficulty =
     instructions.length > 500
-      ? "Advanced"
+      ? 'Advanced'
       : instructions.length > 200
-      ? "Intermediate"
-      : "Beginner";
+        ? 'Intermediate'
+        : 'Beginner';
 
   return (
     <div
@@ -307,9 +285,7 @@ const ExcerciseCard = ({
         </div>
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4 line-clamp-1">
-          {name}
-        </h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-4 line-clamp-1">{name}</h3>
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"

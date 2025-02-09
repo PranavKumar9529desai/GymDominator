@@ -1,9 +1,9 @@
-import MonthlyProgress from "./NewMonthlyProgressComponent";
+import MonthlyProgress from './NewMonthlyProgressComponent';
 
 const MonthProgressRoute = () => {
   return (
     <div className="h-screen lg:py-10">
-        <MonthlyProgress />
+      <MonthlyProgress />
     </div>
   );
 };

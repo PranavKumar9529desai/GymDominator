@@ -1,4 +1,4 @@
-import { SingleMuscles } from "@components/Dashboard/SingleMuscle/singleMuscle";
+import { SingleMuscles } from '@components/Dashboard/SingleMuscle/singleMuscle';
 export const SingleMusclesRoute = () => {
   return (
     <div className="h-full">

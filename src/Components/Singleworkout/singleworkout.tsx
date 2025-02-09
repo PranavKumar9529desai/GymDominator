@@ -1,16 +1,11 @@
-import { FetchSingleWorkout } from "@hooks/FetchSingleWorkout";
-import { motion } from "framer-motion";
-import {
-  BookMarked,
-  Heart,
-  Share2,
-  Target,
-} from "lucide-react";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { FetchSingleWorkout } from '@hooks/FetchSingleWorkout';
+import { motion } from 'framer-motion';
+import { BookMarked, Heart, Share2, Target } from 'lucide-react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const SingleWorkout = () => {
-  const { workoutname = "", muscle = "" } = useParams<{
+  const { workoutname = '', muscle = '' } = useParams<{
     workoutname: string;
     muscle: string;
   }>();
@@ -32,12 +27,9 @@ export const SingleWorkout = () => {
           <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
             <span className="text-2xl">⚠️</span>
           </div>
-          <h2 className="text-2xl font-bold text-red-500">
-            Exercise Not Found
-          </h2>
+          <h2 className="text-2xl font-bold text-red-500">Exercise Not Found</h2>
           <p className="text-gray-600 max-w-md">
-            We couldn't load this exercise. Please try again or choose a
-            different one.
+            We couldn't load this exercise. Please try again or choose a different one.
           </p>
         </div>
       </motion.div>
@@ -49,15 +41,13 @@ export const SingleWorkout = () => {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
-          <div className="mt-4 text-blue-600 font-medium">
-            Loading exercise...
-          </div>
+          <div className="mt-4 text-blue-600 font-medium">Loading exercise...</div>
         </div>
       </div>
     );
   }
 
-  const videoId = exercise.video_url?.split("/").pop() || "";
+  const videoId = exercise.video_url?.split('/').pop() || '';
 
   return (
     <motion.div
@@ -82,16 +72,10 @@ export const SingleWorkout = () => {
             <span className="text-blue-700 font-medium">{muscle}</span>
           </div>
           <div className="flex gap-3">
-            <button 
-              type="button"
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
+            <button type="button" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <Share2 className="w-5 h-5 text-gray-600" />
             </button>
-            <button 
-              type="button"
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
+            <button type="button" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
               <BookMarked className="w-5 h-5 text-gray-600" />
             </button>
             <button
@@ -100,9 +84,7 @@ export const SingleWorkout = () => {
               className="p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
               <Heart
-                className={`w-5 h-5 ${
-                  isLiked ? "text-red-500 fill-red-500" : "text-gray-600"
-                }`}
+                className={`w-5 h-5 ${isLiked ? 'text-red-500 fill-red-500' : 'text-gray-600'}`}
               />
             </button>
           </div>
@@ -117,7 +99,7 @@ export const SingleWorkout = () => {
       {/* Exercise Details */}
       <div className="mt-16">
         <ExerciseDescription
-          img={exercise.muscle_image || ""}
+          img={exercise.muscle_image || ''}
           instruction={exercise.instructions}
           muscleName={exercise.muscle_group}
         />
@@ -151,14 +133,14 @@ const ExerciseDescription = ({
 }) => {
   // Clean and process instructions
   const instructions = instruction
-    .split(".")
+    .split('.')
     .map((line) => {
       // Remove leading numbers and dots if they exist
       const cleanLine = line
-        .replace(/^\d+\.?\s*/, "")
+        .replace(/^\d+\.?\s*/, '')
         // Remove all \n characters and multiple spaces
-        .replace(/\\n/g, " ")
-        .replace(/\s+/g, " ")
+        .replace(/\\n/g, ' ')
+        .replace(/\s+/g, ' ')
         .trim();
       return cleanLine;
     })
@@ -170,9 +152,7 @@ const ExerciseDescription = ({
       <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-8 rounded-2xl">
         <div className="flex items-center justify-center gap-4">
           <Target className="w-8 h-8 text-blue-600" />
-          <h2 className="text-3xl font-bold text-blue-900">
-            {muscleName.toUpperCase()}
-          </h2>
+          <h2 className="text-3xl font-bold text-blue-900">{muscleName.toUpperCase()}</h2>
         </div>
       </div>
 
@@ -189,9 +169,7 @@ const ExerciseDescription = ({
 
         {/* Instructions */}
         <div className="mt-8 lg:mt-0 space-y-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">
-            Step-by-Step Guide
-          </h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-8">Step-by-Step Guide</h3>
           {instructions.map((line, index) => (
             <motion.div
               key={`instruction-${line.substring(0, 20)}-${index}`}

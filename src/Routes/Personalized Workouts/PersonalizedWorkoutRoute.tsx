@@ -1,5 +1,5 @@
-import PersonalizedWorkouts from "./PersonalizedWorkouts";
+import PersonalizedWorkouts from './PersonalizedWorkouts';
 
 export default function PersonalizedWorkoutRoute() {
-	return <PersonalizedWorkouts />;
+  return <PersonalizedWorkouts />;
 }

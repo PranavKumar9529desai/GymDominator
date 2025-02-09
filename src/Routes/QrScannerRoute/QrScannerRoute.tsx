@@ -1,5 +1,5 @@
 //@ts-ignore
-import AttendanceQRScanner from "@components/Qrcode/AttendanceQrScanner";
+import AttendanceQRScanner from '@components/Qrcode/AttendanceQrScanner';
 
 export const QrScannerRoute = () => {
   return <AttendanceQRScanner />;

@@ -1,5 +1,5 @@
-import { Allworkouts } from "@components/Workout/allworkouts";
+import { Allworkouts } from '@components/Workout/allworkouts';
 
 export default function WorkoutRoute() {
-	return <Allworkouts />;
+  return <Allworkouts />;
 }

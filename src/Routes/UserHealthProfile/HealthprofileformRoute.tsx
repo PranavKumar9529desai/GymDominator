@@ -1,8 +1,8 @@
-import UserHealthProfileForm from "./UserHealthProfileForm";
+import UserHealthProfileForm from './UserHealthProfileForm';
 export const HealthProfileFormRoute = () => {
-	return (
-		<div className="">
-			<UserHealthProfileForm />
-		</div>
-	);
+  return (
+    <div className="">
+      <UserHealthProfileForm />
+    </div>
+  );
 };

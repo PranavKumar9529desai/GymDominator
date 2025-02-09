@@ -1,24 +1,24 @@
-import { Button } from "@components/ui/button";
-import { Card, CardContent, CardHeader } from "@components/ui/card";
-import { GetAttendanceDays } from "@routes/MonthProgressRoute/GetAttendandedDays";
-import { useQuery } from "@tanstack/react-query";
-import { ChevronLeft, ChevronRight, Dumbbell, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Button } from '@components/ui/button';
+import { Card, CardContent, CardHeader } from '@components/ui/card';
+import { GetAttendanceDays } from '@routes/MonthProgressRoute/GetAttendandedDays';
+import { useQuery } from '@tanstack/react-query';
+import { ChevronLeft, ChevronRight, Dumbbell, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 export default function ProfessionalMonthlyProgress() {
@@ -26,7 +26,7 @@ export default function ProfessionalMonthlyProgress() {
   const [progress, setProgress] = useState(0);
 
   const { data: attendanceData, isLoading } = useQuery<Date[]>({
-    queryKey: ["attendanceDays"],
+    queryKey: ['attendanceDays'],
     queryFn: async () => {
       try {
         const response = await GetAttendanceDays();
@@ -75,9 +75,7 @@ export default function ProfessionalMonthlyProgress() {
 
     // Calculate progress percentage
     const calculatedProgress =
-      availableWorkoutDays > 0
-        ? Math.round((attendedDays / availableWorkoutDays) * 100)
-        : 0;
+      availableWorkoutDays > 0 ? Math.round((attendedDays / availableWorkoutDays) * 100) : 0;
 
     // Only update progress if it has changed
     if (calculatedProgress !== progress) {
@@ -105,9 +103,7 @@ export default function ProfessionalMonthlyProgress() {
 
   const isMissedDay = (date: Date) => {
     const today = new Date();
-    return (
-      date < today && !isGymDay(date) && date.getDay() !== 0 && date <= today
-    );
+    return date < today && !isGymDay(date) && date.getDay() !== 0 && date <= today;
   };
 
   const getDaysInMonth = (date: Date) => {
@@ -146,23 +142,23 @@ export default function ProfessionalMonthlyProgress() {
       cursor-default
       ${
         isGymAttendance
-          ? "bg-gradient-to-br from-green-400 to-green-500 text-white shadow-lg shadow-green-200/50 dark:shadow-green-900/50"
-          : ""
+          ? 'bg-gradient-to-br from-green-400 to-green-500 text-white shadow-lg shadow-green-200/50 dark:shadow-green-900/50'
+          : ''
       }
       ${
         isToday(date) && !isGymAttendance
-          ? "bg-gradient-to-br from-blue-400 to-blue-600 text-white shadow-lg shadow-blue-200/50 dark:shadow-blue-900/50"
-          : ""
+          ? 'bg-gradient-to-br from-blue-400 to-blue-600 text-white shadow-lg shadow-blue-200/50 dark:shadow-blue-900/50'
+          : ''
       }
       ${
         isMissedDay(date)
-          ? "bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/50 dark:to-red-800/50"
-          : ""
+          ? 'bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/50 dark:to-red-800/50'
+          : ''
       }
       ${
         isSunday
-          ? "bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800/50 dark:to-gray-700/50 text-gray-400 dark:text-gray-600"
-          : ""
+          ? 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800/50 dark:to-gray-700/50 text-gray-400 dark:text-gray-600'
+          : ''
       }
     `;
   };
@@ -172,15 +168,11 @@ export default function ProfessionalMonthlyProgress() {
 
     return (
       <div key={date.toString()} className={getDayClasses(date)}>
-        <span className="text-base md:text-lg font-semibold">
-          {date.getDate()}
-        </span>
+        <span className="text-base md:text-lg font-semibold">{date.getDate()}</span>
         {isGymDay(date) && date.getDay() !== 0 && (
           <Dumbbell className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
         )}
-        {isMissedDay(date) && (
-          <X className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
-        )}
+        {isMissedDay(date) && <X className="w-4 h-4 md:w-5 md:h-5 text-red-500" />}
       </div>
     );
   };
@@ -213,19 +205,19 @@ export default function ProfessionalMonthlyProgress() {
               </span>
               {isGymDay(new Date()) ? (
                 <span className="mt-2 px-4 py-1.5 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full text-sm font-medium shadow-lg shadow-green-200/50 dark:shadow-green-900/50">
-                  {new Date().toLocaleDateString("en-US", {
-                    weekday: "long",
-                    month: "short",
-                    day: "numeric",
-                  })}{" "}
+                  {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'short',
+                    day: 'numeric',
+                  })}{' '}
                   • Workout Complete ✨
                 </span>
               ) : (
                 <span className="mt-2 text-gray-600 dark:text-gray-400 text-sm font-medium">
-                  {new Date().toLocaleDateString("en-US", {
-                    weekday: "long",
-                    month: "short",
-                    day: "numeric",
+                  {new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'short',
+                    day: 'numeric',
                   })}
                 </span>
               )}
@@ -243,10 +235,7 @@ export default function ProfessionalMonthlyProgress() {
         <CardContent>
           <div className="grid grid-cols-7 gap-8 lg:gap-4 mb-6">
             {DAYS.map((day) => (
-              <div
-                key={day}
-                className="text-center font-semibold text-gray-600 dark:text-gray-400"
-              >
+              <div key={day} className="text-center font-semibold text-gray-600 dark:text-gray-400">
                 {day}
               </div>
             ))}
@@ -273,15 +262,11 @@ export default function ProfessionalMonthlyProgress() {
               </div>
               <div className="flex items-center space-x-3 transition-transform hover:scale-105">
                 <div className="w-5 h-5 rounded-md bg-blue-500 shadow-lg shadow-blue-200 dark:shadow-blue-900" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Today
-                </span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Today</span>
               </div>
               <div className="flex items-center space-x-3 transition-transform hover:scale-105">
                 <div className="w-5 h-5 rounded-md bg-red-100 dark:bg-red-900/50 shadow-lg shadow-red-200 dark:shadow-red-900" />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Missed
-                </span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Missed</span>
               </div>
               <div className="flex items-center space-x-3 transition-transform hover:scale-105">
                 <div className="w-5 h-5 rounded-md bg-gray-100 dark:bg-gray-800/50 shadow-lg shadow-gray-200 dark:shadow-gray-900" />
@@ -295,13 +280,7 @@ export default function ProfessionalMonthlyProgress() {
               {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
               <svg className="w-full h-full transform -rotate-90">
                 <defs>
-                  <linearGradient
-                    id="progress-gradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
+                  <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#4ade80" />
                     <stop offset="100%" stopColor="#22c55e" />
                   </linearGradient>

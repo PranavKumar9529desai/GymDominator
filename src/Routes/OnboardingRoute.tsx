@@ -1,9 +1,9 @@
-import { Onbording } from "@components/Onboarding/Onboarding";
+import { Onbording } from '@components/Onboarding/Onboarding';
 
 export default function OnboardingRoute() {
-	return (
-		<div>
-			<Onbording />
-		</div>
-	);
+  return (
+    <div>
+      <Onbording />
+    </div>
+  );
 }
