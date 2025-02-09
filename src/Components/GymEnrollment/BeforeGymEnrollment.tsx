@@ -10,6 +10,7 @@ import { Button } from "@components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GetEnrollmentStatus } from "@hooks/Enrollment/GetEnrollmentStatus";
+import { AttachUserToGym } from "../../Hooks/AttachUserToGym";
 
 export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);

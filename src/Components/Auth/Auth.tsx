@@ -1,29 +1,28 @@
-'use client';
-import { UserDetailsAtom } from '@state/Atom/userDeatilsAtom';
-import axios from 'axios';
-import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
-import { type ChangeEvent, useState, useTransition } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { z } from 'zod';
-import { GoogleAuth } from './GoogleAuth';
+import { UserDetailsAtom } from "@state/Atom/userDeatilsAtom";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { type ChangeEvent, useState, useTransition } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { z } from "zod";
+import { GoogleAuth } from "./GoogleAuth";
 
 const signUpSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  username: z.string().min(2, 'Username must be at least 2 characters'),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  username: z.string().min(2, "Username must be at least 2 characters"),
 });
 
 const signInSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 type FormData = { username?: string; email: string; password: string };
 
 interface AuthProps {
-  type: 'signup' | 'signin';
+  type: "signup" | "signin";
 }
 
 export function Auth({ type }: AuthProps) {
@@ -32,16 +31,16 @@ export function Auth({ type }: AuthProps) {
   const [, setUserDetails] = useRecoilState(UserDetailsAtom);
 
   const [formData, setFormData] = useState<FormData>({
-    email: '',
-    password: '',
-    ...(type === 'signup' ? { username: '' } : {}),
+    email: "",
+    password: "",
+    ...(type === "signup" ? { username: "" } : {}),
   });
 
   const navigate = useNavigate();
 
   const validateForm = () => {
     try {
-      if (type === 'signup') {
+      if (type === "signup") {
         signUpSchema.parse(formData);
       } else {
         signInSchema.parse(formData);
@@ -63,7 +62,7 @@ export function Auth({ type }: AuthProps) {
 
     startTransition(() => {
       const payload =
-        type === 'signup' && 'username' in formData
+        type === "signup" && "username" in formData
           ? {
               email: formData.email,
               username: formData.username,
@@ -77,25 +76,25 @@ export function Auth({ type }: AuthProps) {
       axios
         .post(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/user${
-            type === 'signup' ? '/signup' : '/signin'
+            type === "signup" ? "/signup" : "/signin"
           }`,
           payload,
           {
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
             },
           }
         )
         .then((response) => {
           const { token, name } = response.data;
-          localStorage.setItem('jwt', token);
+          localStorage.setItem("jwt", token);
           // Update the atom with proper object structure
           setUserDetails({ name: name });
-          navigate('/welcome');
+          navigate("/welcome");
         })
         .catch((error) => {
-          console.error('Error:', error);
+          console.error("Error:", error);
         });
     });
   };
@@ -116,16 +115,16 @@ export function Auth({ type }: AuthProps) {
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                {type === 'signup' ? 'Create your account' : 'Welcome back'}
+                {type === "signup" ? "Create your account" : "Welcome back"}
               </h1>
               <p className="mt-2 text-sm text-gray-600">
-                {type === 'signup'
-                  ? 'Start your fitness journey today'
-                  : 'Continue your fitness journey'}
+                {type === "signup"
+                  ? "Start your fitness journey today"
+                  : "Continue your fitness journey"}
               </p>
             </div>
 
-            {type === 'signup' && (
+            {type === "signup" && (
               <div>
                 <LabeledInput
                   label="Username"
@@ -171,10 +170,10 @@ export function Auth({ type }: AuthProps) {
           >
             {isPending ? (
               <Loader2 className="w-5 h-5 animate-spin" />
-            ) : type === 'signup' ? (
-              'Create Account'
+            ) : type === "signup" ? (
+              "Create Account"
             ) : (
-              'Sign In'
+              "Sign In"
             )}
           </button>
 
@@ -182,12 +181,14 @@ export function Auth({ type }: AuthProps) {
           <GoogleAuth />
 
           <p className="mt-4 text-center text-sm text-gray-600">
-            {type === 'signup' ? 'Already have an account? ' : "Don't have an account? "}
+            {type === "signup"
+              ? "Already have an account? "
+              : "Don't have an account? "}
             <Link
-              to={type === 'signup' ? '/signin' : '/signup'}
+              to={type === "signup" ? "/signin" : "/signup"}
               className="font-medium text-blue-600 hover:text-blue-500"
             >
-              {type === 'signup' ? 'Sign in' : 'Sign up'}
+              {type === "signup" ? "Sign in" : "Sign up"}
             </Link>
           </p>
         </div>
@@ -231,7 +232,7 @@ function LabeledInput({
           className={`
             w-full px-3 py-2 border rounded-lg shadow-sm
             focus:outline-none focus:ring-2 focus:ring-blue-500
-            ${error ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}
+            ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300"}
           `}
         />
         {error && <p className="mt-1 text-sm text-red-600">{error}</p>}

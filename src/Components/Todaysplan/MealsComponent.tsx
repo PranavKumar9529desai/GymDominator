@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SvgMeal } from '@components/Svg/mealsSvg';
 export const MealsaComponentCard = () => {
   return (

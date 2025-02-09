@@ -10,7 +10,8 @@ import { GiGymBag } from 'react-icons/gi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 export const Sidebar2 = () => {
-  const { isloading, userdata } = FetchUserData();
+  const { isLoading, userData } = FetchUserData();
+  console.log("isloading is and userdata", isLoading, userData);
   const UserDetails = useRecoilValue(UserDetailsAtom);
   const [activeRoute, setActiveRoute] = useState('');
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
@@ -155,14 +156,14 @@ export const Sidebar2 = () => {
             <User className="w-5 h-5 text-gray-300" />
           </div>
           <div className="flex-grow text-left">
-            {isloading ? (
+            {isLoading ? (
               <>
                 <p className="font-medium text-white">{UserDetails.name}</p>
                 <p className="text-sm text-gray-400">Premium Member</p>
               </>
             ) : (
               <>
-                <p className="font-medium text-white">{userdata?.name ?? 'Guest'}</p>
+                <p className="font-medium text-white">{userData?.name ?? 'Guest'}</p>
                 <p className="text-sm text-gray-400">GymNavigator</p>
               </>
             )}

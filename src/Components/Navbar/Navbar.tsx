@@ -1,11 +1,11 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-type colors = 'white' | 'black';
+type colors = "white" | "black";
 
 const optimizedLogo = new Image();
-optimizedLogo.src = '/favicon.ico';
+optimizedLogo.src = "/favicon.ico";
 
 export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,10 +15,10 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   const navigate = useNavigate();
 
   const sections = [
-    { name: 'About', path: '/about' },
-    { name: 'Features', path: '/features' },
-    { name: 'Pricing', path: '/pricing' },
-    { name: 'Contact', path: '/contact' },
+    { name: "About", path: "/about" },
+    { name: "Features", path: "/features" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const handleNavigation = (path: string) => {
@@ -27,8 +27,8 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    navigate('/');
+    localStorage.removeItem("jwt");
+    navigate("/");
     setIsOpen(false);
   };
 
@@ -40,8 +40,8 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
         setScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -49,8 +49,12 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
       <nav
         className={`
           fixed w-full z-50 transition-all duration-500
-          ${isscrolled ? 'py-2 bg-slate-900/95 backdrop-blur-md shadow-lg' : 'py-4 bg-transparent'}
-          ${TextColor === 'white' ? 'text-white' : 'text-black'}
+          ${
+            isscrolled
+              ? "py-2 bg-slate-900/95 backdrop-blur-md shadow-lg"
+              : "py-4 bg-transparent"
+          }
+          ${TextColor === "white" ? "text-white" : "text-black"}
         `}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +75,9 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                     GymNavigator
                   </h1>
-                  <span className="text-xs text-gray-400">Professional Tracking</span>
+                  <span className="text-xs text-gray-400">
+                    Professional Tracking
+                  </span>
                 </div>
               </motion.div>
             </Link>
@@ -93,15 +99,17 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                     <span
                       className={
                         location.pathname === section.path
-                          ? 'text-blue-400'
-                          : 'text-white hover:text-blue-400 transition-colors'
+                          ? "text-blue-400"
+                          : "text-white hover:text-blue-400 transition-colors"
                       }
                     >
                       {section.name}
                     </span>
                     <span
                       className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left transition-transform duration-300 ${
-                        location.pathname === section.path ? 'scale-x-100' : 'scale-x-0'
+                        location.pathname === section.path
+                          ? "scale-x-100"
+                          : "scale-x-0"
                       }`}
                     />
                   </button>
@@ -112,15 +120,17 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  const token = localStorage.getItem('jwt');
-                  navigate(token ? '/dashboard' : '/signin');
+                  const token = localStorage.getItem("jwt");
+                  navigate(token ? "/dashboard" : "/signin");
                 }}
                 className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium"
               >
-                {localStorage.getItem('jwt') ? 'Go to Dashboard' : 'Get Started'}
+                {localStorage.getItem("jwt")
+                  ? "Go to Dashboard"
+                  : "Get Started"}
               </motion.button>
 
-              {localStorage.getItem('jwt') && (
+              {localStorage.getItem("jwt") && (
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -135,13 +145,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
             {/* Mobile Menu Button */}
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
               onClick={() => setIsOpen(true)}
             >
-              <svg 
-                className="w-6 h-6" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
                 role="img"
                 aria-label="Menu button"
@@ -176,10 +186,10 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
             />
 
             <motion.div
-              initial={{ x: '100%' }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 20 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 20 }}
               className="absolute top-0 right-0 w-[300px] h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-xl"
             >
               {/* Close Button */}
@@ -210,12 +220,18 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 {/* Header */}
                 <div className="p-6 border-b border-white/10">
                   <div className="flex items-center space-x-3">
-                    <img src={optimizedLogo.src} alt="Logo" className="w-10 h-10" />
+                    <img
+                      src={optimizedLogo.src}
+                      alt="Logo"
+                      className="w-10 h-10"
+                    />
                     <div>
                       <h2 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                         GymNavigator
                       </h2>
-                      <p className="text-sm text-gray-400">Professional Tracking</p>
+                      <p className="text-sm text-gray-400">
+                        Professional Tracking
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -223,24 +239,23 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 {/* Navigation Links */}
                 <nav className="flex-1 px-4 py-6">
                   <div className="space-y-2">
-                    {sections.map((section, index) => (
+                    {sections.map((section) => (
                       <button
                         type="button"
                         key={section.name}
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
                         onClick={() => handleNavigation(section.path)}
                         className={`flex items-center w-full p-4 rounded-lg group transition-all ${
                           location.pathname === section.path
-                            ? 'bg-blue-500/20 text-blue-400'
-                            : 'text-white/90 hover:bg-white/10'
+                            ? "bg-blue-500/20 text-blue-400"
+                            : "text-white/90 hover:bg-white/10"
                         }`}
                       >
                         <span className="flex-1 text-left">{section.name}</span>
                         <svg
                           className={`w-5 h-5 ${
-                            location.pathname === section.path ? 'text-blue-400' : 'text-gray-400'
+                            location.pathname === section.path
+                              ? "text-blue-400"
+                              : "text-gray-400"
                           } group-hover:translate-x-1 transition-transform`}
                           fill="none"
                           stroke="currentColor"
@@ -262,19 +277,21 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
                 {/* Footer */}
                 <div className="p-6 border-t border-white/10">
-                  {localStorage.getItem('jwt') ? (
+                  {localStorage.getItem("jwt") ? (
                     <div className="space-y-2">
                       <motion.button
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}
                         onClick={() => {
-                          navigate('/profile');
+                          navigate("/profile");
                           setIsOpen(false);
                         }}
                         className="w-full py-2.5 px-4 rounded-lg bg-white/10 text-white font-medium hover:bg-white/15 transition-colors flex items-center gap-2"
                       >
                         <div className="w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-sm">
-                          {localStorage.getItem('username')?.[0]?.toUpperCase() || 'U'}
+                          {localStorage
+                            .getItem("username")?.[0]
+                            ?.toUpperCase() || "U"}
                         </div>
                         Profile
                       </motion.button>
@@ -307,7 +324,7 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
-                        navigate('/signin');
+                        navigate("/signin");
                         setIsOpen(false);
                       }}
                       className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
@@ -318,10 +335,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
                   {/* Existing social links */}
                   <div className="mt-6 flex justify-center space-x-4">
-                    <a href="https://facebook.com" className="text-gray-400 hover:text-white transition-colors">
-                      <svg 
-                        className="w-6 h-6" 
-                        fill="currentColor" 
+                    <a
+                      href="https://facebook.com"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
                         viewBox="0 0 24 24"
                         role="img"
                         aria-label="Facebook"
@@ -329,10 +349,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                       </svg>
                     </a>
-                    <a href="https://twitter.com" className="text-gray-400 hover:text-white transition-colors">
-                      <svg 
-                        className="w-6 h-6" 
-                        fill="currentColor" 
+                    <a
+                      href="https://twitter.com"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
                         viewBox="0 0 24 24"
                         role="img"
                         aria-label="Twitter"
@@ -340,10 +363,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                         <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                       </svg>
                     </a>
-                    <a href="https://telegram.org" className="text-gray-400 hover:text-white transition-colors">
-                      <svg 
-                        className="w-6 h-6" 
-                        fill="currentColor" 
+                    <a
+                      href="https://telegram.org"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
                         viewBox="0 0 24 24"
                         role="img"
                         aria-label="Telegram"

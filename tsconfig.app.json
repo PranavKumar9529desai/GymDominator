@@ -31,7 +31,9 @@
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
     "lib": ["ES2017", "DOM", "DOM.Iterable"],
-    "target": "ES2017"
+    "target": "ES2017",
+    "sourceMap": true,
+    "inlineSources": true
   },
   "include": ["src"]
 }
