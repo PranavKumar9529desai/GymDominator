@@ -1,58 +1,54 @@
-import { Suspense, lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import { ErrorBoundary } from "@components/ErrorBoundary/ErrorBoundary";
-import BeforeGymEnrollment from "@components/GymEnrollment/BeforeGymEnrollment";
-import { InstallPrompt } from "@components/PWA/InstallPrompt";
-import { UpdatePrompt } from "@components/PWA/UpdatePrompt";
-import AttendanceFailure from "@components/Qrcode/AttendanceFailure";
-import AttendanceSuccess from "@components/Qrcode/AttendanceSuccess";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import AboutPersonalTrainer from "@routes/About Personal Trainer/AboutPersonalTrainer";
-import { TodaysAttendanceStatusRoute } from "@routes/AttendanceStatusRoute";
-import { GeneralQrScannerRoute } from "@routes/GeneralQrScannerRoute";
-import { QrScannerRoute } from "@routes/QrScannerRoute/QrScannerRoute";
-import { HealthProfileFormRoute } from "@routes/UserHealthProfile/HealthprofileformRoute";
-import { Home } from "@routes/homeRoute";
-import { MyProgressRoute } from "@routes/myprogressRoute";
-import { SignIn } from "@routes/signinRoute";
-import { SignUp } from "@routes/signupRoute";
-import { SingleMusclesRoute } from "@routes/singlemuscleRoutes";
-import { SingleWorkoutRoute } from "@routes/singleworkoutRoute";
-import { TodaysPlanRoute } from "@routes/todaysplanRoute";
-import { RecoilRoot } from "recoil";
-import { Toaster } from "sonner";
-import AboutUs from "./Components/Home/pages/AboutUs";
-import ContactUs from "./Components/Home/pages/ContactUs";
-import Features from "./Components/Home/pages/Features";
-import Pricing from "./Components/Home/pages/Pricing";
-import Welcome from "./Components/Welcome/welcome";
-import DashboardLayout from "./Layouts/DashboardLayout";
-import HomeLayout from "./Layouts/HomeLayout";
-import AboutTrainerRoute from "./Routes/Navbar/About Triainer/AboutTrainerRoute";
-import HealthProfile from "./Routes/Navbar/Healthprofile/Healthprofile";
-import GymInfo from "./Routes/Navbar/My Gym/GymInfo";
-import { Wallet } from "./Routes/Wallet/Wallet";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/react-query";
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { ErrorBoundary } from '@components/ErrorBoundary/ErrorBoundary';
+import BeforeGymEnrollment from '@components/GymEnrollment/BeforeGymEnrollment';
+import { InstallPrompt } from '@components/PWA/InstallPrompt';
+import { UpdatePrompt } from '@components/PWA/UpdatePrompt';
+import AttendanceFailure from '@components/Qrcode/AttendanceFailure';
+import AttendanceSuccess from '@components/Qrcode/AttendanceSuccess';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import AboutPersonalTrainer from '@routes/About Personal Trainer/AboutPersonalTrainer';
+import { TodaysAttendanceStatusRoute } from '@routes/AttendanceStatusRoute';
+import { GeneralQrScannerRoute } from '@routes/GeneralQrScannerRoute';
+import { QrScannerRoute } from '@routes/QrScannerRoute/QrScannerRoute';
+import { HealthProfileFormRoute } from '@routes/UserHealthProfile/HealthprofileformRoute';
+import { Home } from '@routes/homeRoute';
+import { MyProgressRoute } from '@routes/myprogressRoute';
+import { SignIn } from '@routes/signinRoute';
+import { SignUp } from '@routes/signupRoute';
+import { SingleMusclesRoute } from '@routes/singlemuscleRoutes';
+import { SingleWorkoutRoute } from '@routes/singleworkoutRoute';
+import { TodaysPlanRoute } from '@routes/todaysplanRoute';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { RecoilRoot } from 'recoil';
+import { Toaster } from 'sonner';
+import AboutUs from './Components/Home/pages/AboutUs';
+import ContactUs from './Components/Home/pages/ContactUs';
+import Features from './Components/Home/pages/Features';
+import Pricing from './Components/Home/pages/Pricing';
+import Welcome from './Components/Welcome/welcome';
+import DashboardLayout from './Layouts/DashboardLayout';
+import HomeLayout from './Layouts/HomeLayout';
+import AboutTrainerRoute from './Routes/Navbar/About Triainer/AboutTrainerRoute';
+import HealthProfile from './Routes/Navbar/Healthprofile/Healthprofile';
+import GymInfo from './Routes/Navbar/My Gym/GymInfo';
+import { Wallet } from './Routes/Wallet/Wallet';
+import { queryClient } from './lib/react-query';
 
 // Lazy load route components
-const OnboardingRoute = lazy(() => import("@routes/OnboardingRoute"));
-const MonthProgressRoute = lazy(
-  () => import("@routes/MonthProgressRoute/MonthProgressRoute")
-);
-const WorkoutRoute = lazy(() => import("@routes/workoutRoute"));
+const OnboardingRoute = lazy(() => import('@routes/OnboardingRoute'));
+const MonthProgressRoute = lazy(() => import('@routes/MonthProgressRoute/MonthProgressRoute'));
+const WorkoutRoute = lazy(() => import('@routes/workoutRoute'));
 
 // Keep the lazy loaded versions
 const PersonalizedWorkoutRoute = lazy(
-  () => import("@routes/Personalized Workouts/PersonalizedWorkoutRoute")
+  () => import('@routes/Personalized Workouts/PersonalizedWorkoutRoute')
 );
 const PersonalizedDietRoute = lazy(
-  () => import("@routes/PersoanlizedDietRoute/PersonalizedDietRoute")
+  () => import('@routes/PersoanlizedDietRoute/PersonalizedDietRoute')
 );
-const GroceryListRoute = lazy(
-  () => import("./Routes/GroceryList/GroceryListRoute")
-);
+const GroceryListRoute = lazy(() => import('./Routes/GroceryList/GroceryListRoute'));
 
 function Main() {
   return (
@@ -78,18 +74,9 @@ function Main() {
             <Route index element={<WorkoutRoute />} />
             <Route path="workouts/viewworkouts" element={<WorkoutRoute />} />
             <Route path="workouts/:muscle" element={<SingleMusclesRoute />} />
-            <Route
-              path="workouts/:muscle/:workoutname"
-              element={<SingleWorkoutRoute />}
-            />
-            <Route
-              path="diet/personalizeddiet"
-              element={<PersonalizedDietRoute />}
-            />
-            <Route
-              path="workouts/personalizedworkout"
-              element={<PersonalizedWorkoutRoute />}
-            />
+            <Route path="workouts/:muscle/:workoutname" element={<SingleWorkoutRoute />} />
+            <Route path="diet/personalizeddiet" element={<PersonalizedDietRoute />} />
+            <Route path="workouts/personalizedworkout" element={<PersonalizedWorkoutRoute />} />
             <Route path="diet/grocerylist" element={<GroceryListRoute />} />
             <Route path="myprogress" element={<MyProgressRoute />} />
             <Route path="myprogress/week" element={<MyProgressRoute />} />
@@ -105,10 +92,7 @@ function Main() {
             />
             <Route path="today'splan" element={<TodaysPlanRoute />} />
             <Route path="attendance/qrscanner" element={<QrScannerRoute />} />
-            <Route
-              path="attendance/todaysattendance"
-              element={<TodaysAttendanceStatusRoute />}
-            />
+            <Route path="attendance/todaysattendance" element={<TodaysAttendanceStatusRoute />} />
             <Route path="attendance/success" element={<AttendanceSuccess />} />
             <Route path="attendance/failure" element={<AttendanceFailure />} />
 
@@ -122,10 +106,7 @@ function Main() {
           {/* Other routes - No navbar */}
           <Route path="/onboarding">
             <Route index element={<OnboardingRoute />} />
-            <Route
-              path="beforegymenrollment"
-              element={<BeforeGymEnrollment />}
-            />
+            <Route path="beforegymenrollment" element={<BeforeGymEnrollment />} />
 
             <Route path="healthprofile">
               <Route index element={<HealthProfileFormRoute />} />
@@ -153,6 +134,7 @@ function App() {
             <ErrorBoundary>
               <UpdatePrompt />
               <Main />
+
               <InstallPrompt />
             </ErrorBoundary>
           </GoogleOAuthProvider>

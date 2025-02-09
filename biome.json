@@ -3,10 +3,23 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": ["dist/**", "build/**", "node_modules/**", ".next/**", "coverage/**"]
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn"
+      },
+      "style": {
+        "useConst": "error",
+        "useTemplate": "error"
+      }
     }
   },
   "formatter": {
@@ -14,16 +27,13 @@
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 80
+    "lineWidth": 100
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "es5",
+      "trailingCommas": "es5",
       "semicolons": "always"
     }
-  },
-  "files": {
-    "maxSize": 3000000
   }
 }
