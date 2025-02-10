@@ -103,23 +103,20 @@ const RecommenedExcercise = ({
 }: {
   Excercises: Excercisetype[];
 }): JSX.Element => {
-  // const { muscle } = useParams<{ muscle: string }>();
   const [searchQuery, setSearchQuery] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState<string[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const difficultyOptions = [
-    { value: 'Beginner', color: 'bg-green-500', label: 'Beginner' },
-    { value: 'Intermediate', color: 'bg-yellow-500', label: 'Intermediate' },
-    { value: 'Advanced', color: 'bg-red-500', label: 'Advanced' },
+    { value: 'Beginner', color: 'bg-green-500', label: 'Beginner', icon: '🟢' },
+    { value: 'Intermediate', color: 'bg-yellow-500', label: 'Intermediate', icon: '🟡' },
+    { value: 'Advanced', color: 'bg-red-500', label: 'Advanced', icon: '🔴' },
   ];
 
   const toggleFilter = (filter: string) => {
     setDifficultyFilter((prev) =>
       prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
     );
-    // Close filter after selection
-    setIsFilterOpen(false);
   };
 
   const filteredExercises = Excercises.filter((exercise) => {
@@ -134,117 +131,224 @@ const RecommenedExcercise = ({
   });
 
   return (
-    <div className="space-y-8 relative">
-      {' '}
-      {/* Added relative positioning */}
-      {/* Overlay when filter is open */}
-      {isFilterOpen && (
-        // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-        <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-[1px] z-30"
-          onClick={() => setIsFilterOpen(false)}
-        />
-      )}
+    <div className="space-y-8">
       {/* Search and Filter Bar */}
-      <div className=" z-40 backdrop-blur-sm py-4">
-        {' '}
-        {/* Increased z-index */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search exercises..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-              />
-            </div>
-
-            <div className="relative">
+      <div className=" z-40 bg-white shadow-sm rounded-2xl border border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          {/* Mobile View */}
+          <div className="block md:hidden">
+            <div className="p-4 space-y-3">
+              {/* Search Input */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search exercises..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                />
+              </div>
+              
+              {/* Filter Button */}
               <button
-                type="button"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                className="flex items-center gap-2 px-4 py-3 text-sm border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors"
               >
-                <span>Filter</span>
-                <div className="relative">
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}
-                  />
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-700">Filter by Difficulty</span>
                   {difficultyFilter.length > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    <span className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">
                       {difficultyFilter.length}
                     </span>
                   )}
                 </div>
+                <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
               </button>
 
+              {/* Filter Options Dropdown */}
               {isFilterOpen && (
-                <div className="fixed md:absolute inset-x-0 bottom-0 md:bottom-auto md:right-0 md:top-full mt-2 md:mt-0 md:w-48 bg-white border border-gray-200 rounded-t-2xl md:rounded-2xl shadow-2xl md:shadow-lg p-4 md:p-2 z-50 max-h-[70vh] overflow-y-auto">
-                  <div className="flex items-center justify-between mb-4 md:hidden">
-                    <h3 className="text-lg font-semibold">Filter by Difficulty</h3>
-                    <button
-                      type="button"
-                      onClick={() => setIsFilterOpen(false)}
-                      className="p-2 hover:bg-gray-100 rounded-full"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <div className="space-y-2">
-                    {difficultyOptions.map((option) => (
-                      <label
-                        key={option.value}
-                        className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={difficultyFilter.includes(option.value)}
-                          onChange={() => toggleFilter(option.value)}
-                          className="hidden"
-                        />
-                        <div
-                          className={`w-3 h-3 rounded-full ${option.color} ${
-                            difficultyFilter.includes(option.value)
-                              ? 'ring-2 ring-offset-2 ring-blue-500'
-                              : ''
-                          }`}
-                        />
-                        <span className="text-sm whitespace-nowrap">{option.label}</span>
-                        {difficultyFilter.includes(option.value) && (
-                          <Check className="w-4 h-4 ml-auto text-blue-500" />
+                <>
+                  {/* Overlay */}
+                  <div 
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] py-20"
+                    style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0 }}
+                    onClick={() => setIsFilterOpen(false)}
+                  />
+                  {/* Modal */}
+                  <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
+                    <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl animate-in fade-in duration-200">
+                      {/* Header */}
+                      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                        <h3 className="text-lg font-semibold text-gray-900">Filter by Difficulty</h3>
+                        <button
+                          onClick={() => setIsFilterOpen(false)}
+                          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        >
+                          <X className="w-5 h-5 text-gray-500" />
+                        </button>
+                      </div>
+
+                      {/* Options */}
+                      <div className="p-4 space-y-3 max-h-[60vh] overflow-y-auto">
+                        {difficultyOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            onClick={() => {
+                              toggleFilter(option.value);
+                            }}
+                            className={`
+                              w-full flex items-center justify-between p-4 rounded-xl
+                              ${
+                                difficultyFilter.includes(option.value)
+                                  ? 'bg-blue-50 border-blue-200'
+                                  : 'bg-gray-50 border-gray-200'
+                              }
+                              border transition-all hover:border-blue-200
+                            `}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="text-xl">{option.icon}</span>
+                              <span className="font-medium text-gray-900">{option.label}</span>
+                            </div>
+                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                              difficultyFilter.includes(option.value)
+                                ? 'border-blue-500 bg-blue-500'
+                                : 'border-gray-300'
+                            }`}>
+                              {difficultyFilter.includes(option.value) && (
+                                <Check className="w-4 h-4 text-white" />
+                              )}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Footer */}
+                      <div className="p-4 border-t border-gray-100">
+                        {difficultyFilter.length > 0 ? (
+                          <div className="space-y-3">
+                            <button
+                              onClick={() => {
+                                setDifficultyFilter([]);
+                                setIsFilterOpen(false);
+                              }}
+                              className="w-full py-3 text-red-500 font-medium bg-red-50 rounded-xl hover:bg-red-100 transition-colors"
+                            >
+                              Clear all filters
+                            </button>
+                            <button
+                              onClick={() => setIsFilterOpen(false)}
+                              className="w-full py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-600 transition-colors"
+                            >
+                              Apply ({difficultyFilter.length})
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setIsFilterOpen(false)}
+                            className="w-full py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-600 transition-colors"
+                          >
+                            Close
+                          </button>
                         )}
-                      </label>
-                    ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
           </div>
+
+          {/* Desktop View */}
+          <div className="hidden md:block p-4">
+            <div className="flex items-center gap-4">
+              {/* Search Input */}
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search exercises..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+                />
+              </div>
+
+              {/* Filter Pills */}
+              <div className="flex flex-wrap gap-2">
+                {difficultyOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => toggleFilter(option.value)}
+                    className={`
+                      inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium
+                      transition-all duration-200 border
+                      ${
+                        difficultyFilter.includes(option.value)
+                          ? 'bg-blue-50 border-blue-200 text-blue-700'
+                          : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
+                      }
+                    `}
+                  >
+                    <span>{option.icon}</span>
+                    {option.label}
+                    {difficultyFilter.includes(option.value) && (
+                      <X
+                        className="w-4 h-4 text-blue-500 hover:text-blue-700"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFilter(option.value);
+                        }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Active Filters Summary - Desktop */}
+            {difficultyFilter.length > 0 && (
+              <div className="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                <span className="font-medium">Active filters:</span>
+                <div className="flex flex-wrap gap-2">
+                  {difficultyFilter.map((filter) => (
+                    <span
+                      key={filter}
+                      className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-blue-50 text-blue-700"
+                    >
+                      {filter}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setDifficultyFilter([])}
+                  className="text-red-500 hover:text-red-700 font-medium"
+                >
+                  Clear all
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      {/* Exercise Grid with lower z-index */}
-      <div className="relative z-10">
-        {' '}
-        {/* Added relative positioning and lower z-index */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
-          {filteredExercises.map((excercise) => (
-            <motion.div
-              key={`${excercise.name}-${excercise.MuscleGroup.id}`}
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ExcerciseCard
-                name={excercise.name}
-                img={excercise.img}
-                instructions={excercise.instructions}
-              />
-            </motion.div>
-          ))}
-        </div>
+
+      {/* Exercise Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
+        {filteredExercises.map((excercise) => (
+          <motion.div
+            key={`${excercise.name}-${excercise.MuscleGroup.id}`}
+            variants={itemVariants}
+            whileHover={{ y: -4 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ExcerciseCard
+              name={excercise.name}
+              img={excercise.img}
+              instructions={excercise.instructions}
+            />
+          </motion.div>
+        ))}
       </div>
     </div>
   );

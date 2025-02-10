@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format": "biome format --write .",
     "check": "biome check --apply .",
-    "start": "serve -s build"
+    "start": "serve -s dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
