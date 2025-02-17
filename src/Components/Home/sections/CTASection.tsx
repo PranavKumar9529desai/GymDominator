@@ -4,7 +4,7 @@ import {
   QrCodeIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { useNavigate } from 'react-router-dom';
 
 export const CTASection = () => {
@@ -31,7 +31,7 @@ export const CTASection = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="relative bg-gray-800/50 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-gray-700"
@@ -47,7 +47,7 @@ export const CTASection = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
@@ -58,7 +58,7 @@ export const CTASection = () => {
                 >
                   {localStorage.getItem('jwt') ? 'Go to Dashboard' : 'Get Started Now'}
                   <ArrowRightIcon className="w-5 h-5" />
-                </motion.button>
+                </m.button>
                 <button
                   type="button"
                   className="px-6 py-3 border border-gray-600 hover:border-blue-500 text-white rounded-xl font-semibold transition-colors"
@@ -87,7 +87,7 @@ export const CTASection = () => {
                 },
                 {
                   icon: (
-                    <motion.div
+                    <m.div
                       animate={{ rotate: 360 }}
                       transition={{
                         duration: 20,
@@ -97,13 +97,13 @@ export const CTASection = () => {
                       className="relative"
                     >
                       <div className="w-8 h-8 border-2 border-blue-500 rounded-full border-t-transparent" />
-                    </motion.div>
+                    </m.div>
                   ),
                   title: '24/7 Active',
                   description: 'Always available system',
                 },
               ].map((feature, index) => (
-                <motion.div
+                <m.div
                   key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -113,11 +113,11 @@ export const CTASection = () => {
                   <div className="text-blue-400 mb-3">{feature.icon}</div>
                   <h3 className="font-semibold text-white mb-1">{feature.title}</h3>
                   <p className="text-sm text-gray-400">{feature.description}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

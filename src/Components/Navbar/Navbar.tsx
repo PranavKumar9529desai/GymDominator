@@ -1,11 +1,11 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, m } from '@util/lib/motion';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-type colors = "white" | "black";
+type colors = 'white' | 'black';
 
 const optimizedLogo = new Image();
-optimizedLogo.src = "/favicon.ico";
+optimizedLogo.src = '/favicon.ico';
 
 export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,10 +15,10 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   const navigate = useNavigate();
 
   const sections = [
-    { name: "About", path: "/about" },
-    { name: "Features", path: "/features" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Contact", path: "/contact" },
+    { name: 'About', path: '/about' },
+    { name: 'Features', path: '/features' },
+    { name: 'Pricing', path: '/pricing' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const handleNavigation = (path: string) => {
@@ -27,8 +27,8 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    navigate("/");
+    localStorage.removeItem('jwt');
+    navigate('/');
     setIsOpen(false);
   };
 
@@ -40,8 +40,8 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
         setScrolled(false);
       }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -49,19 +49,15 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
       <nav
         className={`
           fixed w-full z-50 transition-all duration-500
-          ${
-            isscrolled
-              ? "py-2 bg-slate-900/95 backdrop-blur-md shadow-lg"
-              : "py-4 bg-transparent"
-          }
-          ${TextColor === "white" ? "text-white" : "text-black"}
+          ${isscrolled ? 'py-2 bg-slate-900/95 backdrop-blur-md shadow-lg' : 'py-4 bg-transparent'}
+          ${TextColor === 'white' ? 'text-white' : 'text-black'}
         `}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Simplified Logo Section */}
             <Link to="/">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="flex items-center space-x-3"
@@ -75,17 +71,15 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                     GymNavigator
                   </h1>
-                  <span className="text-xs text-gray-400">
-                    Professional Tracking
-                  </span>
+                  <span className="text-xs text-gray-400">Professional Tracking</span>
                 </div>
-              </motion.div>
+              </m.div>
             </Link>
 
             {/* Updated Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               {sections.map((section, i) => (
-                <motion.div
+                <m.div
                   key={section.name}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -99,46 +93,42 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                     <span
                       className={
                         location.pathname === section.path
-                          ? "text-blue-400"
-                          : "text-white hover:text-blue-400 transition-colors"
+                          ? 'text-blue-400'
+                          : 'text-white hover:text-blue-400 transition-colors'
                       }
                     >
                       {section.name}
                     </span>
                     <span
                       className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left transition-transform duration-300 ${
-                        location.pathname === section.path
-                          ? "scale-x-100"
-                          : "scale-x-0"
+                        location.pathname === section.path ? 'scale-x-100' : 'scale-x-0'
                       }`}
                     />
                   </button>
-                </motion.div>
+                </m.div>
               ))}
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  const token = localStorage.getItem("jwt");
-                  navigate(token ? "/dashboard" : "/signin");
+                  const token = localStorage.getItem('jwt');
+                  navigate(token ? '/dashboard' : '/signin');
                 }}
                 className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium"
               >
-                {localStorage.getItem("jwt")
-                  ? "Go to Dashboard"
-                  : "Get Started"}
-              </motion.button>
+                {localStorage.getItem('jwt') ? 'Go to Dashboard' : 'Get Started'}
+              </m.button>
 
-              {localStorage.getItem("jwt") && (
-                <motion.button
+              {localStorage.getItem('jwt') && (
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleLogout}
                   className="px-4 py-2 rounded-lg border border-red-500/50 hover:bg-red-500/10 text-red-500 font-medium transition-colors"
                 >
                   Sign Out
-                </motion.button>
+                </m.button>
               )}
             </div>
 
@@ -171,13 +161,13 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
       {/* Enhanced Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 lg:hidden"
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -185,11 +175,11 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
               onClick={() => setIsOpen(false)}
             />
 
-            <motion.div
-              initial={{ x: "100%" }}
+            <m.div
+              initial={{ x: '100%' }}
               animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 20 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 20 }}
               className="absolute top-0 right-0 w-[300px] h-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-xl"
             >
               {/* Close Button */}
@@ -220,18 +210,12 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                 {/* Header */}
                 <div className="p-6 border-b border-white/10">
                   <div className="flex items-center space-x-3">
-                    <img
-                      src={optimizedLogo.src}
-                      alt="Logo"
-                      className="w-10 h-10"
-                    />
+                    <img src={optimizedLogo.src} alt="Logo" className="w-10 h-10" />
                     <div>
                       <h2 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                         GymNavigator
                       </h2>
-                      <p className="text-sm text-gray-400">
-                        Professional Tracking
-                      </p>
+                      <p className="text-sm text-gray-400">Professional Tracking</p>
                     </div>
                   </div>
                 </div>
@@ -246,16 +230,14 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                         onClick={() => handleNavigation(section.path)}
                         className={`flex items-center w-full p-4 rounded-lg group transition-all ${
                           location.pathname === section.path
-                            ? "bg-blue-500/20 text-blue-400"
-                            : "text-white/90 hover:bg-white/10"
+                            ? 'bg-blue-500/20 text-blue-400'
+                            : 'text-white/90 hover:bg-white/10'
                         }`}
                       >
                         <span className="flex-1 text-left">{section.name}</span>
                         <svg
                           className={`w-5 h-5 ${
-                            location.pathname === section.path
-                              ? "text-blue-400"
-                              : "text-gray-400"
+                            location.pathname === section.path ? 'text-blue-400' : 'text-gray-400'
                           } group-hover:translate-x-1 transition-transform`}
                           fill="none"
                           stroke="currentColor"
@@ -277,24 +259,22 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
 
                 {/* Footer */}
                 <div className="p-6 border-t border-white/10">
-                  {localStorage.getItem("jwt") ? (
+                  {localStorage.getItem('jwt') ? (
                     <div className="space-y-2">
-                      <motion.button
+                      <m.button
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}
                         onClick={() => {
-                          navigate("/profile");
+                          navigate('/profile');
                           setIsOpen(false);
                         }}
                         className="w-full py-2.5 px-4 rounded-lg bg-white/10 text-white font-medium hover:bg-white/15 transition-colors flex items-center gap-2"
                       >
                         <div className="w-6 h-6 rounded-full bg-gray-600 flex items-center justify-center text-sm">
-                          {localStorage
-                            .getItem("username")?.[0]
-                            ?.toUpperCase() || "U"}
+                          {localStorage.getItem('username')?.[0]?.toUpperCase() || 'U'}
                         </div>
                         Profile
-                      </motion.button>
+                      </m.button>
 
                       <button
                         type="button"
@@ -320,17 +300,17 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                       </button>
                     </div>
                   ) : (
-                    <motion.button
+                    <m.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => {
-                        navigate("/signin");
+                        navigate('/signin');
                         setIsOpen(false);
                       }}
                       className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
                     >
                       Get Started
-                    </motion.button>
+                    </m.button>
                   )}
 
                   {/* Existing social links */}
@@ -380,8 +360,8 @@ export const Navbar = ({ TextColor }: { TextColor: colors }) => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

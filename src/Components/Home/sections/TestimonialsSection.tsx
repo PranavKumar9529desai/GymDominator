@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { Star } from 'lucide-react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,7 +22,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialProps) => {
   const TestimonialCard = ({
     testimonial,
   }: { testimonial: TestimonialProps['testimonials'][0] }) => (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -61,7 +61,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialProps) => {
           <span className="absolute -bottom-4 -right-2 text-5xl text-cyan-400/20">"</span>
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 
   return (
@@ -71,7 +71,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialProps) => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -82,7 +82,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialProps) => {
           <p className="text-gray-400 max-w-2xl mx-auto">
             Join thousands of satisfied members who have transformed their fitness journey with us
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Mobile View */}
         <div className="md:hidden">

@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { XCircle, RefreshCcw, ArrowLeft } from 'lucide-react';
 import { Button } from '@components/ui/button';
 import { Card } from '@components/ui/card';
+import { m } from '@util/lib/motion';
+import { ArrowLeft, RefreshCcw, XCircle } from 'lucide-react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AttendanceFailure() {
   const navigate = useNavigate();
@@ -20,12 +20,12 @@ export default function AttendanceFailure() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-red-50 to-white dark:from-red-900/20 dark:to-gray-900">
       <Card className="w-full max-w-md bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-xl">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="p-8 text-center"
         >
-          <motion.div
+          <m.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', duration: 0.7 }}
@@ -35,7 +35,7 @@ export default function AttendanceFailure() {
               <div className="absolute inset-0 rounded-full bg-red-100 dark:bg-red-900/30 animate-pulse" />
               <XCircle className="relative w-full h-full text-red-500 dark:text-red-400" />
             </div>
-          </motion.div>
+          </m.div>
 
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Attendance Failed
@@ -70,7 +70,7 @@ export default function AttendanceFailure() {
           <p className="text-sm text-gray-500 mt-4 animate-pulse">
             Redirecting to dashboard in 30 seconds...
           </p>
-        </motion.div>
+        </m.div>
       </Card>
     </div>
   );

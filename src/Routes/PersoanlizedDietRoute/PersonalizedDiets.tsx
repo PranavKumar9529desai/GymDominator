@@ -1,5 +1,5 @@
 // import { useEffect, useState } from 'react';
-// import { motion } from 'framer-motion';
+// import {  m } from "@util/lib/motion";
 // import {
 //   Chart as ChartJS,
 //   ArcElement,
@@ -296,7 +296,7 @@
 //       <h3 className="text-2xl font-bold text-gray-800 mb-6">Daily Meal Schedule</h3>
 //       <div className="space-y-4">
 //         {meals.map((meal, idx) => (
-//           <motion.div
+//           <m.div
 //             key={idx}
 //             initial={{ opacity: 0, y: 20 }}
 //             animate={{ opacity: 1, y: 0 }}
@@ -328,7 +328,7 @@
 //                 </div>
 //               </div>
 //             )}
-//           </motion.div>
+//           </m.div>
 //         ))}
 //       </div>
 //     </div>
@@ -336,7 +336,7 @@
 
 //   return (
 //     <div className="min-h-screen p-4 sm:p-6 bg-gray-50">
-//       <motion.div
+//       <m.div
 //         initial={{ opacity: 0, y: 20 }}
 //         animate={{ opacity: 1, y: 0 }}
 //         className="max-w-4xl mx-auto space-y-6"
@@ -379,7 +379,7 @@
 
 //         {/* Meal Schedule */}
 //         {dietPlan?.meals && renderMealSchedule(dietPlan.meals)}
-//       </motion.div>
+//       </m.div>
 //     </div>
 //   );
 // }

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { AlertCircle, RefreshCw, Home } from 'lucide-react';
+import { m } from '@util/lib/motion';
+import { AlertCircle, Home, RefreshCw } from 'lucide-react';
 
 interface ErrorFallbackProps {
   error?: Error;
@@ -14,19 +14,19 @@ export default function ErrorFallback({ error, resetErrorBoundary }: ErrorFallba
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8"
       >
         <div className="text-center space-y-6">
-          <motion.div
+          <m.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             className="mx-auto w-24 h-24 bg-red-100 rounded-full flex items-center justify-center"
           >
             <AlertCircle className="w-14 h-14 text-red-500" />
-          </motion.div>
+          </m.div>
 
           <div className="space-y-2">
             <h1 className="text-2xl font-bold text-gray-800">Oops! Something went wrong</h1>
@@ -61,7 +61,7 @@ export default function ErrorFallback({ error, resetErrorBoundary }: ErrorFallba
             If the problem persists, please contact support
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

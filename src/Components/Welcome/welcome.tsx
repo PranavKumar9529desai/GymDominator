@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
-import { QrCode, ArrowRight, Dumbbell } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { m } from '@util/lib/motion';
+
+import { ArrowRight, Dumbbell, QrCode } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GetIsValidPeriod } from './GetUserValidPeriod';
 
 export default function Welcome() {
@@ -33,7 +34,7 @@ export default function Welcome() {
       return (
         <>
           {/* Desktop */}
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/dashboard')}
@@ -44,9 +45,9 @@ export default function Welcome() {
           >
             <Dumbbell className="h-6 w-6" />
             <span>Go to Dashboard</span>
-          </motion.button>
+          </m.button>
           {/* Mobile */}
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/dashboard')}
@@ -57,7 +58,7 @@ export default function Welcome() {
                      z-10 active:bg-green-800"
           >
             <Dumbbell className="h-8 w-8" />
-          </motion.button>
+          </m.button>
         </>
       );
     }
@@ -65,7 +66,7 @@ export default function Welcome() {
     return (
       <>
         {/* Desktop */}
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate('/qr-scanner')}
@@ -76,9 +77,9 @@ export default function Welcome() {
         >
           <QrCode className="h-6 w-6" />
           <span>Scan QR Code</span>
-        </motion.button>
+        </m.button>
         {/* Mobile */}
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate('/qr-scanner')}
@@ -89,7 +90,7 @@ export default function Welcome() {
                    z-10 active:bg-blue-800"
         >
           <QrCode className="h-8 w-8" />
-        </motion.button>
+        </m.button>
       </>
     );
   };
@@ -97,7 +98,7 @@ export default function Welcome() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -118,7 +119,7 @@ export default function Welcome() {
                         sm:grid-cols-2 lg:grid-cols-3 px-2 sm:px-0"
           >
             {features.map((feature, index) => (
-              <motion.div
+              <m.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -134,10 +135,10 @@ export default function Welcome() {
                   {feature.title}
                 </h3>
                 <p className="text-sm sm:text-base text-gray-600">{feature.description}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

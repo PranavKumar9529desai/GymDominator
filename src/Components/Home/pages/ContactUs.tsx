@@ -1,8 +1,8 @@
+import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { Box, Button, Container, TextField } from '@mui/material';
+import { m } from '@util/lib/motion';
 import type React from 'react';
 import { useState } from 'react';
-import { Container, TextField, Button, Box } from '@mui/material';
-import { motion } from 'framer-motion';
-import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -47,7 +47,7 @@ const ContactUs: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-20">
       <Container maxWidth="lg">
         <Box py={8}>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
@@ -58,11 +58,11 @@ const ContactUs: React.FC = () => {
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               Have questions about GymNavigator? We're here to help you get started.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {contactInfo.map((info, index) => (
-              <motion.div
+              <m.div
                 key={info.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -72,11 +72,11 @@ const ContactUs: React.FC = () => {
                 <div className="text-blue-400 mb-4">{info.icon}</div>
                 <h3 className="text-xl font-semibold text-white mb-2">{info.title}</h3>
                 <p className="text-gray-400">{info.detail}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-gray-800/30 backdrop-blur-lg rounded-xl p-8 border border-gray-700"
@@ -182,7 +182,7 @@ const ContactUs: React.FC = () => {
                 </Button>
               </Box>
             </Box>
-          </motion.div>
+          </m.div>
         </Box>
       </Container>
     </div>

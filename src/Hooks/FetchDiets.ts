@@ -1,6 +1,6 @@
-import { type Diet, DietSelectors } from "@state/Selectors/DietSelectors";
-import { useEffect, useState } from "react";
-import { type Loadable, useRecoilValueLoadable } from "recoil";
+import { type Diet, DietSelectors } from '@state/Selectors/DietSelectors';
+import { useEffect, useState } from 'react';
+import { type Loadable, useRecoilValueLoadable } from 'recoil';
 
 export const FetchdietsGroups = () => {
   const [isLoading, SetisLoading] = useState<boolean>(true);
@@ -9,14 +9,14 @@ export const FetchdietsGroups = () => {
 
   useEffect(() => {
     switch (allDiets.state) {
-      case "hasValue":
+      case 'hasValue':
         SetisLoading(false);
         setdiets(allDiets.contents);
         break;
-      case "loading":
+      case 'loading':
         SetisLoading(true);
         break;
-      case "hasError":
+      case 'hasError':
         SetisLoading(false);
         break;
     }

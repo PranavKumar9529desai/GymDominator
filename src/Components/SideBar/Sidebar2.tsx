@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 export const Sidebar2 = () => {
   const { isLoading, userData } = FetchUserData();
-  console.log("isloading is and userdata", isLoading, userData);
+  console.log('isloading is and userdata', isLoading, userData);
   const UserDetails = useRecoilValue(UserDetailsAtom);
   const [activeRoute, setActiveRoute] = useState('');
   const [expandedItems, setExpandedItems] = useState<string[]>([]);

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { useNavigate } from 'react-router-dom';
 
 export default function WorkoutModel({
@@ -14,7 +14,7 @@ export default function WorkoutModel({
   if (!isOpen) return null;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
@@ -54,6 +54,6 @@ export default function WorkoutModel({
           </button>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

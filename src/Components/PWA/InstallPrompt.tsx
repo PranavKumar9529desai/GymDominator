@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { useEffect, useState } from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -33,7 +33,7 @@ export function InstallPrompt() {
   if (!showPrompt) return null;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       className="fixed bottom-20 left-4 right-4 bg-white rounded-lg shadow-xl p-4 md:max-w-sm md:mx-auto z-50"
@@ -60,6 +60,6 @@ export function InstallPrompt() {
           </button>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

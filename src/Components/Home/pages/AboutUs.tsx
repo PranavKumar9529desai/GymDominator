@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { BuildingOfficeIcon, UsersIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { BuildingOfficeIcon, SparklesIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { m } from '@util/lib/motion';
 
 const AboutUs = () => {
   const features = [
@@ -25,7 +25,7 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -36,11 +36,11 @@ const AboutUs = () => {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             Transforming gym management through innovative technology and seamless experiences
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
-            <motion.div
+            <m.div
               key={index as number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -50,11 +50,11 @@ const AboutUs = () => {
               <div className="text-blue-400 mb-4">{feature.icon}</div>
               <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
               <p className="text-gray-400">{feature.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700"
@@ -75,7 +75,7 @@ const AboutUs = () => {
                 { number: '10K+', label: 'Active Users' },
                 { number: '98%', label: 'Satisfaction Rate' },
               ].map((stat, index) => (
-                <motion.div
+                <m.div
                   key={index as number}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -84,11 +84,11 @@ const AboutUs = () => {
                 >
                   <div className="text-2xl font-bold text-blue-400">{stat.number}</div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

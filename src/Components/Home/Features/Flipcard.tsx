@@ -1,19 +1,19 @@
-import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { m } from '@util/lib/motion';
 import {
-  QrCode,
-  LayoutDashboard,
-  Users,
-  Dumbbell,
   BarChart3,
-  Smartphone,
   Bell,
-  ClipboardList,
   Calendar,
+  ClipboardList,
+  Dumbbell,
+  LayoutDashboard,
   LineChart,
+  QrCode,
   Shield,
+  Smartphone,
   Target,
+  Users,
 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 // Extended icon map to include both front and back features
 const iconMap = {
@@ -112,7 +112,7 @@ export const FlipCard = ({ title, description }: FlipCardProps) => {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       className="flip-card h-[400px] w-full [perspective:1000px]"
       initial={{ opacity: 0, y: 20 }}
@@ -166,6 +166,6 @@ export const FlipCard = ({ title, description }: FlipCardProps) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { postStartDate } from '../hooks/poststartdata';
 
 export default function BeforeDiet() {
@@ -34,7 +34,7 @@ export default function BeforeDiet() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ export default function BeforeDiet() {
           {/* Features Grid */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 mt-16">
             {features.map((feature, index) => (
-              <motion.div
+              <m.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -71,18 +71,18 @@ export default function BeforeDiet() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
                   <p className="text-gray-500">{feature.description}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           {/* CTA Section */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
             className="mt-12"
           >
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleGetStarted}
@@ -107,15 +107,15 @@ export default function BeforeDiet() {
                   d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
 
           {/* Additional Info */}
           <div className="mt-16 text-sm text-gray-500">
             <p>Your personalized diet plan will be tailored based on your profile and goals.</p>
             <p>Get ready to embark on a transformative journey!</p>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

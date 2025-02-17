@@ -34,16 +34,11 @@ export default function MonthProgressComponent2() {
     );
   };
 
-
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-center mb-8">Track your progress with GymNavigator</h1>
       <div className="flex justify-between items-center mb-4">
-        <button 
-          type="button"
-          onClick={prevMonth} 
-          className="p-2 rounded-full hover:bg-gray-200"
-        >
+        <button type="button" onClick={prevMonth} className="p-2 rounded-full hover:bg-gray-200">
           <ChevronLeftIcon className="w-6 h-6" />
         </button>
         <h2 className="text-lg font-semibold">
@@ -52,11 +47,7 @@ export default function MonthProgressComponent2() {
             year: 'numeric',
           })}
         </h2>
-        <button 
-          type="button"
-          onClick={nextMonth} 
-          className="p-2 rounded-full hover:bg-gray-200"
-        >
+        <button type="button" onClick={nextMonth} className="p-2 rounded-full hover:bg-gray-200">
           <ChevronRightIcon className="w-6 h-6" />
         </button>
       </div>
@@ -71,21 +62,14 @@ export default function MonthProgressComponent2() {
         {Array.from({ length: firstDayOfMonth }).map((_, index) => {
           const prevMonthDate = new Date(currentMonth);
           prevMonthDate.setDate(0 - index);
-          return (
-            <div 
-              key={`empty-${prevMonthDate.toISOString()}`} 
-              className="h-12" 
-            />
-          );
+          return <div key={`empty-${prevMonthDate.toISOString()}`} className="h-12" />;
         })}
         {days.map((date) => (
           <button
             type="button"
             key={date.toString()}
             className={`h-12 rounded-lg text-sm font-medium transition-colors ${
-              isToday(date)
-                ? 'bg-primary text-white'
-                : 'hover:bg-gray-100'
+              isToday(date) ? 'bg-primary text-white' : 'hover:bg-gray-100'
             }`}
           >
             {date.getDate()}

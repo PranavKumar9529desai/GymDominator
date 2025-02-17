@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ClockIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { m } from '@util/lib/motion';
 
 interface Props {
   startDate: Date | null;
@@ -29,7 +29,7 @@ export const DietProgress = ({ startDate, totalWeeks }: Props) => {
       <div className="relative mb-8">
         {/* Progress bar background */}
         <div className="h-2 bg-gray-200 rounded-full">
-          <motion.div
+          <m.div
             initial={{ width: 0 }}
             animate={{ width: `${progressPercentage}%` }}
             transition={{ duration: 1, ease: 'easeOut' }}
@@ -44,8 +44,8 @@ export const DietProgress = ({ startDate, totalWeeks }: Props) => {
             const isCurrent = index === Math.floor((currentDay - 1) / 7);
 
             return (
-              <motion.div
-                key={index}
+              <m.div
+                key={index as number}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -75,7 +75,7 @@ export const DietProgress = ({ startDate, totalWeeks }: Props) => {
                 >
                   Week {index + 1}
                 </p>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

@@ -1,5 +1,5 @@
 import { ArrowTrendingUpIcon, HeartIcon, ScaleIcon, UserIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import type { HealthData } from '../types/health';
 
 interface Props {
@@ -36,7 +36,7 @@ export const HealthSummary = ({ healthData, bmi }: Props) => {
   ];
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-xl shadow-sm p-6 mb-8"
@@ -67,6 +67,6 @@ export const HealthSummary = ({ healthData, bmi }: Props) => {
             .join(' ')}
         </h3>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

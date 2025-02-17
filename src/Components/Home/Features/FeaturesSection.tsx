@@ -1,5 +1,5 @@
+import { m } from '@util/lib/motion';
 import { FlipCard } from './Flipcard';
-import { motion } from 'framer-motion';
 
 interface FeatureType {
   title: string;
@@ -48,27 +48,27 @@ export default function FeaturesSection() {
       <div className="w-[90%] mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-3xl md:text-4xl font-bold text-white mb-4"
           >
             Powerful Features for Modern Gyms
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-gray-400 max-w-2xl mx-auto"
           >
             Transform your gym management with our comprehensive suite of digital tools
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, idx) => (
-            <motion.div
+            <m.div
               key={idx as number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export default function FeaturesSection() {
               viewport={{ once: true }}
             >
               <FlipCard title={feature.title} description={feature.description} />
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

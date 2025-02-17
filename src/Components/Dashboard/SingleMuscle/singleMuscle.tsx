@@ -1,11 +1,10 @@
 import { FetchExcercise } from '@hooks/FetchExcercise';
 import type { Excercisetype } from '@state/Selectors/ExcerciseSelectorsfamily';
 import type { ExerciseWithMuscle } from '@state/Selectors/SingleWorkoutSelectorsFamily';
-import { motion } from 'framer-motion';
-import { ArrowRight, Check, ChevronDown, Dumbbell, Search, X } from 'lucide-react';
+import { m } from '@util/lib/motion';
+import { ArrowRight, Check, ChevronDown, Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { PropagateLoader } from 'react-spinners';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -51,7 +50,7 @@ export const SingleMuscles = () => {
     ) || [];
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -61,7 +60,7 @@ export const SingleMuscles = () => {
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white mt-4 mx-4 rounded-2xl shadow-lg">
         <div className="max-w-7xl mx-auto px-8 py-16 lg:py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptLTExLjk5NyAwYy02LjYyNyAwLTEyIDUuMzczLTEyIDEyczUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyLTUuMzczLTEyLTEyLTEyeiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PC9nPjwvc3ZnPg==')] opacity-10" />
-          <motion.div variants={itemVariants} className="relative flex flex-col items-center">
+          <m.div variants={itemVariants} className="relative flex flex-col items-center">
             <span className="px-4 py-1.5 bg-blue-500/20 rounded-full text-blue-100 text-sm font-medium mb-6">
               Workout Guide
             </span>
@@ -77,24 +76,24 @@ export const SingleMuscles = () => {
                 {muscle.toLowerCase()} muscles effectively.
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center min-h-[400px]">
-            <Dumbbell className="w-12 h-12 text-blue-500 animate-bounce mb-4" />
-            <PropagateLoader color="#3b82f6" />
+          <div className="flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+            <p className="mt-4 text-blue-600 font-medium">Loading exercises...</p>
           </div>
         ) : (
-          <motion.div variants={itemVariants}>
+          <m.div variants={itemVariants}>
             <RecommenedExcercise Excercises={filteredExercises} />
-          </motion.div>
+          </m.div>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -109,7 +108,12 @@ const RecommenedExcercise = ({
 
   const difficultyOptions = [
     { value: 'Beginner', color: 'bg-green-500', label: 'Beginner', icon: '🟢' },
-    { value: 'Intermediate', color: 'bg-yellow-500', label: 'Intermediate', icon: '🟡' },
+    {
+      value: 'Intermediate',
+      color: 'bg-yellow-500',
+      label: 'Intermediate',
+      icon: '🟡',
+    },
     { value: 'Advanced', color: 'bg-red-500', label: 'Advanced', icon: '🔴' },
   ];
 
@@ -149,9 +153,10 @@ const RecommenedExcercise = ({
                   className="w-full pl-10 pr-4 py-3 text-sm border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
                 />
               </div>
-              
+
               {/* Filter Button */}
               <button
+                type="button"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors"
               >
@@ -163,95 +168,118 @@ const RecommenedExcercise = ({
                     </span>
                   )}
                 </div>
-                <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  className={`w-5 h-5 text-gray-500 transition-transform ${
+                    isFilterOpen ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
 
               {/* Filter Options Dropdown */}
               {isFilterOpen && (
                 <>
                   {/* Overlay */}
-                  <div 
-                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] py-20"
-                    style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0 }}
+                  <div
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
                     onClick={() => setIsFilterOpen(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Escape') setIsFilterOpen(false);
+                    }}
+                    role="button"
+                    tabIndex={0}
                   />
                   {/* Modal */}
-                  <div className="fixed inset-0 z-[101] flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl animate-in fade-in duration-200">
-                      {/* Header */}
-                      <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-                        <h3 className="text-lg font-semibold text-gray-900">Filter by Difficulty</h3>
-                        <button
-                          onClick={() => setIsFilterOpen(false)}
-                          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                        >
-                          <X className="w-5 h-5 text-gray-500" />
-                        </button>
-                      </div>
-
-                      {/* Options */}
-                      <div className="p-4 space-y-3 max-h-[60vh] overflow-y-auto">
-                        {difficultyOptions.map((option) => (
+                  <div className="fixed inset-0 z-[101] overflow-y-auto">
+                    <div className="min-h-screen px-4 text-center">
+                      {/* This element is to trick the browser into centering the modal contents. */}
+                      <span className="inline-block h-screen align-middle" aria-hidden="true">
+                        &#8203;
+                      </span>
+                      <div className="inline-block w-full max-w-md p-0 my-8 text-left align-middle transition-all transform bg-white rounded-2xl shadow-2xl">
+                        {/* Header */}
+                        <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            Filter by Difficulty
+                          </h3>
                           <button
-                            key={option.value}
-                            onClick={() => {
-                              toggleFilter(option.value);
-                            }}
-                            className={`
-                              w-full flex items-center justify-between p-4 rounded-xl
-                              ${
-                                difficultyFilter.includes(option.value)
-                                  ? 'bg-blue-50 border-blue-200'
-                                  : 'bg-gray-50 border-gray-200'
-                              }
-                              border transition-all hover:border-blue-200
-                            `}
+                            type="button"
+                            onClick={() => setIsFilterOpen(false)}
+                            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                           >
-                            <div className="flex items-center gap-3">
-                              <span className="text-xl">{option.icon}</span>
-                              <span className="font-medium text-gray-900">{option.label}</span>
-                            </div>
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                              difficultyFilter.includes(option.value)
-                                ? 'border-blue-500 bg-blue-500'
-                                : 'border-gray-300'
-                            }`}>
-                              {difficultyFilter.includes(option.value) && (
-                                <Check className="w-4 h-4 text-white" />
-                              )}
-                            </div>
+                            <X className="w-5 h-5 text-gray-500" />
                           </button>
-                        ))}
-                      </div>
+                        </div>
 
-                      {/* Footer */}
-                      <div className="p-4 border-t border-gray-100">
-                        {difficultyFilter.length > 0 ? (
-                          <div className="space-y-3">
+                        {/* Options */}
+                        <div className="p-4 space-y-3 max-h-[60vh] overflow-y-auto">
+                          {difficultyOptions.map((option) => (
                             <button
+                              type="button"
+                              key={option.value}
                               onClick={() => {
-                                setDifficultyFilter([]);
-                                setIsFilterOpen(false);
+                                toggleFilter(option.value);
                               }}
-                              className="w-full py-3 text-red-500 font-medium bg-red-50 rounded-xl hover:bg-red-100 transition-colors"
+                              className={`
+                                w-full flex items-center justify-between p-4 rounded-xl
+                                ${
+                                  difficultyFilter.includes(option.value)
+                                    ? 'bg-blue-50 border-blue-200'
+                                    : 'bg-gray-50 border-gray-200'
+                                }
+                                border transition-all hover:border-blue-200
+                              `}
                             >
-                              Clear all filters
+                              <div className="flex items-center gap-3">
+                                <span className="text-xl">{option.icon}</span>
+                                <span className="font-medium text-gray-900">{option.label}</span>
+                              </div>
+                              <div
+                                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                                  difficultyFilter.includes(option.value)
+                                    ? 'border-blue-500 bg-blue-500'
+                                    : 'border-gray-300'
+                                }`}
+                              >
+                                {difficultyFilter.includes(option.value) && (
+                                  <Check className="w-4 h-4 text-white" />
+                                )}
+                              </div>
                             </button>
+                          ))}
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-4 border-t border-gray-100">
+                          {difficultyFilter.length > 0 ? (
+                            <div className="space-y-3">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setDifficultyFilter([]);
+                                  setIsFilterOpen(false);
+                                }}
+                                className="w-full py-3 text-red-500 font-medium bg-red-50 rounded-xl hover:bg-red-100 transition-colors"
+                              >
+                                Clear all filters
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setIsFilterOpen(false)}
+                                className="w-full py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-600 transition-colors"
+                              >
+                                Apply ({difficultyFilter.length})
+                              </button>
+                            </div>
+                          ) : (
                             <button
+                              type="button"
                               onClick={() => setIsFilterOpen(false)}
                               className="w-full py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-600 transition-colors"
                             >
-                              Apply ({difficultyFilter.length})
+                              Close
                             </button>
-                          </div>
-                        ) : (
-                          <button
-                            onClick={() => setIsFilterOpen(false)}
-                            className="w-full py-3 text-white font-medium bg-blue-500 rounded-xl hover:bg-blue-600 transition-colors"
-                          >
-                            Close
-                          </button>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -279,6 +307,7 @@ const RecommenedExcercise = ({
               <div className="flex flex-wrap gap-2">
                 {difficultyOptions.map((option) => (
                   <button
+                    type="button"
                     key={option.value}
                     onClick={() => toggleFilter(option.value)}
                     className={`
@@ -322,6 +351,7 @@ const RecommenedExcercise = ({
                   ))}
                 </div>
                 <button
+                  type="button"
                   onClick={() => setDifficultyFilter([])}
                   className="text-red-500 hover:text-red-700 font-medium"
                 >
@@ -336,7 +366,7 @@ const RecommenedExcercise = ({
       {/* Exercise Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8">
         {filteredExercises.map((excercise) => (
-          <motion.div
+          <m.div
             key={`${excercise.name}-${excercise.MuscleGroup.id}`}
             variants={itemVariants}
             whileHover={{ y: -4 }}
@@ -347,7 +377,7 @@ const RecommenedExcercise = ({
               img={excercise.img}
               instructions={excercise.instructions}
             />
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { Quote } from 'lucide-react';
 
 interface FitnessQuoteProps {
@@ -21,7 +21,7 @@ export function FitnessQuote({ quote, author, imageSrc }: FitnessQuoteProps) {
       </div>
 
       {/* Quote Content */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative h-full flex flex-col justify-center items-center px-12 text-white"
@@ -31,7 +31,7 @@ export function FitnessQuote({ quote, author, imageSrc }: FitnessQuoteProps) {
           {quote}
         </blockquote>
         <cite className="text-lg opacity-90 not-italic">— {author}</cite>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

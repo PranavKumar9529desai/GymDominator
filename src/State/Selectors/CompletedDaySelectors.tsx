@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { RecoilValueReadOnly, selector } from 'recoil';
+import axios, { type AxiosResponse } from 'axios';
+import { type RecoilValueReadOnly, selector } from 'recoil';
 
 interface getallcompletedDaysType {
   msg: string;

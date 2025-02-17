@@ -1,6 +1,6 @@
 import { Auth } from '@components/Auth/Auth';
 import { FitnessQuote } from '@components/Auth/FitnessQuote';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 
 export function SignUp() {
   return (
@@ -14,15 +14,15 @@ export function SignUp() {
       />
 
       <div className="relative z-10 grid lg:grid-cols-2 min-h-screen">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex justify-center items-center p-8"
         >
           <Auth type="signup" />
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           className="hidden lg:block h-full"
@@ -32,7 +32,7 @@ export function SignUp() {
             author="Jim Rohn"
             imageSrc="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop"
           />
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

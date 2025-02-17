@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { HealthProfileFormData } from './UserHealthProfileForm';
+import type { HealthProfileFormData } from './UserHealthProfileForm';
 
 const PostUserHealthProfileForm = async (formData: HealthProfileFormData) => {
   const response = await axios.post(

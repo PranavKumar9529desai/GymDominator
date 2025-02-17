@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { GetHealthProfileData } from '../../actions/GetHealthProfileData';
-import { HealthData } from '../types';
+import type { HealthData } from '../types';
 
 export const useHealthData = () => {
   const [healthData, setHealthData] = useState<HealthData | null>(null);

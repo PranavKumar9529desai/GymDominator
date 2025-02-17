@@ -1,5 +1,5 @@
 import GymdominatorLogo from '@assets/gym-launch-logo.png';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { type Dispatch, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
@@ -15,7 +15,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
          ${(TextColor as string) === 'white' ? 'text-white bg-black' : 'text-black bg-white'} 
          flex justify-between z-10   h-16 items-center font-overpass font-bold text-lg fixed transition-colors w-full border-b-2 border-gray-100 shadow-xl`}
       >
-        <motion.button
+        <m.button
           type="button"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -30,7 +30,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
               GymNavigator
             </span>
           </div>
-        </motion.button>
+        </m.button>
         <div className="gap-20  mr-6  lg:flex hidden text-base font-extrabold *:hover: ">
           <HashLink
             to="/#about-us"
@@ -81,9 +81,7 @@ export const Navbar2 = ({ TextColor }: { TextColor: colors }) => {
             </svg>
           </button>
           <div
-            className={`${
-              isOpen ? 'flex justify-center text-base whitespace-nowrap' : 'hidden'
-            }`}
+            className={`${isOpen ? 'flex justify-center text-base whitespace-nowrap' : 'hidden'}`}
           >
             <SideBar SetIsOpen={SetIsOpen} IsOpen={isOpen} />
           </div>
@@ -140,11 +138,7 @@ const SideBar = ({
           isRotated ? 'rotate-0 delay-500' : '-rotate-180'
         }`}
       >
-        <button
-          type="button"
-          onClick={handleClose}
-          className="w-fit"
-        >
+        <button type="button" onClick={handleClose} className="w-fit">
           <svg
             fill="#ffffff"
             version="1.1"

@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GetHealthProfileData } from '../actions/GetHealthProfileData';
-import { GetStartDate } from './hooks/GetStartDate';
+import weeklyDietPlan from '../weekly_diet_plan.json';
+import { BMIVisualizer } from './components/BMIVisualizer';
+import { CalorieBreakdown } from './components/CalorieBreakdown';
 import { HealthSummary } from './components/HealthSummary';
 import { WeeklyMealPlan } from './components/WeeklyMealPlan';
-import weeklyDietPlan from '../weekly_diet_plan.json';
-import { getBMICategory, DietCategories } from './types/diet';
-import { HealthData } from './types/health';
-import { CalorieBreakdown } from './components/CalorieBreakdown';
-import { BMIVisualizer } from './components/BMIVisualizer';
+import { GetStartDate } from './hooks/GetStartDate';
+import { type DietCategories, getBMICategory } from './types/diet';
+import type { HealthData } from './types/health';
 
 export default function NewPersonalizedDiet() {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -41,7 +41,7 @@ export default function NewPersonalizedDiet() {
 
   if (loading || !healthData) return <>Loading</>;
 
-  const bmi = healthData.weight / Math.pow(healthData.height / 100, 2);
+  const bmi = healthData.weight / (healthData.height / 100) ** 2;
   // const bmi = 28;
   const category = getBMICategory(bmi);
   const dietPlan = (weeklyDietPlan as DietCategories).categories[category];

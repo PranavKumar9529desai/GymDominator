@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
 import {
-  QrCodeIcon,
-  ClipboardDocumentCheckIcon,
   ChartBarIcon,
+  ClipboardDocumentCheckIcon,
+  QrCodeIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import { m } from '@util/lib/motion';
 
 const steps = [
   {
@@ -45,7 +45,7 @@ export const HowItWorksSection = () => {
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
           {steps.map((step, index) => (
-            <motion.div
+            <m.div
               key={index as number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ export const HowItWorksSection = () => {
               </div>
               <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{step.title}</h3>
               <p className="text-gray-400 text-sm">{step.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

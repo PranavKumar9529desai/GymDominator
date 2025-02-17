@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { GroceryList } from './components/GroceryList';
-import { GetStartDate } from './hooks/GetStartDate';
-import { GetHealthFormStatus } from './gethealthFormStatus';
-import NoHealthProfile from './components/NoHealthProfile';
+import { useEffect, useState } from 'react';
 import BeforeDiet from './components/BeforeDiet';
+import { GroceryList } from './components/GroceryList';
+import NoHealthProfile from './components/NoHealthProfile';
+import { GetHealthFormStatus } from './gethealthFormStatus';
 import type { HealthProfile } from './gethealthFormStatus';
+import { GetStartDate } from './hooks/GetStartDate';
 
 export default function GroceryListRoute() {
   const [currentWeek, setCurrentWeek] = useState(1);

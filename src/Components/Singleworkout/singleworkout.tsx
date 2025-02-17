@@ -1,5 +1,5 @@
 import { FetchSingleWorkout } from '@hooks/FetchSingleWorkout';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { BookMarked, Heart, Share2, Target } from 'lucide-react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -18,7 +18,7 @@ export const SingleWorkout = () => {
 
   if (error) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex items-center justify-center min-h-[60vh] bg-red-50 mx-4 rounded-2xl"
@@ -32,7 +32,7 @@ export const SingleWorkout = () => {
             We couldn't load this exercise. Please try again or choose a different one.
           </p>
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -50,7 +50,7 @@ export const SingleWorkout = () => {
   const videoId = exercise.video_url?.split('/').pop() || '';
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -58,13 +58,13 @@ export const SingleWorkout = () => {
     >
       {/* Exercise Header */}
       <div className="space-y-6 mb-12">
-        <motion.h1
+        <m.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
           className="text-4xl lg:text-6xl font-extrabold text-center bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent"
         >
           {exercise.name}
-        </motion.h1>
+        </m.h1>
 
         <div className="flex flex-wrap justify-center items-center gap-4">
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full">
@@ -104,7 +104,7 @@ export const SingleWorkout = () => {
           muscleName={exercise.muscle_group}
         />
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -171,7 +171,7 @@ const ExerciseDescription = ({
         <div className="mt-8 lg:mt-0 space-y-6">
           <h3 className="text-2xl font-bold text-gray-900 mb-8">Step-by-Step Guide</h3>
           {instructions.map((line, index) => (
-            <motion.div
+            <m.div
               key={`instruction-${line.substring(0, 20)}-${index}`}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -182,7 +182,7 @@ const ExerciseDescription = ({
                 {index + 1}
               </span>
               <p className="text-gray-700 leading-relaxed">{line}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

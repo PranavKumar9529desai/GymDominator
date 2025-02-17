@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { XCircle, RefreshCcw, MessageCircle, HelpCircle } from 'lucide-react';
+import { m } from '@util/lib/motion';
+import { HelpCircle, MessageCircle, RefreshCcw, XCircle } from 'lucide-react';
 import { useState } from 'react';
 
 export default function AttendanceFailure() {
@@ -12,20 +12,20 @@ export default function AttendanceFailure() {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex items-center justify-center min-h-screen bg-gray-100"
     >
       <div className="max-w-md w-full mx-auto bg-white rounded-2xl shadow-xl p-8">
         <div className="text-center space-y-6">
-          <motion.div
+          <m.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             className="mx-auto w-24 h-24 bg-red-100 rounded-full flex items-center justify-center"
           >
             <XCircle className="w-14 h-14 text-red-500" />
-          </motion.div>
+          </m.div>
 
           <div className="space-y-2">
             <h1 className="text-2xl font-bold text-gray-800">Attendance Marking Failed</h1>
@@ -35,7 +35,7 @@ export default function AttendanceFailure() {
           </div>
 
           <div className="space-y-4 pt-4">
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isRetrying}
@@ -44,26 +44,26 @@ export default function AttendanceFailure() {
             >
               <RefreshCcw className={`w-5 h-5 ${isRetrying ? 'animate-spin' : ''}`} />
               {isRetrying ? 'Retrying...' : 'Try Again'}
-            </motion.button>
+            </m.button>
 
             <div className="grid grid-cols-2 gap-4">
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
               >
                 <MessageCircle className="w-5 h-5" />
                 Contact Staff
-              </motion.button>
+              </m.button>
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="flex items-center justify-center gap-2 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
               >
                 <HelpCircle className="w-5 h-5" />
                 Get Help
-              </motion.button>
+              </m.button>
             </div>
           </div>
 
@@ -78,6 +78,6 @@ export default function AttendanceFailure() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

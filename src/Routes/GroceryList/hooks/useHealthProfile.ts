@@ -19,7 +19,7 @@ export const useHealthProfile = () => {
           };
           setHealthData(transformedData);
 
-          const bmi = transformedData.weight / ((transformedData.height / 100) ** 2);
+          const bmi = transformedData.weight / (transformedData.height / 100) ** 2;
           setCategory(getBMICategory(bmi));
         }
       } catch (error) {

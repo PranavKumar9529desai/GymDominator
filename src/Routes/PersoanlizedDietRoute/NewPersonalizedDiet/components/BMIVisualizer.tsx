@@ -1,6 +1,6 @@
-import { PieChart, Pie, Cell } from 'recharts';
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 import { useEffect, useState } from 'react';
+import { Cell, Pie, PieChart } from 'recharts';
 
 type BMIVisualizerProps = {
   bmi: number;
@@ -14,7 +14,12 @@ const BMI_RANGES = [
   { min: 25, max: 30, category: 'Overweight', color: '#F59E0B' },
   { min: 30, max: 35, category: 'Obese Class I', color: '#FB7185' },
   { min: 35, max: 40, category: 'Obese Class II', color: '#EF4444' },
-  { min: 40, max: Infinity, category: 'Obese Class III', color: '#B91C1C' },
+  {
+    min: 40,
+    max: Number.POSITIVE_INFINITY,
+    category: 'Obese Class III',
+    color: '#B91C1C',
+  },
 ];
 
 const getBMICategory = (bmi: number) => {
@@ -107,7 +112,7 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
   );
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="p-4 md:p-6 rounded-2xl bg-white shadow-lg overflow-hidden"
@@ -126,12 +131,12 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
+              <Cell key={`cell-${index as number}`} fill={entry.color} />
             ))}
           </Pie>
 
           <g transform={`rotate(${getNeedleRotation(bmi)} ${centerPoint.x} ${centerPoint.y})`}>
-            <motion.path
+            <m.path
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -177,14 +182,16 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
                 </span>
               </div>
               <span className="text-[9px] md:text-[10px] text-gray-500">
-                {range.max === Infinity ? `>${range.min}` : `${range.min} - ${range.max}`}
+                {range.max === Number.POSITIVE_INFINITY
+                  ? `>${range.min}`
+                  : `${range.min} - ${range.max}`}
               </span>
             </div>
           ))}
         </div>
 
         {/* Health Message */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
@@ -205,8 +212,8 @@ export const BMIVisualizer = ({ bmi }: BMIVisualizerProps) => {
               </>
             )}
           </p>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

@@ -6,11 +6,11 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartData,
-  ChartOptions,
+  type ChartData,
+  type ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { HealthData } from '../types/health';
+import type { HealthData } from '../types/health';
 import { DietProgress } from './DietProgress';
 
 // Register ChartJS components

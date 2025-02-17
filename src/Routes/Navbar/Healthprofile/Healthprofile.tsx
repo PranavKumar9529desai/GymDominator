@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GetHealthProfileInfo, HealthProfileInfo } from './GetHealthProfileInfo';
+import { GetHealthProfileInfo } from './GetHealthProfileInfo';
+import type { HealthProfileInfo } from './GetHealthProfileInfo';
 
 export default function HealthProfileComponent() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function HealthProfileComponent() {
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500" />
       </div>
     );
 
@@ -42,6 +43,7 @@ export default function HealthProfileComponent() {
         <div className="bg-white rounded-lg shadow-lg p-8 text-center">
           <div className="mb-4">
             <svg
+              aria-hidden="true"
               className="mx-auto h-12 w-12 text-gray-400"
               fill="none"
               viewBox="0 0 24 24"
@@ -61,6 +63,7 @@ export default function HealthProfileComponent() {
             tracking.
           </p>
           <button
+            type="button"
             onClick={() => navigate('/onboarding/healthprofile')}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
@@ -80,6 +83,7 @@ export default function HealthProfileComponent() {
             personalized recommendations.
           </p>
           <button
+            type="button"
             onClick={() => navigate('/dashboard/healthprofile')}
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200"
           >

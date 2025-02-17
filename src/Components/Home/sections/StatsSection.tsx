@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from '@util/lib/motion';
 
 interface StatsProps {
   stats: Array<{
@@ -12,7 +12,7 @@ export const StatsSection = ({ stats }: StatsProps) => {
     <div className="container mx-auto px-4 mb-32">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         {stats.map((stat, index) => (
-          <motion.div
+          <m.div
             key={index as number}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export const StatsSection = ({ stats }: StatsProps) => {
               {stat.number}
             </h3>
             <p className="text-gray-400 mt-2">{stat.label}</p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </div>

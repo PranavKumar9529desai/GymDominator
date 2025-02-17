@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
-import {
-  CheckCircle,
-  Clock,
-  RefreshCw,
-  Dumbbell,
-  ArrowRight,
-} from "lucide-react";
-import { Button } from "@components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { GetEnrollmentStatus } from "@hooks/Enrollment/GetEnrollmentStatus";
-import { AttachUserToGym } from "../../Hooks/AttachUserToGym";
+import { Button } from '@components/ui/button';
+import { GetEnrollmentStatus } from '@hooks/Enrollment/GetEnrollmentStatus';
+import { AnimatePresence, m } from '@util/lib/motion';
+import { ArrowRight, CheckCircle, Clock, Dumbbell, RefreshCw } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { AttachUserToGym } from '../../Hooks/AttachUserToGym';
 
 export default function BeforeGymEnrollment() {
   const [isEnrolled, setIsEnrolled] = useState(false);
@@ -21,9 +15,9 @@ export default function BeforeGymEnrollment() {
   const [searchParams] = useSearchParams();
 
   const params = {
-    gymname: searchParams.get("gymname") || "",
-    hash: searchParams.get("hash") || "",
-    gymid: searchParams.get("gymid") || "",
+    gymname: searchParams.get('gymname') || '',
+    hash: searchParams.get('hash') || '',
+    gymid: searchParams.get('gymid') || '',
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -38,12 +32,7 @@ export default function BeforeGymEnrollment() {
         // Only attach user if it hasn't been done before
         if (!isEnrolled && !isAttaching) {
           setIsAttaching(true);
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-          const attachResult = await AttachUserToGym(
-            params.gymname,
-            params.gymid,
-            params.hash
-          );
+          const attachResult = await AttachUserToGym(params.gymname, params.gymid, params.hash);
           setIsAttaching(false);
 
           if (!attachResult.user) {
@@ -58,7 +47,7 @@ export default function BeforeGymEnrollment() {
         setIsEnrolled(enrollmentStatus);
         setIsPending(false);
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
         setIsEnrolled(false);
         setIsPending(false);
       }
@@ -74,7 +63,7 @@ export default function BeforeGymEnrollment() {
 
   return (
     <div className="min-h-screen lg:p-8  bg-gradient-to-b from-blue-50 to-white lg:bg:white">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="h-screen flex flex-col"
@@ -83,9 +72,7 @@ export default function BeforeGymEnrollment() {
         <div className="bg-blue-600 px-4 py-6 sm:px-6 sm:py-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <Dumbbell className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-            <h1 className="text-xl sm:text-2xl font-bold text-white">
-              Gym Enrollment
-            </h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-white">Gym Enrollment</h1>
           </div>
           {params.gymname && (
             <div className="mt-2 px-4">
@@ -102,7 +89,7 @@ export default function BeforeGymEnrollment() {
         <div className="flex-1 flex items-center justify-center px-4 py-6">
           <AnimatePresence mode="wait">
             {isPending || isAttaching ? (
-              <motion.div
+              <m.div
                 key="pending"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -116,35 +103,32 @@ export default function BeforeGymEnrollment() {
                   </div>
                 </div>
                 <p className="mt-6 text-base sm:text-lg font-medium text-gray-600">
-                  {isAttaching
-                    ? "Attaching to gym..."
-                    : "Verifying your enrollment..."}
+                  {isAttaching ? 'Attaching to gym...' : 'Verifying your enrollment...'}
                 </p>
-              </motion.div>
+              </m.div>
             ) : isEnrolled ? (
-              <motion.div
+              <m.div
                 key="success"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="text-center px-4"
               >
-                <motion.div
+                <m.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: "spring", duration: 0.5 }}
+                  transition={{ type: 'spring', duration: 0.5 }}
                 >
                   <CheckCircle className="w-16 h-16 sm:w-20 sm:h-20 mx-auto text-green-500" />
-                </motion.div>
+                </m.div>
                 <h2 className="mt-6 text-xl sm:text-2xl font-bold text-gray-900">
                   Welcome Aboard!
                 </h2>
                 <p className="mt-3 text-gray-600 text-sm sm:text-base">
-                  You're successfully enrolled and ready to start your fitness
-                  journey
+                  You're successfully enrolled and ready to start your fitness journey
                 </p>
                 <Button
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => navigate('/dashboard')}
                   className="mt-8 w-full sm:w-full px-6 py-3 bg-green-500 hover:bg-green-600 
                            text-white rounded-xl sm:rounded-full flex items-center justify-center 
                            gap-2 transition-all duration-300"
@@ -152,9 +136,9 @@ export default function BeforeGymEnrollment() {
                   <span>Go to Dashboard</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.div
+              <m.div
                 key="pending-approval"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -175,12 +159,10 @@ export default function BeforeGymEnrollment() {
                            text-white rounded-xl sm:rounded-full flex items-center justify-center 
                            gap-2 transition-all duration-300 mx-auto"
                 >
-                  <RefreshCw
-                    className={`w-4 h-4 ${isPending ? "animate-spin" : ""}`}
-                  />
-                  <span>{isPending ? "Checking..." : "Check Status"}</span>
+                  <RefreshCw className={`w-4 h-4 ${isPending ? 'animate-spin' : ''}`} />
+                  <span>{isPending ? 'Checking...' : 'Check Status'}</span>
                 </Button>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
@@ -191,7 +173,7 @@ export default function BeforeGymEnrollment() {
             Need help? Contact your gym administrator
           </p>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

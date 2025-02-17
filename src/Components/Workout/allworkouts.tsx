@@ -1,11 +1,10 @@
 import { Input } from '@components/ui/input';
 import { FetchMusclesGroups } from '@hooks/FetchMusclesGroups';
 import { cn } from '@lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from '@util/lib/motion';
 import { Activity, ArrowRight, Dumbbell, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -74,7 +73,7 @@ export const Allworkouts = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 p-4 md:p-6">
       {/* Hero Section with Animated Background */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="relative text-center mb-12 py-16"
@@ -83,24 +82,24 @@ export const Allworkouts = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-100/50 via-purple-100/50 to-pink-100/50 animate-gradient-x" />
         </div>
         <div className="relative z-10">
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="text-4xl md:text-6xl font-bold text-gray-800 mb-4"
           >
             Transform Your Training
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto"
           >
             Discover exercises tailored to your goals and elevate your fitness journey
-          </motion.p>
+          </m.p>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Search and Filter Section */}
       <div className="max-w-7xl mx-auto mb-12">
@@ -109,7 +108,7 @@ export const Allworkouts = () => {
           <div className="w-full md:w-auto">
             <div className="grid grid-cols-2 md:flex md:flex-row gap-2 px-4 md:px-0">
               {categories.map((category) => (
-                <motion.button
+                <m.button
                   key={category.name}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -125,7 +124,7 @@ export const Allworkouts = () => {
                 >
                   <category.icon className="w-4 h-4" />
                   <span className="whitespace-nowrap">{category.name}</span>
-                </motion.button>
+                </m.button>
               ))}
             </div>
           </div>
@@ -147,7 +146,7 @@ export const Allworkouts = () => {
       {/* Loading State */}
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
-          <motion.div
+          <m.div
             animate={{ rotate: 360 }}
             transition={{
               duration: 2,
@@ -158,12 +157,12 @@ export const Allworkouts = () => {
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 blur-lg opacity-30 animate-pulse" />
             <Dumbbell className="w-12 h-12 text-blue-500 relative z-10" />
-          </motion.div>
+          </m.div>
         </div>
       ) : (
         // Muscle Grid with AnimatePresence for smooth transitions
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={selectedCategory}
             variants={containerVariants}
             initial="hidden"
@@ -171,7 +170,7 @@ export const Allworkouts = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
           >
             {filteredMuscles.map((muscle) => (
-              <motion.div
+              <m.div
                 key={muscle.name}
                 variants={itemVariants}
                 whileHover={{ y: -10, scale: 1.02 }}
@@ -181,7 +180,7 @@ export const Allworkouts = () => {
                 <div className="relative h-full cursor-pointer rounded-2xl overflow-hidden bg-white border border-gray-200 hover:border-blue-500 transition-all duration-300 shadow-lg hover:shadow-blue-500/20">
                   {/* Image Container with Overlay */}
                   <div className="relative h-48 overflow-hidden">
-                    <motion.img
+                    <m.img
                       src={muscle.image_url as string}
                       alt={muscle.name}
                       className="w-full h-full object-cover"
@@ -210,19 +209,19 @@ export const Allworkouts = () => {
                       Master your {muscle.name.toLowerCase()} with our curated collection of
                       exercises
                     </p>
-                    <motion.button
+                    <m.button
                       type="button"
                       whileHover={{ x: 5 }}
                       className="flex items-center text-blue-500 group-hover:text-blue-600 transition-colors"
                     >
                       Explore Workouts
                       <ArrowRight className="w-4 h-4 ml-2" />
-                    </motion.button>
+                    </m.button>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       )}
     </div>

@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
 import {
-  QrCodeIcon,
-  ChartBarIcon,
-  UserGroupIcon,
-  ClipboardDocumentCheckIcon,
-  ServerIcon,
   CakeIcon,
+  ChartBarIcon,
+  ClipboardDocumentCheckIcon,
+  QrCodeIcon,
+  ServerIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
+import { m } from '@util/lib/motion';
 
 const features = [
   {
@@ -57,7 +57,7 @@ const Features = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -69,11 +69,11 @@ const Features = () => {
             Transform your gym management with our comprehensive suite of digital tools designed to
             streamline operations and enhance member experience.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <motion.div
+            <m.div
               key={index as number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ const Features = () => {
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
               <p className="text-gray-400 leading-relaxed">{feature.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

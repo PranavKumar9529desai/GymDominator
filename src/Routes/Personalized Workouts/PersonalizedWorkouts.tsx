@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { GetPersonalizedWorkout } from './GetPersonalizedWorkouts';
-import { motion } from 'framer-motion';
-import { Clock, Flame, ChevronRight, Dumbbell } from 'lucide-react';
 import { Card } from '@components/ui/card';
+import { m } from '@util/lib/motion';
+import { ChevronRight, Clock, Dumbbell, Flame } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { GetPersonalizedWorkout } from './GetPersonalizedWorkouts';
 import type { WorkoutSchedule } from './GetPersonalizedWorkouts';
 
 const getDayOfWeek = () => {
@@ -49,12 +49,16 @@ export default function PersonalizedWorkouts() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
-        <motion.div
+        <m.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          transition={{
+            duration: 1,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: 'linear',
+          }}
         >
           <Dumbbell className="w-12 h-12 text-blue-500" />
-        </motion.div>
+        </m.div>
       </div>
     );
   }
@@ -63,24 +67,24 @@ export default function PersonalizedWorkouts() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50">
         <Card className="p-8 text-center max-w-md">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
             <div className="flex justify-center">
-              <motion.div
+              <m.div
                 animate={{
                   scale: [1, 1.05, 1],
                 }}
                 transition={{
                   duration: 3,
-                  repeat: Infinity,
+                  repeat: Number.POSITIVE_INFINITY,
                   repeatType: 'reverse',
                 }}
               >
                 <Dumbbell className="w-16 h-16 text-blue-400 opacity-80" />
-              </motion.div>
+              </m.div>
             </div>
 
             <div>
@@ -107,16 +111,16 @@ export default function PersonalizedWorkouts() {
                   </span>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <motion.div
+                  <m.div
                     animate={{ rotateY: 180 }}
                     transition={{
                       duration: 1.5,
-                      repeat: Infinity,
+                      repeat: Number.POSITIVE_INFINITY,
                       repeatType: 'reverse',
                     }}
                   >
                     <Dumbbell className="w-5 h-5 text-blue-500 mt-0.5" />
-                  </motion.div>
+                  </m.div>
                   <span className="text-sm text-gray-600">
                     Light stretching or gentle mobility work
                   </span>
@@ -129,7 +133,7 @@ export default function PersonalizedWorkouts() {
                 "Recovery is not a break from training – it's an essential part of training."
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </Card>
       </div>
     );
@@ -138,7 +142,7 @@ export default function PersonalizedWorkouts() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-6 pb-24 overflow-y-auto relative">
       <div className="max-w-2xl mx-auto space-y-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
@@ -151,7 +155,7 @@ export default function PersonalizedWorkouts() {
               day: 'numeric',
             })}
           </p>
-        </motion.div>
+        </m.div>
 
         <Card className="p-4 bg-white/80 backdrop-blur">
           <div className="flex justify-around p-4 border-b">
@@ -167,7 +171,7 @@ export default function PersonalizedWorkouts() {
 
           <div className="divide-y">
             {todayWorkout.exercises.map((exercise, index) => (
-              <motion.div
+              <m.div
                 key={exercise.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -184,19 +188,19 @@ export default function PersonalizedWorkouts() {
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </div>
                 <p className="mt-2 text-sm text-gray-500">{exercise.description}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </Card>
 
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="w-full py-4 bg-blue-600 text-white rounded-xl font-semibold
             shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-colors"
         >
           Start Workout
-        </motion.button>
+        </m.button>
       </div>
     </div>
   );

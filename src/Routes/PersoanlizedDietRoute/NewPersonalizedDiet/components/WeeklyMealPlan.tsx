@@ -1,10 +1,10 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  LockClosedIcon,
   ClockIcon,
+  LockClosedIcon,
 } from '@heroicons/react/24/solid';
+import { AnimatePresence, m } from '@util/lib/motion';
 
 interface Props {
   currentWeek: number;
@@ -31,6 +31,7 @@ const WeekNavigator = ({
   return (
     <div className="flex items-center gap-4">
       <button
+        type="button"
         onClick={() => onWeekChange('prev')}
         disabled={currentWeek === 1}
         className={`p-2 rounded-full transition ${
@@ -46,6 +47,7 @@ const WeekNavigator = ({
       </div>
 
       <button
+        type="button"
         onClick={() => onWeekChange('next')}
         disabled={currentWeek === totalWeeks}
         className={`p-2 rounded-full transition ${
@@ -59,7 +61,7 @@ const WeekNavigator = ({
 };
 
 const LockedWeek = ({ currentWeek }: { currentWeek: number }) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -67,11 +69,11 @@ const LockedWeek = ({ currentWeek }: { currentWeek: number }) => (
   >
     <LockClosedIcon className="h-12 w-12 mx-auto text-gray-400 mb-4" />
     <p className="text-gray-600">Complete Week {currentWeek - 1} to unlock</p>
-  </motion.div>
+  </m.div>
 );
 
 const MealCard = ({ time, meal }: { time: string; meal: string }) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     className="p-4 bg-gray-50 rounded-lg"
@@ -81,7 +83,7 @@ const MealCard = ({ time, meal }: { time: string; meal: string }) => (
       <h4 className="font-medium text-gray-900 capitalize">{time}</h4>
     </div>
     <p className="text-gray-600 ml-7">{meal}</p>
-  </motion.div>
+  </m.div>
 );
 
 export const WeeklyMealPlan: React.FC<Props> = ({

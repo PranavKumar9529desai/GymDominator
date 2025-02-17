@@ -9,10 +9,11 @@
       "@hooks/*": ["src/Hooks/*"],
       "@state/*": ["src/State/*"],
       "@ui/*": ["src/Components/ui/*"],
-      "@lib/*": ["src/lib/*"],
+      "@lib/*": ["src/util/lib/*"],
       "@layout/*": ["src/Layouts/*"],
       "@layouts/*": ["src/Layouts/*"],
-      "@config/*": ["src/routes/*"]
+      "@config/*": ["src/routes/*"],
+      "@util/*": ["src/util/*"]
     },
     "composite": true,
     "allowJs": true,

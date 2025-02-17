@@ -1,12 +1,11 @@
-import { useTransition } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Slider from 'rc-slider';
+import { useTransition } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
 import 'rc-slider/assets/index.css';
-import { motion } from 'framer-motion';
-import { RadioGroup, RadioGroupItem } from '@components/ui/radio-group';
 import { Button } from '@components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import {
   FormMessage,
 } from '@components/ui/form';
 import { Input } from '@components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@components/ui/radio-group';
 import {
   Select,
   SelectContent,
@@ -23,11 +23,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card';
-import { User, Phone, Weight, Ruler, Utensils, Target } from 'lucide-react';
-import PostUserHealthProfileForm from './PostHealthProfileFom';
-import { toast } from 'sonner';
+import { m } from '@util/lib/motion';
+import { Phone, Ruler, Target, User, Utensils, Weight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import PostUserHealthProfileForm from './PostHealthProfileFom';
 
 const healthProfileSchema = z.object({
   fullname: z.string().min(2, 'Name must be at least 2 characters'),
@@ -93,7 +93,7 @@ export default function UserHealthProfileForm() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-xl mx-auto"
@@ -205,8 +205,9 @@ export default function UserHealthProfileForm() {
                             { value: 'female', label: 'Female', icon: '👩' },
                             { value: 'other', label: 'Other', icon: '👤' },
                           ].map((option) => (
-                            <div key={option.value} className={`flex-1 mx-1 first:ml-0 last:mr-0`}>
+                            <div key={option.value} className="flex-1 mx-1 first:ml-0 last:mr-0">
                               <label
+                                htmlFor={option.value}
                                 className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 cursor-pointer transition-all ${
                                   field.value === option.value
                                     ? 'border-blue-500 bg-blue-50'
@@ -350,7 +351,7 @@ export default function UserHealthProfileForm() {
                     </FormItem>
                   )}
                 />
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <m.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     type="submit"
                     disabled={isPending}
@@ -365,12 +366,12 @@ export default function UserHealthProfileForm() {
                       'Complete Profile'
                     )}
                   </Button>
-                </motion.div>
+                </m.div>
               </form>
             </Form>
           </CardContent>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { m } from '@util/lib/motion';
 
 const plans = [
   {
@@ -50,7 +50,7 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -61,11 +61,11 @@ const Pricing = () => {
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Choose the perfect plan for your gym. All plans include our core features.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {plans.map((plan, index) => (
-            <motion.div
+            <m.div
               key={index as number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -114,7 +114,7 @@ const Pricing = () => {
               >
                 Get Started
               </button>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

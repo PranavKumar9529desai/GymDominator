@@ -3,7 +3,7 @@ import { MarkAttendance } from '@routes/QrScannerRoute/MarkAttedance';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { QrCode } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { queryClient } from '../../lib/react-query';
+import { queryClient } from '../../util/lib/react-query';
 
 interface QrValueType {
   AttendanceAction: {

@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { Trophy, Calendar, Flame, Timer } from 'lucide-react';
+import { m } from '@util/lib/motion';
+import { Calendar, Flame, Timer, Trophy } from 'lucide-react';
 
 interface CompletedWorkoutProps {
   duration: string;
@@ -13,22 +13,26 @@ export function CompletedTodaysWorkout({
   exercisesCompleted,
 }: CompletedWorkoutProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       className="min-h-[400px] bg-white rounded-2xl shadow-lg p-8 text-center"
     >
-      <motion.div initial={{ y: 20 }} animate={{ y: 0 }} className="space-y-6">
+      <m.div initial={{ y: 20 }} animate={{ y: 0 }} className="space-y-6">
         <div className="flex justify-center">
-          <motion.div
+          <m.div
             animate={{
               rotate: [0, 20, -20, 20, 0],
               scale: [1, 1.2, 1.2, 1.2, 1],
             }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            transition={{
+              duration: 2,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatDelay: 1,
+            }}
           >
             <Trophy className="w-20 h-20 text-yellow-500" />
-          </motion.div>
+          </m.div>
         </div>
 
         <h2 className="text-2xl font-bold text-gray-800">Workout Complete! 🎉</h2>
@@ -56,7 +60,7 @@ export function CompletedTodaysWorkout({
         </div>
 
         <p className="text-sm text-gray-500 mt-8">Remember to stay hydrated and get proper rest!</p>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

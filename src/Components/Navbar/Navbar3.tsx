@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX, FiUser, FiHeart, FiCreditCard } from "react-icons/fi"; // Add this import
-import { GiGymBag } from "react-icons/gi"; // New gym icon
+import { AnimatePresence, m } from '@util/lib/motion';
+import { useEffect, useState } from 'react';
+import { FiCreditCard, FiHeart, FiMenu, FiUser, FiX } from 'react-icons/fi'; // Add this import
+import { GiGymBag } from 'react-icons/gi'; // New gym icon
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const optimizedLogo = new Image();
-optimizedLogo.src = "/favicon.ico";
+optimizedLogo.src = '/favicon.ico';
 
 export const Navbar3 = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,23 +17,23 @@ export const Navbar3 = () => {
 
   const sections = [
     {
-      name: "My Gym",
-      path: "/dashboard/gym",
+      name: 'My Gym',
+      path: '/dashboard/gym',
       icon: <GiGymBag className="w-5 h-5" />,
     },
     {
-      name: "About Trainer",
-      path: "/dashboard/trainer",
+      name: 'About Trainer',
+      path: '/dashboard/trainer',
       icon: <FiUser className="w-5 h-5" />,
     },
     {
-      name: "Health Profile",
-      path: "/dashboard/health-profile",
+      name: 'Health Profile',
+      path: '/dashboard/health-profile',
       icon: <FiHeart className="w-5 h-5" />,
     },
     {
-      name: "Wallet",
-      path: "/dashboard/wallet",
+      name: 'Wallet',
+      path: '/dashboard/wallet',
       icon: <FiCreditCard className="w-5 h-5" />,
     },
   ];
@@ -44,8 +44,8 @@ export const Navbar3 = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    navigate("/");
+    localStorage.removeItem('jwt');
+    navigate('/');
     setIsOpen(false);
   };
 
@@ -57,8 +57,8 @@ export const Navbar3 = () => {
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
   return (
@@ -66,12 +66,8 @@ export const Navbar3 = () => {
       <nav
         className={`
         fixed w-full z-50 transition-all duration-300
-        ${
-          isscrolled
-            ? "py-2 bg-gray-100/95 backdrop-blur-md shadow-lg"
-            : "py-4 bg-gray-50/80"
-        }
-        ${!isScrollingUp && isscrolled ? "-translate-y-full" : "translate-y-0"}
+        ${isscrolled ? 'py-2 bg-gray-100/95 backdrop-blur-md shadow-lg' : 'py-4 bg-gray-50/80'}
+        ${!isScrollingUp && isscrolled ? '-translate-y-full' : 'translate-y-0'}
         text-gray-800
       `}
       >
@@ -79,22 +75,20 @@ export const Navbar3 = () => {
           <div className="flex justify-between items-center">
             {/* Logo */}
             <Link to="/">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="flex items-center space-x-3"
               >
                 <img src={optimizedLogo.src} alt="Logo" className="w-8 h-8" />
-                <span className="text-xl font-bold text-gray-800">
-                  GymNavigator
-                </span>
-              </motion.div>
+                <span className="text-xl font-bold text-gray-800">GymNavigator</span>
+              </m.div>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
               {sections.map((section, i) => (
-                <motion.button
+                <m.button
                   key={section.name}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -102,33 +96,33 @@ export const Navbar3 = () => {
                   onClick={() => handleNavigation(section.path)}
                   className={`relative px-3 py-2 rounded-lg transition-colors ${
                     location.pathname === section.path
-                      ? "bg-blue-700/50 text-blue-300"
-                      : "hover:bg-blue-800/30"
+                      ? 'bg-blue-700/50 text-blue-300'
+                      : 'hover:bg-blue-800/30'
                   }`}
                 >
                   {section.icon}
                   <span>{section.name}</span>
-                </motion.button>
+                </m.button>
               ))}
 
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleLogout}
                 className="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 transition-colors"
               >
                 Sign Out
-              </motion.button>
+              </m.button>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.9 }}
               className="lg:hidden p-2 rounded-lg "
               onClick={() => setIsOpen(true)}
             >
               <FiMenu className="w-6 h-6 text-gray-700" />
-            </motion.button>
+            </m.button>
           </div>
         </div>
       </nav>
@@ -136,14 +130,14 @@ export const Navbar3 = () => {
       {/* Mobile Menu - Slides from Top */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             className="fixed inset-0 z-50 lg:hidden"
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -152,12 +146,12 @@ export const Navbar3 = () => {
               onClick={() => setIsOpen(false)}
             />
 
-            <motion.div
-              initial={{ y: "-100%" }}
+            <m.div
+              initial={{ y: '-100%' }}
               animate={{ y: 0 }}
-              exit={{ y: "-100%" }}
+              exit={{ y: '-100%' }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 300,
                 damping: 30,
                 duration: 0.2,
@@ -167,14 +161,8 @@ export const Navbar3 = () => {
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                   <Link to="/" className="flex items-center space-x-3">
-                    <img
-                      src={optimizedLogo.src}
-                      alt="Logo"
-                      className="w-10 h-10"
-                    />
-                    <span className="text-xl font-bold text-gray-800">
-                      GymNavigator
-                    </span>
+                    <img src={optimizedLogo.src} alt="Logo" className="w-10 h-10" />
+                    <span className="text-xl font-bold text-gray-800">GymNavigator</span>
                   </Link>
                   <button
                     type="button"
@@ -187,7 +175,7 @@ export const Navbar3 = () => {
 
                 <div className="space-y-3">
                   {sections.map((section, i) => (
-                    <motion.button
+                    <m.button
                       key={section.name}
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -196,26 +184,24 @@ export const Navbar3 = () => {
                       className={`w-full p-4 rounded-xl text-left flex items-center space-x-4 transition-all
                         ${
                           location.pathname === section.path
-                            ? "bg-blue-50 text-blue-600 shadow-sm"
-                            : "text-gray-700 hover:bg-gray-50"
+                            ? 'bg-blue-50 text-blue-600 shadow-sm'
+                            : 'text-gray-700 hover:bg-gray-50'
                         }
                       `}
                     >
                       <span
                         className={`${
-                          location.pathname === section.path
-                            ? "text-blue-500"
-                            : "text-gray-500"
+                          location.pathname === section.path ? 'text-blue-500' : 'text-gray-500'
                         }`}
                       >
                         {section.icon}
                       </span>
                       <span className="font-medium">{section.name}</span>
-                    </motion.button>
+                    </m.button>
                   ))}
 
                   <div className="pt-4 mt-4 border-t border-gray-200">
-                    <motion.button
+                    <m.button
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
@@ -226,12 +212,12 @@ export const Navbar3 = () => {
                     >
                       <FiX className="w-5 h-5" />
                       <span className="font-medium">Sign Out</span>
-                    </motion.button>
+                    </m.button>
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

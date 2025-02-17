@@ -25,6 +25,9 @@ export const ExcersiceSelector: (muscle: string) => RecoilValueReadOnly<Excercis
     key: 'ExcersiceSelector',
     get:
       (muscle: string) =>
+      // biome should ignore ths '
+
+      // biome-ignore lint/correctness/noEmptyPattern: <explanation>
       async ({}) => {
         const response: AxiosResponse<ResponseType> = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/v1/workouts/${muscle}`,
